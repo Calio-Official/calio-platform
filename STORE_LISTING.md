@@ -40,14 +40,16 @@ Who it is for
 What you can do
 • Search by ticker or company name and open an SEC-style company desk
 • Browse recent 10-K / 10-Q, 8-K, ownership (13D/G), insider forms (3/4/5), proxies, and Form 144
-• Company timeline of high-signal filings
-• Open filings in the browser or use Open & extract for structured fields
+• Automated 5-Year DCF valuation model with interactive WACC and growth sliders
+• 25-sector industry peer benchmarking matrices with custom ticker comparison
+• Forensic health suite: Beneish M-Score, Altman Z-Score, Piotroski F-Score, and Sloan Accruals
+• Form DEF 14A executive compensation breakdown (Salary, Stock, Options, Non-Equity Incentives)
 • Form-aware extracts (financials, events, ownership, insider trades, Rule 144)
-• Extract quality badge so you know when a pack looks incomplete
-• Compare two periods and export results to Excel
-• Multi-sheet Excel workbooks and print-ready PDF reports
+• Click-to-source audit trail jumping directly to official SEC filing paragraphs
+• Compare two periods with YoY percentage deltas and disclosure text diffs
+• Multi-sheet Excel workbooks (.xlsx) with dynamic =CALIO() formula bridges and print-ready PDFs
 • Extract history and a local company watchlist with new-filing alerts
-• Usage limits that respect SEC fair-access guidance
+• Usage limits respecting SEC fair-access guidance with Free, Pro, and Institutional tiers
 
 Privacy
 • Filing text is processed on your device
