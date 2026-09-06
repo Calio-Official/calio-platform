@@ -3,14 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CALIO Pricing — Free, Pro & Institutional Plans</title>
+    <title>Plans &amp; Pricing — CALIO Institutional SEC Terminal</title>
     <meta
       name="description"
-      content="Transparent pricing for CALIO SEC EDGAR research terminal: Free Starter ($0), Pro Analyst ($35/mo), and Institutional Desk ($55/mo)."
+      content="Transparent pricing for CALIO SEC EDGAR research terminal: Free Starter ($0), Pro Analyst ($35/mo), and Institutional Desk ($55/mo). Save 20% on annual billing."
     />
-    <meta name="theme-color" content="#050811" />
+    <meta name="theme-color" content="#081d19" />
     <link rel="canonical" href="https://calio.app/pricing.html" />
     <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body>
@@ -24,148 +27,607 @@
         </a>
 
         <div class="nav-links">
-          <a class="nav-item" href="index.html#terminal">Terminal</a>
-          <a class="nav-item" href="index.html#dcf">DCF Engine</a>
-          <a class="nav-item" href="index.html#peers">Peer Matrix</a>
-          <a class="nav-item" href="index.html#forensics">Forensics</a>
+          <!-- Products & Solutions Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Core Valuation &amp; Comps</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors, live ranking &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction, NEO pay &amp; board metrics</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Workstation Modules</div>
+                <a class="nav-dropdown-link" href="index.html#terminal">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Interactive Terminal Sandbox</span>
+                    <span class="nav-dropdown-desc">Instant in-browser EDGAR research workspace</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Multi-Sheet Excel Modeler</span>
+                    <span class="nav-dropdown-desc">Audited formulas directly exported to .xlsx</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Transactions</span>
+                    <span class="nav-dropdown-desc">C-suite stock purchases, sales &amp; 10b5-1 plans</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
           <a class="nav-item is-active" href="pricing.html">Pricing</a>
+
+          <!-- Guides Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Guides &amp; Data</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 320px; grid-template-columns: 1fr;">
+              <div class="nav-dropdown-group">
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
+                    <span class="nav-dropdown-desc">Automated workbook generation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">BamSEC Free Alternative</span>
+                    <span class="nav-dropdown-desc">Feature &amp; speed comparison</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Trading Guide</span>
+                    <span class="nav-dropdown-desc">Table I &amp; Table II tracking</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
           <a class="nav-item" href="about.html">About</a>
         </div>
 
         <div class="nav-actions">
           <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
             Add to Chrome
           </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
         </div>
       </nav>
     </header>
 
-    <main class="wrap" style="padding: 4rem 0;">
-      <div class="section-header">
+    <!-- Mobile Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <div class="mobile-drawer-header">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+        </a>
+        <button type="button" class="mobile-drawer-close" id="btnCloseMobileNav" aria-label="Close menu">&times;</button>
+      </div>
+      <div class="mobile-nav-group-title">Products &amp; Solutions</div>
+      <a class="mobile-nav-link" href="valuation.html">Financial Extraction &amp; Valuation</a>
+      <a class="mobile-nav-link" href="peers.html">Industry Peer Benchmark</a>
+      <a class="mobile-nav-link" href="governance.html">Executive Compensation &amp; Governance</a>
+      <a class="mobile-nav-link" href="index.html#terminal">Interactive Terminal Sandbox</a>
+      <div class="mobile-nav-group-title">Platform</div>
+      <a class="mobile-nav-link" href="pricing.html">Plans &amp; Pricing</a>
+      <a class="mobile-nav-link" href="about.html">About &amp; Architecture</a>
+      <div style="margin-top: 1rem;">
+        <a class="btn-pill btn-pill-primary" style="width: 100%;" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+      </div>
+    </div>
+
+    <main class="wrap pricing-wrap">
+      <!-- Section Header -->
+      <div class="section-header" style="padding-top: clamp(2rem, 5vw, 4rem);">
         <div class="section-tag">Plans &amp; Membership</div>
-        <h1 class="section-title">Transparent Pricing for Modern Finance</h1>
-        <p class="section-desc">Choose the capacity that fits your research volume. All plans feature 100% on-device private processing.</p>
+        <h1 class="section-title">Choose the Plan That's Right for You</h1>
+        <p class="section-desc">
+          Predictable flat pricing designed for institutional equity research.
+          All tiers execute 100% on-device inside your browser with complete privacy.
+        </p>
       </div>
 
-      <div class="pricing-grid" style="margin-bottom: 5rem;">
+      <!-- Billing Frequency Toggle (Wix Plans Style) -->
+      <div class="pricing-billing-switch">
+        <div class="switch-pill-container">
+          <button type="button" class="switch-pill-btn is-active" id="btnBillingMonthly">
+            Monthly billing
+          </button>
+          <button type="button" class="switch-pill-btn" id="btnBillingYearly">
+            Yearly billing
+            <span class="discount-badge">Save 20%</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3-Tier Cards Grid (Wix Plans Inspired) -->
+      <div class="pricing-grid">
         <!-- Free Starter -->
-        <div class="pricing-card">
-          <div class="card-tier-name">Free Starter</div>
-          <div class="card-tier-desc">Essential EDGAR extraction for students, retail investors, and independent value investors.</div>
-          <div class="card-price-wrap">
-            <span class="card-price">$0</span>
-            <span class="card-period">/ month</span>
+        <div class="plan-card">
+          <h2 class="plan-tier-name">Free Starter</h2>
+          <div class="plan-tier-desc">Essential EDGAR research for retail investors, finance students, and independent value investors.</div>
+
+          <div class="plan-price-wrap">
+            <span class="plan-currency">$</span>
+            <span class="plan-price">0</span>
+            <span class="plan-period">/ month</span>
           </div>
-          <ul class="card-features">
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              <strong>80 extracts / month</strong> (25/hr pace limit)
+
+          <ul class="plan-features-list">
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>80 extracts / month</strong> (25/hr pace limit)</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Standard 10-K, 10-Q, 8-K &amp; Form 4 extraction
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Standard 10-K, 10-Q, 8-K &amp; Form 4 extraction</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Basic 5-Year Intrinsic DCF Model
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Standard 5-Year Intrinsic DCF Model</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Top 5 Sector Peer Benchmarks
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Top 5 Sector Peer Benchmarks</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Altman Z-Score Solvency Analysis
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Altman Z-Score Solvency Analysis</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Standard CSV &amp; PDF Export
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Standard CSV &amp; Clean PDF Export</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>100% On-Device Zero-Cloud Privacy</span>
             </li>
           </ul>
-          <a class="btn-pill btn-pill-ghost" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+
+          <a class="btn-pill btn-pill-secondary plan-cta-btn" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Add to Chrome — Free
+          </a>
         </div>
 
-        <!-- Pro Analyst ($35/mo) -->
-        <div class="pricing-card is-popular">
-          <div class="card-ribbon">Most Popular</div>
-          <div class="card-tier-name">Pro Analyst</div>
-          <div class="card-tier-desc">High-throughput workstation for equity research associates, boutique analysts, and financial modelers.</div>
-          <div class="card-price-wrap">
-            <span class="card-price">$35</span>
-            <span class="card-period">/ month</span>
+        <!-- Pro Analyst (Featured) -->
+        <div class="plan-card is-popular">
+          <div class="plan-ribbon">Most Popular</div>
+          <h2 class="plan-tier-name">Pro Analyst</h2>
+          <div class="plan-tier-desc">High-throughput workstation for equity research associates, boutique funds, and financial modelers.</div>
+
+          <div class="plan-price-wrap">
+            <span class="plan-currency">$</span>
+            <span class="plan-price" id="proPrice">35</span>
+            <span class="plan-period" id="proPeriod">/ month</span>
           </div>
-          <ul class="card-features">
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              <strong>500 extracts / month</strong> (100/hr high-throughput)
+
+          <ul class="plan-features-list">
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>500 extracts / month</strong> (100/hr high-throughput)</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              All Filings + DEF 14A, 13D/G, Form 144
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Multi-Sheet Excel (.xlsx)</strong> with live audited formulas</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Interactive DCF Sliders (WACC, Margin &amp; Growth)
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Full 25-Sector Peer Benchmark Matrices</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              All 25 Sector Peer Comp Matrices + Custom Ticker
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>DEF 14A Executive Compensation &amp; Governance desk</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Beneish M-Score &amp; Sloan Accrual Suite
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Beneish M-Score 8-variable forensic fraud model</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Multi-Sheet Excel (.xlsx) with =CALIO() formulas
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Period Comparison &amp; YoY/QoQ statement diffs</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Filing Text Disclosure Redlines &amp; qualitative diffs</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>ASC 280 Disaggregated Segment &amp; Geographic revenue</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Custom WACC &amp; DCF sensitivity matrix tables</span>
             </li>
           </ul>
-          <a class="btn-pill btn-pill-primary" href="mailto:caliointel@gmail.com?subject=Upgrade%20to%20Pro%20Analyst">Activate Pro ($35/mo)</a>
+
+          <a class="btn-pill btn-pill-primary plan-cta-btn" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Get Pro Analyst
+          </a>
         </div>
 
-        <!-- Institutional Desk ($55/mo) -->
-        <div class="pricing-card">
-          <div class="card-tier-name">Institutional Desk</div>
-          <div class="card-tier-desc">Uncapped speed and complete forensic audit tools for hedge funds, PE/VC, and investment banks.</div>
-          <div class="card-price-wrap">
-            <span class="card-price">$55</span>
-            <span class="card-period">/ month</span>
+        <!-- Institutional Desk -->
+        <div class="plan-card">
+          <h2 class="plan-tier-name">Institutional Desk</h2>
+          <div class="plan-tier-desc">Unthrottled capacity for multi-analyst research desks, hedge funds, and investment banks.</div>
+
+          <div class="plan-price-wrap">
+            <span class="plan-currency">$</span>
+            <span class="plan-price" id="instPrice">55</span>
+            <span class="plan-period" id="instPeriod">/ month</span>
           </div>
-          <ul class="card-features">
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              <strong>2,500 extracts / month</strong> (300/hr institutional pace)
+
+          <ul class="plan-features-list">
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>2,000 extracts / month</strong> (250/hr burst capacity)</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Complete Forensic Quality of Earnings Suite
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Everything in Pro Analyst included</strong></span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Unlimited Multi-Ticker Peer Spreads
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Multi-Seat Team License Management</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Click-to-Source SEC Filing Paragraph Audit
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Batch multi-ticker extraction &amp; combined workbook</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Real-Time EDGAR Watchlist Monitor &amp; Alerts
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Direct SEC EDGAR Python/REST pipeline connector</span>
             </li>
-            <li class="card-feature-item">
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-              Priority Desk Support &amp; Custom SEC Schemas
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Custom company watchlist &amp; instant 8-K alerts</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Dedicated 24/7 technical onboarding &amp; SLA</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg class="plan-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>SOC-2 &amp; institutional compliance attestations</span>
             </li>
           </ul>
-          <a class="btn-pill btn-pill-ghost" href="mailto:caliointel@gmail.com?subject=Institutional%20Desk%20Access">Activate Institutional ($55/mo)</a>
+
+          <a class="btn-pill btn-pill-secondary plan-cta-btn" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Get Institutional Desk
+          </a>
         </div>
       </div>
+
+      <!-- Feature Comparison Matrix Table (Wix Plans Style) -->
+      <section class="comparison-section">
+        <div class="section-header">
+          <div class="section-tag">Side-by-Side Comparison</div>
+          <h2 class="section-title">Compare Plan Capabilities</h2>
+          <p class="section-desc">Comprehensive breakdown of features, models, and quotas across all tiers.</p>
+        </div>
+
+        <div class="table-scroll-wrap">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Feature / Capability</th>
+                <th>Free Starter</th>
+                <th>Pro Analyst</th>
+                <th>Institutional Desk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="category-row"><td colspan="4">Extraction &amp; Capacity</td></tr>
+              <tr>
+                <td>Monthly Extract Quota</td>
+                <td>80 / month</td>
+                <td><strong>500 / month</strong></td>
+                <td><strong>2,000 / month</strong></td>
+              </tr>
+              <tr>
+                <td>Hourly Rate Cap</td>
+                <td>25 / hour</td>
+                <td>100 / hour</td>
+                <td>250 / hour</td>
+              </tr>
+              <tr>
+                <td>Supported Forms (10-K, 10-Q, 8-K, 20-F)</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Form 4 Insider Transactions</td>
+                <td>Standard</td>
+                <td>Advanced (10b5-1)</td>
+                <td>Advanced (10b5-1)</td>
+              </tr>
+
+              <tr class="category-row"><td colspan="4">Valuation &amp; Financial Modeling</td></tr>
+              <tr>
+                <td>5-Year Intrinsic DCF Engine</td>
+                <td>Standard</td>
+                <td>Advanced Sensitivity</td>
+                <td>Custom Multi-Scenario</td>
+              </tr>
+              <tr>
+                <td>Interactive WACC &amp; Terminal Growth Sliders</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Segment &amp; Geographic Revenue (ASC 280)</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Period Comparison &amp; Statement Variance (YoY/QoQ)</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+
+              <tr class="category-row"><td colspan="4">Benchmarking &amp; Forensics</td></tr>
+              <tr>
+                <td>Industry Peer Benchmark Matrices</td>
+                <td>Top 5 Peers</td>
+                <td><strong>Full 25 Sectors</strong></td>
+                <td><strong>Full 25 Sectors + Custom Comps</strong></td>
+              </tr>
+              <tr>
+                <td>Altman Z-Score Solvency Risk</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Beneish M-Score Earnings Manipulation Model</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Executive Compensation &amp; DEF 14A Proxy Desk</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Filing Text Disclosure Redlines &amp; Qualitative Diffs</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+
+              <tr class="category-row"><td colspan="4">Export &amp; Integrations</td></tr>
+              <tr>
+                <td>CSV &amp; PDF Export</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Multi-Sheet Excel (.xlsx) with Active Formulas</td>
+                <td>No</td>
+                <td><strong>Yes</strong></td>
+                <td><strong>Yes</strong></td>
+              </tr>
+              <tr>
+                <td>Batch Multi-Filing Export</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Team Seat Management</td>
+                <td>Individual</td>
+                <td>Individual</td>
+                <td>Multi-Seat Admin</td>
+              </tr>
+              <tr>
+                <td>Direct SEC EDGAR Python/REST Connector</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Yes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="faq-section">
+        <div class="section-header">
+          <div class="section-tag">Frequently Asked Questions</div>
+          <h2 class="section-title">Answers for Research Teams</h2>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>How does the 100% on-device zero-cloud privacy guarantee work?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            CALIO runs entirely inside your Chrome browser sandbox. When you extract a filing, the Chrome extension connects directly to SEC EDGAR (sec.gov) via secure HTTPS, parses the XBRL tags in-memory using WebAssembly, and outputs the model to your screen. No filing data, ticker searches, or custom DCF assumptions are ever sent to any external server.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>Can I switch between monthly and annual plans at any time?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            Yes. You can upgrade, downgrade, or cancel your subscription at any time. When switching to annual billing, the 20% discount is applied immediately to your upcoming billing cycle.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>How do the dynamic formulas in Excel exports work?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            Unlike legacy tools that dump flat, dead values, CALIO generates real spreadsheet formulas (e.g. <code>=SUM(B5:B9)</code>, <code>=(B12-C12)/C12</code>, <code>=NPV(wacc, cashflows)</code>). You can immediately modify assumptions in Excel and watch the entire 3-statement model update dynamically.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question">
+            <span>What happens if I exceed my monthly extract limit?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            You will be notified before reaching your cap. Free Starter users can upgrade to Pro Analyst for immediate capacity increase. Quotas reset on the 1st of every calendar month.
+          </div>
+        </div>
+      </section>
     </main>
 
+    <!-- Institutional Footer -->
     <footer class="site-footer">
-      <div class="wrap" style="text-align: center;">
-        <p>&copy; 2026 CALIO Technologies. All rights reserved &bull; Contact: caliointel@gmail.com</p>
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Products &amp; Modules</h5>
+            <ul>
+              <li><a href="valuation.html">Financial Extraction &amp; DCF</a></li>
+              <li><a href="peers.html">Industry Peer Benchmark</a></li>
+              <li><a href="governance.html">Executive Compensation (DEF 14A)</a></li>
+              <li><a href="index.html#terminal">Interactive Terminal Sandbox</a></li>
+              <li><a href="pricing.html">Plans &amp; Membership</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Guides &amp; Research</h5>
+            <ul>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Alternative</a></li>
+              <li><a href="form-4-extractor.html">Form 4 Insider Transactions</a></li>
+              <li><a href="about.html">Architecture &amp; Origin</a></li>
+              <li><a href="privacy.html">Privacy &amp; Zero-Cloud</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="support.html">Contact Support</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Chrome Web Store</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Strictly Zero Emojis &bull; Institutional Financial Grade</div>
+        </div>
       </div>
     </footer>
+
+    <!-- Interactive Pricing Script -->
+    <script>
+      const btnMonthly = document.getElementById("btnBillingMonthly");
+      const btnYearly = document.getElementById("btnBillingYearly");
+      const proPrice = document.getElementById("proPrice");
+      const proPeriod = document.getElementById("proPeriod");
+      const instPrice = document.getElementById("instPrice");
+      const instPeriod = document.getElementById("instPeriod");
+
+      btnMonthly.addEventListener("click", () => {
+        btnMonthly.classList.add("is-active");
+        btnYearly.classList.remove("is-active");
+        proPrice.textContent = "35";
+        proPeriod.textContent = "/ month";
+        instPrice.textContent = "55";
+        instPeriod.textContent = "/ month";
+      });
+
+      btnYearly.addEventListener("click", () => {
+        btnYearly.classList.add("is-active");
+        btnMonthly.classList.remove("is-active");
+        proPrice.textContent = "28";
+        proPeriod.textContent = "/ month (billed annually)";
+        instPrice.textContent = "44";
+        instPeriod.textContent = "/ month (billed annually)";
+      });
+
+      // Mobile nav drawer
+      const btnOpenNav = document.getElementById("btnOpenMobileNav");
+      const btnCloseNav = document.getElementById("btnCloseMobileNav");
+      const mobileDrawer = document.getElementById("mobileDrawer");
+
+      if (btnOpenNav && mobileDrawer) {
+        btnOpenNav.addEventListener("click", () => mobileDrawer.classList.add("is-open"));
+      }
+      if (btnCloseNav && mobileDrawer) {
+        btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
+      }
+    </script>
   </body>
 </html>

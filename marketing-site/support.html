@@ -3,71 +3,82 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Support — CALIO</title>
-    <meta name="description" content="CALIO support: install help, extract issues, contact caliointel@gmail.com" />
+    <title>Support & Help Center — CALIO</title>
+    <meta name="description" content="CALIO support: installation help, SEC rate limits, troubleshooting, and direct support contact." />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio.app/support.html" />
     <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body>
-    <div class="wrap">
-      <nav class="nav">
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
         <a class="nav-brand" href="index.html">
-          <img src="assets/icon128.png" alt="" width="36" height="36" />
-          CALIO
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
         </a>
+
         <div class="nav-links">
-          <a href="privacy.html">Privacy</a>
-          <a class="btn btn-primary" href="index.html#install">Add to Chrome</a>
+          <a class="nav-item" href="valuation.html">Valuation</a>
+          <a class="nav-item" href="peers.html">Peers</a>
+          <a class="nav-item" href="governance.html">Governance</a>
+          <a class="nav-item" href="pricing.html">Pricing</a>
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Add to Chrome
+          </a>
         </div>
       </nav>
-      <article class="prose">
-        <h1>Support</h1>
-        <p class="meta">Email: <a href="mailto:caliointel@gmail.com">caliointel@gmail.com</a></p>
+    </header>
 
-        <h2>Install</h2>
-        <ul>
-          <li>Chrome Web Store: use the Add to Chrome button on the home page after publish.</li>
-          <li>
-            Developer mode: <code>chrome://extensions</code> → Enable Developer mode → Load unpacked →
-            select the CALIO_MVP folder.
-          </li>
-        </ul>
-
-        <h2>“Extension context invalidated”</h2>
-        <p>
-          Reload the extension on <code>chrome://extensions</code>, then hard-refresh the SEC/EDGAR
-          tab. The content script reconnects after a reload.
+    <main class="wrap" style="padding: clamp(2rem, 5vw, 4rem) 0 5rem 0;">
+      <article style="max-width: 800px; margin: 0 auto;">
+        <div class="section-tag">Help Desk</div>
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.2rem); text-align: left; margin-bottom: 1.5rem;">
+          CALIO Support &amp; Technical Help.
+        </h1>
+        <p style="font-size: 1rem; color: var(--muted); margin-bottom: 2rem;">
+          Official Support Contact: <a href="mailto:caliointel@gmail.com" style="color:var(--teal-primary); font-weight:600;">caliointel@gmail.com</a>
         </p>
 
-        <h2>Extract looks incomplete</h2>
-        <p>
-          Check the quality badge on the extract. Some forms need the primary document (or XML sibling
-          for ownership/insider). Try Open &amp; extract again after the filing finishes loading.
+        <h2 style="font-size: 1.5rem; color: var(--ink-heading); font-weight: 800; margin: 2rem 0 0.75rem 0;">Installation &amp; Setup</h2>
+        <p style="color: var(--soft); line-height: 1.6; margin-bottom: 1rem;">
+          CALIO can be installed in one click directly from the Google Chrome Web Store. Once installed, pin the extension icon to your toolbar for immediate access to the research desk across all SEC EDGAR pages.
         </p>
 
-        <h2>SEC rate limits</h2>
-        <p>
-          CALIO paces requests and enforces monthly/hourly extract limits to respect SEC fair-access
-          guidance. Wait a moment and retry if EDGAR is slow or returns errors.
+        <h2 style="font-size: 1.5rem; color: var(--ink-heading); font-weight: 800; margin: 2rem 0 0.75rem 0;">Resolving "Extension Context Invalidated"</h2>
+        <p style="color: var(--soft); line-height: 1.6; margin-bottom: 1rem;">
+          If Chrome updates the extension in the background while an EDGAR tab is open, simply reload the SEC tab (Cmd+R or F5) to reconnect the content script.
         </p>
 
-        <h2>Not investment advice</h2>
-        <p>
-          CALIO helps you review public filings. Always verify critical figures against the original
-          SEC document.
+        <h2 style="font-size: 1.5rem; color: var(--ink-heading); font-weight: 800; margin: 2rem 0 0.75rem 0;">SEC EDGAR Rate Limits</h2>
+        <p style="color: var(--soft); line-height: 1.6; margin-bottom: 1.5rem;">
+          The SEC enforces strict fair-access limits (maximum 10 requests/second per IP). CALIO features built-in client-side queueing and token bucket rate limiters to prevent your IP from encountering HTTP 429 blocks.
         </p>
 
-        <div class="cta-box">
-          <p>Still stuck? Email support with the ticker, form type, and what you expected.</p>
-          <a class="btn btn-primary" href="mailto:caliointel@gmail.com">Email caliointel@gmail.com</a>
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2rem; margin-top: 3rem; text-align: center;">
+          <h3 style="color: var(--ink-heading); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">Need Dedicated Help?</h3>
+          <p style="color: var(--soft); margin-bottom: 1.5rem;">Our engineering desk is available to assist with custom XBRL mappings or institutional inquiries.</p>
+          <a class="btn-pill btn-pill-primary" href="mailto:caliointel@gmail.com">Contact caliointel@gmail.com</a>
         </div>
       </article>
-      <footer class="footer">
-        <div class="footer-row">
-          <div>© CALIO</div>
-          <div><a href="index.html">Home</a></div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-bottom" style="border-top:none; padding-top:0;">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR.</div>
+          <div><a href="privacy.html" style="color:var(--teal-bright);">Privacy Policy</a></div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </body>
 </html>

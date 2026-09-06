@@ -3,129 +3,151 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Privacy Policy — CALIO</title>
+    <title>Privacy Policy & Zero-Cloud Architecture — CALIO</title>
     <meta
       name="description"
-      content="CALIO privacy policy: local processing of public SEC EDGAR filings, optional email, no sale of personal data."
+      content="CALIO privacy policy: 100% on-device processing of public SEC EDGAR filings, zero remote database storage, and no sale of personal data."
     />
+    <meta name="theme-color" content="#081d19" />
     <link rel="canonical" href="https://calio.app/privacy.html" />
     <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body>
-    <div class="wrap">
-      <nav class="nav">
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
         <a class="nav-brand" href="index.html">
-          <img src="assets/icon128.png" alt="" width="36" height="36" />
-          CALIO
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
         </a>
+
         <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a class="btn btn-primary" href="index.html#install">Add to Chrome</a>
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Core Valuation &amp; Comps</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors, live ranking &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction, NEO pay &amp; board metrics</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Workstation Modules</div>
+                <a class="nav-dropdown-link" href="index.html#terminal">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Interactive Terminal Sandbox</span>
+                    <span class="nav-dropdown-desc">Instant in-browser EDGAR research workspace</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Multi-Sheet Excel Modeler</span>
+                    <span class="nav-dropdown-desc">Audited formulas directly exported to .xlsx</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Transactions</span>
+                    <span class="nav-dropdown-desc">C-suite stock purchases, sales &amp; 10b5-1 plans</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Add to Chrome
+          </a>
         </div>
       </nav>
+    </header>
 
-      <article class="prose">
-        <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: 2026-07-10 · Contact: caliointel@gmail.com</p>
-
-        <h2>Overview</h2>
-        <p>
-          CALIO (also referred to as C.A.L.I.O — Compliance Analytics Layer for Insurance Operations)
-          is a browser extension that helps you review public U.S. SEC EDGAR filings. Filing contents
-          are processed on your device. We do not operate a filing storage server and we do not sell
-          personal data.
+    <main class="wrap" style="padding: clamp(2rem, 5vw, 4rem) 0 5rem 0;">
+      <article style="max-width: 800px; margin: 0 auto;">
+        <div class="section-tag">Compliance &amp; Trust</div>
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.2rem); text-align: left; margin-bottom: 1.5rem;">
+          Privacy Policy &amp; Zero-Cloud Architecture.
+        </h1>
+        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem;">
+          Effective Date: 2026-09-01 &bull; Contact: caliointel@gmail.com
         </p>
 
-        <h2>Data we process</h2>
-        <ul>
-          <li>
-            <strong>Public filing text:</strong> requested from sec.gov, data.sec.gov, and related SEC
-            hosts when you search companies or extract a document. Processed locally in your browser /
-            extension. Not uploaded to CALIO servers.
-          </li>
-          <li>
-            <strong>Local preferences:</strong> settings such as optional account email, product-update
-            opt-in, mail client choice, sidebar state, and usage counters — stored in Chrome extension
-            storage on your computer.
-          </li>
-          <li>
-            <strong>Extract history &amp; watchlist:</strong> stored locally so you can reopen recent
-            extracts and monitor companies you choose. You can clear this data from Preferences or the
-            app sidebar.
-          </li>
-          <li>
-            <strong>Optional email:</strong> only if you enter and save an email. Product updates are
-            sent only if you also opt in. You can remove the email and clear local data at any time.
-          </li>
-          <li>
-            <strong>Usage counters:</strong> local monthly/hourly extract counts to respect SEC
-            fair-access guidelines and product limits.
-          </li>
-        </ul>
-
-        <h2>What we do not collect</h2>
-        <ul>
-          <li>We do not sell your data.</li>
-          <li>We do not run advertising trackers inside the extension for third-party ads.</li>
-          <li>We do not require a CALIO account for core extract, compare, or export features.</li>
-        </ul>
-
-        <h2>Permissions</h2>
-        <ul>
-          <li><strong>storage</strong> — preferences, history, watchlist, usage (on your device).</li>
-          <li><strong>tabs / windows / scripting</strong> — open the app and run extract on EDGAR pages.</li>
-          <li><strong>downloads</strong> — Excel and PDF files you request.</li>
-          <li><strong>alarms / notifications</strong> — optional watchlist monitoring.</li>
-          <li>
-            <strong>Host access</strong> to sec.gov, data.sec.gov, and efts.sec.gov — public EDGAR data
-            only.
-          </li>
-        </ul>
-
-        <h2>Third parties</h2>
-        <p>
-          When you use CALIO, your browser contacts SEC systems (for example data.sec.gov) to retrieve
-          public filings you request. That traffic is subject to the SEC’s systems and policies. CALIO
-          does not control SEC servers.
-        </p>
-        <p>
-          If you open a share or mail draft, your chosen mail client handles the message. We do not
-          operate that mail service.
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 1.5rem;">
+          CALIO is committed to institutional confidentiality. When conducting investment research, merger analysis, or valuation modeling, your company queries, valuation assumptions, and research watchlists must remain strictly private.
         </p>
 
-        <h2>Data retention &amp; deletion</h2>
-        <p>
-          Local data remains on your device until you clear it in Preferences, remove the extension,
-          or clear site/extension data in Chrome. Optional email is not required; remove it anytime.
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">1. 100% On-Device Processing</h2>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.25rem;">
+          All SEC EDGAR filing data is fetched directly from government endpoints (<code>sec.gov</code>, <code>data.sec.gov</code>) using secure HTTPS requests originating directly from your browser. The parsing of XBRL tags, 3-statement linking, and DCF calculations occur in your local device memory. CALIO operates zero servers that store, log, or inspect the filings you view.
         </p>
 
-        <h2>Children</h2>
-        <p>CALIO is not directed at children under 13. Do not use the product if you are under 13.</p>
-
-        <h2>Changes</h2>
-        <p>
-          We may update this policy as the product changes. The “Last updated” date at the top will
-          change when we do. Continued use after updates means you accept the revised policy.
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">2. Local Storage &amp; Watchlists</h2>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.25rem;">
+          Any saved watchlists, extraction histories, or custom DCF assumptions are persisted exclusively in your browser's local sandbox (<code>chrome.storage.local</code>). This data never traverses the internet to CALIO.
         </p>
 
-        <h2>Contact</h2>
-        <p>
-          Privacy questions: <a href="mailto:caliointel@gmail.com">caliointel@gmail.com</a>
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">3. No Sale of User Data</h2>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.25rem;">
+          We never sell, broker, or monetize your research queries or usage patterns. We believe research confidentiality is non-negotiable for professional finance.
         </p>
-
-        <div class="cta-box">
-          <p>Use CALIO for public EDGAR work with local processing.</p>
-          <a class="btn btn-primary" href="index.html#install">Back to install</a>
-        </div>
       </article>
+    </main>
 
-      <footer class="footer">
-        <div class="footer-row">
-          <div>© CALIO</div>
-          <div><a href="index.html">Home</a> · <a href="support.html">Support</a></div>
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-bottom" style="border-top:none; padding-top:0;">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div><a href="support.html" style="color:var(--teal-bright);">Contact Support</a></div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </body>
 </html>

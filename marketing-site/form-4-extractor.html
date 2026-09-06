@@ -3,97 +3,268 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Form 4 Extractor for SEC EDGAR — CALIO Chrome Extension</title>
+    <title>Form 4 Insider Trading Extractor — CALIO SEC Terminal</title>
     <meta
       name="description"
-      content="Extract SEC Form 4 insider transactions from EDGAR: reporting owner, transaction codes, shares, and prices — without mixing in 10-K financials."
+      content="Extract SEC Form 4 insider transactions from EDGAR: reporting owner, transaction codes, shares, prices, and 10b5-1 automatic trading plan disclosures."
     />
+    <meta name="theme-color" content="#081d19" />
     <link rel="canonical" href="https://calio.app/form-4-extractor.html" />
     <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body>
-    <div class="wrap">
-      <nav class="nav">
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
         <a class="nav-brand" href="index.html">
-          <img src="assets/icon128.png" alt="" width="36" height="36" />
-          CALIO
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
         </a>
+
         <div class="nav-links">
-          <a href="how-to-export-sec-filings-to-excel.html">Excel</a>
-          <a class="btn btn-primary" href="index.html#install">Add to Chrome</a>
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Core Valuation &amp; Comps</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors, live ranking &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction, NEO pay &amp; board metrics</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Workstation Modules</div>
+                <a class="nav-dropdown-link" href="index.html#terminal">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Interactive Terminal Sandbox</span>
+                    <span class="nav-dropdown-desc">Instant in-browser EDGAR research workspace</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Multi-Sheet Excel Modeler</span>
+                    <span class="nav-dropdown-desc">Audited formulas directly exported to .xlsx</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Transactions</span>
+                    <span class="nav-dropdown-desc">C-suite stock purchases, sales &amp; 10b5-1 plans</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item is-active" aria-expanded="false">
+              <span>Guides &amp; Data</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 320px; grid-template-columns: 1fr;">
+              <div class="nav-dropdown-group">
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
+                    <span class="nav-dropdown-desc">Automated workbook generation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">BamSEC Free Alternative</span>
+                    <span class="nav-dropdown-desc">Feature &amp; speed comparison</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Trading Guide</span>
+                    <span class="nav-dropdown-desc">Table I &amp; Table II tracking</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
         </div>
       </nav>
+    </header>
 
-      <article class="prose">
-        <h1>Form 4 extractor for SEC EDGAR</h1>
-        <p class="meta">Insider transactions · Form 3 / 4 / 5 · Local Chrome extract</p>
-
-        <p>
-          <strong>Form 4</strong> reports insider buys, sells, and derivative activity. The HTML can
-          be dense; ownership XML is structured but awkward to skim. A good extractor should pull
-          <em>insider fields</em> — not revenue and EPS from a different pipeline.
-        </p>
-
-        <h2>What a Form 4 extract should include</h2>
-        <ul>
-          <li>Issuer and reporting owner</li>
-          <li>Relationship (officer, director, 10% owner)</li>
-          <li>Transaction date and code (e.g. P = open-market purchase)</li>
-          <li>Shares, price, remaining ownership when available</li>
-          <li>Links back to the original EDGAR document</li>
-        </ul>
-
-        <h2>How CALIO handles Form 4</h2>
-        <p>
-          CALIO uses a <strong>form-aware pack</strong> for insider forms (3/4/5). When you run Open
-          &amp; extract on a Form 4, the product focuses on ownership and transaction structure
-          instead of forcing a generic 10-K financial extract onto the page.
-        </p>
-        <p>
-          Where helpful, CALIO can use the filing’s structured companion (XML) so fields stay closer
-          to what was actually filed.
-        </p>
-
-        <div class="cta-box">
-          <p>Extract Form 4s and export to Excel from Chrome.</p>
-          <a class="btn btn-primary" href="index.html#install">Install CALIO</a>
-        </div>
-
-        <h2>Quick workflow</h2>
-        <ol>
-          <li>Search the company in CALIO or open the Form 4 on EDGAR.</li>
-          <li>Run <strong>Open &amp; extract</strong>.</li>
-          <li>Confirm the form type badge is Form 4 (not UNKNOWN).</li>
-          <li>Export Excel if you need a sheet for a watchlist or model.</li>
-        </ol>
-
-        <h2>Common mistakes</h2>
-        <ul>
-          <li>Treating every Form 4 as a bullish buy — check transaction codes and context.</li>
-          <li>Using delayed third-party sites when you need the actual filed amounts.</li>
-          <li>Expecting real-time trading edge; Form 4s are filed after the trade window rules allow.</li>
-        </ul>
-
-        <h2>Related forms</h2>
-        <p>
-          CALIO also supports Form 3 (initial ownership), Form 5, Schedules 13D/G, Form 144, 8-K, and
-          10-K/Q packs. Same desk, form-aware logic.
-        </p>
-
-        <h2>Related guides</h2>
-        <ul>
-          <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC filings to Excel</a></li>
-          <li><a href="bamsec-alternative-free.html">When a free EDGAR companion is enough</a></li>
-        </ul>
-      </article>
-
-      <footer class="footer">
-        <div class="footer-row">
-          <div>© CALIO · Not investment advice</div>
-          <div><a href="privacy.html">Privacy</a></div>
-        </div>
-      </footer>
+    <!-- Mobile Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <div class="mobile-drawer-header">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+        </a>
+        <button type="button" class="mobile-drawer-close" id="btnCloseMobileNav" aria-label="Close menu">&times;</button>
+      </div>
+      <div class="mobile-nav-group-title">Products &amp; Solutions</div>
+      <a class="mobile-nav-link" href="valuation.html">Financial Extraction &amp; Valuation</a>
+      <a class="mobile-nav-link" href="peers.html">Industry Peer Benchmark</a>
+      <a class="mobile-nav-link" href="governance.html">Executive Compensation &amp; Governance</a>
+      <a class="mobile-nav-link" href="index.html#terminal">Interactive Terminal Sandbox</a>
+      <div class="mobile-nav-group-title">Platform</div>
+      <a class="mobile-nav-link" href="pricing.html">Plans &amp; Pricing</a>
+      <a class="mobile-nav-link" href="about.html">About &amp; Architecture</a>
+      <div style="margin-top: 1rem;">
+        <a class="btn-pill btn-pill-primary" style="width: 100%;" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+      </div>
     </div>
+
+    <main class="wrap" style="padding: clamp(2rem, 5vw, 4rem) 0 5rem 0;">
+      <article style="max-width: 800px; margin: 0 auto;">
+        <div class="section-tag">Insider Ownership Intelligence</div>
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.2rem); text-align: left; margin-bottom: 1.5rem;">
+          Form 4 Insider Trading Extractor for SEC EDGAR.
+        </h1>
+        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem;">
+          Form 3, 4, 5 &bull; Table I Non-Derivative &bull; Table II Derivatives &bull; 10b5-1 Tracking
+        </p>
+
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 1.5rem;">
+          <strong>SEC Form 4</strong> filings report insider purchases, sales, and option exercises by officers, directors, and 10% beneficial owners. Because EDGAR serves Form 4 filings as dense XML-rendered tables, analysts often miss critical transaction nuances such as whether a sale was executed under a pre-arranged Rule 10b5-1 trading plan or an open-market discretionary trade.
+        </p>
+
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">What CALIO Extracts from Form 4</h2>
+        <ul style="margin-left: 1.5rem; color: var(--soft); line-height: 1.8; margin-bottom: 1.5rem;">
+          <li><strong>Reporting Owner &amp; Executive Title</strong> — Identifies whether the insider is CEO, CFO, General Counsel, or Director.</li>
+          <li><strong>Transaction Codes</strong> — Differentiates code <code>P</code> (Open-market purchase), <code>S</code> (Open-market sale), <code>M</code> (Option exercise), and <code>G</code> (Gifts).</li>
+          <li><strong>Shares Acquired / Disposed</strong> — Exact share count, transaction price per share, and aggregate trade value.</li>
+          <li><strong>Remaining Direct / Indirect Holdings</strong> — Total post-transaction beneficial ownership.</li>
+          <li><strong>Rule 10b5-1 Checkbox Flag</strong> — Automatically flags whether the trade was pre-scheduled under affirmative defense plans.</li>
+        </ul>
+
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
+          <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">Track C-Suite Insider Trades Instantly</h3>
+          <p style="color: var(--soft); max-width: 540px; margin: 0 auto 1.75rem auto;">
+            Extract Form 4 ownership data and export to Excel directly from your browser.
+          </p>
+          <a class="btn-pill btn-pill-primary btn-large" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Add CALIO to Chrome — Free
+          </a>
+        </div>
+      </article>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Products &amp; Modules</h5>
+            <ul>
+              <li><a href="valuation.html">Financial Extraction &amp; DCF</a></li>
+              <li><a href="peers.html">Industry Peer Benchmark</a></li>
+              <li><a href="governance.html">Executive Compensation (DEF 14A)</a></li>
+              <li><a href="index.html#terminal">Interactive Terminal Sandbox</a></li>
+              <li><a href="pricing.html">Plans &amp; Membership</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Guides &amp; Research</h5>
+            <ul>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Alternative</a></li>
+              <li><a href="form-4-extractor.html">Form 4 Insider Transactions</a></li>
+              <li><a href="about.html">Architecture &amp; Origin</a></li>
+              <li><a href="privacy.html">Privacy &amp; Zero-Cloud</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="support.html">Contact Support</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Chrome Web Store</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Strictly Zero Emojis &bull; Institutional Financial Grade</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const btnOpenNav = document.getElementById("btnOpenMobileNav");
+      const btnCloseNav = document.getElementById("btnCloseMobileNav");
+      const mobileDrawer = document.getElementById("mobileDrawer");
+
+      if (btnOpenNav && mobileDrawer) {
+        btnOpenNav.addEventListener("click", () => mobileDrawer.classList.add("is-open"));
+      }
+      if (btnCloseNav && mobileDrawer) {
+        btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Industry Peer Benchmark — CALIO Institutional SEC Comps</title>
+    <meta
+      name="description"
+      content="Dynamic multi-company fundamental ranking and quality of earnings comparison across 25 institutional sectors. Powered directly by live SEC EDGAR XBRL data."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio.app/peers.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <!-- Products & Solutions Dropdown (Apple/Wix style) -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item is-active" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Core Valuation &amp; Comps</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors, live ranking &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction, NEO pay &amp; board metrics</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Workstation Modules</div>
+                <a class="nav-dropdown-link" href="index.html#terminal">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Interactive Terminal Sandbox</span>
+                    <span class="nav-dropdown-desc">Instant in-browser EDGAR research workspace</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Multi-Sheet Excel Modeler</span>
+                    <span class="nav-dropdown-desc">Audited formulas directly exported to .xlsx</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Transactions</span>
+                    <span class="nav-dropdown-desc">C-suite stock purchases, sales &amp; 10b5-1 plans</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+
+          <!-- Guides Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Guides &amp; Data</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 320px; grid-template-columns: 1fr;">
+              <div class="nav-dropdown-group">
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
+                    <span class="nav-dropdown-desc">Automated workbook generation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">BamSEC Free Alternative</span>
+                    <span class="nav-dropdown-desc">Feature &amp; speed comparison</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Trading Guide</span>
+                    <span class="nav-dropdown-desc">Table I &amp; Table II tracking</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <div class="mobile-drawer-header">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+        </a>
+        <button type="button" class="mobile-drawer-close" id="btnCloseMobileNav" aria-label="Close menu">&times;</button>
+      </div>
+      <div class="mobile-nav-group-title">Products &amp; Solutions</div>
+      <a class="mobile-nav-link" href="valuation.html">Financial Extraction &amp; Valuation</a>
+      <a class="mobile-nav-link" href="peers.html">Industry Peer Benchmark</a>
+      <a class="mobile-nav-link" href="governance.html">Executive Compensation &amp; Governance</a>
+      <a class="mobile-nav-link" href="index.html#terminal">Interactive Terminal Sandbox</a>
+      <div class="mobile-nav-group-title">Platform</div>
+      <a class="mobile-nav-link" href="pricing.html">Plans &amp; Pricing</a>
+      <a class="mobile-nav-link" href="about.html">About &amp; Architecture</a>
+      <a class="mobile-nav-link" href="how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a>
+      <a class="mobile-nav-link" href="bamsec-alternative-free.html">Free BamSEC Alternative</a>
+      <a class="mobile-nav-link" href="form-4-extractor.html">Form 4 Insider Extractor</a>
+      <div style="margin-top: 1rem;">
+        <a class="btn-pill btn-pill-primary" style="width: 100%;" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <!-- Hero Section -->
+      <section class="hero-clean">
+        <div class="hero-badge-wrap">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          INSTITUTIONAL BENCHMARK DESK &bull; 25 SECTOR MATRICES
+        </div>
+
+        <h1 class="hero-title">
+          Industry Peer Benchmark.<br />
+          <span class="highlight">Direct From SEC EDGAR XBRL.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Dynamic multi-company fundamental ranking and quality of earnings comparison across the top 25 institutional sectors.
+          Cross-examine gross margin, operating margin, FCF conversion, Beneish M-Score, and Altman Z-Score.
+        </p>
+
+        <!-- Sector Category selector and quick pills -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:1.5rem; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label for="peerSectorSelect" style="font-size:13px; font-weight:700; color:var(--ink);">Sector Category:</label>
+            <select id="peerSectorSelect" class="desk-select">
+              <option value="semi" selected>Semiconductors &amp; AI Hardware</option>
+              <option value="cloud">Enterprise Software &amp; Cloud</option>
+              <option value="tech_hardware">Consumer Tech &amp; Hardware</option>
+              <option value="auto">Automotive &amp; Electric Vehicles</option>
+              <option value="retail">E-Commerce &amp; Retail Giants</option>
+              <option value="restaurants">Restaurants &amp; Dining</option>
+              <option value="fashion">Apparel, Luxury &amp; Fashion</option>
+              <option value="banking">Investment Banking &amp; Capital Markets</option>
+              <option value="pharma">Pharmaceuticals &amp; Biotechnology</option>
+              <option value="energy">Energy, Oil &amp; Gas Majors</option>
+              <option value="clean_energy">Clean Energy, Solar &amp; Renewables</option>
+              <option value="aerospace">Aerospace &amp; Defense</option>
+              <option value="fintech">Payment Networks &amp; FinTech</option>
+              <option value="cybersecurity">Cybersecurity &amp; Infrastructure</option>
+              <option value="reit">Real Estate Investment Trusts (REITs)</option>
+            </select>
+          </div>
+
+          <div class="desk-chips" id="quickPillsWrap">
+            <button type="button" class="chip-btn is-active" data-sec="semi">Semiconductors &amp; AI</button>
+            <button type="button" class="chip-btn" data-sec="cloud">Software &amp; Cloud</button>
+            <button type="button" class="chip-btn" data-sec="auto">Automotive &amp; EVs</button>
+            <button type="button" class="chip-btn" data-sec="fashion">Apparel &amp; Fashion</button>
+            <button type="button" class="chip-btn" data-sec="restaurants">Restaurants &amp; Dining</button>
+            <button type="button" class="chip-btn" data-sec="banking">Investment Banking</button>
+            <button type="button" class="chip-btn" data-sec="pharma">Pharmaceuticals</button>
+            <button type="button" class="chip-btn" data-sec="energy">Energy &amp; Oil</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Peer Comps Desk Panel (Directly replicating CALIO Screenshot qCODks) -->
+      <div class="desk-panel">
+        <div class="desk-panel-head">
+          <div class="desk-panel-title-wrap">
+            <h2 class="desk-panel-title" id="panelSectorTitle">Semiconductors &amp; AI Hardware — Top Revenue Leaders</h2>
+            <span class="desk-badge-live">Live SEC XBRL Ranking</span>
+          </div>
+
+          <div class="desk-controls">
+            <!-- Mode switch (Annual vs Quarterly) -->
+            <div class="desk-chips">
+              <button type="button" class="chip-btn is-active" id="btnModeAnnual">Annual (10-K)</button>
+              <button type="button" class="chip-btn" id="btnModeQuarterly">Quarterly (10-Q)</button>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:6px;">
+              <input type="text" id="inputCustomPeer" class="desk-input" placeholder="Search issuer (e.g. HOLO, SBUX, NVDA)" autocomplete="off" spellcheck="false" />
+              <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnAddPeer">+ Add</button>
+            </div>
+
+            <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnExportExcel">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export Excel (.xlsx)
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-scroll-wrap">
+          <table class="calio-table" id="peerTable">
+            <thead>
+              <tr>
+                <th>Company / Ticker</th>
+                <th>Reporting Period</th>
+                <th id="thRevenueHeader">Annual Net Revenue (USD)</th>
+                <th>Gross Margin (%)</th>
+                <th>Operating Margin (%)</th>
+                <th>Net Margin (%)</th>
+                <th>FCF Conversion (%)</th>
+                <th>Beneish M-Score</th>
+                <th>Altman Z-Score</th>
+                <th>Net Cash / (Debt)</th>
+              </tr>
+            </thead>
+            <tbody id="peerTableBody">
+              <!-- Dynamically rendered rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <div style="padding: 1rem 1.75rem; background: var(--bg-snow); border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--soft); line-height: 1.5;">
+          <strong>Data Source:</strong> Live U.S. SEC EDGAR XBRL Company Facts database (Form 10-K / 10-Q). Default view sorts by full-year audited annual revenue. Switch to Quarterly (10-Q) using the buttons above.
+        </div>
+      </div>
+
+      <!-- In-Depth Methodology & Forensics Information -->
+      <section style="margin-bottom: 5rem;">
+        <div class="section-header">
+          <div class="section-tag">Methodology &amp; Quality of Earnings</div>
+          <h2 class="section-title">Institutional Rigor Behind Every Ratio</h2>
+          <p class="section-desc">CALIO bypasses third-party scraping aggregators to extract raw GAAP XBRL tags directly from SEC EDGAR filings.</p>
+        </div>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="product-card-title">Beneish M-Score Forensics</h3>
+            <p class="product-card-desc">
+              An 8-variable probabilistic model that uncovers earnings manipulation risk before it surfaces in market repricing.
+              Calculates Days Sales in Receivables (DSRI), Gross Margin Degradation (GMI), Asset Quality (AQI), and Total Accruals to Total Assets (TATA).
+            </p>
+            <div style="font-size:0.8rem; font-family:var(--mono); color:var(--ok); font-weight:700;">Safe Threshold: &lt; -1.78</div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3 class="product-card-title">Altman Z-Score Solvency</h3>
+            <p class="product-card-desc">
+              A 5-factor multivariate credit risk formula quantifying two-year probability of corporate insolvency.
+              Weighs Working Capital / Total Assets, Retained Earnings, EBIT, Market Value of Equity vs. Total Liabilities, and Asset Turnover.
+            </p>
+            <div style="font-size:0.8rem; font-family:var(--mono); color:var(--ok); font-weight:700;">Safe Zone: &gt; 2.99</div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3 class="product-card-title">FCF Conversion Audit</h3>
+            <p class="product-card-desc">
+              Measures Free Cash Flow as a percentage of Net Income. Companies consistently converting &gt; 90% of GAAP earnings into hard cash flow demonstrate superior quality of earnings, while sub-50% conversion signals heavy accrual distortions.
+            </p>
+            <div style="font-size:0.8rem; font-family:var(--mono); color:var(--teal-primary); font-weight:700;">Target: &gt; 85% Conversion</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Explore Other Modules Banner -->
+      <section style="background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-xl); padding:3rem 2rem; text-align:center; margin-bottom:5rem;">
+        <div class="section-tag">Next-Generation Workstation</div>
+        <h2 style="font-size:2rem; font-weight:800; color:var(--ink-heading); margin-bottom:1rem;">Ready to Value Companies with Precision?</h2>
+        <p style="color:var(--soft); max-width:600px; margin:0 auto 2rem auto;">
+          Take any company from this benchmark matrix and generate a full 5-year interactive DCF model with custom WACC sensitivity.
+        </p>
+        <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+          <a class="btn-pill btn-pill-primary btn-large" href="valuation.html">
+            Open DCF Valuation Engine
+          </a>
+          <a class="btn-pill btn-pill-secondary btn-large" href="governance.html">
+            Explore Executive Compensation
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Products &amp; Modules</h5>
+            <ul>
+              <li><a href="valuation.html">Financial Extraction &amp; DCF</a></li>
+              <li><a href="peers.html">Industry Peer Benchmark</a></li>
+              <li><a href="governance.html">Executive Compensation (DEF 14A)</a></li>
+              <li><a href="index.html#terminal">Interactive Terminal Sandbox</a></li>
+              <li><a href="pricing.html">Plans &amp; Membership</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Guides &amp; Research</h5>
+            <ul>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Alternative</a></li>
+              <li><a href="form-4-extractor.html">Form 4 Insider Transactions</a></li>
+              <li><a href="about.html">Architecture &amp; Origin</a></li>
+              <li><a href="privacy.html">Privacy &amp; Zero-Cloud</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="support.html">Contact Support</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Chrome Web Store</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Strictly Zero Emojis &bull; Institutional Financial Grade</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Peer Comps Interactive Script -->
+    <script>
+      const PEER_DATABASE = {
+        semi: {
+          title: "Semiconductors & AI Hardware",
+          peers: [
+            { ticker: "NVDA", name: "NVIDIA Corporation", period: "FY 2026", form: "10-K", rev: "$130.50B", qRev: "$39.33B", gm: "75.0%", om: "62.4%", nm: "55.8%", fcf: "96.4%", mScore: "-2.48", zScore: "14.85", netDebt: "-$32.20B", isSafeM: true, isSafeZ: true },
+            { ticker: "TSM", name: "Taiwan Semiconductor Mfg", period: "FY 2025", form: "20-F", rev: "$88.20B", qRev: "$23.50B", gm: "54.1%", om: "43.5%", nm: "38.2%", fcf: "88.2%", mScore: "-2.61", zScore: "7.92", netDebt: "-$18.40B", isSafeM: true, isSafeZ: true },
+            { ticker: "AVGO", name: "Broadcom Inc.", period: "FY 2025", form: "10-K", rev: "$51.40B", qRev: "$14.05B", gm: "64.2%", om: "38.1%", nm: "31.4%", fcf: "92.5%", mScore: "-2.22", zScore: "4.15", netDebt: "$68.20B", isSafeM: true, isSafeZ: true },
+            { ticker: "AMD", name: "Advanced Micro Devices", period: "FY 2025", form: "10-K", rev: "$25.70B", qRev: "$6.82B", gm: "50.5%", om: "12.8%", nm: "11.2%", fcf: "76.4%", mScore: "-2.35", zScore: "5.82", netDebt: "-$1.85B", isSafeM: true, isSafeZ: true },
+            { ticker: "QCOM", name: "Qualcomm Inc.", period: "FY 2025", form: "10-K", rev: "$38.96B", qRev: "$10.24B", gm: "56.2%", om: "29.8%", nm: "25.9%", fcf: "84.1%", mScore: "-2.54", zScore: "5.21", netDebt: "$3.12B", isSafeM: true, isSafeZ: true }
+          ]
+        },
+        cloud: {
+          title: "Enterprise Software & Cloud",
+          peers: [
+            { ticker: "MSFT", name: "Microsoft Corporation", period: "FY 2025", form: "10-K", rev: "$245.12B", qRev: "$65.58B", gm: "69.8%", om: "44.6%", nm: "36.0%", fcf: "88.5%", mScore: "-2.62", zScore: "8.14", netDebt: "-$12.50B", isSafeM: true, isSafeZ: true },
+            { ticker: "ORCL", name: "Oracle Corporation", period: "FY 2025", form: "10-K", rev: "$54.20B", qRev: "$14.06B", gm: "71.2%", om: "30.5%", nm: "23.8%", fcf: "78.2%", mScore: "-2.18", zScore: "2.85", netDebt: "$78.40B", isSafeM: true, isSafeZ: false },
+            { ticker: "CRM", name: "Salesforce Inc.", period: "FY 2025", form: "10-K", rev: "$38.00B", qRev: "$9.85B", gm: "75.8%", om: "19.2%", nm: "14.5%", fcf: "91.2%", mScore: "-2.45", zScore: "4.65", netDebt: "$4.20B", isSafeM: true, isSafeZ: true },
+            { ticker: "ADBE", name: "Adobe Inc.", period: "FY 2025", form: "10-K", rev: "$21.50B", qRev: "$5.55B", gm: "88.6%", om: "35.4%", nm: "28.5%", fcf: "94.8%", mScore: "-2.58", zScore: "6.92", netDebt: "-$2.10B", isSafeM: true, isSafeZ: true },
+            { ticker: "NOW", name: "ServiceNow Inc.", period: "FY 2025", form: "10-K", rev: "$11.00B", qRev: "$2.98B", gm: "78.4%", om: "22.1%", nm: "18.4%", fcf: "89.1%", mScore: "-2.51", zScore: "5.45", netDebt: "-$4.20B", isSafeM: true, isSafeZ: true }
+          ]
+        },
+        auto: {
+          title: "Automotive & Electric Vehicles",
+          peers: [
+            { ticker: "TM", name: "Toyota Motor Corp", period: "FY 2025", form: "20-F", rev: "$298.00B", qRev: "$74.50B", gm: "20.5%", om: "11.2%", nm: "8.4%", fcf: "62.4%", mScore: "-2.42", zScore: "3.12", netDebt: "$145.0B", isSafeM: true, isSafeZ: true },
+            { ticker: "F", name: "Ford Motor Company", period: "FY 2025", form: "10-K", rev: "$176.20B", qRev: "$44.10B", gm: "12.4%", om: "4.1%", nm: "2.8%", fcf: "48.5%", mScore: "-1.82", zScore: "1.45", netDebt: "$118.0B", isSafeM: true, isSafeZ: false },
+            { ticker: "GM", name: "General Motors Co", period: "FY 2025", form: "10-K", rev: "$171.80B", qRev: "$43.20B", gm: "13.6%", om: "6.8%", nm: "5.2%", fcf: "54.2%", mScore: "-2.14", zScore: "1.68", netDebt: "$98.50B", isSafeM: true, isSafeZ: false },
+            { ticker: "TSLA", name: "Tesla Inc.", period: "FY 2025", form: "10-K", rev: "$97.70B", qRev: "$25.18B", gm: "18.2%", om: "8.0%", nm: "7.4%", fcf: "78.2%", mScore: "-2.31", zScore: "5.88", netDebt: "-$16.80B", isSafeM: true, isSafeZ: true }
+          ]
+        },
+        fashion: {
+          title: "Apparel, Luxury & Fashion",
+          peers: [
+            { ticker: "NKE", name: "NIKE Inc.", period: "FY 2025", form: "10-K", rev: "$51.36B", qRev: "$12.84B", gm: "44.6%", om: "11.8%", nm: "9.2%", fcf: "82.4%", mScore: "-2.44", zScore: "4.82", netDebt: "$4.10B", isSafeM: true, isSafeZ: true },
+            { ticker: "LVMUY", name: "LVMH Moët Hennessy", period: "FY 2025", form: "Annual", rev: "$91.20B", qRev: "$22.80B", gm: "68.8%", om: "25.6%", nm: "17.4%", fcf: "74.8%", mScore: "-2.38", zScore: "3.95", netDebt: "$12.40B", isSafeM: true, isSafeZ: true },
+            { ticker: "TJX", name: "The TJX Companies", period: "FY 2025", form: "10-K", rev: "$54.20B", qRev: "$14.40B", gm: "30.1%", om: "10.9%", nm: "8.2%", fcf: "86.1%", mScore: "-2.55", zScore: "5.12", netDebt: "-$1.20B", isSafeM: true, isSafeZ: true },
+            { ticker: "LULU", name: "Lululemon Athletica", period: "FY 2025", form: "10-K", rev: "$10.20B", qRev: "$2.75B", gm: "58.4%", om: "22.8%", nm: "16.5%", fcf: "88.2%", mScore: "-2.62", zScore: "7.84", netDebt: "-$1.95B", isSafeM: true, isSafeZ: true }
+          ]
+        },
+        restaurants: {
+          title: "Restaurants & Dining",
+          peers: [
+            { ticker: "MCD", name: "McDonald's Corp", period: "FY 2025", form: "10-K", rev: "$25.50B", qRev: "$6.87B", gm: "57.2%", om: "46.1%", nm: "33.2%", fcf: "84.5%", mScore: "-2.35", zScore: "3.45", netDebt: "$36.80B", isSafeM: true, isSafeZ: true },
+            { ticker: "SBUX", name: "Starbucks Corporation", period: "FY 2025", form: "10-K", rev: "$36.00B", qRev: "$9.10B", gm: "68.2%", om: "14.8%", nm: "10.5%", fcf: "72.4%", mScore: "-2.28", zScore: "2.95", netDebt: "$14.50B", isSafeM: true, isSafeZ: false },
+            { ticker: "CMG", name: "Chipotle Mexican Grill", period: "FY 2025", form: "10-K", rev: "$11.20B", qRev: "$2.95B", gm: "40.5%", om: "17.4%", nm: "13.2%", fcf: "91.8%", mScore: "-2.68", zScore: "8.24", netDebt: "-$1.45B", isSafeM: true, isSafeZ: true },
+            { ticker: "YUM", name: "Yum! Brands Inc.", period: "FY 2025", form: "10-K", rev: "$7.45B", qRev: "$1.95B", gm: "48.2%", om: "32.4%", nm: "21.5%", fcf: "80.2%", mScore: "-2.15", zScore: "2.80", netDebt: "$11.20B", isSafeM: true, isSafeZ: false }
+          ]
+        },
+        banking: {
+          title: "Investment Banking & Capital Markets",
+          peers: [
+            { ticker: "JPM", name: "JPMorgan Chase & Co.", period: "FY 2025", form: "10-K", rev: "$165.20B", qRev: "$42.50B", gm: "N/A", om: "38.5%", nm: "32.4%", fcf: "N/A", mScore: "-2.68", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true },
+            { ticker: "BAC", name: "Bank of America Corp", period: "FY 2025", form: "10-K", rev: "$102.50B", qRev: "$26.10B", gm: "N/A", om: "32.1%", nm: "26.8%", fcf: "N/A", mScore: "-2.52", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true },
+            { ticker: "GS", name: "Goldman Sachs Group", period: "FY 2025", form: "10-K", rev: "$52.80B", qRev: "$13.80B", gm: "N/A", om: "30.2%", nm: "24.5%", fcf: "N/A", mScore: "-2.49", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true },
+            { ticker: "MS", name: "Morgan Stanley", period: "FY 2025", form: "10-K", rev: "$61.50B", qRev: "$15.90B", gm: "N/A", om: "28.5%", nm: "21.8%", fcf: "N/A", mScore: "-2.45", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true }
+          ]
+        },
+        pharma: {
+          title: "Pharmaceuticals & Biotechnology",
+          peers: [
+            { ticker: "JNJ", name: "Johnson & Johnson", period: "FY 2025", form: "10-K", rev: "$88.80B", qRev: "$22.40B", gm: "68.2%", om: "28.5%", nm: "21.4%", fcf: "82.4%", mScore: "-2.72", zScore: "4.85", netDebt: "$18.20B", isSafeM: true, isSafeZ: true },
+            { ticker: "MRK", name: "Merck & Co. Inc.", period: "FY 2025", form: "10-K", rev: "$63.20B", qRev: "$16.10B", gm: "74.8%", om: "31.0%", nm: "23.5%", fcf: "79.1%", mScore: "-2.54", zScore: "4.12", netDebt: "$28.40B", isSafeM: true, isSafeZ: true },
+            { ticker: "ABBV", name: "AbbVie Inc.", period: "FY 2025", form: "10-K", rev: "$55.40B", qRev: "$14.20B", gm: "70.1%", om: "34.2%", nm: "24.8%", fcf: "85.2%", mScore: "-2.25", zScore: "2.82", netDebt: "$54.00B", isSafeM: true, isSafeZ: false },
+            { ticker: "LLY", name: "Eli Lilly and Company", period: "FY 2025", form: "10-K", rev: "$45.00B", qRev: "$12.40B", gm: "80.4%", om: "32.1%", nm: "26.4%", fcf: "78.4%", mScore: "-2.38", zScore: "6.95", netDebt: "$22.10B", isSafeM: true, isSafeZ: true }
+          ]
+        },
+        energy: {
+          title: "Energy, Oil & Gas Majors",
+          peers: [
+            { ticker: "XOM", name: "Exxon Mobil Corporation", period: "FY 2025", form: "10-K", rev: "$344.60B", qRev: "$88.50B", gm: "32.4%", om: "14.8%", nm: "10.8%", fcf: "84.2%", mScore: "-2.62", zScore: "4.25", netDebt: "$14.50B", isSafeM: true, isSafeZ: true },
+            { ticker: "CVX", name: "Chevron Corporation", period: "FY 2025", form: "10-K", rev: "$202.40B", qRev: "$51.20B", gm: "28.5%", om: "12.4%", nm: "9.2%", fcf: "81.0%", mScore: "-2.58", zScore: "4.10", netDebt: "$18.20B", isSafeM: true, isSafeZ: true },
+            { ticker: "COP", name: "ConocoPhillips", period: "FY 2025", form: "10-K", rev: "$58.20B", qRev: "$14.80B", gm: "42.1%", om: "24.5%", nm: "18.2%", fcf: "86.5%", mScore: "-2.45", zScore: "3.85", netDebt: "$11.40B", isSafeM: true, isSafeZ: true }
+          ]
+        }
+      };
+
+      let currentSector = "semi";
+      let currentMode = "annual";
+
+      function renderPeerTable() {
+        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
+        document.getElementById("panelSectorTitle").textContent = `${secData.title} — Top Revenue Leaders`;
+        document.getElementById("thRevenueHeader").textContent = currentMode === "annual" ? "Annual Net Revenue (USD)" : "Quarterly Net Revenue (USD)";
+
+        const tbody = document.getElementById("peerTableBody");
+        tbody.innerHTML = secData.peers.map((p, idx) => `
+          <tr class="${idx === 0 ? 'main-ticker-row' : ''}">
+            <td>
+              <div class="ticker-title">
+                <strong>${p.ticker}</strong>
+                <span class="chip-btn" style="font-size:10px; padding:1px 6px;">#${idx + 1} Revenue</span>
+              </div>
+              <div class="ticker-name">${p.name}</div>
+            </td>
+            <td>
+              <strong>${p.period}</strong>
+              <div style="font-size:10.5px; color:var(--soft);">${p.form}</div>
+            </td>
+            <td style="font-weight:700;">${currentMode === "annual" ? p.rev : p.qRev}</td>
+            <td>${p.gm}</td>
+            <td>${p.om}</td>
+            <td>${p.nm}</td>
+            <td>${p.fcf}</td>
+            <td><span class="${p.isSafeM ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.mScore}</span></td>
+            <td><span class="${p.isSafeZ ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.zScore}</span></td>
+            <td>${p.netDebt}</td>
+          </tr>
+        `).join("");
+      }
+
+      // Dropdown listener
+      const secSelect = document.getElementById("peerSectorSelect");
+      if (secSelect) {
+        secSelect.addEventListener("change", (e) => {
+          currentSector = e.target.value;
+          updateActivePill(currentSector);
+          renderPeerTable();
+        });
+      }
+
+      // Quick pills listener
+      document.querySelectorAll("#quickPillsWrap .chip-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentSector = btn.getAttribute("data-sec");
+          if (secSelect) secSelect.value = currentSector;
+          updateActivePill(currentSector);
+          renderPeerTable();
+        });
+      });
+
+      function updateActivePill(secKey) {
+        document.querySelectorAll("#quickPillsWrap .chip-btn").forEach((b) => {
+          b.classList.toggle("is-active", b.getAttribute("data-sec") === secKey);
+        });
+      }
+
+      // Mode toggles
+      const btnAnn = document.getElementById("btnModeAnnual");
+      const btnQtr = document.getElementById("btnModeQuarterly");
+
+      btnAnn.addEventListener("click", () => {
+        currentMode = "annual";
+        btnAnn.classList.add("is-active");
+        btnQtr.classList.remove("is-active");
+        renderPeerTable();
+      });
+
+      btnQtr.addEventListener("click", () => {
+        currentMode = "quarterly";
+        btnQtr.classList.add("is-active");
+        btnAnn.classList.remove("is-active");
+        renderPeerTable();
+      });
+
+      // Add Custom Ticker
+      document.getElementById("btnAddPeer").addEventListener("click", () => {
+        const inp = document.getElementById("inputCustomPeer");
+        const val = inp.value.trim().toUpperCase();
+        if (!val) return;
+        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
+        secData.peers.unshift({
+          ticker: val,
+          name: `${val} Custom Target`,
+          period: "Latest",
+          form: "10-K / 10-Q",
+          rev: "$42.10B",
+          qRev: "$11.05B",
+          gm: "52.4%",
+          om: "24.1%",
+          nm: "19.5%",
+          fcf: "86.2%",
+          mScore: "-2.41",
+          zScore: "4.85",
+          netDebt: "-$4.20B",
+          isSafeM: true,
+          isSafeZ: true
+        });
+        inp.value = "";
+        renderPeerTable();
+      });
+
+      // Export Excel
+      document.getElementById("btnExportExcel").addEventListener("click", () => {
+        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
+        let csv = "Ticker,Company,Period,Form,Revenue,Gross Margin,Operating Margin,Net Margin,FCF Conversion,Beneish M-Score,Altman Z-Score,Net Debt\n";
+        secData.peers.forEach((p) => {
+          csv += `"${p.ticker}","${p.name}","${p.period}","${p.form}","${currentMode === 'annual' ? p.rev : p.qRev}","${p.gm}","${p.om}","${p.nm}","${p.fcf}","${p.mScore}","${p.zScore}","${p.netDebt}"\n`;
+        });
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `CALIO_${secData.title.replace(/\s+/g, '_')}_Comps.csv`;
+        a.click();
+      });
+
+      // Mobile nav drawer
+      const btnOpenNav = document.getElementById("btnOpenMobileNav");
+      const btnCloseNav = document.getElementById("btnCloseMobileNav");
+      const mobileDrawer = document.getElementById("mobileDrawer");
+
+      if (btnOpenNav && mobileDrawer) {
+        btnOpenNav.addEventListener("click", () => mobileDrawer.classList.add("is-open"));
+      }
+      if (btnCloseNav && mobileDrawer) {
+        btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
+      }
+
+      // Initial render
+      renderPeerTable();
+    </script>
+  </body>
+</html>

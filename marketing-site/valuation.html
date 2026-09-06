@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Financial Extraction & Valuation Engine — CALIO SEC Terminal</title>
+    <meta
+      name="description"
+      content="Extract audited 10-K & 10-Q financial statements and run interactive 5-year DCF intrinsic valuations in your browser. 100% on-device processing."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio.app/valuation.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <!-- Products & Solutions Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item is-active" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Core Valuation &amp; Comps</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors, live ranking &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction, NEO pay &amp; board metrics</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Workstation Modules</div>
+                <a class="nav-dropdown-link" href="index.html#terminal">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Interactive Terminal Sandbox</span>
+                    <span class="nav-dropdown-desc">Instant in-browser EDGAR research workspace</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Multi-Sheet Excel Modeler</span>
+                    <span class="nav-dropdown-desc">Audited formulas directly exported to .xlsx</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Transactions</span>
+                    <span class="nav-dropdown-desc">C-suite stock purchases, sales &amp; 10b5-1 plans</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+
+          <!-- Guides Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Guides &amp; Data</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 320px; grid-template-columns: 1fr;">
+              <div class="nav-dropdown-group">
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
+                    <span class="nav-dropdown-desc">Automated workbook generation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">BamSEC Free Alternative</span>
+                    <span class="nav-dropdown-desc">Feature &amp; speed comparison</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Trading Guide</span>
+                    <span class="nav-dropdown-desc">Table I &amp; Table II tracking</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <div class="mobile-drawer-header">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+        </a>
+        <button type="button" class="mobile-drawer-close" id="btnCloseMobileNav" aria-label="Close menu">&times;</button>
+      </div>
+      <div class="mobile-nav-group-title">Products &amp; Solutions</div>
+      <a class="mobile-nav-link" href="valuation.html">Financial Extraction &amp; Valuation</a>
+      <a class="mobile-nav-link" href="peers.html">Industry Peer Benchmark</a>
+      <a class="mobile-nav-link" href="governance.html">Executive Compensation &amp; Governance</a>
+      <a class="mobile-nav-link" href="index.html#terminal">Interactive Terminal Sandbox</a>
+      <div class="mobile-nav-group-title">Platform</div>
+      <a class="mobile-nav-link" href="pricing.html">Plans &amp; Pricing</a>
+      <a class="mobile-nav-link" href="about.html">About &amp; Architecture</a>
+      <div style="margin-top: 1rem;">
+        <a class="btn-pill btn-pill-primary" style="width: 100%;" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <!-- Hero -->
+      <section class="hero-clean">
+        <div class="hero-badge-wrap">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          INSTITUTIONAL VALUATION WORKSTATION &bull; FORM 10-K &bull; 10-Q
+        </div>
+
+        <h1 class="hero-title">
+          Financial Extraction &amp;<br />
+          <span class="highlight">Interactive 5-Year DCF Engine.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Bypass static PDF downloads. Instantly normalize 10-K and 10-Q income statements, balance sheets, and cash flows
+          into a real-time intrinsic discounted cash flow valuation model with dynamic sensitivity controls.
+        </p>
+
+        <!-- Company Quick Selection -->
+        <div style="display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:1.5rem;">
+          <span style="font-size:13px; font-weight:700; color:var(--ink); margin-right:4px;">Select Company:</span>
+          <button type="button" class="chip-btn is-active" data-val-ticker="NVDA">NVDA · NVIDIA</button>
+          <button type="button" class="chip-btn" data-val-ticker="AAPL">AAPL · Apple</button>
+          <button type="button" class="chip-btn" data-val-ticker="MSFT">MSFT · Microsoft</button>
+          <button type="button" class="chip-btn" data-val-ticker="AMZN">AMZN · Amazon</button>
+          <button type="button" class="chip-btn" data-val-ticker="GOOGL">GOOGL · Alphabet</button>
+          <button type="button" class="chip-btn" data-val-ticker="TSLA">TSLA · Tesla</button>
+        </div>
+      </section>
+
+      <!-- Live Interactive DCF Engine Panel -->
+      <div class="desk-panel">
+        <div class="desk-panel-head">
+          <div class="desk-panel-title-wrap">
+            <h2 class="desk-panel-title" id="dcfPanelTitle">NVIDIA Corporation (NVDA) — Intrinsic DCF Model</h2>
+            <span class="desk-badge-live">Audited SEC 10-K</span>
+          </div>
+
+          <div class="desk-controls">
+            <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnExportValExcel">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export Excel (.xlsx)
+            </button>
+          </div>
+        </div>
+
+        <!-- DCF Engine Layout -->
+        <div class="dcf-engine-grid">
+          <div class="dcf-controls-col">
+            <div class="dcf-slider-group">
+              <div class="dcf-slider-header">
+                <span>WACC Discount Rate</span>
+                <span class="dcf-slider-val" id="valWacc">9.5%</span>
+              </div>
+              <input type="range" class="dcf-slider" id="sliderWacc" min="6.0" max="15.0" step="0.25" value="9.5" />
+            </div>
+
+            <div class="dcf-slider-group">
+              <div class="dcf-slider-header">
+                <span>Terminal Growth Rate (g)</span>
+                <span class="dcf-slider-val" id="valTerm">2.8%</span>
+              </div>
+              <input type="range" class="dcf-slider" id="sliderTerm" min="1.5" max="4.5" step="0.1" value="2.8" />
+            </div>
+
+            <div class="dcf-slider-group">
+              <div class="dcf-slider-header">
+                <span>5-Year Revenue CAGR</span>
+                <span class="dcf-slider-val" id="valGrowth">22.0%</span>
+              </div>
+              <input type="range" class="dcf-slider" id="sliderGrowth" min="5.0" max="45.0" step="0.5" value="22.0" />
+            </div>
+
+            <div class="dcf-slider-group">
+              <div class="dcf-slider-header">
+                <span>Target Operating Margin</span>
+                <span class="dcf-slider-val" id="valMargin">62.0%</span>
+              </div>
+              <input type="range" class="dcf-slider" id="sliderMargin" min="15.0" max="75.0" step="0.5" value="62.0" />
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="dcf-result-col">
+            <div class="dcf-result-title">CALIO Intrinsic Fair Value</div>
+            <div class="dcf-fair-value" id="dispFairValue">$148.20</div>
+            <div class="dcf-safety-badge" id="dispMarginSafety" style="background:var(--ok-bg); color:var(--ok);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              +15.3% Undervalued (Safety Margin)
+            </div>
+
+            <div class="dcf-bridge-grid">
+              <div class="dcf-bridge-item">
+                <span>Current Market Price</span>
+                <strong id="dispCurrentPrice">$128.50</strong>
+              </div>
+              <div class="dcf-bridge-item">
+                <span>Enterprise Value (PV)</span>
+                <strong id="dispEnterpriseValue">$3.68T</strong>
+              </div>
+              <div class="dcf-bridge-item">
+                <span>Net Cash / (Debt)</span>
+                <strong id="dispNetCash">+$32.2B</strong>
+              </div>
+              <div class="dcf-bridge-item">
+                <span>Diluted Shares</span>
+                <strong id="dispShares">24.50B</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Statement Extracted Financials Table -->
+        <div style="padding: 1rem 1.75rem; background: var(--bg-snow); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+          <h3 style="font-size:1.05rem; font-weight:700; color:var(--ink-heading);">Normalized SEC 10-K Financial Statement Extraction</h3>
+          <div class="desk-chips" id="statementTabWrap">
+            <button type="button" class="chip-btn is-active" data-stmt="is">Income Statement</button>
+            <button type="button" class="chip-btn" data-stmt="bs">Balance Sheet</button>
+            <button type="button" class="chip-btn" data-stmt="cf">Cash Flows</button>
+            <button type="button" class="chip-btn" data-stmt="seg">Segment Revenue (ASC 280)</button>
+          </div>
+        </div>
+
+        <div class="table-scroll-wrap">
+          <table class="calio-table" id="statementTable">
+            <thead>
+              <tr>
+                <th>Standardized Line Item</th>
+                <th>TTM / Latest Fiscal Year</th>
+                <th>Prior Fiscal Year</th>
+                <th>YoY Variance ($ Delta)</th>
+                <th>YoY Variance (% Delta)</th>
+              </tr>
+            </thead>
+            <tbody id="statementTableBody">
+              <!-- Dynamically filled -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Feature Grid -->
+      <section style="margin-bottom: 5rem;">
+        <div class="section-header">
+          <div class="section-tag">Architecture &amp; Precision</div>
+          <h2 class="section-title">Built for Serious Financial Analysis</h2>
+          <p class="section-desc">Why institutional modelers rely on CALIO for financial extraction.</p>
+        </div>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+            </div>
+            <h3 class="product-card-title">Direct XBRL Concept Mapping</h3>
+            <p class="product-card-desc">
+              CALIO parses standard US-GAAP taxonomy elements (e.g. <code>us-gaap:Revenues</code>, <code>us-gaap:OperatingIncomeLoss</code>)
+              and normalizes them into continuous time-series, automatically accounting for fiscal year shifts and stock splits.
+            </p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+            </div>
+            <h3 class="product-card-title">ASC 280 Disaggregated Segments</h3>
+            <p class="product-card-desc">
+              Dig behind the consolidated headline revenue into business unit breakdowns (e.g. Data Center vs. Gaming in NVIDIA)
+              and geographic regional revenue (Americas, Europe, Asia Pacific).
+            </p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <h3 class="product-card-title">Live Excel Formula Export</h3>
+            <p class="product-card-desc">
+              Exports are not dead static numbers. Generated .xlsx files contain active working formulas:
+              summation lines, growth rate formulas, margin calculations, and DCF discounting models.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Products &amp; Modules</h5>
+            <ul>
+              <li><a href="valuation.html">Financial Extraction &amp; DCF</a></li>
+              <li><a href="peers.html">Industry Peer Benchmark</a></li>
+              <li><a href="governance.html">Executive Compensation (DEF 14A)</a></li>
+              <li><a href="index.html#terminal">Interactive Terminal Sandbox</a></li>
+              <li><a href="pricing.html">Plans &amp; Membership</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Guides &amp; Research</h5>
+            <ul>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Alternative</a></li>
+              <li><a href="form-4-extractor.html">Form 4 Insider Transactions</a></li>
+              <li><a href="about.html">Architecture &amp; Origin</a></li>
+              <li><a href="privacy.html">Privacy &amp; Zero-Cloud</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="support.html">Contact Support</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Chrome Web Store</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Strictly Zero Emojis &bull; Institutional Financial Grade</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Interactive Valuation Script -->
+    <script>
+      const VAL_COMPANIES = {
+        NVDA: {
+          name: "NVIDIA Corporation",
+          ticker: "NVDA",
+          currentPrice: 128.50,
+          shares: 24.50,
+          cash: 43.20,
+          debt: 11.00,
+          baseRev: 130.50,
+          dcf: { wacc: 9.5, term: 2.8, growth: 22.0, margin: 62.0 },
+          is: [
+            { item: "Total Revenue", ttm: "$130.50B", prior: "$60.92B", deltaDollar: "+$69.58B", deltaPct: "+114.2%" },
+            { item: "Cost of Goods Sold", ttm: "$32.62B", prior: "$16.62B", deltaDollar: "+$16.00B", deltaPct: "+96.3%" },
+            { item: "Gross Profit", ttm: "$97.88B", prior: "$44.30B", deltaDollar: "+$53.58B", deltaPct: "+120.9%" },
+            { item: "Research & Development", ttm: "$10.45B", prior: "$7.34B", deltaDollar: "+$3.11B", deltaPct: "+42.4%" },
+            { item: "Selling, General & Admin", ttm: "$3.96B", prior: "$2.99B", deltaDollar: "+$0.97B", deltaPct: "+32.4%" },
+            { item: "Operating Income (EBIT)", ttm: "$81.47B", prior: "$32.97B", deltaDollar: "+$48.50B", deltaPct: "+147.1%" },
+            { item: "Net Income (GAAP)", ttm: "$72.88B", prior: "$29.76B", deltaDollar: "+$43.12B", deltaPct: "+144.9%" }
+          ],
+          bs: [
+            { item: "Cash & Cash Equivalents", ttm: "$43.20B", prior: "$25.98B", deltaDollar: "+$17.22B", deltaPct: "+66.3%" },
+            { item: "Inventories", ttm: "$6.85B", prior: "$5.28B", deltaDollar: "+$1.57B", deltaPct: "+29.7%" },
+            { item: "Total Current Assets", ttm: "$72.50B", prior: "$44.35B", deltaDollar: "+$28.15B", deltaPct: "+63.5%" },
+            { item: "Property & Equipment (Net)", ttm: "$8.45B", prior: "$3.91B", deltaDollar: "+$4.54B", deltaPct: "+116.1%" },
+            { item: "Total Assets", ttm: "$98.50B", prior: "$65.73B", deltaDollar: "+$32.77B", deltaPct: "+49.9%" },
+            { item: "Total Long-Term Debt", ttm: "$11.00B", prior: "$9.71B", deltaDollar: "+$1.29B", deltaPct: "+13.3%" },
+            { item: "Stockholders' Equity", ttm: "$68.50B", prior: "$42.98B", deltaDollar: "+$25.52B", deltaPct: "+59.4%" }
+          ],
+          cf: [
+            { item: "Operating Cash Flow (CFO)", ttm: "$76.50B", prior: "$28.09B", deltaDollar: "+$48.41B", deltaPct: "+172.3%" },
+            { item: "Capital Expenditures (CapEx)", ttm: "-$6.20B", prior: "-$1.11B", deltaDollar: "-$5.09B", deltaPct: "+458.6%" },
+            { item: "Free Cash Flow (FCF)", ttm: "$70.30B", prior: "$26.98B", deltaDollar: "+$43.32B", deltaPct: "+160.6%" },
+            { item: "Common Stock Repurchases", ttm: "-$14.20B", prior: "-$9.50B", deltaDollar: "-$4.70B", deltaPct: "+49.5%" }
+          ],
+          seg: [
+            { item: "Data Center (Compute & Networking)", ttm: "$114.50B", prior: "$47.50B", deltaDollar: "+$67.00B", deltaPct: "+141.1%" },
+            { item: "Gaming & AI PC", ttm: "$11.20B", prior: "$10.45B", deltaDollar: "+$0.75B", deltaPct: "+7.2%" },
+            { item: "Professional Visualization", ttm: "$2.10B", prior: "$1.55B", deltaDollar: "+$0.55B", deltaPct: "+35.5%" },
+            { item: "Automotive & Robotics", ttm: "$1.60B", prior: "$1.09B", deltaDollar: "+$0.51B", deltaPct: "+46.8%" }
+          ]
+        },
+        AAPL: {
+          name: "Apple Inc.",
+          ticker: "AAPL",
+          currentPrice: 228.00,
+          shares: 15.11,
+          cash: 65.19,
+          debt: 106.63,
+          baseRev: 391.04,
+          dcf: { wacc: 8.25, term: 2.5, growth: 7.5, margin: 31.5 },
+          is: [
+            { item: "Total Revenue", ttm: "$391.04B", prior: "$383.29B", deltaDollar: "+$7.75B", deltaPct: "+2.0%" },
+            { item: "Cost of Goods Sold", ttm: "$210.35B", prior: "$214.14B", deltaDollar: "-$3.79B", deltaPct: "-1.8%" },
+            { item: "Gross Profit", ttm: "$180.69B", prior: "$169.15B", deltaDollar: "+$11.54B", deltaPct: "+6.8%" },
+            { item: "Operating Income (EBIT)", ttm: "$123.22B", prior: "$114.30B", deltaDollar: "+$8.92B", deltaPct: "+7.8%" },
+            { item: "Net Income (GAAP)", ttm: "$93.74B", prior: "$96.99B", deltaDollar: "-$3.25B", deltaPct: "-3.4%" }
+          ],
+          bs: [
+            { item: "Cash & Marketable Securities", ttm: "$65.19B", prior: "$61.55B", deltaDollar: "+$3.64B", deltaPct: "+5.9%" },
+            { item: "Total Assets", ttm: "$364.98B", prior: "$352.58B", deltaDollar: "+$12.40B", deltaPct: "+3.5%" },
+            { item: "Total Debt", ttm: "$106.63B", prior: "$111.09B", deltaDollar: "-$4.46B", deltaPct: "-4.0%" }
+          ],
+          cf: [
+            { item: "Operating Cash Flow", ttm: "$118.25B", prior: "$110.54B", deltaDollar: "+$7.71B", deltaPct: "+7.0%" },
+            { item: "Free Cash Flow", ttm: "$108.80B", prior: "$99.58B", deltaDollar: "+$9.22B", deltaPct: "+9.3%" }
+          ],
+          seg: [
+            { item: "iPhone", ttm: "$201.18B", prior: "$200.58B", deltaDollar: "+$0.60B", deltaPct: "+0.3%" },
+            { item: "Services", ttm: "$96.17B", prior: "$85.20B", deltaDollar: "+$10.97B", deltaPct: "+12.9%" },
+            { item: "Wearables & Home", ttm: "$37.00B", prior: "$39.85B", deltaDollar: "-$2.85B", deltaPct: "-7.2%" },
+            { item: "Mac", ttm: "$29.98B", prior: "$29.36B", deltaDollar: "+$0.62B", deltaPct: "+2.1%" },
+            { item: "iPad", ttm: "$26.69B", prior: "$28.30B", deltaDollar: "-$1.61B", deltaPct: "-5.7%" }
+          ]
+        },
+        MSFT: {
+          name: "Microsoft Corporation",
+          ticker: "MSFT",
+          currentPrice: 425.00,
+          shares: 7.43,
+          cash: 80.00,
+          debt: 75.00,
+          baseRev: 245.12,
+          dcf: { wacc: 8.5, term: 2.8, growth: 14.0, margin: 44.5 },
+          is: [
+            { item: "Total Revenue", ttm: "$245.12B", prior: "$211.91B", deltaDollar: "+$33.21B", deltaPct: "+15.7%" },
+            { item: "Gross Profit", ttm: "$171.00B", prior: "$146.05B", deltaDollar: "+$24.95B", deltaPct: "+17.1%" },
+            { item: "Operating Income", ttm: "$109.43B", prior: "$88.52B", deltaDollar: "+$20.91B", deltaPct: "+23.6%" },
+            { item: "Net Income", ttm: "$88.14B", prior: "$72.36B", deltaDollar: "+$15.78B", deltaPct: "+21.8%" }
+          ],
+          bs: [
+            { item: "Cash & Investments", ttm: "$80.00B", prior: "$111.30B", deltaDollar: "-$31.30B", deltaPct: "-28.1%" },
+            { item: "Total Assets", ttm: "$512.00B", prior: "$411.97B", deltaDollar: "+$100.03B", deltaPct: "+24.3%" }
+          ],
+          cf: [
+            { item: "Operating Cash Flow", ttm: "$118.50B", prior: "$87.58B", deltaDollar: "+$30.92B", deltaPct: "+35.3%" },
+            { item: "Free Cash Flow", ttm: "$74.07B", prior: "$59.48B", deltaDollar: "+$14.59B", deltaPct: "+24.5%" }
+          ],
+          seg: [
+            { item: "Intelligent Cloud (Azure)", ttm: "$105.36B", prior: "$87.91B", deltaDollar: "+$17.45B", deltaPct: "+19.8%" },
+            { item: "Productivity & Business Processes", ttm: "$77.35B", prior: "$69.27B", deltaDollar: "+$8.08B", deltaPct: "+11.7%" },
+            { item: "More Personal Computing (Windows, Xbox)", ttm: "$62.41B", prior: "$54.73B", deltaDollar: "+$7.68B", deltaPct: "+14.0%" }
+          ]
+        },
+        AMZN: {
+          name: "Amazon.com Inc.",
+          ticker: "AMZN",
+          currentPrice: 198.00,
+          shares: 10.50,
+          cash: 92.00,
+          debt: 128.00,
+          baseRev: 638.00,
+          dcf: { wacc: 8.75, term: 2.5, growth: 12.0, margin: 11.5 },
+          is: [
+            { item: "Total Net Sales", ttm: "$638.00B", prior: "$574.78B", deltaDollar: "+$63.22B", deltaPct: "+11.0%" },
+            { item: "Operating Income", ttm: "$62.20B", prior: "$36.85B", deltaDollar: "+$25.35B", deltaPct: "+68.8%" },
+            { item: "Net Income", ttm: "$55.40B", prior: "$30.42B", deltaDollar: "+$24.98B", deltaPct: "+82.1%" }
+          ],
+          bs: [
+            { item: "Cash & Equivalents", ttm: "$92.00B", prior: "$86.78B", deltaDollar: "+$5.22B", deltaPct: "+6.0%" },
+            { item: "Total Assets", ttm: "$550.00B", prior: "$527.85B", deltaDollar: "+$22.15B", deltaPct: "+4.2%" }
+          ],
+          cf: [
+            { item: "Operating Cash Flow", ttm: "$121.50B", prior: "$84.95B", deltaDollar: "+$36.55B", deltaPct: "+43.0%" },
+            { item: "Free Cash Flow", ttm: "$63.50B", prior: "$32.22B", deltaDollar: "+$31.28B", deltaPct: "+97.1%" }
+          ],
+          seg: [
+            { item: "North America Retail", ttm: "$385.00B", prior: "$352.83B", deltaDollar: "+$32.17B", deltaPct: "+9.1%" },
+            { item: "AWS (Cloud Computing)", ttm: "$107.50B", prior: "$90.76B", deltaDollar: "+$16.74B", deltaPct: "+18.4%" },
+            { item: "International Retail", ttm: "$145.50B", prior: "$131.20B", deltaDollar: "+$14.30B", deltaPct: "+10.9%" }
+          ]
+        },
+        GOOGL: {
+          name: "Alphabet Inc.",
+          ticker: "GOOGL",
+          currentPrice: 172.00,
+          shares: 12.35,
+          cash: 110.00,
+          debt: 28.00,
+          baseRev: 350.00,
+          dcf: { wacc: 8.5, term: 2.5, growth: 12.5, margin: 32.0 },
+          is: [
+            { item: "Revenues", ttm: "$350.00B", prior: "$307.39B", deltaDollar: "+$42.61B", deltaPct: "+13.9%" },
+            { item: "Operating Income", ttm: "$112.50B", prior: "$84.29B", deltaDollar: "+$28.21B", deltaPct: "+33.5%" },
+            { item: "Net Income", ttm: "$95.00B", prior: "$73.80B", deltaDollar: "+$21.20B", deltaPct: "+28.7%" }
+          ],
+          bs: [
+            { item: "Cash & Marketable Securities", ttm: "$110.00B", prior: "$110.92B", deltaDollar: "-$0.92B", deltaPct: "-0.8%" },
+            { item: "Total Assets", ttm: "$420.00B", prior: "$402.39B", deltaDollar: "+$17.61B", deltaPct: "+4.4%" }
+          ],
+          cf: [
+            { item: "Operating Cash Flow", ttm: "$120.00B", prior: "$101.75B", deltaDollar: "+$18.25B", deltaPct: "+17.9%" },
+            { item: "Free Cash Flow", ttm: "$78.00B", prior: "$69.49B", deltaDollar: "+$8.51B", deltaPct: "+12.2%" }
+          ],
+          seg: [
+            { item: "Google Search & Other", ttm: "$202.50B", prior: "$175.03B", deltaDollar: "+$27.47B", deltaPct: "+15.7%" },
+            { item: "Google Cloud", ttm: "$42.00B", prior: "$33.09B", deltaDollar: "+$8.91B", deltaPct: "+26.9%" },
+            { item: "YouTube Advertising", ttm: "$36.00B", prior: "$31.51B", deltaDollar: "+$4.49B", deltaPct: "+14.3%" },
+            { item: "Subscriptions, Platforms & Devices", ttm: "$41.50B", prior: "$34.69B", deltaDollar: "+$6.81B", deltaPct: "+19.6%" }
+          ]
+        },
+        TSLA: {
+          name: "Tesla Inc.",
+          ticker: "TSLA",
+          currentPrice: 215.00,
+          shares: 3.19,
+          cash: 33.60,
+          debt: 12.50,
+          baseRev: 97.70,
+          dcf: { wacc: 10.0, term: 3.0, growth: 16.0, margin: 12.0 },
+          is: [
+            { item: "Total Revenues", ttm: "$97.70B", prior: "$96.77B", deltaDollar: "+$0.93B", deltaPct: "+1.0%" },
+            { item: "Gross Profit", ttm: "$17.80B", prior: "$17.66B", deltaDollar: "+$0.14B", deltaPct: "+0.8%" },
+            { item: "Operating Income", ttm: "$7.82B", prior: "$8.89B", deltaDollar: "-$1.07B", deltaPct: "-12.0%" },
+            { item: "Net Income", ttm: "$7.20B", prior: "$14.99B", deltaDollar: "-$7.79B", deltaPct: "-52.0%" }
+          ],
+          bs: [
+            { item: "Cash & Investments", ttm: "$33.60B", prior: "$29.09B", deltaDollar: "+$4.51B", deltaPct: "+15.5%" },
+            { item: "Total Assets", ttm: "$115.00B", prior: "$106.62B", deltaDollar: "+$8.38B", deltaPct: "+7.9%" }
+          ],
+          cf: [
+            { item: "Operating Cash Flow", ttm: "$14.50B", prior: "$13.26B", deltaDollar: "+$1.24B", deltaPct: "+9.3%" },
+            { item: "Free Cash Flow", ttm: "$6.20B", prior: "$4.36B", deltaDollar: "+$1.84B", deltaPct: "+42.2%" }
+          ],
+          seg: [
+            { item: "Automotive Revenues", ttm: "$79.50B", prior: "$82.42B", deltaDollar: "-$2.92B", deltaPct: "-3.5%" },
+            { item: "Energy Storage & Solar", ttm: "$10.50B", prior: "$6.04B", deltaDollar: "+$4.46B", deltaPct: "+73.8%" },
+            { item: "Services & Other", ttm: "$7.70B", prior: "$8.32B", deltaDollar: "-$0.62B", deltaPct: "-7.5%" }
+          ]
+        }
+      };
+
+      let currentValTicker = "NVDA";
+      let currentStatementTab = "is";
+
+      function recalculateDCF() {
+        const comp = VAL_COMPANIES[currentValTicker];
+        const wacc = parseFloat(document.getElementById("sliderWacc").value) / 100;
+        const term = parseFloat(document.getElementById("sliderTerm").value) / 100;
+        const growth = parseFloat(document.getElementById("sliderGrowth").value) / 100;
+        const margin = parseFloat(document.getElementById("sliderMargin").value) / 100;
+
+        document.getElementById("valWacc").textContent = (wacc * 100).toFixed(2) + "%";
+        document.getElementById("valTerm").textContent = (term * 100).toFixed(1) + "%";
+        document.getElementById("valGrowth").textContent = (growth * 100).toFixed(1) + "%";
+        document.getElementById("valMargin").textContent = (margin * 100).toFixed(1) + "%";
+
+        // 5-Year Forecast
+        let pvFcf = 0;
+        let rev = comp.baseRev;
+        let y5Fcf = 0;
+
+        for (let i = 1; i <= 5; i++) {
+          rev *= (1 + growth);
+          const ebit = rev * margin;
+          const nopat = ebit * 0.79; // ~21% effective tax rate
+          const fcf = nopat * 0.88; // Reinvestment/deprec adjustment
+          pvFcf += fcf / Math.pow(1 + wacc, i);
+          if (i === 5) y5Fcf = fcf;
+        }
+
+        // Terminal value
+        const terminalValue = (y5Fcf * (1 + term)) / Math.max(0.015, (wacc - term));
+        const pvTv = terminalValue / Math.pow(1 + wacc, 5);
+
+        const enterpriseValue = pvFcf + pvTv;
+        const netCash = comp.cash - comp.debt;
+        const equityValue = enterpriseValue + netCash;
+        const fairValue = equityValue / comp.shares;
+
+        document.getElementById("dispFairValue").textContent = `$${fairValue.toFixed(2)}`;
+        document.getElementById("dispCurrentPrice").textContent = `$${comp.currentPrice.toFixed(2)}`;
+        document.getElementById("dispEnterpriseValue").textContent = `$${(enterpriseValue >= 1000 ? (enterpriseValue / 1000).toFixed(2) + 'T' : enterpriseValue.toFixed(1) + 'B')}`;
+        document.getElementById("dispNetCash").textContent = (netCash >= 0 ? "+$" : "-$") + Math.abs(netCash).toFixed(1) + "B";
+        document.getElementById("dispShares").textContent = `${comp.shares.toFixed(2)}B`;
+
+        const diffPct = ((fairValue - comp.currentPrice) / comp.currentPrice) * 100;
+        const safetyBadge = document.getElementById("dispMarginSafety");
+        if (diffPct >= 0) {
+          safetyBadge.style.background = "var(--ok-bg)";
+          safetyBadge.style.color = "var(--ok)";
+          safetyBadge.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> +${diffPct.toFixed(1)}% Undervalued (Safety Margin)`;
+        } else {
+          safetyBadge.style.background = "var(--warn-bg)";
+          safetyBadge.style.color = "var(--warn)";
+          safetyBadge.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> ${Math.abs(diffPct).toFixed(1)}% Premium to Fair Value`;
+        }
+      }
+
+      function renderStatementTable() {
+        const comp = VAL_COMPANIES[currentValTicker];
+        const rows = comp[currentStatementTab] || comp.is;
+        const tbody = document.getElementById("statementTableBody");
+        tbody.innerHTML = rows.map((r) => `
+          <tr>
+            <td><strong>${r.item}</strong></td>
+            <td><strong>${r.ttm}</strong></td>
+            <td>${r.prior}</td>
+            <td style="color:${r.deltaDollar.startsWith('+') ? 'var(--ok)' : 'var(--danger)'}; font-weight:600;">${r.deltaDollar}</td>
+            <td><span class="${r.deltaPct.startsWith('+') ? 'peer-badge-safe' : 'peer-badge-warn'}">${r.deltaPct}</span></td>
+          </tr>
+        `).join("");
+      }
+
+      function loadCompany(ticker) {
+        currentValTicker = ticker;
+        const comp = VAL_COMPANIES[ticker];
+        document.getElementById("dcfPanelTitle").textContent = `${comp.name} (${comp.ticker}) — Intrinsic DCF Model`;
+        document.getElementById("sliderWacc").value = comp.dcf.wacc;
+        document.getElementById("sliderTerm").value = comp.dcf.term;
+        document.getElementById("sliderGrowth").value = comp.dcf.growth;
+        document.getElementById("sliderMargin").value = comp.dcf.margin;
+
+        document.querySelectorAll("[data-val-ticker]").forEach((b) => {
+          b.classList.toggle("is-active", b.getAttribute("data-val-ticker") === ticker);
+        });
+
+        recalculateDCF();
+        renderStatementTable();
+      }
+
+      // Slider listeners
+      ["sliderWacc", "sliderTerm", "sliderGrowth", "sliderMargin"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", recalculateDCF);
+      });
+
+      // Ticker buttons
+      document.querySelectorAll("[data-val-ticker]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          loadCompany(btn.getAttribute("data-val-ticker"));
+        });
+      });
+
+      // Statement tabs
+      document.querySelectorAll("#statementTabWrap .chip-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#statementTabWrap .chip-btn").forEach((b) => b.classList.remove("is-active"));
+          btn.classList.add("is-active");
+          currentStatementTab = btn.getAttribute("data-stmt");
+          renderStatementTable();
+        });
+      });
+
+      // Export Excel
+      document.getElementById("btnExportValExcel").addEventListener("click", () => {
+        const comp = VAL_COMPANIES[currentValTicker];
+        let csv = `CALIO Valuation & Financial Model: ${comp.name} (${comp.ticker})\n\n`;
+        csv += `Intrinsic Value Per Share,$${document.getElementById("dispFairValue").textContent.replace('$', '')}\n`;
+        csv += `Current Market Price,$${comp.currentPrice}\n`;
+        csv += `WACC,${document.getElementById("valWacc").textContent}\n`;
+        csv += `Terminal Growth,${document.getElementById("valTerm").textContent}\n`;
+        csv += `5-Year Growth,${document.getElementById("valGrowth").textContent}\n`;
+        csv += `Operating Margin,${document.getElementById("valMargin").textContent}\n\n`;
+        csv += "Statement Line Item,TTM,Prior,Dollar Delta,Percent Delta\n";
+        (comp[currentStatementTab] || comp.is).forEach((r) => {
+          csv += `"${r.item}","${r.ttm}","${r.prior}","${r.deltaDollar}","${r.deltaPct}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `CALIO_${comp.ticker}_Valuation_Model.csv`;
+        a.click();
+      });
+
+      // Mobile nav drawer
+      const btnOpenNav = document.getElementById("btnOpenMobileNav");
+      const btnCloseNav = document.getElementById("btnCloseMobileNav");
+      const mobileDrawer = document.getElementById("mobileDrawer");
+
+      if (btnOpenNav && mobileDrawer) {
+        btnOpenNav.addEventListener("click", () => mobileDrawer.classList.add("is-open"));
+      }
+      if (btnCloseNav && mobileDrawer) {
+        btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
+      }
+
+      // Initial load
+      loadCompany("NVDA");
+    </script>
+  </body>
+</html>
