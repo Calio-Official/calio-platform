@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Export SEC Filings to Excel (2026) — CALIO</title>
+    <meta
+      name="description"
+      content="How to get SEC EDGAR financial statements and form data into Excel: official files, Interactive Data paths, and CALIO multi-sheet export."
+    />
+    <link rel="canonical" href="https://calio.app/how-to-export-sec-filings-to-excel.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="nav">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="" width="36" height="36" />
+          CALIO
+        </a>
+        <div class="nav-links">
+          <a href="form-4-extractor.html">Form 4</a>
+          <a class="btn btn-primary" href="index.html#install">Add to Chrome</a>
+        </div>
+      </nav>
+
+      <article class="prose">
+        <h1>How to export SEC filings to Excel</h1>
+        <p class="meta">Updated July 2026 · ~6 min read · Public EDGAR workflows</p>
+
+        <p>
+          Analysts and investors often need <strong>SEC filing data in Excel</strong> for models,
+          comps, and notes. The SEC publishes structured data, but the path from an EDGAR HTML page to
+          a clean workbook is not always obvious — especially after Interactive Data UI changes.
+        </p>
+
+        <h2>Option 1 — Financial_Report.xlsx in the filing folder</h2>
+        <p>
+          Many 10-K and 10-Q submissions include a workbook in the filing’s archive directory (often
+          named something like <strong>Financial_Report.xlsx</strong>). You reach it by opening the
+          submission folder under the company CIK on sec.gov Archives, not only from the pretty
+          “Interactive Data” viewer.
+        </p>
+        <ul>
+          <li>Best for: standard financial statements when the file exists.</li>
+          <li>Limitation: not every form type; navigation is easy to get wrong; not form-aware notes.</li>
+        </ul>
+
+        <h2>Option 2 — Companyfacts / XBRL APIs</h2>
+        <p>
+          The SEC’s data.sec.gov companyfacts endpoints expose tagged numbers. Great for bulk work if
+          you code. Harder if you only want one company’s latest 8-K event or a Form 4 trade table in
+          a sheet today.
+        </p>
+
+        <h2>Option 3 — CALIO extract → multi-sheet Excel</h2>
+        <p>
+          <a href="index.html"><strong>CALIO</strong></a> is a Chrome extension that runs next to
+          EDGAR. You open a company or filing, run <strong>Open &amp; extract</strong>, then export a
+          multi-sheet workbook for that extract or a period compare.
+        </p>
+        <ul>
+          <li>Works across form packs: 10-K/Q financials, 8-K events, Form 4, ownership, Form 144.</li>
+          <li>Compare two periods and export structured rows.</li>
+          <li>Processing stays on your device; no CALIO filing server.</li>
+        </ul>
+
+        <div class="cta-box">
+          <p>Want Excel without retyping EDGAR tables?</p>
+          <a class="btn btn-primary" href="index.html#install">Install CALIO for Chrome</a>
+        </div>
+
+        <h2>Step-by-step with CALIO</h2>
+        <ol>
+          <li>Install the extension and pin it in Chrome.</li>
+          <li>Search a ticker or open a company on EDGAR.</li>
+          <li>Open the filing you care about (or use Open &amp; extract from the desk).</li>
+          <li>Review the extract and quality badge.</li>
+          <li>Export Excel — multi-sheet when the pack has multiple tables.</li>
+        </ol>
+
+        <h2>Tips for cleaner sheets</h2>
+        <ul>
+          <li>Prefer the primary document when extracts look sparse.</li>
+          <li>For insider forms, use Form 4 packs — do not expect income-statement fields.</li>
+          <li>Always spot-check material numbers against the original filing.</li>
+          <li>Respect SEC fair-access pacing; avoid hammering EDGAR with scripts.</li>
+        </ul>
+
+        <h2>Related</h2>
+        <ul>
+          <li><a href="form-4-extractor.html">Form 4 extractor guide</a></li>
+          <li><a href="bamsec-alternative-free.html">Lightweight EDGAR companion vs paid suites</a></li>
+        </ul>
+      </article>
+
+      <footer class="footer">
+        <div class="footer-row">
+          <div>© CALIO · Not investment advice</div>
+          <div><a href="privacy.html">Privacy</a></div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

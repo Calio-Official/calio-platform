@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>C.A.L.I.O Preferences</title>
+    <link rel="preload" href="fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/outfit-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="calio-options-page">
+    <div class="calio-options-shell">
+      <div class="calio-toolbar">
+        <div class="calio-brand-block">
+          <div class="calio-brand-mark" aria-hidden="true">
+            <img class="calio-logo-img" src="icons/calio-mark.png" alt="" width="36" height="36" />
+          </div>
+          <div>
+            <div class="calio-brand-title">C.A.L.I.O</div>
+            <div class="calio-brand-subtitle">Your preferences</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calio-banner">
+        Manage your account, membership tier, and how C.A.L.I.O works on this browser. Filing analysis stays 100% private on your device.
+      </div>
+
+      <!-- Membership & Payment Tiers -->
+      <section class="calio-section" id="pricingTiersSection">
+        <div class="calio-section-title">Membership &amp; Payment Tiers</div>
+        <p class="calio-section-lead">
+          Select the tier matching your research throughput and valuation needs. Active plans immediately apply to your browser session.
+        </p>
+
+        <div id="planUpgradeNotice" class="calio-soft-banner" hidden style="margin-bottom:18px;background:rgba(15,118,110,0.12);border:1px solid rgba(15,118,110,0.28);color:#0f766e;font-weight:600;"></div>
+
+        <div class="calio-tiers-grid">
+          <!-- Free Starter -->
+          <div class="calio-tier-card" data-tier="free" id="tierCardFree">
+            <div class="calio-tier-badge muted">Standard</div>
+            <h3 class="calio-tier-name">Free Starter</h3>
+            <div class="calio-tier-price">$0 <span>/ month</span></div>
+            <p class="calio-tier-quota">80 monthly extracts · 25/hr pace</p>
+            <ul class="calio-tier-features">
+              <li>80 Form-Aware Extracts / month</li>
+              <li>25 Extracts / hour pace limit</li>
+              <li>Standard 10-K, 10-Q, 8-K &amp; Form 4</li>
+              <li>Basic 5-Year DCF Intrinsic Model</li>
+              <li>Top 5 Peer Benchmarks per sector</li>
+              <li>Altman Z-Score Solvency Analysis</li>
+              <li>CSV &amp; Standard PDF Export</li>
+              <li>100% Private On-Device Processing</li>
+            </ul>
+            <button type="button" class="calio-tier-btn" data-action="select-tier" data-tier="free" id="btnSelectFree">
+              Current Plan
+            </button>
+          </div>
+
+          <!-- Pro Analyst ($35/mo) -->
+          <div class="calio-tier-card is-recommended" data-tier="pro" id="tierCardPro">
+            <div class="calio-tier-badge accent">Recommended</div>
+            <h3 class="calio-tier-name">Pro Analyst</h3>
+            <div class="calio-tier-price">$35 <span>/ month</span></div>
+            <p class="calio-tier-quota">500 monthly extracts · 100/hr pace</p>
+            <ul class="calio-tier-features">
+              <li>500 Form-Aware Extracts / month</li>
+              <li>100 Extracts / hour high-throughput</li>
+              <li>All Filings + DEF 14A, 13D/G &amp; Form 144</li>
+              <li>Interactive 5-Yr DCF + WACC/Growth Sliders</li>
+              <li>All 25 Industry Peer Matrices + Custom Add</li>
+              <li>Beneish M-Score + Sloan Accruals + Altman Z</li>
+              <li>Multi-Sheet Excel (.xlsx) + Print-Ready PDF</li>
+              <li>Dynamic =CALIO() Spreadsheet Formulas</li>
+              <li>Local Watchlist with Filing Alerts (25 tickers)</li>
+              <li>100% Private On-Device Processing</li>
+            </ul>
+            <button type="button" class="calio-tier-btn primary" data-action="select-tier" data-tier="pro" id="btnSelectPro">
+              Upgrade to Pro ($35/mo)
+            </button>
+          </div>
+
+          <!-- Institutional Desk ($55/mo) -->
+          <div class="calio-tier-card" data-tier="institutional" id="tierCardInstitutional">
+            <div class="calio-tier-badge live">Institutional</div>
+            <h3 class="calio-tier-name">Institutional Desk</h3>
+            <div class="calio-tier-price">$55 <span>/ month</span></div>
+            <p class="calio-tier-quota">Unlimited extracts · 300/hr pace</p>
+            <ul class="calio-tier-features">
+              <li>Unlimited Volume (2,500 fair-use / month)</li>
+              <li>300 Extracts / hour high-frequency pace</li>
+              <li>Complete Filing Archive &amp; Note Disclosures</li>
+              <li>Advanced Multi-Stage DCF &amp; Terminal Values</li>
+              <li>Full Forensic Quality of Earnings Suite</li>
+              <li>Unlimited Multi-Ticker Peer Comps &amp; Diffs</li>
+              <li>Multi-Sheet Excel with Click-to-Source Audit</li>
+              <li>Unlimited Watchlist &amp; High-Frequency Monitor</li>
+              <li>Priority Email &amp; Desk Support</li>
+              <li>100% Private On-Device Processing</li>
+            </ul>
+            <button type="button" class="calio-tier-btn" data-action="select-tier" data-tier="institutional" id="btnSelectInstitutional">
+              Upgrade to Institutional ($55/mo)
+            </button>
+          </div>
+        </div>
+
+        <div class="calio-license-box">
+          <label for="licenseKeyInput" class="calio-label">Have an Enterprise Activation or License Key?</label>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <input type="text" id="licenseKeyInput" class="calio-input" placeholder="e.g. CALIO-PRO-XXXXXXXX" style="max-width:320px;" />
+            <button type="button" class="calio-button secondary" id="btnActivateLicense">Activate Key</button>
+          </div>
+          <span class="calio-hint" id="licenseStatus">Enter your corporate key or click an upgrade button above to activate immediately.</span>
+        </div>
+      </section>
+
+      <form id="settingsForm" class="calio-form">
+        <section class="calio-section">
+          <div class="calio-section-title">Account</div>
+          <p class="calio-section-lead">
+            Optional. Save your email to personalize sharing and opt in to product updates.
+            You are only contacted if you enter an email and opt in.
+          </p>
+          <div class="calio-form-grid">
+            <label class="calio-field full">
+              <span class="calio-label">Your email</span>
+              <input
+                id="accountEmail"
+                class="calio-input"
+                type="email"
+                placeholder="you@company.com"
+                autocomplete="email"
+              />
+            </label>
+            <label class="calio-field full calio-check-field">
+              <input id="productUpdatesOptIn" type="checkbox" />
+              <span>
+                Send me occasional product updates about C.A.L.I.O
+                <span class="calio-hint">Requires an email. You can turn this off anytime.</span>
+              </span>
+            </label>
+          </div>
+          <div class="calio-action-row calio-prefs-actions">
+            <button id="signInButton" class="calio-button secondary calio-prefs-btn" type="button">
+              Save account
+            </button>
+            <button id="signOutButton" class="calio-button secondary calio-prefs-btn" type="button">
+              Sign out
+            </button>
+          </div>
+          <p id="accountStatus" class="calio-hint" style="margin-top:10px"></p>
+        </section>
+
+        <section class="calio-section">
+          <div class="calio-section-title">Sharing</div>
+          <div class="calio-form-grid">
+            <label class="calio-field">
+              <span class="calio-label">Preferred mail client</span>
+              <select id="preferredMailClient" class="calio-select">
+                <option value="mailto">System default (mailto)</option>
+                <option value="gmail">Gmail (web)</option>
+              </select>
+              <span class="calio-hint">Used when you email a filing summary from Extract.</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="calio-section">
+          <div class="calio-section-title">Usage &amp; SEC fair access</div>
+          <p class="calio-section-lead">
+            The SEC asks developers to limit automated requests. C.A.L.I.O throttles traffic and caps
+            extractions per month so use stays within safe limits.
+          </p>
+          <div id="usageCard" class="calio-state-card compact">
+            <div class="calio-eyebrow">This month</div>
+            <h2 class="calio-state-title" id="usageTitle">— / — extracts</h2>
+            <p class="calio-muted" id="usageDetail">Loading usage…</p>
+          </div>
+        </section>
+
+        <section class="calio-section">
+          <div class="calio-section-title">Your data</div>
+          <div class="calio-action-row calio-prefs-actions">
+            <button id="saveButton" class="calio-button calio-prefs-btn" type="submit">
+              Save preferences
+            </button>
+            <button id="clearRecentButton" class="calio-button secondary calio-prefs-btn" type="button">
+              Clear history
+            </button>
+            <button id="clearWatchlistButton" class="calio-button secondary calio-prefs-btn" type="button">
+              Clear watchlist
+            </button>
+            <button id="clearAllButton" class="calio-button secondary calio-prefs-btn" type="button">
+              Clear all local data
+            </button>
+          </div>
+        </section>
+
+        <div id="statusMessage" class="calio-toast" aria-live="polite"></div>
+      </form>
+
+      <div class="calio-legal-footer calio-legal-footer-static">
+        C.A.L.I.O summarizes public information from SEC EDGAR. It is not investment advice.
+        Always verify figures against the official filing.
+        <br /><br />
+        No filing data is sent to C.A.L.I.O servers. Processing stays on your device.
+        If you save an email and opt in to updates, that address is stored so we can contact you
+        about the product — only after you choose to.
+      </div>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

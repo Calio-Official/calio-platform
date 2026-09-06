@@ -1,0 +1,13 @@
+# Secrets and environment variables
+.env
+.env.local
+.env.*.local
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Build and archive outputs
+dist/
+scratch/
+*.zip

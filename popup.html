@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>C.A.L.I.O</title>
+    <link rel="preload" href="fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/outfit-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="calio-popup-page">
+    <div class="calio-popup-shell">
+      <div class="calio-toolbar">
+        <div class="calio-brand-block">
+          <div class="calio-brand-mark" aria-hidden="true">
+            <img class="calio-logo-img" src="icons/calio-mark.png" alt="" width="36" height="36" />
+          </div>
+          <div>
+            <div class="calio-brand-title">C.A.L.I.O</div>
+            <div class="calio-brand-subtitle">Companion</div>
+          </div>
+        </div>
+        <button id="settingsButton" class="calio-mini-button" type="button">Preferences</button>
+      </div>
+
+      <p class="calio-brand-expand">
+        Compliance Analytics Layer for Insurance Operations
+      </p>
+
+      <section class="calio-state-card compact">
+        <div class="calio-eyebrow">Workspace</div>
+        <h2 class="calio-state-title">Open C.A.L.I.O</h2>
+        <p class="calio-muted">
+          Search companies, open SEC filings, extract metrics, and export PDF or spreadsheet.
+        </p>
+        <div class="calio-action-row" style="margin-top:12px">
+          <button id="openAppButton" class="calio-button" type="button">Open C.A.L.I.O</button>
+        </div>
+      </section>
+
+      <section class="calio-section compact">
+        <div class="calio-section-title">Get started</div>
+        <div class="calio-feature-list">
+          <div class="calio-feature-item">Search a ticker or company name</div>
+          <div class="calio-feature-item">Open a filing in your browser, then extract</div>
+          <div class="calio-feature-item">Export a PDF report or spreadsheet</div>
+        </div>
+      </section>
+
+      <div class="calio-legal-footer calio-legal-footer-static">
+        Not investment advice · Data stays on your device · Verify on EDGAR
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form 4 Extractor for SEC EDGAR — CALIO Chrome Extension</title>
+    <meta
+      name="description"
+      content="Extract SEC Form 4 insider transactions from EDGAR: reporting owner, transaction codes, shares, and prices — without mixing in 10-K financials."
+    />
+    <link rel="canonical" href="https://calio.app/form-4-extractor.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="nav">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="" width="36" height="36" />
+          CALIO
+        </a>
+        <div class="nav-links">
+          <a href="how-to-export-sec-filings-to-excel.html">Excel</a>
+          <a class="btn btn-primary" href="index.html#install">Add to Chrome</a>
+        </div>
+      </nav>
+
+      <article class="prose">
+        <h1>Form 4 extractor for SEC EDGAR</h1>
+        <p class="meta">Insider transactions · Form 3 / 4 / 5 · Local Chrome extract</p>
+
+        <p>
+          <strong>Form 4</strong> reports insider buys, sells, and derivative activity. The HTML can
+          be dense; ownership XML is structured but awkward to skim. A good extractor should pull
+          <em>insider fields</em> — not revenue and EPS from a different pipeline.
+        </p>
+
+        <h2>What a Form 4 extract should include</h2>
+        <ul>
+          <li>Issuer and reporting owner</li>
+          <li>Relationship (officer, director, 10% owner)</li>
+          <li>Transaction date and code (e.g. P = open-market purchase)</li>
+          <li>Shares, price, remaining ownership when available</li>
+          <li>Links back to the original EDGAR document</li>
+        </ul>
+
+        <h2>How CALIO handles Form 4</h2>
+        <p>
+          CALIO uses a <strong>form-aware pack</strong> for insider forms (3/4/5). When you run Open
+          &amp; extract on a Form 4, the product focuses on ownership and transaction structure
+          instead of forcing a generic 10-K financial extract onto the page.
+        </p>
+        <p>
+          Where helpful, CALIO can use the filing’s structured companion (XML) so fields stay closer
+          to what was actually filed.
+        </p>
+
+        <div class="cta-box">
+          <p>Extract Form 4s and export to Excel from Chrome.</p>
+          <a class="btn btn-primary" href="index.html#install">Install CALIO</a>
+        </div>
+
+        <h2>Quick workflow</h2>
+        <ol>
+          <li>Search the company in CALIO or open the Form 4 on EDGAR.</li>
+          <li>Run <strong>Open &amp; extract</strong>.</li>
+          <li>Confirm the form type badge is Form 4 (not UNKNOWN).</li>
+          <li>Export Excel if you need a sheet for a watchlist or model.</li>
+        </ol>
+
+        <h2>Common mistakes</h2>
+        <ul>
+          <li>Treating every Form 4 as a bullish buy — check transaction codes and context.</li>
+          <li>Using delayed third-party sites when you need the actual filed amounts.</li>
+          <li>Expecting real-time trading edge; Form 4s are filed after the trade window rules allow.</li>
+        </ul>
+
+        <h2>Related forms</h2>
+        <p>
+          CALIO also supports Form 3 (initial ownership), Form 5, Schedules 13D/G, Form 144, 8-K, and
+          10-K/Q packs. Same desk, form-aware logic.
+        </p>
+
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC filings to Excel</a></li>
+          <li><a href="bamsec-alternative-free.html">When a free EDGAR companion is enough</a></li>
+        </ul>
+      </article>
+
+      <footer class="footer">
+        <div class="footer-row">
+          <div>© CALIO · Not investment advice</div>
+          <div><a href="privacy.html">Privacy</a></div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

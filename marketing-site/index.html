@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CALIO — SEC EDGAR Filings Extract & Excel Chrome Extension</title>
+    <meta
+      name="description"
+      content="Extract 10-K, 10-Q, 8-K, Form 4 and more from SEC EDGAR. Compare periods, export Excel and PDF. Private, on-device Chrome extension."
+    />
+    <meta name="theme-color" content="#0b1220" />
+    <link rel="canonical" href="https://calio.app/" />
+    <meta property="og:title" content="CALIO — SEC EDGAR Filings Extract & Excel" />
+    <meta
+      property="og:description"
+      content="Chrome extension for SEC EDGAR: form-aware extract, compare, Excel/PDF export. Processing stays on your device."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="stylesheet" href="css/site.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CALIO",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Chrome extension to extract SEC EDGAR filings, compare periods, and export Excel/PDF on-device."
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="" width="36" height="36" />
+          CALIO
+        </a>
+        <div class="nav-links">
+          <a class="hide-sm" href="#features">Features</a>
+          <a class="hide-sm" href="how-to-export-sec-filings-to-excel.html">Excel guide</a>
+          <a class="hide-sm" href="form-4-extractor.html">Form 4</a>
+          <a class="hide-sm" href="privacy.html">Privacy</a>
+          <a class="btn btn-primary" id="install-cta" href="#install">Add to Chrome</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div class="hero-kicker">SEC EDGAR Chrome extension</div>
+        <h1>Extract SEC filings. Export Excel. Stay private.</h1>
+        <p class="hero-lead">
+          CALIO is a local companion for public SEC EDGAR — company desk, form-aware extracts
+          (10-K, 10-Q, 8-K, Form 4, 13D/G, Form 144), compare, multi-sheet Excel, and PDF. Processing
+          stays on your device.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" id="install-cta-main" href="#install">Add to Chrome — free</a>
+          <a class="btn btn-ghost" href="how-to-export-sec-filings-to-excel.html">How Excel export works</a>
+        </div>
+        <p class="hero-note">
+          Not investment advice. Public EDGAR data only. Optional product emails only if you opt in.
+        </p>
+        <div class="badge-row">
+          <span class="badge ok">On-device processing</span>
+          <span class="badge">No account required</span>
+          <span class="badge">Form-aware extracts</span>
+          <span class="badge">Excel + PDF</span>
+        </div>
+      </header>
+
+      <section class="grid-3" id="features" aria-label="Highlights">
+        <article class="card">
+          <h3>Company desk</h3>
+          <p>
+            Search by ticker or name. Timeline of high-signal filings plus tables for 10-K/Q, 8-K,
+            ownership, and insider forms.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Form-aware extract</h3>
+          <p>
+            Structured fields for financials, 8-K events, Form 3/4/5, 13D/G, and Form 144 — not one
+            generic dump for every form type.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Excel &amp; PDF export</h3>
+          <p>
+            Multi-sheet workbooks for models and print-ready PDF reports for notes or sharing —
+            without retyping from EDGAR HTML.
+          </p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>Built for EDGAR work, not another dashboard fad</h2>
+        <p class="lead">
+          Raw EDGAR is free and complete — and slow to turn into a clean sheet. CALIO sits next to
+          SEC.gov so you can extract, compare two periods, keep local history, and watch companies for
+          new filings.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <strong>Compare periods</strong> — side-by-side structure with Excel export for models.
+          </li>
+          <li>
+            <strong>Quality badge</strong> — know when an extract pack looks incomplete before you
+            trust it.
+          </li>
+          <li>
+            <strong>Watchlist</strong> — local list with optional new-filing alerts (alarms).
+          </li>
+          <li>
+            <strong>Fair access</strong> — paced requests and usage limits aligned with SEC guidance.
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" id="install">
+        <h2>Install</h2>
+        <p class="lead">
+          After Chrome Web Store approval, replace the placeholder link below with your live store
+          URL. Until then, load the unpacked extension from the CALIO_MVP folder.
+        </p>
+        <div class="cta-box">
+          <p>
+            <strong>Chrome Web Store:</strong>
+            <a id="cws-link" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener noreferrer">Install from Chrome Web Store →</a>
+          </p>
+          <p style="margin: 0; color: var(--muted); font-size: 0.92rem">
+            Developer install: <code>chrome://extensions</code> → Load unpacked →
+            <code>CALIO_MVP</code> folder.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Guides</h2>
+        <div class="grid-3">
+          <a class="card" href="how-to-export-sec-filings-to-excel.html" style="color: inherit">
+            <h3>Export SEC filings to Excel</h3>
+            <p>How to get financial and form data into a workbook from EDGAR.</p>
+          </a>
+          <a class="card" href="form-4-extractor.html" style="color: inherit">
+            <h3>Form 4 extractor</h3>
+            <p>Insider transactions without polluting extracts with random financials.</p>
+          </a>
+          <a class="card" href="bamsec-alternative-free.html" style="color: inherit">
+            <h3>Free BamSEC-style companion</h3>
+            <p>When a lightweight local extract tool is enough vs full paid research suites.</p>
+          </a>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-row">
+          <div>© <span id="y"></span> CALIO · Public EDGAR companion</div>
+          <div>
+            <a href="privacy.html">Privacy</a> ·
+            <a href="support.html">Support</a> ·
+            <a href="mailto:caliointel@gmail.com">caliointel@gmail.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+      // Official CWS link:
+      const CWS_URL = "https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja";
+      if (CWS_URL) {
+        ["install-cta", "install-cta-main", "cws-link"].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.href = CWS_URL;
+            if (id === "cws-link") el.textContent = "Add to Chrome — free →";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

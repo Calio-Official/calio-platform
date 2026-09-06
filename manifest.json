@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "name": "SEC EDGAR Filings Extract & Excel \u2014 CALIO",
+  "version": "1.16.0",
+  "description": "Extract 10-K, 10-Q, 8-K, Form 4 & more from SEC EDGAR. Compare periods, export Excel/PDF, watchlist. Private, on-device.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "downloads",
+    "scripting",
+    "alarms",
+    "notifications",
+    "windows"
+  ],
+  "host_permissions": [
+    "https://www.sec.gov/*",
+    "https://sec.gov/*",
+    "https://data.sec.gov/*",
+    "https://efts.sec.gov/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "C.A.L.I.O",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.sec.gov/*",
+        "https://sec.gov/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "styles.css",
+        "fonts/*",
+        "icons/*",
+        "app.html",
+        "app.css",
+        "app.js"
+      ],
+      "matches": [
+        "https://www.sec.gov/*",
+        "https://sec.gov/*"
+      ]
+    }
+  ]
+}

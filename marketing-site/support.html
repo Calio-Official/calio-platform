@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support — CALIO</title>
+    <meta name="description" content="CALIO support: install help, extract issues, contact caliointel@gmail.com" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <nav class="nav">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="" width="36" height="36" />
+          CALIO
+        </a>
+        <div class="nav-links">
+          <a href="privacy.html">Privacy</a>
+          <a class="btn btn-primary" href="index.html#install">Add to Chrome</a>
+        </div>
+      </nav>
+      <article class="prose">
+        <h1>Support</h1>
+        <p class="meta">Email: <a href="mailto:caliointel@gmail.com">caliointel@gmail.com</a></p>
+
+        <h2>Install</h2>
+        <ul>
+          <li>Chrome Web Store: use the Add to Chrome button on the home page after publish.</li>
+          <li>
+            Developer mode: <code>chrome://extensions</code> → Enable Developer mode → Load unpacked →
+            select the CALIO_MVP folder.
+          </li>
+        </ul>
+
+        <h2>“Extension context invalidated”</h2>
+        <p>
+          Reload the extension on <code>chrome://extensions</code>, then hard-refresh the SEC/EDGAR
+          tab. The content script reconnects after a reload.
+        </p>
+
+        <h2>Extract looks incomplete</h2>
+        <p>
+          Check the quality badge on the extract. Some forms need the primary document (or XML sibling
+          for ownership/insider). Try Open &amp; extract again after the filing finishes loading.
+        </p>
+
+        <h2>SEC rate limits</h2>
+        <p>
+          CALIO paces requests and enforces monthly/hourly extract limits to respect SEC fair-access
+          guidance. Wait a moment and retry if EDGAR is slow or returns errors.
+        </p>
+
+        <h2>Not investment advice</h2>
+        <p>
+          CALIO helps you review public filings. Always verify critical figures against the original
+          SEC document.
+        </p>
+
+        <div class="cta-box">
+          <p>Still stuck? Email support with the ticker, form type, and what you expected.</p>
+          <a class="btn btn-primary" href="mailto:caliointel@gmail.com">Email caliointel@gmail.com</a>
+        </div>
+      </article>
+      <footer class="footer">
+        <div class="footer-row">
+          <div>© CALIO</div>
+          <div><a href="index.html">Home</a></div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

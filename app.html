@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>C.A.L.I.O</title>
+    <link rel="preload" href="fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/outfit-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div id="app" class="app">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img class="sidebar-logo" src="icons/calio-mark.png" alt="" width="36" height="36" />
+          <div>
+            <div class="sidebar-title">C.A.L.I.O</div>
+            <div class="sidebar-sub">Companion</div>
+          </div>
+        </div>
+        <nav class="nav">
+          <button type="button" class="nav-item is-active" data-view="dashboard">
+            <span>Dashboard</span>
+          </button>
+          <button type="button" class="nav-item" data-view="extract">
+            <span>Financial Extraction &amp; Valuation</span>
+            <span id="extractHistoryBadge" class="nav-badge" hidden>0</span>
+          </button>
+          <button type="button" class="nav-item" data-view="peerComps">
+            <span>Industry Peer Benchmark</span>
+          </button>
+          <button type="button" class="nav-item" data-view="segment">
+            <span>Segment &amp; Geographic Revenue</span>
+          </button>
+          <button type="button" class="nav-item" data-view="execComp">
+            <span>Executive Compensation &amp; Governance</span>
+          </button>
+          <button type="button" class="nav-item" data-view="compare">
+            <span>Period Comparison &amp; Variance</span>
+          </button>
+          <button type="button" class="nav-item" data-view="redline">
+            <span>Filing Text Disclosure Changes</span>
+          </button>
+        </nav>
+
+        <!-- High-Efficiency Segmented Drawer -->
+        <div class="sidebar-drawer-container">
+          <div class="sidebar-seg-control" role="tablist">
+            <button type="button" class="seg-btn is-active" data-drawer-target="watchlist" role="tab" aria-selected="true">Watchlist</button>
+            <button type="button" class="seg-btn" data-drawer-target="searches" role="tab" aria-selected="false">Recent Searches</button>
+            <button type="button" class="seg-btn" data-drawer-target="extracts" role="tab" aria-selected="false">Extraction History</button>
+          </div>
+
+          <div class="sidebar-drawer-body">
+            <div id="drawerWatchlist" class="drawer-panel is-active">
+              <div id="watchlistList">
+                <p class="history-empty">No companies watched.</p>
+              </div>
+              <div id="alertsList" class="alerts-list" hidden></div>
+            </div>
+
+            <div id="drawerSearches" class="drawer-panel" hidden>
+              <div id="searchHistoryList">
+                <p class="history-empty">No recent searches yet.</p>
+              </div>
+            </div>
+
+            <div id="drawerExtracts" class="drawer-panel" hidden>
+              <div id="extractHistoryList">
+                <p class="history-empty">No extracts yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-foot">
+          <div class="sidebar-actions">
+            <button type="button" class="sidebar-btn" id="btnClearHistory">
+              Clear recents
+            </button>
+            <button type="button" class="sidebar-btn" id="btnSettings">
+              Preferences
+            </button>
+          </div>
+          <div class="sidebar-plan-box" id="sidebarPlanBox">
+            <div class="sidebar-plan-row">
+              <span class="sidebar-plan-label">Plan</span>
+              <span class="badge" id="sidebarPlanBadge">Free Starter</span>
+            </div>
+            <button type="button" class="btn-upgrade-sidebar" data-action="open-upgrade" id="sidebarUpgradeBtn">
+              Upgrade Account
+            </button>
+          </div>
+          <p class="micro" id="usageMicro">Checking usage…</p>
+          <p class="micro">
+            On-Device SEC Engine • 100% Private
+          </p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="search-wrap">
+            <input
+              id="searchInput"
+              class="search-input"
+              type="search"
+              placeholder="Search by ticker or company name (e.g. NVDA, AAPL, MSFT)"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button type="button" class="btn primary" id="btnSearch">Search</button>
+          </div>
+          <div class="topbar-meta">
+            <kbd class="topbar-kbd" title="Press ⌘K or Ctrl+K to search">⌘K</kbd>
+            <span id="versionBadge" class="badge muted">v1.16.0</span>
+            <span id="alertBadge" class="badge live" hidden title="New filings on watchlist">0 new</span>
+          </div>
+        </header>
+
+        <div id="searchResults" class="search-results" hidden></div>
+
+        <section id="viewDashboard" class="view is-active"></section>
+        <section id="viewExtract" class="view" hidden></section>
+        <section id="viewPeerComps" class="view" hidden></section>
+        <section id="viewSegment" class="view" hidden></section>
+        <section id="viewExecComp" class="view" hidden></section>
+        <section id="viewCompare" class="view" hidden></section>
+        <section id="viewRedline" class="view" hidden></section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <!-- Confirm clear search history -->
+    <div id="confirmDialog" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="confirmDialogTitle">
+      <div class="modal-backdrop" data-action="confirm-cancel"></div>
+      <div class="modal-card">
+        <div class="modal-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 id="confirmDialogTitle" class="modal-title">Clear search history?</h2>
+        <p id="confirmDialogBody" class="modal-body">
+          This permanently removes your recent company searches from this device. You can’t undo this.
+        </p>
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" data-action="confirm-cancel" id="confirmCancelBtn">
+            Cancel
+          </button>
+          <button type="button" class="btn danger" data-action="confirm-clear-history" id="confirmClearBtn">
+            Clear history
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review prompt dialog -->
+    <div id="reviewDialog" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="reviewDialogTitle">
+      <div class="modal-backdrop" data-action="review-dismiss"></div>
+      <div class="modal-card review-modal-card">
+        <button type="button" class="modal-close-btn" data-action="review-dismiss" aria-label="Close dialog">×</button>
+        <div class="modal-icon review-modal-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <path d="M9 15l2 2 4-4"></path>
+          </svg>
+        </div>
+        <div class="review-badge-wrap">
+          <span id="reviewExtractBadge" class="badge live">5 Extractions Completed</span>
+        </div>
+        <h2 id="reviewDialogTitle" class="modal-title">Finding CALIO useful?</h2>
+        <p id="reviewDialogBody" class="modal-body">
+          If CALIO is saving you time parsing SEC filings, building financial models, or spreading peer comps, taking 30 seconds to leave a review on the Chrome Web Store helps us immensely.
+        </p>
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" data-action="review-dismiss" id="reviewMaybeLaterBtn">
+            Maybe later
+          </button>
+          <button type="button" class="btn primary" data-action="review-accept" id="reviewAcceptBtn">
+            Leave a review
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quota & Pace Limit Upgrade Dialog -->
+    <div id="quotaDialog" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="quotaDialogTitle">
+      <div class="modal-backdrop" data-action="quota-dismiss"></div>
+      <div class="modal-card quota-modal-card">
+        <button type="button" class="modal-close-btn" data-action="quota-dismiss" aria-label="Close dialog">×</button>
+        <div class="modal-icon quota-modal-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="review-badge-wrap">
+          <span id="quotaBadge" class="badge warn">Hourly Pace Limit Reached</span>
+        </div>
+        <h2 id="quotaDialogTitle" class="modal-title">Hourly Extract Limit Reached</h2>
+        <p id="quotaDialogBody" class="modal-body">
+          You have reached the Free Tier hourly pace limit of 25 extractions. To protect SEC EDGAR fair-access rules, requests are throttled. Upgrade to Pro ($35/mo) or Institutional ($55/mo) for up to 300 extractions/hour and unlimited monthly volume.
+        </p>
+        <div class="modal-actions">
+          <button type="button" class="btn secondary" data-action="quota-dismiss" id="quotaCancelBtn">
+            Close
+          </button>
+          <button type="button" class="btn primary" data-action="open-upgrade" id="quotaUpgradeBtn">
+            Upgrade Account
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
