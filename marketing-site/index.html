@@ -3,180 +3,485 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CALIO — SEC EDGAR Filings Extract & Excel Chrome Extension</title>
+    <title>CALIO — Institutional SEC EDGAR Research Terminal & Financial Extractor</title>
     <meta
       name="description"
-      content="Extract 10-K, 10-Q, 8-K, Form 4 and more from SEC EDGAR. Compare periods, export Excel and PDF. Private, on-device Chrome extension."
+      content="Institutional SEC EDGAR research terminal in your browser. Interactive 5-Year DCF valuations, 25-sector peer benchmark matrices, Beneish M-Score forensics, and multi-sheet Excel exports. 100% private and on-device."
     />
-    <meta name="theme-color" content="#0b1220" />
+    <meta name="theme-color" content="#050811" />
     <link rel="canonical" href="https://calio.app/" />
-    <meta property="og:title" content="CALIO — SEC EDGAR Filings Extract & Excel" />
-    <meta
-      property="og:description"
-      content="Chrome extension for SEC EDGAR: form-aware extract, compare, Excel/PDF export. Processing stays on your device."
-    />
-    <meta property="og:type" content="website" />
     <link rel="icon" href="assets/icon128.png" />
     <link rel="stylesheet" href="css/site.css" />
+
+    <!-- Google Structured Data (Enables Google Search Sitelinks) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "CALIO",
-        "applicationCategory": "BrowserApplication",
-        "operatingSystem": "Chrome",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "description": "Chrome extension to extract SEC EDGAR filings, compare periods, and export Excel/PDF on-device."
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://calio.app/#website",
+            "url": "https://calio.app/",
+            "name": "CALIO SEC Research Terminal",
+            "description": "Institutional SEC EDGAR financial research workstation and on-device valuation engine.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "CALIO Technologies",
+              "logo": "https://calio.app/assets/icon128.png"
+            }
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "name": [
+              "Interactive Web Terminal",
+              "5-Year DCF Valuation Engine",
+              "25-Sector Peer Comps",
+              "Forensics & QoE Suite",
+              "Membership & Pricing Tiers",
+              "About & Origin Story",
+              "Export SEC Filings to Excel",
+              "Form 4 Insider Trading Extractor",
+              "Privacy & Zero-Cloud Architecture"
+            ],
+            "url": [
+              "https://calio.app/#terminal",
+              "https://calio.app/#dcf",
+              "https://calio.app/#peers",
+              "https://calio.app/#forensics",
+              "https://calio.app/pricing.html",
+              "https://calio.app/about.html",
+              "https://calio.app/how-to-export-sec-filings-to-excel.html",
+              "https://calio.app/form-4-extractor.html",
+              "https://calio.app/privacy.html"
+            ]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "CALIO",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web, Chrome, Windows, macOS, Linux",
+            "offers": {
+              "@type": "AggregateOffer",
+              "lowPrice": "0",
+              "highPrice": "55",
+              "priceCurrency": "USD"
+            },
+            "description": "Chrome extension and browser workstation for SEC EDGAR filing extraction, DCF modeling, and financial analysis."
+          }
+        ]
       }
     </script>
   </head>
   <body>
-    <div class="wrap">
-      <nav class="nav" aria-label="Primary">
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
         <a class="nav-brand" href="index.html">
-          <img src="assets/icon128.png" alt="" width="36" height="36" />
-          CALIO
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
         </a>
+
         <div class="nav-links">
-          <a class="hide-sm" href="#features">Features</a>
-          <a class="hide-sm" href="how-to-export-sec-filings-to-excel.html">Excel guide</a>
-          <a class="hide-sm" href="form-4-extractor.html">Form 4</a>
-          <a class="hide-sm" href="privacy.html">Privacy</a>
-          <a class="btn btn-primary" id="install-cta" href="#install">Add to Chrome</a>
+          <a class="nav-item" href="#terminal">Terminal</a>
+          <a class="nav-item" href="#dcf">DCF Engine</a>
+          <a class="nav-item" href="#peers">Peer Matrix</a>
+          <a class="nav-item" href="#forensics">Forensics</a>
+          <a class="nav-item" href="pricing.html">Pricing</a>
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-ghost hide-sm" href="#terminal">Launch Terminal</a>
+          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
         </div>
       </nav>
+    </header>
 
-      <header class="hero">
-        <div class="hero-kicker">SEC EDGAR Chrome extension</div>
-        <h1>Extract SEC filings. Export Excel. Stay private.</h1>
-        <p class="hero-lead">
-          CALIO is a local companion for public SEC EDGAR — company desk, form-aware extracts
-          (10-K, 10-Q, 8-K, Form 4, 13D/G, Form 144), compare, multi-sheet Excel, and PDF. Processing
-          stays on your device.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" id="install-cta-main" href="#install">Add to Chrome — free</a>
-          <a class="btn btn-ghost" href="how-to-export-sec-filings-to-excel.html">How Excel export works</a>
+    <!-- Apple-Style Section Category Bar -->
+    <div class="category-bar-outer">
+      <div class="category-bar">
+        <a class="cat-pill is-active" href="#overview">Overview</a>
+        <a class="cat-pill" href="#terminal">Live Web Terminal</a>
+        <a class="cat-pill" href="#dcf">5-Year DCF</a>
+        <a class="cat-pill" href="#peers">25-Sector Comps</a>
+        <a class="cat-pill" href="#forensics">Forensics (Beneish & Altman)</a>
+        <a class="cat-pill" href="#origin">The Origin & Architecture</a>
+        <a class="cat-pill" href="pricing.html">Plans & Pricing</a>
+        <a class="cat-pill" href="how-to-export-sec-filings-to-excel.html">Excel Guide</a>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <!-- Hero Section -->
+      <section class="hero-section" id="overview">
+        <div class="hero-badge-wrap">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          INSTITUTIONAL RESEARCH WORKSTATION &bull; VERSION 1.16.0
         </div>
-        <p class="hero-note">
-          Not investment advice. Public EDGAR data only. Optional product emails only if you opt in.
+
+        <h1 class="hero-title">
+          Institutional SEC Research.<br />
+          <span class="highlight">Built for Speed. 100% Private.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Turn complex 10-K, 10-Q, 8-K, and Form 4 filings into live interactive DCF valuations,
+          25-sector peer benchmark matrices, and audit-ready multi-sheet Excel models — directly inside
+          your browser with zero cloud storage.
         </p>
-        <div class="badge-row">
-          <span class="badge ok">On-device processing</span>
-          <span class="badge">No account required</span>
-          <span class="badge">Form-aware extracts</span>
-          <span class="badge">Excel + PDF</span>
-        </div>
-      </header>
 
-      <section class="grid-3" id="features" aria-label="Highlights">
-        <article class="card">
-          <h3>Company desk</h3>
-          <p>
-            Search by ticker or name. Timeline of high-signal filings plus tables for 10-K/Q, 8-K,
-            ownership, and insider forms.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Form-aware extract</h3>
-          <p>
-            Structured fields for financials, 8-K events, Form 3/4/5, 13D/G, and Form 144 — not one
-            generic dump for every form type.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Excel &amp; PDF export</h3>
-          <p>
-            Multi-sheet workbooks for models and print-ready PDF reports for notes or sharing —
-            without retyping from EDGAR HTML.
-          </p>
-        </article>
-      </section>
-
-      <section class="section">
-        <h2>Built for EDGAR work, not another dashboard fad</h2>
-        <p class="lead">
-          Raw EDGAR is free and complete — and slow to turn into a clean sheet. CALIO sits next to
-          SEC.gov so you can extract, compare two periods, keep local history, and watch companies for
-          new filings.
-        </p>
-        <ul class="feature-list">
-          <li>
-            <strong>Compare periods</strong> — side-by-side structure with Excel export for models.
-          </li>
-          <li>
-            <strong>Quality badge</strong> — know when an extract pack looks incomplete before you
-            trust it.
-          </li>
-          <li>
-            <strong>Watchlist</strong> — local list with optional new-filing alerts (alarms).
-          </li>
-          <li>
-            <strong>Fair access</strong> — paced requests and usage limits aligned with SEC guidance.
-          </li>
-        </ul>
-      </section>
-
-      <section class="section" id="install">
-        <h2>Install</h2>
-        <p class="lead">
-          After Chrome Web Store approval, replace the placeholder link below with your live store
-          URL. Until then, load the unpacked extension from the CALIO_MVP folder.
-        </p>
-        <div class="cta-box">
-          <p>
-            <strong>Chrome Web Store:</strong>
-            <a id="cws-link" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener noreferrer">Install from Chrome Web Store →</a>
-          </p>
-          <p style="margin: 0; color: var(--muted); font-size: 0.92rem">
-            Developer install: <code>chrome://extensions</code> → Load unpacked →
-            <code>CALIO_MVP</code> folder.
-          </p>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Guides</h2>
-        <div class="grid-3">
-          <a class="card" href="how-to-export-sec-filings-to-excel.html" style="color: inherit">
-            <h3>Export SEC filings to Excel</h3>
-            <p>How to get financial and form data into a workbook from EDGAR.</p>
+        <div class="hero-cta-group">
+          <a class="btn-pill btn-pill-primary btn-large" href="#terminal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Try Live Interactive Terminal
           </a>
-          <a class="card" href="form-4-extractor.html" style="color: inherit">
-            <h3>Form 4 extractor</h3>
-            <p>Insider transactions without polluting extracts with random financials.</p>
-          </a>
-          <a class="card" href="bamsec-alternative-free.html" style="color: inherit">
-            <h3>Free BamSEC-style companion</h3>
-            <p>When a lightweight local extract tool is enough vs full paid research suites.</p>
+          <a class="btn-pill btn-pill-ghost btn-large" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Add to Chrome — Free
           </a>
         </div>
-      </section>
 
-      <footer class="footer">
-        <div class="footer-row">
-          <div>© <span id="y"></span> CALIO · Public EDGAR companion</div>
-          <div>
-            <a href="privacy.html">Privacy</a> ·
-            <a href="support.html">Support</a> ·
-            <a href="mailto:caliointel@gmail.com">caliointel@gmail.com</a>
+        <div class="hero-trust-strip">
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            100% On-Device &amp; Private
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            10,000+ SEC Registrants
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            Multi-Sheet Excel (.xlsx)
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            SEC Fair-Access Paced
           </div>
         </div>
-      </footer>
-    </div>
-    <script>
-      document.getElementById("y").textContent = new Date().getFullYear();
-      // Official CWS link:
-      const CWS_URL = "https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja";
-      if (CWS_URL) {
-        ["install-cta", "install-cta-main", "cws-link"].forEach((id) => {
-          const el = document.getElementById(id);
-          if (el) {
-            el.href = CWS_URL;
-            if (id === "cws-link") el.textContent = "Add to Chrome — free →";
-          }
-        });
-      }
-    </script>
+      </section>
+
+      <!-- THE SHOWPIECE: Live Working Financial Terminal -->
+      <section class="terminal-section" id="terminal">
+        <div class="terminal-frame">
+          <!-- Terminal Topbar -->
+          <div class="terminal-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+
+            <div class="terminal-meta">
+              <span class="wt-title" id="wtCompanyName">NVIDIA Corporation</span>
+              <span class="wt-badge" id="wtCompanyTicker">NVDA</span>
+              <span class="wt-badge" id="wtFilingBadge">Audited 10-K &bull; CIK 0001045810</span>
+              <span class="wt-title" id="wtCompanyPrice">$128.50</span>
+            </div>
+
+            <div>
+              <button type="button" class="btn-pill btn-pill-primary" id="wtBtnExportExcel">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export Model (.xlsx / .csv)
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Select Tickers & Search -->
+          <div class="terminal-quick-tickers">
+            <span style="font-size: 0.78rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; margin-right: 0.5rem;">Benchmark Issuers:</span>
+            <button type="button" class="ticker-btn is-active" data-wt-ticker="NVDA">NVDA &bull; NVIDIA</button>
+            <button type="button" class="ticker-btn" data-wt-ticker="AAPL">AAPL &bull; Apple</button>
+            <button type="button" class="ticker-btn" data-wt-ticker="MSFT">MSFT &bull; Microsoft</button>
+            <button type="button" class="ticker-btn" data-wt-ticker="TSLA">TSLA &bull; Tesla</button>
+            <button type="button" class="ticker-btn" data-wt-ticker="AMZN">AMZN &bull; Amazon</button>
+            <input type="text" id="wtTickerSearch" placeholder="Type ticker (e.g. AAPL)..." style="margin-left:auto; background:rgba(255,255,255,0.06); border:1px solid var(--line-subtle); color:#fff; border-radius:999px; padding:0.25rem 0.85rem; font-size:0.8rem; outline:none; width:170px;" />
+          </div>
+
+          <!-- Mode Switcher Tabs -->
+          <div class="terminal-tab-bar">
+            <button type="button" class="tab-btn is-active" data-wt-tab="dcf" id="dcf">
+              5-Year DCF Valuation
+            </button>
+            <button type="button" class="tab-btn" data-wt-tab="peers" id="peers">
+              25-Sector Peer Comps
+            </button>
+            <button type="button" class="tab-btn" data-wt-tab="forensics" id="forensics">
+              Forensics &amp; QoE Suite
+            </button>
+            <button type="button" class="tab-btn" data-wt-tab="financials">
+              Audited Financials (10-K)
+            </button>
+            <button type="button" class="tab-btn" data-wt-tab="governance">
+              DEF 14A Executive Comp
+            </button>
+          </div>
+
+          <!-- Terminal Dynamic Body (Managed by terminal.js) -->
+          <div class="terminal-body" id="wtTabContent">
+            <!-- Rendered dynamically by terminal.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- The Origin & Philosophy Section -->
+      <section class="origin-section" id="origin">
+        <div class="origin-grid">
+          <div class="origin-text">
+            <div class="section-tag">The Origin &amp; Philosophy</div>
+            <h2>Why Legacy Terminals Cost $25,000/Year (And Why Public SEC Data Shouldn't)</h2>
+            <p>
+              Every public company filing belongs to the public domain. Yet for decades, legacy research
+              terminals have charged individual researchers five-figure annual subscriptions simply to reformat
+              and display SEC EDGAR tables.
+            </p>
+            <p>
+              We engineered CALIO to run <strong>100% in your browser's memory</strong>. By parsing raw HTML and
+              XBRL facts locally on your machine, we eliminate cloud server databases, preserve your absolute
+              confidentiality, and provide institutional valuation tools at a fraction of legacy cost.
+            </p>
+            <a class="btn-pill btn-pill-primary" href="about.html">Read Our Complete Origin Story &rarr;</a>
+          </div>
+
+          <div class="arch-card">
+            <h4 style="font-size: 1.1rem; color: #fff; margin-bottom: 1.25rem;">Zero-Cloud Security Architecture</h4>
+            <div class="arch-flow">
+              <div class="arch-step">
+                <div class="arch-step-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div class="arch-step-info">
+                  <h5>1. Direct In-Memory Fetch</h5>
+                  <p>Filings stream directly between your browser and official SEC EDGAR servers.</p>
+                </div>
+              </div>
+
+              <div class="arch-step">
+                <div class="arch-step-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                </div>
+                <div class="arch-step-info">
+                  <h5>2. Client-Side Valuation Engine</h5>
+                  <p>DCFs, Altman Z-Scores, and Peer Comps calculate in client JavaScript memory.</p>
+                </div>
+              </div>
+
+              <div class="arch-step">
+                <div class="arch-step-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="arch-step-info">
+                  <h5>3. Zero Server Database</h5>
+                  <p>Your search history, proprietary models, and watchlists never touch CALIO cloud servers.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3-Tier Pricing Section -->
+      <section class="pricing-section" id="pricing">
+        <div class="section-header">
+          <div class="section-tag">Transparent Pricing</div>
+          <h2 class="section-title">Built for Individual Analysts &amp; Institutional Desks</h2>
+          <p class="section-desc">
+            No hidden contracts. All plans include 100% on-device data processing and SEC fair access compliance.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Free Starter -->
+          <div class="pricing-card">
+            <div class="card-tier-name">Free Starter</div>
+            <div class="card-tier-desc">Core filing extraction for students, retail investors, and casual filers.</div>
+            <div class="card-price-wrap">
+              <span class="card-price">$0</span>
+              <span class="card-period">/ month</span>
+            </div>
+            <ul class="card-features">
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <strong>80 extracts / month</strong> (25/hr pace limit)
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Core 10-K, 10-Q, 8-K &amp; Form 4 extraction
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Standard 5-Year Intrinsic DCF Model
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Altman Z-Score Solvency Predictor
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                CSV &amp; Basic PDF Export
+              </li>
+            </ul>
+            <a class="btn-pill btn-pill-ghost" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+          </div>
+
+          <!-- Pro Analyst ($35/mo) -->
+          <div class="pricing-card is-popular">
+            <div class="card-ribbon">Most Popular</div>
+            <div class="card-tier-name">Pro Analyst</div>
+            <div class="card-tier-desc">High-speed modeling for equity research associates and active investors.</div>
+            <div class="card-price-wrap">
+              <span class="card-price">$35</span>
+              <span class="card-period">/ month</span>
+            </div>
+            <ul class="card-features">
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <strong>500 extracts / month</strong> (100/hr high-throughput)
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                All Filings + DEF 14A, 13D/G, Form 144
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Interactive DCF Sliders (WACC &amp; Growth)
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                All 25 Sector Peer Comp Matrices
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Beneish M-Score &amp; Sloan Accrual Suite
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Multi-Sheet Excel (.xlsx) with =CALIO() formulas
+              </li>
+            </ul>
+            <a class="btn-pill btn-pill-primary" href="pricing.html">Upgrade to Pro ($35/mo)</a>
+          </div>
+
+          <!-- Institutional Desk ($55/mo) -->
+          <div class="pricing-card">
+            <div class="card-tier-name">Institutional Desk</div>
+            <div class="card-tier-desc">Uncapped research speed for hedge funds, PE/VC, and investment banks.</div>
+            <div class="card-price-wrap">
+              <span class="card-price">$55</span>
+              <span class="card-period">/ month</span>
+            </div>
+            <ul class="card-features">
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <strong>2,500 extracts / month</strong> (300/hr institutional pace)
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Full Forensic Quality of Earnings Suite
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Unlimited Multi-Ticker Peer Diffs &amp; Spreads
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Click-to-Source SEC Filing Audit Drilldown
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Real-Time EDGAR Watchlist Monitor &amp; Alerts
+              </li>
+              <li class="card-feature-item">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Priority Financial Desk Support
+              </li>
+            </ul>
+            <a class="btn-pill btn-pill-ghost" href="pricing.html">Select Institutional ($55/mo)</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Knowledge Hub & Guides (Feeds Google Sitelinks) -->
+      <section class="section" style="padding: 4rem 0; border-top: 1px solid var(--line-subtle);">
+        <div class="section-header">
+          <div class="section-tag">Research &amp; Guides</div>
+          <h2 class="section-title">Master SEC EDGAR Analysis</h2>
+          <p class="section-desc">Practical guides on financial modeling, XBRL extraction, and forensic accounting.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+          <a href="how-to-export-sec-filings-to-excel.html" class="pricing-card" style="text-decoration: none;">
+            <h4 style="color: #fff; font-size: 1.15rem; margin-bottom: 0.5rem;">How to Export SEC Filings to Excel &rarr;</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">Step-by-step walkthrough of converting 10-K and 10-Q financial statements into multi-sheet formatted Excel models.</p>
+          </a>
+
+          <a href="form-4-extractor.html" class="pricing-card" style="text-decoration: none;">
+            <h4 style="color: #fff; font-size: 1.15rem; margin-bottom: 0.5rem;">Form 4 Insider Trading Extractor &rarr;</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">Learn how to track executive stock grants, open-market insider purchases, and beneficial ownership stakes.</p>
+          </a>
+
+          <a href="bamsec-alternative-free.html" class="pricing-card" style="text-decoration: none;">
+            <h4 style="color: #fff; font-size: 1.15rem; margin-bottom: 0.5rem;">Free BamSEC Alternative &rarr;</h4>
+            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">Why fundamental analysts are transitioning from expensive cloud terminals to on-device SEC research extensions.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>CALIO SEC Research Terminal</h4>
+            <p>
+              Compliance Analytics Layer for Insurance Operations. Built for fundamental equity analysts,
+              investment banking associates, and value investors worldwide.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Product</h5>
+            <ul>
+              <li><a href="#terminal">Live Web Terminal</a></li>
+              <li><a href="#dcf">5-Year DCF Engine</a></li>
+              <li><a href="#peers">25-Sector Peers</a></li>
+              <li><a href="#forensics">Forensics Suite</a></li>
+              <li><a href="pricing.html">Pricing &amp; Tiers</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Guides</h5>
+            <ul>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export to Excel</a></li>
+              <li><a href="form-4-extractor.html">Form 4 Extractor</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Alternative</a></li>
+              <li><a href="privacy.html">Privacy Architecture</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Company</h5>
+            <ul>
+              <li><a href="about.html">About &amp; Origin</a></li>
+              <li><a href="support.html">Contact &amp; Support</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Chrome Web Store</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>&copy; 2026 CALIO Technologies. All rights reserved.</span>
+          <span>Not investment advice &bull; Direct public SEC EDGAR connection &bull; Contact: caliointel@gmail.com</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Client-Side Terminal Engine -->
+    <script src="js/terminal.js"></script>
   </body>
 </html>

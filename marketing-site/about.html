@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About CALIO — The Origin Story & On-Device Financial Architecture</title>
+    <meta
+      name="description"
+      content="Why we built CALIO: breaking the $25,000/year Wall Street terminal monopoly with 100% on-device SEC EDGAR financial modeling."
+    />
+    <meta name="theme-color" content="#050811" />
+    <link rel="canonical" href="https://calio.app/about.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <a class="nav-item" href="index.html#terminal">Terminal</a>
+          <a class="nav-item" href="index.html#dcf">DCF Engine</a>
+          <a class="nav-item" href="index.html#peers">Peer Matrix</a>
+          <a class="nav-item" href="index.html#forensics">Forensics</a>
+          <a class="nav-item" href="pricing.html">Pricing</a>
+          <a class="nav-item is-active" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            Add to Chrome
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding: 4rem 0;">
+      <article style="max-width: 760px; margin: 0 auto;">
+        <div class="section-tag">Origin &amp; Mission</div>
+        <h1 style="font-size: 2.8rem; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: -0.03em;">
+          Democratizing Institutional Financial Analysis.
+        </h1>
+
+        <p style="font-size: 1.1rem; color: var(--text-bright); line-height: 1.7; margin-bottom: 1.5rem;">
+          Public company disclosures are funded by taxpayers and mandated by the United States Congress to belong to every citizen equally. Every 10-K, 10-Q, 8-K, and Form 4 published on SEC EDGAR is public domain data.
+        </p>
+
+        <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          Yet for over thirty years, Wall Street terminal conglomerates have locked this public data behind prohibitive $25,000 to $35,000 per-year subscription fees. Independent equity researchers, boutique analysts, and university students were left copy-pasting numbers from clunky HTML tables into Excel by hand.
+        </p>
+
+        <h2 style="font-size: 1.75rem; color: #fff; font-weight: 700; margin: 2.5rem 0 1rem 0;">The Birth of CALIO</h2>
+        <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          CALIO was created to solve a singular problem: <strong>Why can’t your browser parse SEC filings directly, build an interactive DCF valuation model in seconds, and export a clean Excel model without needing a remote server?</strong>
+        </p>
+
+        <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+          By leveraging modern browser memory and client-side JavaScript execution, CALIO executes complex XBRL parsing, peer benchmarking matrices across 25 sectors, and forensic calculations (Beneish M-Score, Altman Z-Score, Piotroski F-Score) entirely inside the user’s computer.
+        </p>
+
+        <div class="arch-card" style="margin: 2.5rem 0;">
+          <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 1rem;">The 3 Pillars of CALIO</h3>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+              <strong style="color: var(--teal-vibrant);">1. Zero-Cloud Confidentiality</strong>
+              <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.25rem;">We do not operate a filing storage database. Your confidential ticker lookups, research watchlists, and DCF scenarios remain on your local computer.</p>
+            </div>
+            <div>
+              <strong style="color: var(--teal-vibrant);">2. Click-to-Source Auditability</strong>
+              <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.25rem;">Every extracted number links back to the exact paragraph in the official SEC EDGAR filing, ensuring compliance teams and portfolio managers can verify every dollar.</p>
+            </div>
+            <div>
+              <strong style="color: var(--teal-vibrant);">3. Institutional Pacing</strong>
+              <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 0.25rem;">Full adherence to SEC Fair Access guidelines. Requests are queued and paced to guarantee zero network strain on government infrastructure.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+          <a class="btn-pill btn-pill-primary btn-large" href="index.html#terminal">Try the Live Terminal &rarr;</a>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap" style="text-align: center;">
+        <p>&copy; 2026 CALIO Technologies. All rights reserved &bull; Contact: caliointel@gmail.com</p>
+      </div>
+    </footer>
+  </body>
+</html>
