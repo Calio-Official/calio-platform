@@ -740,7 +740,7 @@
     if (body) {
       body.textContent = isHourly
         ? `You have reached the ${tierName} hourly pace limit of ${hourLimit} extractions. To protect SEC EDGAR fair-access rules, requests are throttled. Upgrade to Pro ($35/mo) for 100/hr, or Institutional Desk ($55/mo) for 300/hr and priority throughput.`
-        : `You have reached the ${tierName} monthly limit of ${monthLimit} extractions. Upgrade your account to Pro ($35/mo) for 500 extractions/mo, or Institutional Desk ($55/mo) for unlimited monthly volume and dynamic Excel models.`;
+        : `You have reached the ${tierName} monthly limit of ${monthLimit} extractions. Upgrade your account to Pro ($35/mo) for 500 extractions/mo, or Institutional Desk ($55/mo) for 2,500 extractions/mo and dynamic Excel models.`;
     }
 
     dialog.hidden = false;

@@ -5414,7 +5414,7 @@
     if (count < 6) {
       return `
         <div class="calio-soft-banner">
-          ${count} extracts this month · Pro will unlock unlimited extracts, history, and team share.
+          ${count} extracts this month · Pro will unlock 500 extracts, history, and team share.
         </div>`;
     }
     return `
