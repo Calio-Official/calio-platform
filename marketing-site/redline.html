@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
+    <script src="js/sec-engine.js"></script>
   </head>
   <body>
     <!-- Floating Apple-Style Frosted Pill Navigation -->
@@ -274,6 +275,7 @@
               <svg class="universal-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <input type="text" id="rlTickerSearch" class="universal-search-input" placeholder="Search any ticker for SEC Risk Disclosures (e.g. NVDA, AAPL, TSLA, MSFT, AMZN)..." autocomplete="off" spellcheck="false" />
               <button type="button" class="universal-search-btn" id="rlBtnSearch">Load Risk Factors</button>
+              <div id="rlSuggestDropdown" class="suggest-dropdown" hidden></div>
             </div>
             <div class="universal-pills-row">
               <span class="universal-pills-label">Trending Issuers:</span>
@@ -790,6 +792,17 @@
           executeTickerSearch();
         }
       });
+
+      // Wire up autocomplete recommendations
+      if (window.SecEngine) {
+        window.SecEngine.setupAutocomplete("rlTickerSearch", "rlSuggestDropdown", (ticker) => {
+          btnModeSamples.classList.add("is-active");
+          btnModeCustom.classList.remove("is-active");
+          loadSampleByTicker(ticker);
+          const workspace = document.getElementById("redlineWorkspace");
+          if (workspace) workspace.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
 
       // Initialize default
       loadSampleByTicker("NVDA");

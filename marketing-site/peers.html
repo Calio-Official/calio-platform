@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
+    <script src="js/sec-engine.js"></script>
   </head>
   <body>
     <!-- Floating Apple-Style Frosted Pill Navigation -->
@@ -127,6 +128,7 @@
                 </a>
               </div>
             </div>
+          </div>
 
           <a class="nav-item" href="pricing.html">Pricing</a>
 
@@ -262,6 +264,7 @@
             <svg class="universal-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input type="text" id="peerUniversalSearch" class="universal-search-input" placeholder="Search any ticker or company to benchmark (e.g. NVDA, AAPL, MSFT, TSLA, AMZN, META, AVGO)..." autocomplete="off" spellcheck="false" />
             <button type="button" class="universal-search-btn" id="peerBtnUniversalSearch">Benchmark Issuer</button>
+            <div id="peerSuggestDropdown" class="suggest-dropdown" hidden></div>
           </div>
           <div class="universal-pills-row">
             <span class="universal-pills-label">Trending Issuers:</span>
@@ -292,9 +295,10 @@
               <button type="button" class="chip-btn" id="btnModeQuarterly">Quarterly (10-Q)</button>
             </div>
 
-            <div style="display:flex; align-items:center; gap:6px;">
+            <div style="display:flex; align-items:center; gap:6px; position:relative;">
               <input type="text" id="inputCustomPeer" class="desk-input" placeholder="Search issuer (e.g. HOLO, SBUX, NVDA)" autocomplete="off" spellcheck="false" />
               <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnAddPeer">+ Add</button>
+              <div id="customPeerSuggestDropdown" class="suggest-dropdown" hidden></div>
             </div>
 
             <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnExportExcel">
@@ -619,20 +623,28 @@
         if (existing) {
           existing.isMain = true;
         } else {
+          const comp = window.SecEngine ? window.SecEngine.getCompany(ticker) : null;
+          const pRev = comp && comp.baseRev ? `$${comp.baseRev.toFixed(2)}B` : "$48.50B";
+          const pqRev = comp && comp.baseRev ? `$${(comp.baseRev / 4).toFixed(2)}B` : "$12.80B";
+          const pOm = comp && comp.dcf?.margin ? `${comp.dcf.margin.toFixed(1)}%` : "26.5%";
+          const pGm = comp && comp.dcf?.margin ? `${(comp.dcf.margin + 15).toFixed(1)}%` : "54.2%";
+          const pNm = comp && comp.dcf?.margin ? `${(comp.dcf.margin * 0.75).toFixed(1)}%` : "21.0%";
+          const pNetDebt = comp && comp.cash && comp.debt ? `${(comp.debt - comp.cash) >= 0 ? '$' : '-$'}${Math.abs(comp.debt - comp.cash).toFixed(2)}B` : "-$6.40B";
+          
           secData.peers.unshift({
             ticker: ticker,
-            name: `${ticker} Corporation`,
-            period: "FY2024",
-            form: "Form 10-K",
-            rev: "$48.50B",
-            qRev: "$12.80B",
-            gm: "54.2%",
-            om: "26.5%",
-            nm: "21.0%",
+            name: comp ? (comp.fullName || comp.name) : `${ticker} Corporation`,
+            period: "FY 2025",
+            form: "10-K",
+            rev: pRev,
+            qRev: pqRev,
+            gm: pGm,
+            om: pOm,
+            nm: pNm,
             fcf: "84.5%",
             mScore: "-2.62",
             zScore: "4.95",
-            netDebt: "-$6.40B",
+            netDebt: pNetDebt,
             isSafeM: true,
             isSafeZ: true,
             isMain: true
@@ -667,6 +679,19 @@
           executePeerUniversalSearch();
         }
       });
+
+      // Wire up Autocomplete Recommendations
+      if (window.SecEngine) {
+        window.SecEngine.setupAutocomplete("peerUniversalSearch", "peerSuggestDropdown", (ticker) => {
+          addAndHighlightPeer(ticker);
+          const tbl = document.getElementById("peerTable");
+          if (tbl) tbl.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+
+        window.SecEngine.setupAutocomplete("inputCustomPeer", "customPeerSuggestDropdown", (ticker) => {
+          addAndHighlightPeer(ticker);
+        });
+      }
 
       // Quick peer buttons
       document.querySelectorAll("[data-quick-peer]").forEach((btn) => {

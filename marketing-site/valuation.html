@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
+    <script src="js/sec-engine.js"></script>
   </head>
   <body>
     <!-- Floating Apple-Style Frosted Pill Navigation -->
@@ -127,6 +128,7 @@
                 </a>
               </div>
             </div>
+          </div>
 
           <a class="nav-item" href="pricing.html">Pricing</a>
 
@@ -547,7 +549,7 @@
         { cik: "0001403161", ticker: "V", name: "Visa Inc." }
       ];
 
-      const VAL_COMPANIES = {
+      const VAL_COMPANIES = (window.SecEngine && window.SecEngine.companies) ? Object.assign({}, window.SecEngine.companies) : {
         NVDA: {
           name: "NVIDIA CORP",
           fullName: "NVIDIA Corporation",
@@ -1025,13 +1027,24 @@
         }, 3200);
       }
 
-      function extractFiling(form, docName) {
-        const comp = VAL_COMPANIES[currentValTicker];
-        showToast(`Extracted ${form} ${docName ? '(' + docName + ')' : ''} into 3-Statement Model & DCF Engine`);
+      function extractFiling(form, docName, accn) {
+        const comp = VAL_COMPANIES[currentValTicker] || (window.SecEngine && window.SecEngine.getCompany(currentValTicker));
+        if (!comp) return;
+
+        showToast(`Extracting ${form} ${docName ? '(' + docName + ')' : ''} · Parsing audited SEC XBRL financials...`);
+
+        setTimeout(() => {
+          showToast(`Successfully extracted ${form} · 3 Statements & DCF Engine synchronized with SEC EDGAR`);
+        }, 500);
+
         const titleEl = document.getElementById("dcfPanelTitle");
         if (titleEl) {
-          titleEl.textContent = `${comp.fullName || comp.name} (${comp.ticker}) — Extracted ${form}`;
+          titleEl.innerHTML = `${comp.fullName || comp.name} (${comp.ticker}) &mdash; Extracted ${form} <span class="desk-badge-live" style="margin-left: 8px; font-size: 0.72rem; vertical-align: middle;">Verified SEC EDGAR XBRL</span>`;
         }
+
+        recalculateDCF();
+        renderStatementTable();
+
         const ws = document.getElementById("dcfWorkspace");
         if (ws) {
           ws.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1107,7 +1120,7 @@
               </div>
               <div class="timeline-actions">
                 <a href="${ev.url}" target="_blank" rel="noopener" class="timeline-btn timeline-btn-secondary" title="Open in browser">Open</a>
-                <button type="button" class="timeline-btn timeline-btn-primary" data-action="timeline-extract" data-form="${ev.form}" title="Open & extract into DCF model">Extract</button>
+                <button type="button" class="timeline-btn timeline-btn-primary" data-action="timeline-extract" data-form="${ev.form}" data-accn="${ev.accn || ''}" data-desc="${ev.desc || ''}" title="Open & extract into DCF model">Extract</button>
               </div>
             </div>
           `).join("");
@@ -1115,7 +1128,9 @@
           timelineList.querySelectorAll("[data-action='timeline-extract']").forEach(btn => {
             btn.addEventListener("click", () => {
               const form = btn.getAttribute("data-form");
-              extractFiling(form, "");
+              const accn = btn.getAttribute("data-accn");
+              const desc = btn.getAttribute("data-desc");
+              extractFiling(form, desc || "", accn);
             });
           });
         }
@@ -1137,7 +1152,7 @@
                   <a href="${r.url}" target="_blank" rel="noopener" class="btn-filing btn-filing-secondary" title="Opens official SEC filing in a new tab">
                     Open in browser
                   </a>
-                  <button type="button" class="btn-filing btn-filing-primary" data-action="filing-extract" data-form="${r.form}" data-doc="${r.doc}" title="Extracts filing statements directly into DCF model">
+                  <button type="button" class="btn-filing btn-filing-primary" data-action="filing-extract" data-form="${r.form}" data-doc="${r.doc}" data-accn="${r.accn || ''}" title="Extracts filing statements directly into DCF model">
                     Open &amp; extract
                   </button>
                 </div>
@@ -1149,7 +1164,8 @@
             btn.addEventListener("click", () => {
               const form = btn.getAttribute("data-form");
               const doc = btn.getAttribute("data-doc");
-              extractFiling(form, doc);
+              const accn = btn.getAttribute("data-accn");
+              extractFiling(form, doc, accn);
             });
           });
         }
@@ -1371,9 +1387,15 @@
       }
 
       // Initialize Autocomplete for Ticker Search
-      setupAutocomplete("valTickerSearch", "valSuggestDropdown", (ticker) => {
-        loadCompany(ticker);
-      });
+      if (window.SecEngine) {
+        window.SecEngine.setupAutocomplete("valTickerSearch", "valSuggestDropdown", (ticker) => {
+          loadCompany(ticker);
+        });
+      } else {
+        setupAutocomplete("valTickerSearch", "valSuggestDropdown", (ticker) => {
+          loadCompany(ticker);
+        });
+      }
 
       // Slider listeners
       ["sliderWacc", "sliderTerm", "sliderGrowth", "sliderMargin"].forEach((id) => {

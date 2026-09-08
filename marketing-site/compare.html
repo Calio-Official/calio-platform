@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/site.css" />
+    <script src="js/sec-engine.js"></script>
   </head>
   <body>
     <!-- Floating Apple-Style Frosted Pill Navigation -->
@@ -270,6 +271,7 @@
               <svg class="universal-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <input type="text" id="cmpTickerSearch" class="universal-search-input" placeholder="Search any ticker for Period-over-Period Variance (e.g. NVDA, AAPL, MSFT, TSLA)..." autocomplete="off" spellcheck="false" />
               <button type="button" class="universal-search-btn" id="cmpBtnSearch">Analyze Variance</button>
+              <div id="cmpTickerSuggestDropdown" class="suggest-dropdown" hidden></div>
             </div>
             <div class="universal-pills-row">
               <span class="universal-pills-label">Trending Issuers:</span>
@@ -884,11 +886,26 @@
         });
       }
 
-      // Initialize autocomplete for Target Issuer field
-      setupAutocomplete("cmpCompanyInput", "cmpSuggestDropdown", (ticker) => {
-        currentCmpTicker = ticker;
-        renderCompareDesk();
-      });
+      // Initialize autocomplete for Target Issuer field & Universal Search
+      if (window.SecEngine) {
+        window.SecEngine.setupAutocomplete("cmpCompanyInput", "cmpSuggestDropdown", (ticker) => {
+          currentCmpTicker = ticker;
+          renderCompareDesk();
+        });
+        window.SecEngine.setupAutocomplete("cmpTickerSearch", "cmpTickerSuggestDropdown", (ticker) => {
+          currentCmpTicker = ticker;
+          const compInp = document.getElementById("cmpCompanyInput");
+          if (compInp) compInp.value = ticker;
+          renderCompareDesk();
+          const desk = document.getElementById("compareDeskPanel");
+          if (desk) desk.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      } else {
+        setupAutocomplete("cmpCompanyInput", "cmpSuggestDropdown", (ticker) => {
+          currentCmpTicker = ticker;
+          renderCompareDesk();
+        });
+      }
 
       // Run Period-over-Period Variance Button
       const btnRunVariance = document.getElementById("btnRunVariance");

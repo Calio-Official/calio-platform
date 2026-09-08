@@ -117,6 +117,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
   padding: 0.52rem 0.65rem 0.52rem 1.35rem;
   min-height: 56px;
   background: rgba(255, 255, 255, 0.96);
@@ -2476,12 +2477,14 @@ html, body {
   position: relative;
 }
 
+.suggest-dropdown,
 .search-results.cmp-suggest,
 .search-results.val-suggest {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   left: 0;
-  right: 0;
+  width: 100%;
+  max-width: 540px;
   max-height: 280px;
   overflow-y: auto;
   background: #ffffff;

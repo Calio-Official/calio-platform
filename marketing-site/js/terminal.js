@@ -826,6 +826,12 @@
       });
     }
 
+    if (window.SecEngine) {
+      window.SecEngine.setupAutocomplete("wtTickerSearch", "wtSuggestDropdown", (ticker) => {
+        selectOrSynthesizeTicker(ticker);
+      });
+    }
+
     // Export Excel Button
     const btnExport = document.getElementById("wtBtnExportExcel");
     if (btnExport) {
