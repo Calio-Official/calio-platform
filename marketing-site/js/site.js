@@ -77,6 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Hero ticker buttons: quick switch in terminal and smooth scroll
+  document.querySelectorAll('.hero-ticker-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const ticker = btn.getAttribute('data-ticker');
+      const wtBtn = document.querySelector(`[data-wt-ticker="${ticker}"]`);
+      if (wtBtn) {
+        wtBtn.click();
+      }
+      document.querySelectorAll('.hero-ticker-btn').forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+
+      const termEl = document.getElementById('terminal');
+      if (termEl) {
+        termEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
   // Automatically prompt once per session after 2.8 seconds
   try {
     const isDismissed = sessionStorage.getItem('calio_ext_modal_dismissed');
