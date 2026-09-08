@@ -2311,3 +2311,46 @@ html, body {
   }
 }
 
+/* ── Specialized Desks: Segment, Compare, & Redline Styles ── */
+.diff-add {
+  background: rgba(52, 211, 153, 0.25) !important;
+  color: #34d399 !important;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.diff-del {
+  background: rgba(248, 113, 113, 0.25) !important;
+  color: #f87171 !important;
+  padding: 2px 4px;
+  border-radius: 4px;
+  text-decoration: line-through;
+}
+
+.compare-variance-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.compare-variance-badge.pos {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+}
+
+.compare-variance-badge.neg {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+}
+
+@media (max-width: 768px) {
+  .compare-form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

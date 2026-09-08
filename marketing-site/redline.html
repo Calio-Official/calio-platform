@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Filing Text Disclosure Changes — CALIO Word-Level NLP Redline Desk</title>
+    <meta
+      name="description"
+      content="Word and sentence-level redline diff engine for SEC EDGAR Item 1A Risk Factors, MD&A, and footnote disclosures. Detect critical language additions and omissions instantly."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio.app/redline.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <!-- Products & Solutions Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="segment.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Segment &amp; Geographic Revenue</span>
+                    <span class="nav-dropdown-desc">ASC 280 business units &amp; sovereign exposure</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Analysis &amp; Governance</div>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction &amp; NEO pay tables</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="compare.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Period Comparison &amp; Variance</span>
+                    <span class="nav-dropdown-desc">Period-over-Period line-item reconciliation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="redline.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Filing Text Disclosure Changes</span>
+                    <span class="nav-dropdown-desc">Word-level NLP redline for Item 1A &amp; MD&amp;A</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Workstation &amp; Exports</div>
+                <a class="nav-dropdown-link" href="index.html#terminal">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Interactive Terminal Sandbox</span>
+                    <span class="nav-dropdown-desc">Instant in-browser EDGAR research workspace</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Multi-Sheet Excel Modeler</span>
+                    <span class="nav-dropdown-desc">Audited formulas directly exported to .xlsx</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Transactions</span>
+                    <span class="nav-dropdown-desc">C-suite stock purchases, sales &amp; 10b5-1 plans</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+
+          <!-- Guides Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Guides &amp; Data</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 320px; grid-template-columns: 1fr;">
+              <div class="nav-dropdown-group">
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
+                    <span class="nav-dropdown-desc">Automated workbook generation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">BamSEC Free Alternative</span>
+                    <span class="nav-dropdown-desc">Feature &amp; speed comparison</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Trading Guide</span>
+                    <span class="nav-dropdown-desc">Table I &amp; Table II tracking</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-chrome" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true" title="CALIO Chrome Extension">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <div class="mobile-drawer-header">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+        </a>
+        <button type="button" class="mobile-drawer-close" id="btnCloseMobileNav" aria-label="Close menu">&times;</button>
+      </div>
+            <div class="mobile-nav-group-title">Products &amp; Solutions</div>
+      <a class="mobile-nav-link" href="valuation.html">Financial Extraction &amp; Valuation</a>
+      <a class="mobile-nav-link" href="peers.html">Industry Peer Benchmark</a>
+      <a class="mobile-nav-link" href="segment.html">Segment &amp; Geographic Revenue</a>
+      <a class="mobile-nav-link" href="governance.html">Executive Compensation &amp; Governance</a>
+      <a class="mobile-nav-link" href="compare.html">Period Comparison &amp; Variance</a>
+      <a class="mobile-nav-link" href="redline.html">Filing Text Disclosure Changes</a>
+      <a class="mobile-nav-link" href="index.html#terminal">Interactive Terminal Sandbox</a>
+      <div class="mobile-nav-group-title">Platform</div>
+      <a class="mobile-nav-link" href="pricing.html">Plans &amp; Pricing</a>
+      <a class="mobile-nav-link" href="about.html">About &amp; Architecture</a>
+      <div style="margin-top: 1rem;">
+        <a class="btn-pill btn-pill-primary" style="width: 100%;" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <!-- Clean Hero Section -->
+      <section class="hero-clean">
+        <div class="section-tag">Word-Level NLP Diff Engine</div>
+        <h1 class="hero-title">
+          Filing Text Disclosure Changes &amp; Redline.<br />
+          <span class="highlight">Detect Critical SEC Language Shifts.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Uncover legal language alterations, risk factor insertions, and disclosure omissions across consecutive 10-K and 10-Q filings. Powered by on-device word-level NLP tokenization.
+        </p>
+
+        <div class="hero-cta-group">
+          <a class="btn-pill btn-pill-chrome btn-large" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome — Free
+          </a>
+          <a class="btn-pill btn-pill-secondary btn-large" href="#redlineWorkspace">
+            Test Interactive Redline Diff
+          </a>
+        </div>
+
+        <div class="hero-trust-strip">
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Item 1A Risk Factors &amp; MD&amp;A
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Sentence &amp; Word-Level NLP Diff
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            100% Client-Side Private Analysis
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Interactive Redline Workspace -->
+      <section id="redlineWorkspace" style="margin-bottom: 5.5rem;">
+        <div class="terminal-frame">
+          <!-- Workspace Header -->
+          <div class="terminal-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+
+            <div class="terminal-meta">
+              <span class="wt-title" id="rlActiveTitle">NVIDIA Corporation</span>
+              <span class="wt-badge" id="rlActiveBadge">Item 1A Risk Factors</span>
+              <span class="wt-badge">Word-Level Tokenizer</span>
+            </div>
+
+            <div>
+              <button type="button" class="btn-pill btn-pill-primary mini-btn" id="btnRunDiff">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                Analyze Disclosure Changes
+              </button>
+            </div>
+          </div>
+
+          <!-- Sample Disclosures Bar -->
+          <div style="background: rgba(255, 255, 255, 0.02); padding: 0.75rem 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+            <span style="font-size: 0.78rem; color: #9cb8b2; text-transform: uppercase; font-weight: 700; margin-right: 0.25rem;">Insert Sample Filings:</span>
+            <button type="button" class="ticker-btn is-active" data-rl-sample="nvda">NVIDIA &bull; AI Export Controls</button>
+            <button type="button" class="ticker-btn" data-rl-sample="aapl">Apple &bull; EU Digital Markets Act</button>
+            <button type="button" class="ticker-btn" data-rl-sample="tsla">Tesla &bull; FSD &amp; Automotive Gross Margins</button>
+          </div>
+
+          <!-- Textarea Comparison Grid -->
+          <div style="padding: 1.25rem 1.5rem; background: #081d19; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #9cb8b2; margin-bottom: 0.5rem; text-transform: uppercase;">
+                  Prior Period / Baseline Section (Filing A)
+                </label>
+                <textarea id="txtFilingA" style="width: 100%; height: 160px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; color: #ffffff; padding: 0.85rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.88rem; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+              </div>
+
+              <div>
+                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #9cb8b2; margin-bottom: 0.5rem; text-transform: uppercase;">
+                  Current Period / Updated Section (Filing B)
+                </label>
+                <textarea id="txtFilingB" style="width: 100%; height: 160px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; color: #ffffff; padding: 0.85rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.88rem; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Redline Output Container -->
+          <div class="terminal-body" style="padding: 1.25rem 1.5rem; background: #081d19;">
+            <div id="diffSummaryCard" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding: 0.85rem 1.25rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div id="diffOutputDoc" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 1.5rem; font-size: 0.95rem; line-height: 1.8; color: #e2ece9; min-height: 120px; white-space: pre-wrap;">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.8rem; color: #8eaba4;">
+              <div>
+                NLP Diff Engine: <strong>Word-level tokenization &bull; Sub-millisecond localized execution</strong>.
+              </div>
+              <div>
+                Security: <strong>Zero server-side transmission &bull; 100% private to your browser</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Institutional Rationale Section -->
+      <section style="margin-bottom: 5.5rem;">
+        <div class="section-header">
+          <div class="section-tag">Forensic Text Intelligence</div>
+          <h2 class="section-title">Why Disclosure Redlines Matter</h2>
+          <p class="section-desc">Critical legal and operational risks are often buried in subtle wording shifts between consecutive SEC filings.</p>
+        </div>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h3 class="product-card-title">Silent Risk Factor Escalations</h3>
+            <p class="product-card-desc">
+              Companies rarely issue press releases when updating Item 1A Risk Factors. Redline comparison reveals when generic boilerplate risks are upgraded to active regulatory investigations or supply chain disruptions.
+            </p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <h3 class="product-card-title">MD&amp;A Guidance Softening</h3>
+            <p class="product-card-desc">
+              Subtle omissions in Management Discussion &amp; Analysis—such as removing references to 'strong order backlog' or altering contract renewal terminology—provide leading indicators before quarterly earnings misses.
+            </p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+            </div>
+            <h3 class="product-card-title">Accounting Policy Revisions</h3>
+            <p class="product-card-desc">
+              Detect modifications to revenue recognition thresholds under ASC 606 or alterations in credit loss estimations under CECL hidden within dense Note 1 footnotes.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Chrome Extension Overview Pop-up Modal -->
+    <div class="calio-modal-backdrop" id="extModalBackdrop" aria-hidden="true">
+      <div class="calio-modal-card" role="dialog" aria-modal="true" aria-labelledby="extModalTitle">
+        <button type="button" class="calio-modal-close" id="btnExtModalClose" aria-label="Close dialog">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+
+        <div class="calio-modal-badge">
+          <span class="pulse-dot"></span>
+          <span>CALIO Chrome Extension</span>
+        </div>
+        <h2 class="calio-modal-title" id="extModalTitle">CALIO In-Browser Terminal</h2>
+        <p class="calio-modal-subtitle">
+          Institutional SEC EDGAR financial research workstation directly embedded in your Chrome browser.
+        </p>
+
+        <div class="calio-modal-body">
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">1</div>
+            <div class="calio-flow-text">
+              <strong>Inbuilt &amp; Native Overlay</strong>
+              <p>Instantly mounts inside SEC EDGAR (sec.gov), Yahoo Finance, and company IR portals. Zero external windows, zero API keys, zero complex setup.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">2</div>
+            <div class="calio-flow-text">
+              <strong>Automated Research Flow</strong>
+              <p>Open any 10-K, 10-Q, 8-K, or Form 4. CALIO parses tables into interactive 3-statement models, 5-year DCF valuation sliders, and 25-sector peer matrices.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">3</div>
+            <div class="calio-flow-text">
+              <strong>1-Click Multi-Sheet Excel Export</strong>
+              <p>Generate auditable financial workbooks (.xlsx) with dynamic Excel formulas in a single click, ready for your investment committee.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">4</div>
+            <div class="calio-flow-text">
+              <strong>100% Client-Side Privacy</strong>
+              <p>All XBRL calculations run locally in your browser engine. Your research, models, and ticker lookups are never sent to any cloud server.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="calio-modal-footer">
+          <a class="calio-modal-cta" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome — Free
+          </a>
+          <button type="button" class="calio-modal-dismiss" id="btnExtModalDismiss">Maybe later</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Universal Site Controller Script -->
+    <script src="js/site.js"></script>
+
+    <!-- Redline Desk Specific Logic -->
+    <script>
+      const SAMPLE_REDLINES = {
+        nvda: {
+          title: "NVIDIA Corporation",
+          badge: "Item 1A Risk Factors &bull; Export Controls",
+          left: "Our operations and financial performance are subject to global geopolitical risks. The U.S. government has announced export control regulations that impact our ability to ship certain high-performance computing products to specified destinations. We continue to evaluate our product roadmap to provide compliant alternatives to international enterprise customers.",
+          right: "Our operations and financial performance are subject to heightened global geopolitical risks and trade sanctions. The U.S. government has implemented expanded and stringent export control regulations that severely restrict our ability to ship advanced artificial intelligence and high-performance computing accelerators, including Blackwell and Hopper architectures, to China and other designated sovereign destinations. While we develop modified hardware for regional compliance, existing and prospective restrictions may permanently reduce our serviceable addressable market and materially impact operational gross margins."
+        },
+        aapl: {
+          title: "Apple Inc.",
+          badge: "Item 1A Risk Factors &bull; EU Digital Markets Act",
+          left: "We generate substantial services revenue through digital storefronts, including our App Store. We charge a commission on third-party digital transactions in accordance with our developer terms. Changes to these policies could adversely affect our business model.",
+          right: "We generate substantial services revenue through digital storefronts, including our App Store. In response to regulatory mandates, including the European Union Digital Markets Act (DMA), we have introduced revised terms in the EU allowing alternative app marketplaces, alternative payment processing mechanisms, and reduced commission structures. These changes, alongside ongoing regulatory antitrust scrutiny globally, could reduce developer participation, lower services gross margins, and adversely affect our overall financial results."
+        },
+        tsla: {
+          title: "Tesla, Inc.",
+          badge: "Item 7 MD&A &bull; FSD &amp; Regulatory Credits",
+          left: "Automotive revenues increased primarily due to higher vehicle deliveries. Operating margins reflect manufacturing efficiencies offset by pricing adjustments across key vehicle lines.",
+          right: "Automotive revenues increased primarily due to higher vehicle deliveries, partially offset by significant price reductions across our Model 3 and Model Y lines to stimulate global volume. Automotive gross margins excluding regulatory credits compressed by 240 basis points due to elevated manufacturing costs and research investments in Full Self-Driving (FSD) neural networks. Continued delays in government regulatory approvals for autonomous vehicles could restrict anticipated high-margin software revenues."
+        }
+      };
+
+      function computeTextDiff(textLeft = "", textRight = "") {
+        const tokenizeWords = (s) => {
+          if (!s) return [];
+          return String(s).match(/[\w'-]+|[^\w\s]|\s+/g) || [];
+        };
+
+        const leftTokens = tokenizeWords(textLeft);
+        const rightTokens = tokenizeWords(textRight);
+
+        const n = leftTokens.length;
+        const m = rightTokens.length;
+
+        if (n === 0 && m === 0) {
+          return { diffs: [], stats: { additions: 0, deletions: 0, unchanged: 0, variancePct: 0 }, summary: "No text to compare" };
+        }
+        if (n === 0) {
+          const wordCount = (textRight.match(/\b\w+\b/g) || []).length;
+          return {
+            diffs: [{ type: "add", text: textRight }],
+            stats: { additions: wordCount, deletions: 0, unchanged: 0, variancePct: 100 },
+            summary: `${wordCount} word additions (100% new content)`
+          };
+        }
+        if (m === 0) {
+          const wordCount = (textLeft.match(/\b\w+\b/g) || []).length;
+          return {
+            diffs: [{ type: "del", text: textLeft }],
+            stats: { additions: 0, deletions: wordCount, unchanged: 0, variancePct: 100 },
+            summary: `${wordCount} word deletions (100% removed)`
+          };
+        }
+
+        let start = 0;
+        while (start < n && start < m && leftTokens[start] === rightTokens[start]) {
+          start++;
+        }
+
+        let endLeft = n - 1;
+        let endRight = m - 1;
+        while (endLeft >= start && endRight >= start && leftTokens[endLeft] === rightTokens[endRight]) {
+          endLeft--;
+          endRight--;
+        }
+
+        const prefix = leftTokens.slice(0, start);
+        const suffix = leftTokens.slice(endLeft + 1);
+
+        const midLeft = leftTokens.slice(start, endLeft + 1);
+        const midRight = rightTokens.slice(start, endRight + 1);
+
+        const lenL = midLeft.length;
+        const lenR = midRight.length;
+
+        let midDiffs = [];
+        if (lenL === 0 && lenR > 0) {
+          midDiffs = [{ type: "add", text: midRight.join("") }];
+        } else if (lenR === 0 && lenL > 0) {
+          midDiffs = [{ type: "del", text: midLeft.join("") }];
+        } else if (lenL > 0 && lenR > 0) {
+          const maxDim = 1200;
+          const boundedL = midLeft.slice(0, maxDim);
+          const boundedR = midRight.slice(0, maxDim);
+          const blenL = boundedL.length;
+          const blenR = boundedR.length;
+
+          const dp = Array.from({ length: blenL + 1 }, () => new Uint16Array(blenR + 1));
+          for (let i = 0; i < blenL; i++) {
+            for (let j = 0; j < blenR; j++) {
+              if (boundedL[i] === boundedR[j]) {
+                dp[i + 1][j + 1] = dp[i][j] + 1;
+              } else {
+                dp[i + 1][j + 1] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+              }
+            }
+          }
+
+          let i = blenL;
+          let j = blenR;
+          const rev = [];
+          while (i > 0 || j > 0) {
+            if (i > 0 && j > 0 && boundedL[i - 1] === boundedR[j - 1]) {
+              rev.push({ type: "eq", text: boundedL[i - 1] });
+              i--;
+              j--;
+            } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
+              rev.push({ type: "add", text: boundedR[j - 1] });
+              j--;
+            } else if (i > 0 && (j === 0 || dp[i][j - 1] < dp[i - 1][j])) {
+              rev.push({ type: "del", text: boundedL[i - 1] });
+              i--;
+            }
+          }
+          rev.reverse();
+
+          // Consolidate
+          for (const d of rev) {
+            if (midDiffs.length && midDiffs[midDiffs.length - 1].type === d.type) {
+              midDiffs[midDiffs.length - 1].text += d.text;
+            } else {
+              midDiffs.push({ type: d.type, text: d.text });
+            }
+          }
+        }
+
+        const allDiffs = [];
+        if (prefix.length) allDiffs.push({ type: "eq", text: prefix.join("") });
+        allDiffs.push(...midDiffs);
+        if (suffix.length) allDiffs.push({ type: "eq", text: suffix.join("") });
+
+        let adds = 0;
+        let dels = 0;
+        let unch = 0;
+        for (const d of allDiffs) {
+          const w = (d.text.match(/\b\w+\b/g) || []).length;
+          if (d.type === "add") adds += w;
+          else if (d.type === "del") dels += w;
+          else unch += w;
+        }
+
+        const totalWords = Math.max(1, adds + dels + unch);
+        const variancePct = Math.min(100, Math.round(((adds + dels) / totalWords) * 100));
+
+        return {
+          diffs: allDiffs,
+          stats: { additions: adds, deletions: dels, unchanged: unch, variancePct },
+          summary: `+${adds} additions, -${dels} removals (${variancePct}% text variance)`
+        };
+      }
+
+      function escapeHtml(s) {
+        return String(s || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function runDiff() {
+        const left = document.getElementById("txtFilingA").value;
+        const right = document.getElementById("txtFilingB").value;
+
+        const res = computeTextDiff(left, right);
+        const { diffs, stats, summary } = res;
+
+        // Render Summary
+        const summaryCard = document.getElementById("diffSummaryCard");
+        summaryCard.innerHTML = `
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34d399; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px;">+${stats.additions} Words Added</span>
+          <span style="background: rgba(248, 113, 113, 0.15); color: #f87171; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px;">-${stats.deletions} Words Removed</span>
+          <span style="background: rgba(255, 255, 255, 0.08); color: #9cb8b2; font-weight: 600; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px;">${stats.variancePct}% Text Variance</span>
+          <span style="font-size: 0.82rem; color: #8eaba4; margin-left: auto;">${escapeHtml(summary)}</span>
+        `;
+
+        // Render Preview
+        const docPreview = document.getElementById("diffOutputDoc");
+        docPreview.innerHTML = diffs.map((d) => {
+          if (d.type === "add") {
+            return `<mark style="background: rgba(52, 211, 153, 0.25); color: #34d399; padding: 2px 4px; border-radius: 4px; font-weight: 600; text-decoration: none;">${escapeHtml(d.text)}</mark>`;
+          }
+          if (d.type === "del") {
+            return `<del style="background: rgba(248, 113, 113, 0.25); color: #f87171; padding: 2px 4px; border-radius: 4px; text-decoration: line-through;">${escapeHtml(d.text)}</del>`;
+          }
+          return `<span>${escapeHtml(d.text)}</span>`;
+        }).join("");
+      }
+
+      function loadSample(key) {
+        const s = SAMPLE_REDLINES[key];
+        if (!s) return;
+
+        document.getElementById("rlActiveTitle").textContent = s.title;
+        document.getElementById("rlActiveBadge").innerHTML = s.badge;
+        document.getElementById("txtFilingA").value = s.left;
+        document.getElementById("txtFilingB").value = s.right;
+
+        document.querySelectorAll("[data-rl-sample]").forEach((btn) => {
+          if (btn.getAttribute("data-rl-sample") === key) {
+            btn.classList.add("is-active");
+          } else {
+            btn.classList.remove("is-active");
+          }
+        });
+
+        runDiff();
+      }
+
+      // Wire sample buttons
+      document.querySelectorAll("[data-rl-sample]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const sample = btn.getAttribute("data-rl-sample");
+          if (sample) loadSample(sample);
+        });
+      });
+
+      // Wire Run Diff button
+      document.getElementById("btnRunDiff").addEventListener("click", runDiff);
+
+      // Initialize default
+      loadSample("nvda");
+    </script>
+  </body>
+</html>

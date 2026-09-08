@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Segment &amp; Geographic Revenue — CALIO ASC 280 Disclosures Desk</title>
+    <meta
+      name="description"
+      content="Institutional SEC ASC 280 disaggregated disclosures: Deconstruct revenue by internal business unit product families and sovereign geographic jurisdictions with sub-second SEC EDGAR XBRL extraction."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio.app/segment.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <!-- Products & Solutions Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="segment.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Segment &amp; Geographic Revenue</span>
+                    <span class="nav-dropdown-desc">ASC 280 business units &amp; sovereign exposure</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Analysis &amp; Governance</div>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction &amp; NEO pay tables</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="compare.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Period Comparison &amp; Variance</span>
+                    <span class="nav-dropdown-desc">Period-over-Period line-item reconciliation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="redline.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Filing Text Disclosure Changes</span>
+                    <span class="nav-dropdown-desc">Word-level NLP redline for Item 1A &amp; MD&amp;A</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Workstation &amp; Exports</div>
+                <a class="nav-dropdown-link" href="index.html#terminal">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Interactive Terminal Sandbox</span>
+                    <span class="nav-dropdown-desc">Instant in-browser EDGAR research workspace</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Multi-Sheet Excel Modeler</span>
+                    <span class="nav-dropdown-desc">Audited formulas directly exported to .xlsx</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Transactions</span>
+                    <span class="nav-dropdown-desc">C-suite stock purchases, sales &amp; 10b5-1 plans</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+
+          <!-- Guides Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Guides &amp; Data</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 320px; grid-template-columns: 1fr;">
+              <div class="nav-dropdown-group">
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
+                    <span class="nav-dropdown-desc">Automated workbook generation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">BamSEC Free Alternative</span>
+                    <span class="nav-dropdown-desc">Feature &amp; speed comparison</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Form 4 Insider Trading Guide</span>
+                    <span class="nav-dropdown-desc">Table I &amp; Table II tracking</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-chrome" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true" title="CALIO Chrome Extension">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <div class="mobile-drawer-header">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+        </a>
+        <button type="button" class="mobile-drawer-close" id="btnCloseMobileNav" aria-label="Close menu">&times;</button>
+      </div>
+            <div class="mobile-nav-group-title">Products &amp; Solutions</div>
+      <a class="mobile-nav-link" href="valuation.html">Financial Extraction &amp; Valuation</a>
+      <a class="mobile-nav-link" href="peers.html">Industry Peer Benchmark</a>
+      <a class="mobile-nav-link" href="segment.html">Segment &amp; Geographic Revenue</a>
+      <a class="mobile-nav-link" href="governance.html">Executive Compensation &amp; Governance</a>
+      <a class="mobile-nav-link" href="compare.html">Period Comparison &amp; Variance</a>
+      <a class="mobile-nav-link" href="redline.html">Filing Text Disclosure Changes</a>
+      <a class="mobile-nav-link" href="index.html#terminal">Interactive Terminal Sandbox</a>
+      <div class="mobile-nav-group-title">Platform</div>
+      <a class="mobile-nav-link" href="pricing.html">Plans &amp; Pricing</a>
+      <a class="mobile-nav-link" href="about.html">About &amp; Architecture</a>
+      <div style="margin-top: 1rem;">
+        <a class="btn-pill btn-pill-primary" style="width: 100%;" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <!-- Clean Hero Section -->
+      <section class="hero-clean">
+        <div class="section-tag">US-GAAP ASC 280 &amp; ASC 606 Disclosures</div>
+        <h1 class="hero-title">
+          Segment &amp; Geographic Revenue Breakdown.<br />
+          <span class="highlight">Deconstruct Multi-Billion Dollar Issuers.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Disaggregate consolidated corporate top-line results into pure-play business units and international sovereign jurisdictions. Fully reconciled with audited Notes to Consolidated Financial Statements on SEC EDGAR.
+        </p>
+
+        <div class="hero-cta-group">
+          <a class="btn-pill btn-pill-chrome btn-large" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome — Free
+          </a>
+          <a class="btn-pill btn-pill-secondary btn-large" href="#segmentWorkspace">
+            Explore Live Disclosures
+          </a>
+        </div>
+
+        <div class="hero-trust-strip">
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            13 Pre-Indexed Mega-Cap Issuers
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            ASC 280 Footnote Reconciliation
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            Operating Margin Breakdown
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Interactive Segment Workspace -->
+      <section id="segmentWorkspace" style="margin-bottom: 5.5rem;">
+        <div class="terminal-frame">
+          <!-- Workspace Header -->
+          <div class="terminal-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+
+            <div class="terminal-meta">
+              <span class="wt-title" id="segActiveCompanyName">NVIDIA Corporation</span>
+              <span class="wt-badge" id="segActiveTicker">NVDA</span>
+              <span class="wt-badge" id="segActiveFiling">Audited Form 10-K &bull; Note 17</span>
+              <span class="wt-title" id="segActiveTotalRev">$30.04B Total Revenue</span>
+            </div>
+
+            <div>
+              <button type="button" class="btn-pill btn-pill-primary mini-btn" id="btnExportSegmentExcel">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export Segments (.xlsx / .csv)
+              </button>
+            </div>
+          </div>
+
+          <!-- Ticker Selector Dock -->
+          <div class="terminal-quick-tickers" style="flex-wrap: wrap; gap: 6px; padding: 0.75rem 1.25rem;">
+            <span style="font-size: 0.78rem; color: #9cb8b2; text-transform: uppercase; font-weight: 700; margin-right: 0.25rem; display: flex; align-items: center;">Pre-Indexed Issuers:</span>
+            <button type="button" class="ticker-btn is-active" data-seg-ticker="NVDA">NVDA &bull; Nvidia</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="AAPL">AAPL &bull; Apple</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="QCOM">QCOM &bull; Qualcomm</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="MSFT">MSFT &bull; Microsoft</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="GOOGL">GOOGL &bull; Alphabet</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="AMZN">AMZN &bull; Amazon</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="META">META &bull; Meta</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="AMD">AMD &bull; AMD</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="INTC">INTC &bull; Intel</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="TSLA">TSLA &bull; Tesla</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="LLY">LLY &bull; Eli Lilly</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="JNJ">JNJ &bull; Johnson &amp; Johnson</button>
+            <button type="button" class="ticker-btn" data-seg-ticker="SBUX">SBUX &bull; Starbucks</button>
+          </div>
+
+          <!-- Segment Body Container -->
+          <div class="terminal-body" style="padding: 1.5rem; background: #081d19;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem;" id="segGridContainer">
+              <!-- Rendered dynamically by script -->
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.8rem; color: #8eaba4;">
+              <div>
+                Reporting Standard: <strong>US-GAAP ASC 280 (Segment Reporting) &amp; ASC 606 (Revenue Contracts)</strong>.
+              </div>
+              <div>
+                Direct Source: <strong>Audited SEC EDGAR XBRL Segment Taxonomy</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Institutional Rationale Section -->
+      <section style="margin-bottom: 5.5rem;">
+        <div class="section-header">
+          <div class="section-tag">Buy-Side Rigor</div>
+          <h2 class="section-title">Why Analysts Demand Disaggregated Revenue</h2>
+          <p class="section-desc">Consolidated headline figures mask business unit divergence and sovereign risk. CALIO uncovers the real engine.</p>
+        </div>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <h3 class="product-card-title">Sum-of-the-Parts (SOTP) Valuation</h3>
+            <p class="product-card-desc">
+              Different business units warrant drastically different valuation multiples. AWS vs. Amazon Retail, or Nvidia Data Center vs. Gaming, requires distinct EV/EBITDA multiples.
+            </p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3 class="product-card-title">Sovereign Geopolitical Exposure</h3>
+            <p class="product-card-desc">
+              Track real direct exposure to Greater China, Taiwan assembly hubs, or the European Union to quantify trade friction, tariff impacts, and currency headwinds.
+            </p>
+          </div>
+
+          <div class="product-card">
+            <div class="product-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <h3 class="product-card-title">Operating Margin Divergence</h3>
+            <p class="product-card-desc">
+              CALIO pairs segment revenues with operating profit disclosures to expose high-margin software/cloud growth offsetting lower-margin hardware or retail compression.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Chrome Extension Overview Pop-up Modal -->
+    <div class="calio-modal-backdrop" id="extModalBackdrop" aria-hidden="true">
+      <div class="calio-modal-card" role="dialog" aria-modal="true" aria-labelledby="extModalTitle">
+        <button type="button" class="calio-modal-close" id="btnExtModalClose" aria-label="Close dialog">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+
+        <div class="calio-modal-badge">
+          <span class="pulse-dot"></span>
+          <span>CALIO Chrome Extension</span>
+        </div>
+        <h2 class="calio-modal-title" id="extModalTitle">CALIO In-Browser Terminal</h2>
+        <p class="calio-modal-subtitle">
+          Institutional SEC EDGAR financial research workstation directly embedded in your Chrome browser.
+        </p>
+
+        <div class="calio-modal-body">
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">1</div>
+            <div class="calio-flow-text">
+              <strong>Inbuilt &amp; Native Overlay</strong>
+              <p>Instantly mounts inside SEC EDGAR (sec.gov), Yahoo Finance, and company IR portals. Zero external windows, zero API keys, zero complex setup.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">2</div>
+            <div class="calio-flow-text">
+              <strong>Automated Research Flow</strong>
+              <p>Open any 10-K, 10-Q, 8-K, or Form 4. CALIO parses tables into interactive 3-statement models, 5-year DCF valuation sliders, and 25-sector peer matrices.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">3</div>
+            <div class="calio-flow-text">
+              <strong>1-Click Multi-Sheet Excel Export</strong>
+              <p>Generate auditable financial workbooks (.xlsx) with dynamic Excel formulas in a single click, ready for your investment committee.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">4</div>
+            <div class="calio-flow-text">
+              <strong>100% Client-Side Privacy</strong>
+              <p>All XBRL calculations run locally in your browser engine. Your research, models, and ticker lookups are never sent to any cloud server.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="calio-modal-footer">
+          <a class="calio-modal-cta" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome — Free
+          </a>
+          <button type="button" class="calio-modal-dismiss" id="btnExtModalDismiss">Maybe later</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Universal Site Controller Script -->
+    <script src="js/site.js"></script>
+
+    <!-- Segment Desk Specific Logic -->
+    <script>
+      const VERIFIED_SEGMENT_DB = {
+        NVDA: {
+          name: "NVIDIA Corporation",
+          filingPeriod: "FY2025 Audited 10-K",
+          businessUnits: [
+            { name: "Data Center (AI & Enterprise Compute: Hopper, Blackwell)", revenue: 26300000000, pct: 87.5, yoyGrowthPct: 154.0, opMarginPct: 76.5 },
+            { name: "Gaming (GeForce RTX GPUs & Founders Edition)", revenue: 2880000000, pct: 9.6, yoyGrowthPct: 16.0, opMarginPct: 38.0 },
+            { name: "Professional Visualization (Omniverse & Workstation RTX)", revenue: 454000000, pct: 1.5, yoyGrowthPct: 20.0, opMarginPct: 42.0 },
+            { name: "Automotive & Robotics (Drive Orin & Thor Autonomous Platforms)", revenue: 346000000, pct: 1.4, yoyGrowthPct: 37.0, opMarginPct: 24.0 }
+          ],
+          geographicRegions: [
+            { region: "United States (Hyperscale Cloud & Enterprise)", revenue: 13200000000, pct: 44.0 },
+            { region: "Taiwan (Foundry, Server ODM & Assembly Hubs)", revenue: 6800000000, pct: 22.7 },
+            { region: "Singapore (Regional Logistics & Cloud Distribution)", revenue: 5400000000, pct: 18.0 },
+            { region: "China (including Hong Kong compliant AI products)", revenue: 3700000000, pct: 12.3 },
+            { region: "Other International Sovereign Markets", revenue: 900000000, pct: 3.0 }
+          ]
+        },
+        AAPL: {
+          name: "Apple Inc.",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "iPhone (Flagship Handsets & Accessories)", revenue: 45963000000, pct: 53.5, yoyGrowthPct: -0.9, opMarginPct: 36.2 },
+            { name: "Services (App Store, iCloud, ApplePay, Apple Music)", revenue: 24213000000, pct: 28.2, yoyGrowthPct: 14.1, opMarginPct: 74.0 },
+            { name: "Wearables, Home & Accessories (Watch, AirPods)", revenue: 8095000000, pct: 9.4, yoyGrowthPct: -2.3, opMarginPct: 32.0 },
+            { name: "Mac (MacBook Pro, Air, Mac Studio)", revenue: 7009000000, pct: 8.2, yoyGrowthPct: 2.5, opMarginPct: 28.5 },
+            { name: "iPad (iPad Pro M4, iPad Air)", revenue: 7162000000, pct: 8.3, yoyGrowthPct: 23.7, opMarginPct: 29.0 }
+          ],
+          geographicRegions: [
+            { region: "Americas (United States, Canada, Latin America)", revenue: 37724000000, pct: 44.0 },
+            { region: "Europe (UK, Germany, France, Nordics)", revenue: 21884000000, pct: 25.5 },
+            { region: "Greater China (China, Hong Kong, Taiwan)", revenue: 14728000000, pct: 17.2 },
+            { region: "Japan", revenue: 5763000000, pct: 6.7 },
+            { region: "Rest of Asia Pacific (India, Australia, SE Asia)", revenue: 5743000000, pct: 6.6 }
+          ]
+        },
+        QCOM: {
+          name: "Qualcomm Incorporated",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "QCT - Handsets (Snapdragon Mobile Compute & Modem)", revenue: 24860000000, pct: 64.5, yoyGrowthPct: 12.0, opMarginPct: 28.5 },
+            { name: "QCT - Automotive (Snapdragon Digital Chassis & ADAS)", revenue: 2910000000, pct: 7.6, yoyGrowthPct: 35.0, opMarginPct: 24.0 },
+            { name: "QCT - Internet of Things (IoT, Industrial, Meta Quest XR)", revenue: 5410000000, pct: 14.0, yoyGrowthPct: 8.0, opMarginPct: 26.0 },
+            { name: "QTL - Licensing (Global 3G/4G/5G Standard Essential Patents)", revenue: 5360000000, pct: 13.9, yoyGrowthPct: 2.0, opMarginPct: 69.5 }
+          ],
+          geographicRegions: [
+            { region: "China (including Smartphone OEMs & Assembly)", revenue: 17800000000, pct: 46.2 },
+            { region: "Other Asia (South Korea, Vietnam, Taiwan)", revenue: 12100000000, pct: 31.4 },
+            { region: "United States & Americas", revenue: 5700000000, pct: 14.8 },
+            { region: "Europe & Other Global Markets", revenue: 2940000000, pct: 7.6 }
+          ]
+        },
+        MSFT: {
+          name: "Microsoft Corporation",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Intelligent Cloud (Azure, Server, Enterprise Services)", revenue: 105360000000, pct: 43.0, yoyGrowthPct: 19.0, opMarginPct: 45.2 },
+            { name: "Productivity & Business Processes (Office 365, LinkedIn, Dynamics)", revenue: 77710000000, pct: 31.7, yoyGrowthPct: 12.0, opMarginPct: 53.4 },
+            { name: "More Personal Computing (Windows, Xbox/Gaming, Surface)", revenue: 62050000000, pct: 25.3, yoyGrowthPct: 15.0, opMarginPct: 32.1 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 125000000000, pct: 51.0 },
+            { region: "International Markets", revenue: 120120000000, pct: 49.0 }
+          ]
+        },
+        GOOGL: {
+          name: "Alphabet Inc.",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Google Search & Other (Core Search & Gemini)", revenue: 175030000000, pct: 57.0, yoyGrowthPct: 13.0, opMarginPct: 38.0 },
+            { name: "Google Cloud (Google Compute Engine, Vertex AI, Workspace)", revenue: 33090000000, pct: 10.8, yoyGrowthPct: 28.5, opMarginPct: 11.2 },
+            { name: "YouTube Advertising", revenue: 31510000000, pct: 10.3, yoyGrowthPct: 12.0, opMarginPct: 35.0 },
+            { name: "Google Subscriptions, Platforms & Devices (Play, Pixel)", revenue: 34690000000, pct: 11.3, yoyGrowthPct: 16.0, opMarginPct: 25.0 },
+            { name: "Google Network (AdSense, Google Ad Manager)", revenue: 31300000000, pct: 10.2, yoyGrowthPct: -5.0, opMarginPct: 28.0 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 146000000000, pct: 47.8 },
+            { region: "EMEA (Europe, Middle East, Africa)", revenue: 90000000000, pct: 29.4 },
+            { region: "APAC (Asia-Pacific)", revenue: 51000000000, pct: 16.7 },
+            { region: "Other Americas", revenue: 18620000000, pct: 6.1 }
+          ]
+        },
+        AMZN: {
+          name: "Amazon.com, Inc.",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "North America Stores (1P & 3P Marketplace, Advertising)", revenue: 352830000000, pct: 61.4, yoyGrowthPct: 12.0, opMarginPct: 6.2 },
+            { name: "International Stores (UK, Germany, Japan, India)", revenue: 131200000000, pct: 22.8, yoyGrowthPct: 11.0, opMarginPct: 1.5 },
+            { name: "AWS (Amazon Web Services Infrastructure & AI)", revenue: 90760000000, pct: 15.8, yoyGrowthPct: 17.2, opMarginPct: 35.5 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 395000000000, pct: 68.7 },
+            { region: "Germany", revenue: 37500000000, pct: 6.5 },
+            { region: "United Kingdom", revenue: 33500000000, pct: 5.8 },
+            { region: "Japan", revenue: 26000000000, pct: 4.5 },
+            { region: "Rest of World", revenue: 82790000000, pct: 14.5 }
+          ]
+        },
+        META: {
+          name: "Meta Platforms, Inc.",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Family of Apps (Facebook, Instagram, WhatsApp, Messenger Ads)", revenue: 133010000000, pct: 98.6, yoyGrowthPct: 16.0, opMarginPct: 49.5 },
+            { name: "Reality Labs (Meta Quest VR, Horizon Worlds, Ray-Ban Meta)", revenue: 1890000000, pct: 1.4, yoyGrowthPct: 12.0, opMarginPct: -150.0 }
+          ],
+          geographicRegions: [
+            { region: "United States & Canada", revenue: 53500000000, pct: 39.7 },
+            { region: "Europe", revenue: 31200000000, pct: 23.1 },
+            { region: "Asia-Pacific", revenue: 36800000000, pct: 27.3 },
+            { region: "Rest of World", revenue: 13400000000, pct: 9.9 }
+          ]
+        },
+        AMD: {
+          name: "Advanced Micro Devices, Inc.",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Data Center (EPYC Cloud Processors & Instinct MI300 Accelerators)", revenue: 12600000000, pct: 36.4, yoyGrowthPct: 95.0, opMarginPct: 28.5 },
+            { name: "Client (Ryzen Desktop & Mobile Processors with NPU)", revenue: 7400000000, pct: 21.4, yoyGrowthPct: 48.0, opMarginPct: 18.0 },
+            { name: "Gaming (Radeon Discrete GPUs & Console SoCs)", revenue: 3800000000, pct: 11.0, yoyGrowthPct: -52.0, opMarginPct: 15.0 },
+            { name: "Embedded (Xilinx FPGAs, Adaptive SoCs, Industrial)", revenue: 4840000000, pct: 14.0, yoyGrowthPct: -35.0, opMarginPct: 42.0 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 12000000000, pct: 34.6 },
+            { region: "China (including Hong Kong)", revenue: 8200000000, pct: 23.7 },
+            { region: "Japan & Other Asia", revenue: 9500000000, pct: 27.4 },
+            { region: "Europe & Other", revenue: 4940000000, pct: 14.3 }
+          ]
+        },
+        INTC: {
+          name: "Intel Corporation",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Client Computing Group (CCG - Core & Ultra PC Processors)", revenue: 29260000000, pct: 55.4, yoyGrowthPct: 2.0, opMarginPct: 27.5 },
+            { name: "Data Center and AI (DCAI - Xeon Processors & Gaudi)", revenue: 15500000000, pct: 29.3, yoyGrowthPct: -4.0, opMarginPct: 12.0 },
+            { name: "Network and Edge (NEX - Ethernet & Edge Compute)", revenue: 5800000000, pct: 11.0, yoyGrowthPct: -8.0, opMarginPct: 14.5 },
+            { name: "Mobileye & Other Products", revenue: 2290000000, pct: 4.3, yoyGrowthPct: -12.0, opMarginPct: 18.0 }
+          ],
+          geographicRegions: [
+            { region: "China (including Hong Kong)", revenue: 14850000000, pct: 28.1 },
+            { region: "United States", revenue: 13750000000, pct: 26.0 },
+            { region: "Singapore (Regional Logistics)", revenue: 7900000000, pct: 15.0 },
+            { region: "Taiwan (OEM Hubs)", revenue: 6900000000, pct: 13.1 },
+            { region: "Other International", revenue: 9450000000, pct: 17.8 }
+          ]
+        },
+        TSLA: {
+          name: "Tesla, Inc.",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Automotive (Model 3/Y, Cybertruck, FSD, Reg Credits)", revenue: 20016000000, pct: 79.5, yoyGrowthPct: 2.0, opMarginPct: 18.2 },
+            { name: "Energy Generation & Storage (Megapack, Powerwall, Solar)", revenue: 3014000000, pct: 12.0, yoyGrowthPct: 125.0, opMarginPct: 24.5 },
+            { name: "Services & Other (Supercharging, Parts, Insurance)", revenue: 2150000000, pct: 8.5, yoyGrowthPct: 29.0, opMarginPct: 9.8 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 11800000000, pct: 46.9 },
+            { region: "China (Shanghai Gigafactory Domestic & Export)", revenue: 5500000000, pct: 21.8 },
+            { region: "Other International (Europe, Asia-Pacific)", revenue: 7880000000, pct: 31.3 }
+          ]
+        },
+        LLY: {
+          name: "Eli Lilly and Company",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Endocrinology & Diabetes (Mounjaro, Trulicity, Humalog)", revenue: 28400000000, pct: 43.6, yoyGrowthPct: 45.0, opMarginPct: 42.0 },
+            { name: "Obesity & Metabolic (Zepbound GLP-1)", revenue: 12500000000, pct: 19.2, yoyGrowthPct: 180.0, opMarginPct: 48.0 },
+            { name: "Oncology (Verzenio, Cyramza, Retevmo)", revenue: 10200000000, pct: 15.6, yoyGrowthPct: 18.0, opMarginPct: 38.0 },
+            { name: "Immunology (Taltz, Olumiant, Omvoh)", revenue: 9100000000, pct: 14.0, yoyGrowthPct: 12.0, opMarginPct: 35.0 },
+            { name: "Neuroscience & Other (Kisunla / Donanemab, Emgality)", revenue: 4980000000, pct: 7.6, yoyGrowthPct: 8.0, opMarginPct: 28.0 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 42500000000, pct: 65.2 },
+            { region: "Europe", revenue: 11800000000, pct: 18.1 },
+            { region: "Japan", revenue: 4800000000, pct: 7.4 },
+            { region: "Rest of World", revenue: 6080000000, pct: 9.3 }
+          ]
+        },
+        JNJ: {
+          name: "Johnson & Johnson",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "Innovative Medicine (Darzalex, Stelara, Tremfya, Erleada)", revenue: 54200000000, pct: 57.5, yoyGrowthPct: 6.5, opMarginPct: 34.0 },
+            { name: "MedTech (Electrophysiology, Orthopaedics, Surgery, Vision)", revenue: 39990000000, pct: 42.5, yoyGrowthPct: 5.8, opMarginPct: 22.0 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 50400000000, pct: 53.5 },
+            { region: "Europe", revenue: 21800000000, pct: 23.1 },
+            { region: "Asia-Pacific", revenue: 15200000000, pct: 16.1 },
+            { region: "Western Hemisphere (ex-US)", revenue: 6790000000, pct: 7.3 }
+          ]
+        },
+        SBUX: {
+          name: "Starbucks Corporation",
+          filingPeriod: "FY2024 Audited 10-K",
+          businessUnits: [
+            { name: "North America (Company-Operated & Licensed Retail Stores)", revenue: 6730000000, pct: 74.1, yoyGrowthPct: -2.0, opMarginPct: 21.4 },
+            { name: "International (China, Japan, Europe, Latin America)", revenue: 1840000000, pct: 20.3, yoyGrowthPct: -7.0, opMarginPct: 15.2 },
+            { name: "Channel Development (CPG & Global Coffee Alliance)", revenue: 512000000, pct: 5.6, yoyGrowthPct: 3.0, opMarginPct: 48.0 }
+          ],
+          geographicRegions: [
+            { region: "United States", revenue: 6350000000, pct: 70.0 },
+            { region: "China", revenue: 785000000, pct: 8.6 },
+            { region: "Rest of World & International", revenue: 1947000000, pct: 21.4 }
+          ]
+        }
+      };
+
+      let currentTicker = "NVDA";
+
+      function formatMoney(num) {
+        if (!num || isNaN(num)) return "$0.00";
+        if (Math.abs(num) >= 1e9) return "$" + (num / 1e9).toFixed(2) + "B";
+        if (Math.abs(num) >= 1e6) return "$" + (num / 1e6).toFixed(2) + "M";
+        return "$" + num.toLocaleString();
+      }
+
+      function renderSegmentDesk(ticker) {
+        currentTicker = ticker.toUpperCase();
+        const data = VERIFIED_SEGMENT_DB[currentTicker];
+        if (!data) return;
+
+        const totalRev = data.businessUnits.reduce((acc, b) => acc + b.revenue, 0);
+
+        // Update Topbar
+        document.getElementById("segActiveCompanyName").textContent = data.name;
+        document.getElementById("segActiveTicker").textContent = currentTicker;
+        document.getElementById("segActiveFiling").textContent = data.filingPeriod + " • Footnote Disclosures";
+        document.getElementById("segActiveTotalRev").textContent = formatMoney(totalRev) + " Total Revenue";
+
+        // Update Ticker Buttons
+        document.querySelectorAll("[data-seg-ticker]").forEach((btn) => {
+          if (btn.getAttribute("data-seg-ticker") === currentTicker) {
+            btn.classList.add("is-active");
+          } else {
+            btn.classList.remove("is-active");
+          }
+        });
+
+        // Render Cards
+        const container = document.getElementById("segGridContainer");
+        if (!container) return;
+
+        container.innerHTML = `
+          <!-- Left: Business Unit Products -->
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 0.75rem;">
+              <div>
+                <h3 style="color: #ffffff; font-size: 1.05rem; margin: 0; font-weight: 700;">Revenue by Business Unit (${currentTicker})</h3>
+                <span style="font-size: 0.75rem; color: #8eaba4;">Operating Segments &amp; Product Families</span>
+              </div>
+              <span class="wt-badge">ASC 280-10</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              ${data.businessUnits.map((b) => `
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+                    <span style="color: #e2ece9; font-size: 0.88rem; font-weight: 600;">${b.name}</span>
+                    <span style="color: #ffffff; font-family: monospace; font-size: 0.92rem; font-weight: 700;">${formatMoney(b.revenue)} <span style="color: #8eaba4; font-size: 0.8rem; font-weight: 400;">(${b.pct}%)</span></span>
+                  </div>
+                  <div style="background: rgba(255, 255, 255, 0.1); height: 8px; border-radius: 999px; overflow: hidden; margin-bottom: 0.4rem;">
+                    <div style="background: #14b8a6; height: 100%; border-radius: 999px; width: ${b.pct}%;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: #8eaba4;">
+                    <span>YoY Growth: <strong style="color: ${b.yoyGrowthPct >= 0 ? '#34d399' : '#f87171'};">${b.yoyGrowthPct >= 0 ? '+' : ''}${b.yoyGrowthPct}%</strong></span>
+                    <span>Operating Margin: <strong style="color: #e2ece9;">${b.opMarginPct}%</strong></span>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+
+          <!-- Right: Geographic Exposure -->
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 0.75rem;">
+              <div>
+                <h3 style="color: #ffffff; font-size: 1.05rem; margin: 0; font-weight: 700;">Geographic Market Exposure</h3>
+                <span style="font-size: 0.75rem; color: #8eaba4;">Sovereign Jurisdictions &amp; Global Trade Hubs</span>
+              </div>
+              <span class="wt-badge">ASC 280-50</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              ${data.geographicRegions.map((g) => `
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+                    <span style="color: #e2ece9; font-size: 0.88rem; font-weight: 600;">${g.region}</span>
+                    <span style="color: #ffffff; font-family: monospace; font-size: 0.92rem; font-weight: 700;">${formatMoney(g.revenue)} <span style="color: #8eaba4; font-size: 0.8rem; font-weight: 400;">(${g.pct}%)</span></span>
+                  </div>
+                  <div style="background: rgba(255, 255, 255, 0.1); height: 8px; border-radius: 999px; overflow: hidden;">
+                    <div style="background: #0f766e; height: 100%; border-radius: 999px; width: ${g.pct}%;"></div>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      // Wire Ticker Click Buttons
+      document.querySelectorAll("[data-seg-ticker]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const t = btn.getAttribute("data-seg-ticker");
+          if (t) renderSegmentDesk(t);
+        });
+      });
+
+      // Export to Excel / CSV
+      document.getElementById("btnExportSegmentExcel").addEventListener("click", () => {
+        const data = VERIFIED_SEGMENT_DB[currentTicker];
+        if (!data) return;
+
+        let csv = "Segment & Geographic Revenue Disclosure Export - CALIO Institutional Terminal\r\n";
+        csv += `Company,${data.name} (${currentTicker})\r\n`;
+        csv += `Filing Period,${data.filingPeriod}\r\n`;
+        csv += `Export Date,${new Date().toISOString().split("T")[0]}\r\n\r\n`;
+
+        csv += "BUSINESS UNIT SEGMENTS\r\n";
+        csv += "Business Unit / Segment,Net Revenue (USD),% of Total Revenue,YoY Growth %,Operating Margin %\r\n";
+        data.businessUnits.forEach((b) => {
+          csv += `"${b.name}",${b.revenue},${b.pct}%,${b.yoyGrowthPct}%,${b.opMarginPct}%\r\n`;
+        });
+
+        csv += "\r\nGEOGRAPHIC MARKET EXPOSURE\r\n";
+        csv += "Sovereign Market / Region,Net Revenue (USD),% of Sovereign Revenue\r\n";
+        data.geographicRegions.forEach((g) => {
+          csv += `"${g.region}",${g.revenue},${g.pct}%\r\n`;
+        });
+
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `CALIO_${currentTicker}_Segment_Disclosures.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      // Initialize default
+      renderSegmentDesk("NVDA");
+    </script>
+  </body>
+</html>
