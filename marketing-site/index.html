@@ -452,15 +452,23 @@
             </div>
           </div>
 
-          <!-- Quick Select Tickers & Search -->
-          <div class="terminal-quick-tickers">
-            <span style="font-size: 0.78rem; color: #9cb8b2; text-transform: uppercase; font-weight: 700; margin-right: 0.5rem; white-space: nowrap;">Benchmark Issuers:</span>
-            <button type="button" class="ticker-btn is-active" data-wt-ticker="NVDA">NVDA &bull; NVIDIA</button>
-            <button type="button" class="ticker-btn" data-wt-ticker="AAPL">AAPL &bull; Apple</button>
-            <button type="button" class="ticker-btn" data-wt-ticker="MSFT">MSFT &bull; Microsoft</button>
-            <button type="button" class="ticker-btn" data-wt-ticker="TSLA">TSLA &bull; Tesla</button>
-            <button type="button" class="ticker-btn" data-wt-ticker="AMZN">AMZN &bull; Amazon</button>
-            <input type="text" id="wtTickerSearch" placeholder="Type ticker (e.g. AAPL)..." style="margin-left:auto; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#ffffff; border-radius:999px; padding:0.25rem 0.85rem; font-size:0.8rem; outline:none; width:170px;" />
+          <!-- Universal Ticker Search & Lookup Strip -->
+          <div class="universal-ticker-strip">
+            <div class="universal-search-box">
+              <svg class="universal-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="wtTickerSearch" class="universal-search-input" placeholder="Search any ticker or company (e.g. NVDA, AAPL, MSFT, TSLA, AMZN, GOOGL)..." autocomplete="off" spellcheck="false" />
+              <button type="button" class="universal-search-btn" id="wtBtnSearch">Search / Analyze</button>
+            </div>
+            <div class="universal-pills-row">
+              <span class="universal-pills-label">Trending Issuers:</span>
+              <button type="button" class="ticker-btn is-active" data-wt-ticker="NVDA">NVDA · NVIDIA</button>
+              <button type="button" class="ticker-btn" data-wt-ticker="AAPL">AAPL · Apple</button>
+              <button type="button" class="ticker-btn" data-wt-ticker="MSFT">MSFT · Microsoft</button>
+              <button type="button" class="ticker-btn" data-wt-ticker="TSLA">TSLA · Tesla</button>
+              <button type="button" class="ticker-btn" data-wt-ticker="AMZN">AMZN · Amazon</button>
+              <button type="button" class="ticker-btn" data-wt-ticker="GOOGL">GOOGL · Alphabet</button>
+              <button type="button" class="ticker-btn" data-wt-ticker="META">META · Meta</button>
+            </div>
           </div>
 
           <!-- Mode Switcher Tabs -->

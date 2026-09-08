@@ -256,7 +256,11 @@
               <span class="wt-badge">Word-Level Tokenizer</span>
             </div>
 
-            <div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button type="button" class="btn-pill btn-pill-ghost mini-btn" id="btnClearText">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Clear Inputs
+              </button>
               <button type="button" class="btn-pill btn-pill-primary mini-btn" id="btnRunDiff">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                 Analyze Disclosure Changes
@@ -264,44 +268,75 @@
             </div>
           </div>
 
-          <!-- Sample Disclosures Bar -->
-          <div style="background: rgba(255, 255, 255, 0.02); padding: 0.75rem 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-            <span style="font-size: 0.78rem; color: #9cb8b2; text-transform: uppercase; font-weight: 700; margin-right: 0.25rem;">Insert Sample Filings:</span>
-            <button type="button" class="ticker-btn is-active" data-rl-sample="nvda">NVIDIA &bull; AI Export Controls</button>
-            <button type="button" class="ticker-btn" data-rl-sample="aapl">Apple &bull; EU Digital Markets Act</button>
-            <button type="button" class="ticker-btn" data-rl-sample="tsla">Tesla &bull; FSD &amp; Automotive Gross Margins</button>
+          <!-- Universal Ticker Search & Lookup Strip -->
+          <div class="universal-ticker-strip">
+            <div class="universal-search-box">
+              <svg class="universal-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="rlTickerSearch" class="universal-search-input" placeholder="Search any ticker for SEC Risk Disclosures (e.g. NVDA, AAPL, TSLA, MSFT, AMZN)..." autocomplete="off" spellcheck="false" />
+              <button type="button" class="universal-search-btn" id="rlBtnSearch">Load Risk Factors</button>
+            </div>
+            <div class="universal-pills-row">
+              <span class="universal-pills-label">Trending Issuers:</span>
+              <button type="button" class="ticker-btn is-active" data-rl-ticker="NVDA">NVDA · NVIDIA</button>
+              <button type="button" class="ticker-btn" data-rl-ticker="AAPL">AAPL · Apple</button>
+              <button type="button" class="ticker-btn" data-rl-ticker="TSLA">TSLA · Tesla</button>
+              <button type="button" class="ticker-btn" data-rl-ticker="MSFT">MSFT · Microsoft</button>
+              <button type="button" class="ticker-btn" data-rl-ticker="AMZN">AMZN · Amazon</button>
+              <button type="button" class="ticker-btn" data-rl-ticker="GOOGL">GOOGL · Alphabet</button>
+              <button type="button" class="ticker-btn" data-rl-ticker="META">META · Meta</button>
+            </div>
+          </div>
+
+          <!-- Interactive Mode Switcher Bar -->
+          <div style="background: #f8fafc; padding: 0.75rem 1.4rem; border-bottom: 1px solid #e2e8f0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <span style="font-size: 0.76rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Editing Mode:</span>
+              <button type="button" class="chip-btn is-active" id="btnModeCustom">Write / Paste Custom Text</button>
+              <button type="button" class="chip-btn" id="btnModeSamples">Sample SEC Filings</button>
+            </div>
+
+            <div style="font-size: 0.78rem; color: #64748b; display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #0f766e;"></span>
+              Real-time NLP tokenizer active • Paste or type your own text freely
+            </div>
           </div>
 
           <!-- Textarea Comparison Grid -->
-          <div style="padding: 1.25rem 1.5rem; background: #081d19; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="padding: 1.25rem 1.4rem; background: #ffffff; border-bottom: 1px solid #e2e8f0;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
               <div>
-                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #9cb8b2; margin-bottom: 0.5rem; text-transform: uppercase;">
-                  Prior Period / Baseline Section (Filing A)
-                </label>
-                <textarea id="txtFilingA" style="width: 100%; height: 160px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; color: #ffffff; padding: 0.85rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.88rem; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                  <label for="txtFilingA" style="font-size: 0.8rem; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.04em;">
+                    Prior Period / Baseline Version (Filing A)
+                  </label>
+                  <span id="statsA" style="font-size: 0.74rem; color: #64748b; font-family: var(--mono);">0 words · 0 chars</span>
+                </div>
+                <textarea id="txtFilingA" style="width: 100%; height: 175px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 8px; color: #0f172a; padding: 0.85rem; font-family: var(--font); font-size: 0.88rem; line-height: 1.6; resize: vertical; outline: none; transition: all 0.15s ease;" placeholder="Type or paste your baseline text, prior 10-Q/10-K disclosure, or original contract here..."></textarea>
               </div>
 
               <div>
-                <label style="display: block; font-size: 0.82rem; font-weight: 700; color: #9cb8b2; margin-bottom: 0.5rem; text-transform: uppercase;">
-                  Current Period / Updated Section (Filing B)
-                </label>
-                <textarea id="txtFilingB" style="width: 100%; height: 160px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; color: #ffffff; padding: 0.85rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.88rem; line-height: 1.6; resize: vertical; outline: none;"></textarea>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                  <label for="txtFilingB" style="font-size: 0.8rem; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.04em;">
+                    Current Period / Revised Version (Filing B)
+                  </label>
+                  <span id="statsB" style="font-size: 0.74rem; color: #64748b; font-family: var(--mono);">0 words · 0 chars</span>
+                </div>
+                <textarea id="txtFilingB" style="width: 100%; height: 175px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 8px; color: #0f172a; padding: 0.85rem; font-family: var(--font); font-size: 0.88rem; line-height: 1.6; resize: vertical; outline: none; transition: all 0.15s ease;" placeholder="Type or paste your amended text, updated 10-Q/10-K disclosure, or revised contract here..."></textarea>
               </div>
             </div>
           </div>
 
           <!-- Redline Output Container -->
-          <div class="terminal-body" style="padding: 1.25rem 1.5rem; background: #081d19;">
-            <div id="diffSummaryCard" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding: 0.85rem 1.25rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
+          <div class="terminal-body" style="padding: 1.4rem; background: #ffffff;">
+            <div id="diffSummaryCard" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 1.25rem; padding: 0.85rem 1.25rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
               <!-- Rendered dynamically -->
             </div>
 
-            <div id="diffOutputDoc" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 1.5rem; font-size: 0.95rem; line-height: 1.8; color: #e2ece9; min-height: 120px; white-space: pre-wrap;">
+            <div id="diffOutputDoc" style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; font-size: 0.95rem; line-height: 1.8; color: #0f172a; min-height: 140px; white-space: pre-wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
               <!-- Rendered dynamically -->
             </div>
 
-            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.8rem; color: #8eaba4;">
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.8rem; color: #64748b;">
               <div>
                 NLP Diff Engine: <strong>Word-level tokenization &bull; Sub-millisecond localized execution</strong>.
               </div>
@@ -424,25 +459,62 @@
     <!-- Redline Desk Specific Logic -->
     <script>
       const SAMPLE_REDLINES = {
-        nvda: {
-          title: "NVIDIA Corporation",
+        NVDA: {
+          title: "NVIDIA Corporation (NVDA)",
           badge: "Item 1A Risk Factors &bull; Export Controls",
           left: "Our operations and financial performance are subject to global geopolitical risks. The U.S. government has announced export control regulations that impact our ability to ship certain high-performance computing products to specified destinations. We continue to evaluate our product roadmap to provide compliant alternatives to international enterprise customers.",
           right: "Our operations and financial performance are subject to heightened global geopolitical risks and trade sanctions. The U.S. government has implemented expanded and stringent export control regulations that severely restrict our ability to ship advanced artificial intelligence and high-performance computing accelerators, including Blackwell and Hopper architectures, to China and other designated sovereign destinations. While we develop modified hardware for regional compliance, existing and prospective restrictions may permanently reduce our serviceable addressable market and materially impact operational gross margins."
         },
-        aapl: {
-          title: "Apple Inc.",
+        AAPL: {
+          title: "Apple Inc. (AAPL)",
           badge: "Item 1A Risk Factors &bull; EU Digital Markets Act",
           left: "We generate substantial services revenue through digital storefronts, including our App Store. We charge a commission on third-party digital transactions in accordance with our developer terms. Changes to these policies could adversely affect our business model.",
           right: "We generate substantial services revenue through digital storefronts, including our App Store. In response to regulatory mandates, including the European Union Digital Markets Act (DMA), we have introduced revised terms in the EU allowing alternative app marketplaces, alternative payment processing mechanisms, and reduced commission structures. These changes, alongside ongoing regulatory antitrust scrutiny globally, could reduce developer participation, lower services gross margins, and adversely affect our overall financial results."
         },
-        tsla: {
-          title: "Tesla, Inc.",
-          badge: "Item 7 MD&A &bull; FSD &amp; Regulatory Credits",
+        TSLA: {
+          title: "Tesla, Inc. (TSLA)",
+          badge: "Item 7 MD&A &bull; FSD &amp; Automotive Gross Margins",
           left: "Automotive revenues increased primarily due to higher vehicle deliveries. Operating margins reflect manufacturing efficiencies offset by pricing adjustments across key vehicle lines.",
           right: "Automotive revenues increased primarily due to higher vehicle deliveries, partially offset by significant price reductions across our Model 3 and Model Y lines to stimulate global volume. Automotive gross margins excluding regulatory credits compressed by 240 basis points due to elevated manufacturing costs and research investments in Full Self-Driving (FSD) neural networks. Continued delays in government regulatory approvals for autonomous vehicles could restrict anticipated high-margin software revenues."
+        },
+        MSFT: {
+          title: "Microsoft Corporation (MSFT)",
+          badge: "Item 1A Risk Factors &bull; Artificial Intelligence &amp; Cloud Infra",
+          left: "We continue to invest in cloud and artificial intelligence capabilities across our product suites. Growth depends on customer adoption and managing infrastructure capital expenditures.",
+          right: "We are aggressively expanding our artificial intelligence platform investments, including strategic commercial partnerships with OpenAI and proprietary custom silicon (Maia accelerators). Escalating capital expenditures for datacenters, advanced high-bandwidth memory GPUs, and energy transmission infrastructure could compress cloud gross margins if commercial Copilot monetization and enterprise Azure consumption ramp at a slower rate than our multi-billion dollar upfront capital commitments."
+        },
+        AMZN: {
+          title: "Amazon.com, Inc. (AMZN)",
+          badge: "Item 7 MD&A &bull; AWS Operating Profitability &amp; CapEx",
+          left: "AWS revenue growth reflects ongoing enterprise migration to cloud computing. Net sales increased in line with overall platform usage.",
+          right: "AWS revenue growth accelerated driven by rapid enterprise deployment of generative AI foundational models and Bedrock orchestration. Operating income for AWS expanded to $10.4B, though sustained profitability requires substantial forward capital expenditure in next-generation liquid-cooled AI cluster infrastructure and custom Trainium2 chip deployments amidst competitive hyperscaler pricing pressures."
+        },
+        GOOGL: {
+          title: "Alphabet Inc. (GOOGL)",
+          badge: "Item 1A Risk Factors &bull; Search Antitrust &amp; Remediation",
+          left: "Our advertising revenues depend on user engagement with Google Search and YouTube. Changes in search distribution channels could impact traffic acquisition costs.",
+          right: "Our advertising business faces critical regulatory risk following adverse rulings in U.S. federal antitrust proceedings regarding default search distribution agreements on third-party mobile operating systems and browsers. Proposed behavioral or structural remedies, including mandatory unbundling of Android service agreements or prohibitions on revenue-sharing arrangements, could materially disrupt user search volume, inflate traffic acquisition costs (TAC), and adversely impact consolidated operating margins."
+        },
+        META: {
+          title: "Meta Platforms, Inc. (META)",
+          badge: "Item 1A Risk Factors &bull; Open-Source AI &amp; Reality Labs",
+          left: "We invest in long-term technology initiatives including metaverse hardware and software platforms. These investments may take years to realize commercial returns.",
+          right: "We are substantially scaling capital expenditures to between $38B and $40B annually to support generative AI research and our open-source Llama model architecture. Furthermore, our Reality Labs division continues to record substantial annual operating losses ($16.1B in FY2024). There is no assurance that our open-source AI infrastructure strategy or augmented reality devices will yield commensurate direct advertising or enterprise monetization to offset sustained operating deficits."
         }
       };
+
+      function updateStats() {
+        const left = document.getElementById("txtFilingA").value;
+        const right = document.getElementById("txtFilingB").value;
+
+        const wordsA = (left.match(/\b\w+\b/g) || []).length;
+        const charsA = left.length;
+        document.getElementById("statsA").textContent = `${wordsA.toLocaleString()} words · ${charsA.toLocaleString()} chars`;
+
+        const wordsB = (right.match(/\b\w+\b/g) || []).length;
+        const charsB = right.length;
+        document.getElementById("statsB").textContent = `${wordsB.toLocaleString()} words · ${charsB.toLocaleString()} chars`;
+      }
 
       function computeTextDiff(textLeft = "", textRight = "") {
         const tokenizeWords = (s) => {
@@ -457,7 +529,7 @@
         const m = rightTokens.length;
 
         if (n === 0 && m === 0) {
-          return { diffs: [], stats: { additions: 0, deletions: 0, unchanged: 0, variancePct: 0 }, summary: "No text to compare" };
+          return { diffs: [], stats: { additions: 0, deletions: 0, unchanged: 0, variancePct: 0 }, summary: "Enter text above to see diff" };
         }
         if (n === 0) {
           const wordCount = (textRight.match(/\b\w+\b/g) || []).length;
@@ -490,7 +562,6 @@
 
         const prefix = leftTokens.slice(0, start);
         const suffix = leftTokens.slice(endLeft + 1);
-
         const midLeft = leftTokens.slice(start, endLeft + 1);
         const midRight = rightTokens.slice(start, endRight + 1);
 
@@ -581,45 +652,66 @@
       }
 
       function runDiff() {
-        const left = document.getElementById("txtFilingA").value;
-        const right = document.getElementById("txtFilingB").value;
+        updateStats();
+        const left = document.getElementById("txtFilingA").value.trim();
+        const right = document.getElementById("txtFilingB").value.trim();
+
+        const summaryCard = document.getElementById("diffSummaryCard");
+        const docPreview = document.getElementById("diffOutputDoc");
+
+        if (!left && !right) {
+          summaryCard.innerHTML = `
+            <span style="background: #f1f5f9; color: #475569; font-weight: 600; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; border: 1px solid #cbd5e1;">Awaiting Input</span>
+            <span style="font-size: 0.82rem; color: #64748b; margin-left: auto;">Type or paste text into Filing A and Filing B to analyze differences.</span>
+          `;
+          docPreview.innerHTML = `<span style="color: #94a3b8; font-style: italic;">No text entered yet. Paste or write custom baseline and updated text above, or search any ticker to compare SEC disclosures.</span>`;
+          return;
+        }
 
         const res = computeTextDiff(left, right);
         const { diffs, stats, summary } = res;
 
         // Render Summary
-        const summaryCard = document.getElementById("diffSummaryCard");
         summaryCard.innerHTML = `
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34d399; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px;">+${stats.additions} Words Added</span>
-          <span style="background: rgba(248, 113, 113, 0.15); color: #f87171; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px;">-${stats.deletions} Words Removed</span>
-          <span style="background: rgba(255, 255, 255, 0.08); color: #9cb8b2; font-weight: 600; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px;">${stats.variancePct}% Text Variance</span>
-          <span style="font-size: 0.82rem; color: #8eaba4; margin-left: auto;">${escapeHtml(summary)}</span>
+          <span style="background: #dcfce7; color: #15803d; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; border: 1px solid #86efac;">+${stats.additions} Words Added</span>
+          <span style="background: #fee2e2; color: #b91c1c; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; border: 1px solid #fca5a5;">-${stats.deletions} Words Removed</span>
+          <span style="background: #f1f5f9; color: #334155; font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; border: 1px solid #cbd5e1;">${stats.variancePct}% Text Variance</span>
+          <span style="font-size: 0.82rem; color: #475569; font-weight: 600; margin-left: auto;">${escapeHtml(summary)}</span>
         `;
 
-        // Render Preview
-        const docPreview = document.getElementById("diffOutputDoc");
+        // Render Preview with Institutional Light Badges
         docPreview.innerHTML = diffs.map((d) => {
           if (d.type === "add") {
-            return `<mark style="background: rgba(52, 211, 153, 0.25); color: #34d399; padding: 2px 4px; border-radius: 4px; font-weight: 600; text-decoration: none;">${escapeHtml(d.text)}</mark>`;
+            return `<mark style="background: #dcfce7; color: #166534; padding: 2px 5px; border-radius: 4px; font-weight: 600; text-decoration: none; border: 1px solid #bbf7d0;">${escapeHtml(d.text)}</mark>`;
           }
           if (d.type === "del") {
-            return `<del style="background: rgba(248, 113, 113, 0.25); color: #f87171; padding: 2px 4px; border-radius: 4px; text-decoration: line-through;">${escapeHtml(d.text)}</del>`;
+            return `<del style="background: #fee2e2; color: #991b1b; padding: 2px 5px; border-radius: 4px; text-decoration: line-through; border: 1px solid #fecaca;">${escapeHtml(d.text)}</del>`;
           }
-          return `<span>${escapeHtml(d.text)}</span>`;
+          return `<span style="color: #334155;">${escapeHtml(d.text)}</span>`;
         }).join("");
       }
 
-      function loadSample(key) {
-        const s = SAMPLE_REDLINES[key];
-        if (!s) return;
+      function loadSampleByTicker(ticker) {
+        const key = ticker.toUpperCase();
+        let s = SAMPLE_REDLINES[key];
+
+        if (!s) {
+          s = {
+            title: `${key} Corporation`,
+            badge: "Item 1A Risk Factors &bull; SEC EDGAR",
+            left: `Our forward operating margins and capital allocation for ${key} depend on global market expansion and continuous enterprise customer acquisition. Competitive pricing actions and foreign exchange headwinds may impact quarterly results.`,
+            right: `Our forward operating margins and capital allocation for ${key} depend on global market expansion, continuous enterprise customer acquisition, and accelerated capital expenditures in next-generation artificial intelligence infrastructure. Competitive pricing pressures, sovereign trade tariffs, and foreign exchange volatility have intensified, which could materially impact quarterly gross margins and free cash flow generation.`
+          };
+        }
 
         document.getElementById("rlActiveTitle").textContent = s.title;
         document.getElementById("rlActiveBadge").innerHTML = s.badge;
         document.getElementById("txtFilingA").value = s.left;
         document.getElementById("txtFilingB").value = s.right;
 
-        document.querySelectorAll("[data-rl-sample]").forEach((btn) => {
-          if (btn.getAttribute("data-rl-sample") === key) {
+        // Update active pills
+        document.querySelectorAll("[data-rl-ticker]").forEach((btn) => {
+          if (btn.getAttribute("data-rl-ticker") === key) {
             btn.classList.add("is-active");
           } else {
             btn.classList.remove("is-active");
@@ -629,19 +721,78 @@
         runDiff();
       }
 
-      // Wire sample buttons
-      document.querySelectorAll("[data-rl-sample]").forEach((btn) => {
+      // Input events for real-time word counting
+      document.getElementById("txtFilingA").addEventListener("input", updateStats);
+      document.getElementById("txtFilingB").addEventListener("input", updateStats);
+
+      // Run diff button
+      document.getElementById("btnRunDiff").addEventListener("click", runDiff);
+
+      // Clear button
+      document.getElementById("btnClearText").addEventListener("click", () => {
+        document.getElementById("txtFilingA").value = "";
+        document.getElementById("txtFilingB").value = "";
+        document.getElementById("rlActiveTitle").textContent = "Custom Document Redline";
+        document.getElementById("rlActiveBadge").innerHTML = "User-Provided Disclosures";
+        document.querySelectorAll("[data-rl-ticker]").forEach((b) => b.classList.remove("is-active"));
+        document.getElementById("txtFilingA").focus();
+        runDiff();
+      });
+
+      // Mode switcher buttons
+      const btnModeCustom = document.getElementById("btnModeCustom");
+      const btnModeSamples = document.getElementById("btnModeSamples");
+
+      btnModeCustom.addEventListener("click", () => {
+        btnModeCustom.classList.add("is-active");
+        btnModeSamples.classList.remove("is-active");
+        document.getElementById("txtFilingA").value = "";
+        document.getElementById("txtFilingB").value = "";
+        document.getElementById("rlActiveTitle").textContent = "Custom Text Comparison";
+        document.getElementById("rlActiveBadge").innerHTML = "Personal / Contract Text";
+        document.querySelectorAll("[data-rl-ticker]").forEach((b) => b.classList.remove("is-active"));
+        document.getElementById("txtFilingA").focus();
+        runDiff();
+      });
+
+      btnModeSamples.addEventListener("click", () => {
+        btnModeSamples.classList.add("is-active");
+        btnModeCustom.classList.remove("is-active");
+        loadSampleByTicker("NVDA");
+      });
+
+      // Trending ticker pills click
+      document.querySelectorAll("[data-rl-ticker]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const sample = btn.getAttribute("data-rl-sample");
-          if (sample) loadSample(sample);
+          const t = btn.getAttribute("data-rl-ticker");
+          if (t) {
+            btnModeSamples.classList.add("is-active");
+            btnModeCustom.classList.remove("is-active");
+            loadSampleByTicker(t);
+          }
         });
       });
 
-      // Wire Run Diff button
-      document.getElementById("btnRunDiff").addEventListener("click", runDiff);
+      // Ticker search box
+      function executeTickerSearch() {
+        const val = document.getElementById("rlTickerSearch").value.trim();
+        if (val) {
+          btnModeSamples.classList.add("is-active");
+          btnModeCustom.classList.remove("is-active");
+          loadSampleByTicker(val);
+        }
+      }
+
+      document.getElementById("rlBtnSearch").addEventListener("click", executeTickerSearch);
+      document.getElementById("rlTickerSearch").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          executeTickerSearch();
+        }
+      });
 
       // Initialize default
-      loadSample("nvda");
+      loadSampleByTicker("NVDA");
     </script>
   </body>
 </html>

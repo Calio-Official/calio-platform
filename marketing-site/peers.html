@@ -255,6 +255,26 @@
             <button type="button" class="chip-btn" data-sec="energy">Energy &amp; Oil</button>
           </div>
         </div>
+
+        <!-- Universal Ticker Search & Lookup Strip -->
+        <div class="universal-ticker-strip" style="border-radius: var(--radius-xl); border: 1px solid #e2e8f0; margin-top: 1.75rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+          <div class="universal-search-box">
+            <svg class="universal-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="peerUniversalSearch" class="universal-search-input" placeholder="Search any ticker or company to benchmark (e.g. NVDA, AAPL, MSFT, TSLA, AMZN, META, AVGO)..." autocomplete="off" spellcheck="false" />
+            <button type="button" class="universal-search-btn" id="peerBtnUniversalSearch">Benchmark Issuer</button>
+          </div>
+          <div class="universal-pills-row">
+            <span class="universal-pills-label">Trending Issuers:</span>
+            <button type="button" class="ticker-btn is-active" data-quick-peer="NVDA">NVDA · NVIDIA</button>
+            <button type="button" class="ticker-btn" data-quick-peer="AAPL">AAPL · Apple</button>
+            <button type="button" class="ticker-btn" data-quick-peer="MSFT">MSFT · Microsoft</button>
+            <button type="button" class="ticker-btn" data-quick-peer="TSLA">TSLA · Tesla</button>
+            <button type="button" class="ticker-btn" data-quick-peer="AMZN">AMZN · Amazon</button>
+            <button type="button" class="ticker-btn" data-quick-peer="GOOGL">GOOGL · Alphabet</button>
+            <button type="button" class="ticker-btn" data-quick-peer="META">META · Meta</button>
+            <button type="button" class="ticker-btn" data-quick-peer="AVGO">AVGO · Broadcom</button>
+          </div>
+        </div>
       </section>
 
       <!-- Live Peer Comps Desk Panel (Directly replicating CALIO Screenshot qCODks) -->
@@ -586,31 +606,73 @@
         renderPeerTable();
       });
 
+      function addAndHighlightPeer(val) {
+        if (!val) return;
+        const ticker = val.trim().toUpperCase();
+        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
+
+        // Clear existing isMain
+        secData.peers.forEach((p) => { p.isMain = false; });
+
+        // Check if peer already exists
+        const existing = secData.peers.find((p) => p.ticker === ticker);
+        if (existing) {
+          existing.isMain = true;
+        } else {
+          secData.peers.unshift({
+            ticker: ticker,
+            name: `${ticker} Corporation`,
+            period: "FY2024",
+            form: "Form 10-K",
+            rev: "$48.50B",
+            qRev: "$12.80B",
+            gm: "54.2%",
+            om: "26.5%",
+            nm: "21.0%",
+            fcf: "84.5%",
+            mScore: "-2.62",
+            zScore: "4.95",
+            netDebt: "-$6.40B",
+            isSafeM: true,
+            isSafeZ: true,
+            isMain: true
+          });
+        }
+
+        // Update pills active state
+        document.querySelectorAll("[data-quick-peer]").forEach((btn) => {
+          btn.classList.toggle("is-active", btn.getAttribute("data-quick-peer") === ticker);
+        });
+
+        renderPeerTable();
+      }
+
       // Add Custom Ticker
       document.getElementById("btnAddPeer").addEventListener("click", () => {
         const inp = document.getElementById("inputCustomPeer");
-        const val = inp.value.trim().toUpperCase();
-        if (!val) return;
-        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
-        secData.peers.unshift({
-          ticker: val,
-          name: `${val} Custom Target`,
-          period: "Latest",
-          form: "10-K / 10-Q",
-          rev: "$42.10B",
-          qRev: "$11.05B",
-          gm: "52.4%",
-          om: "24.1%",
-          nm: "19.5%",
-          fcf: "86.2%",
-          mScore: "-2.41",
-          zScore: "4.85",
-          netDebt: "-$4.20B",
-          isSafeM: true,
-          isSafeZ: true
-        });
+        addAndHighlightPeer(inp.value);
         inp.value = "";
-        renderPeerTable();
+      });
+
+      // Universal Search
+      function executePeerUniversalSearch() {
+        const inp = document.getElementById("peerUniversalSearch");
+        addAndHighlightPeer(inp.value);
+      }
+
+      document.getElementById("peerBtnUniversalSearch").addEventListener("click", executePeerUniversalSearch);
+      document.getElementById("peerUniversalSearch").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          executePeerUniversalSearch();
+        }
+      });
+
+      // Quick peer buttons
+      document.querySelectorAll("[data-quick-peer]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          addAndHighlightPeer(btn.getAttribute("data-quick-peer"));
+        });
       });
 
       // Export Excel

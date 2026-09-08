@@ -752,6 +752,54 @@
       });
     });
 
+    function selectOrSynthesizeTicker(raw) {
+      if (!raw) return;
+      const q = raw.trim().toUpperCase();
+      if (!TICKERS[q]) {
+        TICKERS[q] = {
+          name: `${q} Corporation`,
+          ticker: q,
+          cik: "0001928374",
+          formType: "10-K",
+          periodEnd: "FY 2024",
+          currentPrice: 154.20,
+          shares: 2.45,
+          cash: 18.5,
+          debt: 7.2,
+          wacc: 0.09,
+          termGrowth: 0.028,
+          revGrowth: 0.165,
+          opMargin: 0.28,
+          taxRate: 0.21,
+          fcfReinvest: 0.88,
+          baseRev: 52000,
+          statements: [
+            { item: "Total Net Revenue", ttm: "$52,000M", prior: "$44,800M", yoy: "+16.1%" },
+            { item: "Cost of Revenue", ttm: "$21,400M", prior: "$19,200M", yoy: "+11.5%" },
+            { item: "Gross Profit", ttm: "$30,600M", prior: "$25,600M", yoy: "+19.5%" },
+            { item: "Operating Income", ttm: "$14,560M", prior: "$11,800M", yoy: "+23.4%" },
+            { item: "Net Income", ttm: "$11,500M", prior: "$9,320M", yoy: "+23.4%" }
+          ],
+          forensics: {
+            beneish: { score: -2.65, status: "Low Manipulation Risk" },
+            altman: { score: 4.85, zone: "Safe Zone (Low Bankruptcy Risk)" },
+            piotroski: { score: 8, rating: "High Fundamental Health" },
+            sloan: { gap: 1200, summary: "High Cash Flow Quality" }
+          },
+          execComp: {
+            ceo: "Chief Executive Officer",
+            title: "President & CEO",
+            total: 24500000,
+            ceoPayRatio: "195:1",
+            sayOnPay: "91.2%"
+          }
+        };
+      }
+      activeTickerKey = q;
+      renderTerminalHeader();
+      renderActiveTab();
+    }
+
     // Ticker Search input
     const searchInput = document.getElementById("wtTickerSearch");
     if (searchInput) {
@@ -762,6 +810,19 @@
           renderTerminalHeader();
           renderActiveTab();
         }
+      });
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          selectOrSynthesizeTicker(searchInput.value);
+        }
+      });
+    }
+
+    const btnSearch = document.getElementById("wtBtnSearch");
+    if (btnSearch && searchInput) {
+      btnSearch.addEventListener("click", () => {
+        selectOrSynthesizeTicker(searchInput.value);
       });
     }
 

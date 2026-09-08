@@ -218,15 +218,23 @@
           stock and option awards, incentive performance thresholds, CEO-to-worker pay ratios, and shareholder say-on-pay approval.
         </p>
 
-        <!-- Company Quick Selection -->
-        <div style="display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:1.5rem;">
-          <span style="font-size:13px; font-weight:700; color:var(--ink); margin-right:4px;">Select Issuer:</span>
-          <button type="button" class="chip-btn is-active" data-gov-ticker="NVDA">NVDA · NVIDIA</button>
-          <button type="button" class="chip-btn" data-gov-ticker="AAPL">AAPL · Apple</button>
-          <button type="button" class="chip-btn" data-gov-ticker="MSFT">MSFT · Microsoft</button>
-          <button type="button" class="chip-btn" data-gov-ticker="GOOGL">GOOGL · Alphabet</button>
-          <button type="button" class="chip-btn" data-gov-ticker="AMZN">AMZN · Amazon</button>
-          <button type="button" class="chip-btn" data-gov-ticker="TSLA">TSLA · Tesla</button>
+        <!-- Universal Ticker Search & Lookup Strip -->
+        <div class="universal-ticker-strip" style="border-radius: var(--radius-xl); border: 1px solid #e2e8f0; margin-top: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+          <div class="universal-search-box">
+            <svg class="universal-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="govTickerSearch" class="universal-search-input" placeholder="Search any ticker for DEF 14A Executive Compensation (e.g. NVDA, AAPL, MSFT, TSLA)..." autocomplete="off" spellcheck="false" />
+            <button type="button" class="universal-search-btn" id="govBtnSearch">Load Proxy</button>
+          </div>
+          <div class="universal-pills-row">
+            <span class="universal-pills-label">Trending Issuers:</span>
+            <button type="button" class="ticker-btn is-active" data-gov-ticker="NVDA">NVDA · NVIDIA</button>
+            <button type="button" class="ticker-btn" data-gov-ticker="AAPL">AAPL · Apple</button>
+            <button type="button" class="ticker-btn" data-gov-ticker="MSFT">MSFT · Microsoft</button>
+            <button type="button" class="ticker-btn" data-gov-ticker="GOOGL">GOOGL · Alphabet</button>
+            <button type="button" class="ticker-btn" data-gov-ticker="AMZN">AMZN · Amazon</button>
+            <button type="button" class="ticker-btn" data-gov-ticker="TSLA">TSLA · Tesla</button>
+            <button type="button" class="ticker-btn" data-gov-ticker="META">META · Meta</button>
+          </div>
         </div>
       </section>
 
@@ -489,7 +497,25 @@
 
       let currentGovTicker = "NVDA";
 
-      function renderGovDesk() {
+      function renderGovDesk(ticker) {
+        if (ticker) currentGovTicker = ticker.toUpperCase();
+        if (!GOV_DATABASE[currentGovTicker]) {
+          GOV_DATABASE[currentGovTicker] = {
+            name: `${currentGovTicker} Corporation`,
+            ticker: currentGovTicker,
+            ceo: "Chief Executive Officer",
+            title: "President & CEO",
+            total: "$22,400,000",
+            ratio: "215:1",
+            medianWorker: "$104,200",
+            sayOnPay: "88.4%",
+            neos: [
+              { name: "Principal Executive Officer", role: "President & CEO", base: "$1,100,000", stock: "$16,500,000", options: "$2,800,000", incentive: "$1,750,000", other: "$250,000", total: "$22,400,000" },
+              { name: "Principal Financial Officer", role: "EVP & Chief Financial Officer", base: "$750,000", stock: "$7,200,000", options: "$1,100,000", incentive: "$950,000", other: "$85,000", total: "$10,085,000" },
+              { name: "Chief Technology Officer", role: "SVP, Engineering & Technology", base: "$650,000", stock: "$6,100,000", options: "$950,000", incentive: "$780,000", other: "$65,000", total: "$8,545,000" }
+            ]
+          };
+        }
         const data = GOV_DATABASE[currentGovTicker];
         document.getElementById("govPanelTitle").textContent = `${data.name} (${data.ticker}) — Summary Compensation Table`;
         document.getElementById("dispCeoName").textContent = data.ceo;
@@ -497,6 +523,10 @@
         document.getElementById("dispTotalComp").textContent = data.total;
         document.getElementById("dispPayRatio").textContent = data.ratio;
         document.getElementById("dispSayOnPay").textContent = data.sayOnPay;
+
+        document.querySelectorAll("[data-gov-ticker]").forEach((b) => {
+          b.classList.toggle("is-active", b.getAttribute("data-gov-ticker") === currentGovTicker);
+        });
 
         const tbody = document.getElementById("neoTableBody");
         tbody.innerHTML = data.neos.map((n, idx) => `
@@ -517,11 +547,23 @@
 
       document.querySelectorAll("[data-gov-ticker]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          document.querySelectorAll("[data-gov-ticker]").forEach((b) => b.classList.remove("is-active"));
-          btn.classList.add("is-active");
-          currentGovTicker = btn.getAttribute("data-gov-ticker");
-          renderGovDesk();
+          const t = btn.getAttribute("data-gov-ticker");
+          if (t) renderGovDesk(t);
         });
+      });
+
+      // Wire Ticker Search Box
+      function executeGovSearch() {
+        const val = document.getElementById("govTickerSearch").value.trim();
+        if (val) renderGovDesk(val);
+      }
+
+      document.getElementById("govBtnSearch").addEventListener("click", executeGovSearch);
+      document.getElementById("govTickerSearch").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          executeGovSearch();
+        }
       });
 
       document.getElementById("btnExportGovExcel").addEventListener("click", () => {
