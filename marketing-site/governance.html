@@ -29,7 +29,7 @@
         <div class="nav-links">
           <!-- Products & Solutions Dropdown -->
           <div class="nav-item-wrap">
-            <button type="button" class="nav-item is-active" aria-expanded="false">
+            <button type="button" class="nav-item" aria-expanded="false">
               <span>Products &amp; Solutions</span>
               <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
@@ -134,8 +134,8 @@
         </div>
 
         <div class="nav-actions">
-          <a class="btn-pill btn-pill-primary" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+          <a class="btn-pill btn-pill-chrome" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true" title="CALIO Chrome Extension v1.16.0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
             Add to Chrome
           </a>
           <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
@@ -524,5 +524,69 @@
 
       renderGovDesk();
     </script>
+  
+    <!-- Chrome Extension Overview Pop-up Modal -->
+    <div class="calio-modal-backdrop" id="extModalBackdrop" aria-hidden="true">
+      <div class="calio-modal-card" role="dialog" aria-modal="true" aria-labelledby="extModalTitle">
+        <button type="button" class="calio-modal-close" id="btnExtModalClose" aria-label="Close dialog">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+
+        <div class="calio-modal-badge">
+          <span class="pulse-dot"></span>
+          <span>Chrome Extension v1.16.0</span>
+        </div>
+        <h2 class="calio-modal-title" id="extModalTitle">CALIO In-Browser Terminal</h2>
+        <p class="calio-modal-subtitle">
+          Institutional SEC EDGAR financial research workstation directly embedded in your Chrome browser.
+        </p>
+
+        <div class="calio-modal-body">
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">1</div>
+            <div class="calio-flow-text">
+              <strong>Inbuilt &amp; Native Overlay</strong>
+              <p>Instantly mounts inside SEC EDGAR (sec.gov), Yahoo Finance, and company IR portals. Zero external windows, zero API keys, zero complex setup.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">2</div>
+            <div class="calio-flow-text">
+              <strong>Automated Research Flow</strong>
+              <p>Open any 10-K, 10-Q, 8-K, or Form 4. CALIO parses tables into interactive 3-statement models, 5-year DCF valuation sliders, and 25-sector peer matrices.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">3</div>
+            <div class="calio-flow-text">
+              <strong>1-Click Multi-Sheet Excel Export</strong>
+              <p>Generate auditable financial workbooks (.xlsx) with dynamic Excel formulas in a single click, ready for your investment committee.</p>
+            </div>
+          </div>
+
+          <div class="calio-flow-step">
+            <div class="calio-flow-num">4</div>
+            <div class="calio-flow-text">
+              <strong>100% Client-Side Privacy</strong>
+              <p>All XBRL calculations run locally in your browser engine. Your research, models, and ticker lookups are never sent to any cloud server.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="calio-modal-footer">
+          <a class="calio-modal-cta" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome — Free
+          </a>
+          <button type="button" class="calio-modal-dismiss" id="btnExtModalDismiss">Maybe later</button>
+        </div>
+      </div>
+    </div>
+    <script src="js/site.js"></script>
   </body>
 </html>
