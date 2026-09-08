@@ -284,6 +284,93 @@
             </div>
           </div>
 
+          <!-- Period-over-Period Filing Analysis Configuration Card (Chrome Extension Standard) -->
+          <div class="compare-form" style="padding: 1.5rem 1.8rem; background: #ffffff; border-bottom: 1px solid #e2e8f0;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <h3 style="font-size: 0.95rem; font-weight: 750; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; margin: 0;">Period-over-Period Filing Analysis</h3>
+                <span class="desk-badge-live" style="font-size: 0.75rem; padding: 2px 8px;">Automated Reconciliation</span>
+              </div>
+            </div>
+            <p style="font-size: 0.88rem; color: #64748b; margin: 0 0 1.25rem 0; line-height: 1.5;">
+              Select an issuer and two reporting periods to compute exact dollar and percentage variances across Income Statement, Balance Sheet, and Cash Flow line items.
+            </p>
+
+            <div class="cmp-field suggest-wrap">
+              <label for="cmpCompanyInput" style="font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px;">Target Issuer or Ticker</label>
+              <input type="text" id="cmpCompanyInput" class="cmp-input" value="AAPL" placeholder="Enter ticker or issuer name (e.g. AAPL, NVDA, MSFT, TSLA, SBUX)" autocomplete="off" spellcheck="false" />
+              <div id="cmpSuggestDropdown" class="search-results cmp-suggest" hidden></div>
+            </div>
+
+            <div class="cmp-field" style="margin-top: 14px;">
+              <label for="cmpFormSelect" style="font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px;">SEC Form Type</label>
+              <select id="cmpFormSelect" class="cmp-select">
+                <option value="10-Q" selected>Form 10-Q (Quarterly Report)</option>
+                <option value="10-K">Form 10-K (Annual Report)</option>
+                <option value="8-K">Form 8-K (Current Report)</option>
+              </select>
+            </div>
+
+            <div class="compare-columns" style="margin-top: 16px;">
+              <div class="compare-col">
+                <div class="compare-col-title">Baseline Filing (Period A)</div>
+                <div class="cmp-field">
+                  <label for="cmpYearA">Fiscal Year</label>
+                  <input type="text" id="cmpYearA" class="cmp-input" value="2025" placeholder="2025" inputmode="numeric" />
+                </div>
+                <div class="cmp-field" id="wrapQuarterA">
+                  <label for="cmpQuarterA">Fiscal Quarter</label>
+                  <select id="cmpQuarterA" class="cmp-select">
+                    <option value="latest" selected>Latest Available Quarter</option>
+                    <option value="Q1">Q1 (First Quarter)</option>
+                    <option value="Q2">Q2 (Second Quarter)</option>
+                    <option value="Q3">Q3 (Third Quarter)</option>
+                    <option value="Q4">Q4 (Fourth Quarter)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="compare-col">
+                <div class="compare-col-title">Comparative Filing (Period B)</div>
+                <div class="cmp-field">
+                  <label for="cmpYearB">Fiscal Year</label>
+                  <input type="text" id="cmpYearB" class="cmp-input" value="2024" placeholder="2024" inputmode="numeric" />
+                </div>
+                <div class="cmp-field" id="wrapQuarterB">
+                  <label for="cmpQuarterB">Fiscal Quarter</label>
+                  <select id="cmpQuarterB" class="cmp-select">
+                    <option value="latest" selected>Latest Available Quarter</option>
+                    <option value="Q1">Q1 (First Quarter)</option>
+                    <option value="Q2">Q2 (Second Quarter)</option>
+                    <option value="Q3">Q3 (Third Quarter)</option>
+                    <option value="Q4">Q4 (Fourth Quarter)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <details class="advanced" style="margin-top: 16px;">
+              <summary style="font-size: 12.5px; color: #64748b; cursor: pointer; font-weight: 600;">Direct EDGAR Primary Document URLs (Optional)</summary>
+              <div class="cmp-field" style="margin-top:12px">
+                <label for="cmpUrlA">Document URL A</label>
+                <input type="text" id="cmpUrlA" class="cmp-input" placeholder="https://www.sec.gov/Archives/edgar/data/..." />
+              </div>
+              <div class="cmp-field" style="margin-top:8px">
+                <label for="cmpUrlB">Document URL B</label>
+                <input type="text" id="cmpUrlB" class="cmp-input" placeholder="https://www.sec.gov/Archives/edgar/data/..." />
+              </div>
+            </details>
+
+            <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+              <button type="button" class="btn-pill btn-pill-primary" id="btnRunVariance" style="font-size: 14px; padding: 10px 24px;">Run Period-over-Period Variance</button>
+              <span style="font-size: 12px; color: #64748b;">Instant client-side reconciliation</span>
+            </div>
+          </div>
+
+          <div style="font-size: 12px; color: #64748b; padding: 12px 18px; border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+            Variance computation is powered by on-device SEC EDGAR XBRL taxonomy alignment. No filing data leaves your local device.
+          </div>
+
           <!-- Comparison Setup Controls -->
           <div style="background: #f8fafc; padding: 0.85rem 1.4rem; border-bottom: 1px solid #e2e8f0;">
             <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
@@ -601,7 +688,25 @@
         }
       };
 
-      let currentCmpTicker = "NVDA";
+      // Comprehensive SEC issuer directory for autocomplete suggestions
+      const SEC_COMPANIES = [
+        { cik: "0000320193", ticker: "AAPL", name: "Apple Inc." },
+        { cik: "0001045810", ticker: "NVDA", name: "NVIDIA Corporation" },
+        { cik: "0000789019", ticker: "MSFT", name: "Microsoft Corporation" },
+        { cik: "0001318605", ticker: "TSLA", name: "Tesla, Inc." },
+        { cik: "0001018724", ticker: "AMZN", name: "Amazon.com, Inc." },
+        { cik: "0001652044", ticker: "GOOGL", name: "Alphabet Inc." },
+        { cik: "0001326801", ticker: "META", name: "Meta Platforms, Inc." },
+        { cik: "0000829224", ticker: "SBUX", name: "Starbucks Corporation" },
+        { cik: "0000019617", ticker: "JPM", name: "JPMorgan Chase & Co." },
+        { cik: "0000104169", ticker: "WMT", name: "Walmart Inc." },
+        { cik: "0001065280", ticker: "NFLX", name: "Netflix, Inc." },
+        { cik: "0000059478", ticker: "LLY", name: "Eli Lilly and Company" },
+        { cik: "0001141391", ticker: "MA", name: "Mastercard Incorporated" },
+        { cik: "0001403161", ticker: "V", name: "Visa Inc." }
+      ];
+
+      let currentCmpTicker = "AAPL";
       let currentStatement = "income";
 
       function formatNum(val, isPerShare = false) {
@@ -615,38 +720,54 @@
         if (!data) {
           data = {
             name: `${currentCmpTicker} Corporation`,
-            periodA: "FY2024",
-            periodB: "FY2023",
-            formType: "Form 10-K",
+            periodA: "FY2025",
+            periodB: "FY2024",
+            formType: "Form 10-Q",
             income: [
-              { item: "Total Revenues", a: 42100, b: 38200 },
+              { item: "Total Net Revenues", a: 42100, b: 38200 },
               { item: "Cost of Revenues", a: 21500, b: 20100 },
               { item: "Gross Profit", a: 20600, b: 18100 },
-              { item: "R&D and Operating Expenses", a: 8900, b: 8200 },
+              { item: "Research & Development", a: 5400, b: 4900 },
+              { item: "SG&A Expenses", a: 3500, b: 3300 },
               { item: "Operating Income", a: 11700, b: 9900 },
               { item: "Net Income", a: 9400, b: 7900 },
               { item: "Diluted EPS ($)", a: 4.85, b: 4.05, isPerShare: true }
             ],
             balance: [
-              { item: "Cash & ST Investments", a: 18500, b: 16200 },
+              { item: "Cash, Cash Equivalents & ST Investments", a: 18500, b: 16200 },
+              { item: "Accounts Receivable, Net", a: 12400, b: 11100 },
               { item: "Total Current Assets", a: 34100, b: 31000 },
               { item: "Total Assets", a: 88500, b: 79800 },
               { item: "Total Liabilities", a: 36200, b: 34100 },
               { item: "Total Stockholders' Equity", a: 52300, b: 45700 }
             ],
             cashflow: [
-              { item: "Operating Cash Flow", a: 14200, b: 12100 },
-              { item: "Capital Expenditures", a: -3800, b: -3400 },
-              { item: "Free Cash Flow", a: 10400, b: 8700 }
+              { item: "Cash from Operating Activities", a: 14200, b: 12100 },
+              { item: "Capital Expenditures (CapEx)", a: -3800, b: -3400 },
+              { item: "Free Cash Flow (FCF)", a: 10400, b: 8700 },
+              { item: "Dividends Paid", a: -2100, b: -1900 }
             ]
           };
         }
 
+        const yearA = document.getElementById("cmpYearA") ? document.getElementById("cmpYearA").value.trim() : "2025";
+        const yearB = document.getElementById("cmpYearB") ? document.getElementById("cmpYearB").value.trim() : "2024";
+        const formTypeEl = document.getElementById("cmpFormSelect");
+        const formType = formTypeEl ? formTypeEl.options[formTypeEl.selectedIndex].text : "Form 10-Q";
+
+        const labelA = yearA ? `FY${yearA}` : data.periodA;
+        const labelB = yearB ? `FY${yearB}` : data.periodB;
+
         document.getElementById("cmpActiveCompanyName").textContent = data.name;
         document.getElementById("cmpActiveTicker").textContent = currentCmpTicker;
-        document.getElementById("cmpActivePairBadge").textContent = `${data.periodA} vs ${data.periodB} (${data.formType})`;
-        document.getElementById("thPeriodA").textContent = `Period A (${data.periodA})`;
-        document.getElementById("thPeriodB").textContent = `Period B (${data.periodB})`;
+        document.getElementById("cmpActivePairBadge").textContent = `${labelA} vs ${labelB} (${formType})`;
+        document.getElementById("thPeriodA").textContent = `Period A (${labelA})`;
+        document.getElementById("thPeriodB").textContent = `Period B (${labelB})`;
+
+        const cmpInput = document.getElementById("cmpCompanyInput");
+        if (cmpInput && cmpInput.value !== currentCmpTicker) {
+          cmpInput.value = currentCmpTicker;
+        }
 
         // Update ticker buttons
         document.querySelectorAll("[data-cmp-company]").forEach((btn) => {
@@ -682,9 +803,9 @@
           return `
             <tr style="border-bottom: 1px solid #f1f5f9;">
               <td style="padding: 0.85rem 0.75rem; font-weight: 600; color: #0f172a;">${r.item}</td>
-              <td style="padding: 0.85rem 0.75rem; text-align: right; font-family: var(--mono); color: #0f172a;">${formatNum(r.a, r.isPerShare)}</td>
-              <td style="padding: 0.85rem 0.75rem; text-align: right; font-family: var(--mono); color: #64748b;">${formatNum(r.b, r.isPerShare)}</td>
-              <td style="padding: 0.85rem 0.75rem; text-align: right; font-family: var(--mono); color: ${badgeColor}; font-weight: 700;">
+              <td style="padding: 0.85rem 0.75rem; text-align: right; font-family: var(--font-mono, monospace); color: #0f172a;">${formatNum(r.a, r.isPerShare)}</td>
+              <td style="padding: 0.85rem 0.75rem; text-align: right; font-family: var(--font-mono, monospace); color: #64748b;">${formatNum(r.b, r.isPerShare)}</td>
+              <td style="padding: 0.85rem 0.75rem; text-align: right; font-family: var(--font-mono, monospace); color: ${badgeColor}; font-weight: 700;">
                 ${deltaSign}${formatNum(delta, r.isPerShare)}
               </td>
               <td style="padding: 0.85rem 0.75rem; text-align: right;">
@@ -695,6 +816,92 @@
             </tr>
           `;
         }).join("");
+      }
+
+      // Autocomplete suggestions handler
+      function setupAutocomplete(inputId, dropdownId, onSelect) {
+        const input = document.getElementById(inputId);
+        const dropdown = document.getElementById(dropdownId);
+        if (!input || !dropdown) return;
+
+        function filterHits(q) {
+          const query = q.toUpperCase().trim();
+          if (!query) return [];
+          return SEC_COMPANIES.filter(c =>
+            c.ticker.includes(query) ||
+            c.name.toUpperCase().includes(query) ||
+            c.cik.includes(query)
+          ).slice(0, 8);
+        }
+
+        function renderDropdown(hits) {
+          if (!hits.length) {
+            dropdown.hidden = true;
+            return;
+          }
+          dropdown.hidden = false;
+          dropdown.innerHTML = `
+            <div class="suggest-head" aria-hidden="true">
+              <span>CIK</span>
+              <span>Company name</span>
+              <span>Ticker</span>
+            </div>
+            ${hits.map(h => `
+              <button type="button" class="suggest-row" data-pick-ticker="${h.ticker}" data-pick-name="${h.name}">
+                <span class="suggest-cik">${h.cik}</span>
+                <span class="suggest-name">${h.name}</span>
+                <span class="suggest-ticker">${h.ticker}</span>
+              </button>
+            `).join("")}
+          `;
+
+          dropdown.querySelectorAll(".suggest-row").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              const pickedTicker = btn.getAttribute("data-pick-ticker");
+              input.value = pickedTicker;
+              dropdown.hidden = true;
+              if (onSelect) onSelect(pickedTicker);
+            });
+          });
+        }
+
+        input.addEventListener("input", () => {
+          const hits = filterHits(input.value);
+          renderDropdown(hits);
+        });
+
+        input.addEventListener("focus", () => {
+          if (input.value.trim()) {
+            renderDropdown(filterHits(input.value));
+          }
+        });
+
+        document.addEventListener("click", (e) => {
+          if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.hidden = true;
+          }
+        });
+      }
+
+      // Initialize autocomplete for Target Issuer field
+      setupAutocomplete("cmpCompanyInput", "cmpSuggestDropdown", (ticker) => {
+        currentCmpTicker = ticker;
+        renderCompareDesk();
+      });
+
+      // Run Period-over-Period Variance Button
+      const btnRunVariance = document.getElementById("btnRunVariance");
+      if (btnRunVariance) {
+        btnRunVariance.addEventListener("click", () => {
+          const raw = document.getElementById("cmpCompanyInput").value.trim();
+          if (raw) currentCmpTicker = raw.toUpperCase();
+          renderCompareDesk();
+          const targetSection = document.getElementById("compareWorkspace");
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
       }
 
       // Event listeners for company chips
@@ -708,7 +915,7 @@
         });
       });
 
-      // Ticker search box
+      // Universal Ticker search box
       function executeCmpSearch() {
         const val = document.getElementById("cmpTickerSearch").value.trim();
         if (val) {
@@ -735,6 +942,19 @@
           }
         });
       });
+
+      // Form type change - hide/show quarter selectors for 10-K vs 10-Q
+      const cmpFormSelect = document.getElementById("cmpFormSelect");
+      if (cmpFormSelect) {
+        cmpFormSelect.addEventListener("change", () => {
+          const isQuarterly = cmpFormSelect.value === "10-Q";
+          const wrapQA = document.getElementById("wrapQuarterA");
+          const wrapQB = document.getElementById("wrapQuarterB");
+          if (wrapQA) wrapQA.style.display = isQuarterly ? "flex" : "none";
+          if (wrapQB) wrapQB.style.display = isQuarterly ? "flex" : "none";
+          renderCompareDesk();
+        });
+      }
 
       // Export to Excel / CSV
       document.getElementById("btnExportCompareExcel").addEventListener("click", () => {
