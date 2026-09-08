@@ -315,6 +315,8 @@
                     documentUrl: state.context?.documentUrl || ""
                   }
                 }
+              }).then(() => {
+                checkDrawerReviewPrompt();
               }).catch(() => {});
             }
           })
@@ -5401,7 +5403,7 @@
     else if (state.activeTab === "compare") body = renderComparePanel();
     else body = renderExtractPanel();
 
-    setBodyHtml(`${body}<div class="calio-toast" data-part="toast" aria-live="polite"></div>`);
+    setBodyHtml(`${renderReviewPromptBanner()}${body}<div class="calio-toast" data-part="toast" aria-live="polite"></div>`);
   }
 
   function renderUsageBanner() {
@@ -5423,23 +5425,23 @@
 
   function renderReviewPromptBanner() {
     if (!state.shouldPromptReview) return "";
-    const count = state.reviewPromptCount || 5;
+    const count = state.reviewPromptCount || 3;
     return `
-      <div class="calio-review-banner" style="margin: 0 0 14px 0; padding: 14px 16px; border-radius: 12px; background: rgba(15, 118, 110, 0.08); border: 1px solid rgba(15, 118, 110, 0.22); text-align: center;">
-        <div style="font-size: 11px; font-weight: 750; text-transform: uppercase; letter-spacing: 0.5px; color: #0f766e; margin-bottom: 4px;">
+      <div class="calio-review-banner" style="margin: 0 0 16px 0; padding: 18px 16px; border-radius: 14px; background: #ffffff; border: 2px solid #0f766e; box-shadow: 0 10px 25px -5px rgba(15, 118, 110, 0.25); text-align: center;">
+        <div style="display: inline-block; font-size: 11px; font-weight: 750; text-transform: uppercase; letter-spacing: 0.5px; color: #0f766e; background: rgba(15,118,110,0.1); padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;">
           ${count} Extractions Completed
         </div>
-        <div style="font-size: 14px; font-weight: 750; color: #111827; margin-bottom: 4px;">
+        <div style="font-size: 15px; font-weight: 750; color: #0f172a; margin-bottom: 6px;">
           Finding CALIO useful?
         </div>
-        <div style="font-size: 12px; color: #4b5563; line-height: 1.45; margin-bottom: 12px;">
-          If CALIO is saving you time on SEC filings, taking 30 seconds to leave a review on the Chrome Web Store helps us immensely.
+        <div style="font-size: 12px; color: #475569; line-height: 1.5; margin-bottom: 14px;">
+          If CALIO is saving you time parsing SEC filings or building models, taking 30 seconds to leave a review on the Chrome Web Store helps us immensely.
         </div>
-        <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
-          <button type="button" class="calio-button secondary" data-action="review-dismiss" style="font-size: 12px; padding: 6px 14px; height: auto; min-height: 32px;">
+        <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+          <button type="button" class="calio-button secondary" data-action="review-dismiss" style="font-size: 12px; padding: 7px 16px; height: auto; min-height: 34px; border: 1px solid #cbd5e1; background: #f8fafc; color: #334155; border-radius: 8px; cursor: pointer; font-weight: 600;">
             Maybe later
           </button>
-          <button type="button" class="calio-button" data-action="review-accept" style="font-size: 12px; padding: 6px 16px; height: auto; min-height: 32px; background: #0f766e; color: #fff; font-weight: 600;">
+          <button type="button" class="calio-button" data-action="review-accept" style="font-size: 12px; padding: 7px 18px; height: auto; min-height: 34px; background: #0f766e; color: #ffffff; font-weight: 600; border-radius: 8px; cursor: pointer; border: none; box-shadow: 0 2px 4px rgba(15,118,110,0.3);">
             Leave a review
           </button>
         </div>
@@ -5452,7 +5454,8 @@
       .then((res) => {
         if (res?.ok && res.shouldPromptReview) {
           state.shouldPromptReview = true;
-          state.reviewPromptCount = res.count || 5;
+          state.reviewPromptCount = res.count || 3;
+          openDrawer();
           renderMain();
         }
       })
@@ -5680,7 +5683,6 @@
     ];
 
     return `
-      ${renderReviewPromptBanner()}
       ${renderUsageBanner()}
 
       <div class="calio-hero-card">

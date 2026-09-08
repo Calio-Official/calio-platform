@@ -4973,9 +4973,7 @@ async function pushExtractHistory(extract) {
     )
   ].slice(0, MAX_EXTRACT_HISTORY);
   await storageSet("local", { [STORAGE_KEYS.EXTRACT_HISTORY]: next });
-  if (!isExistingDoc) {
-    await incrementExtractionCount().catch(() => {});
-  }
+  await incrementExtractionCount().catch(() => {});
 }
 
 async function incrementExtractionCount() {
@@ -4990,7 +4988,7 @@ async function incrementExtractionCount() {
   });
   const hasReviewed = Boolean(wrap?.[STORAGE_KEYS.HAS_REVIEWED]);
   const lastPromptCount = Number(wrap?.[STORAGE_KEYS.LAST_REVIEW_PROMPT_COUNT] || 0);
-  const shouldPromptReview = !hasReviewed && currentCount >= 5 && (currentCount - lastPromptCount) >= 5;
+  const shouldPromptReview = currentCount >= 3 && (currentCount - lastPromptCount) >= 3;
   return {
     ok: true,
     count: currentCount,
@@ -5009,7 +5007,7 @@ async function getReviewPromptState() {
   const count = Number(wrap?.[STORAGE_KEYS.EXTRACTION_COUNT] || 0);
   const hasReviewed = Boolean(wrap?.[STORAGE_KEYS.HAS_REVIEWED]);
   const lastPromptCount = Number(wrap?.[STORAGE_KEYS.LAST_REVIEW_PROMPT_COUNT] || 0);
-  const shouldPromptReview = !hasReviewed && count >= 5 && (count - lastPromptCount) >= 5;
+  const shouldPromptReview = count >= 3 && (count - lastPromptCount) >= 3;
   return {
     ok: true,
     count,
@@ -5020,10 +5018,13 @@ async function getReviewPromptState() {
 }
 
 async function recordReviewAccepted() {
+  const wrap = await storageGet("local", [STORAGE_KEYS.EXTRACTION_COUNT]);
+  const count = Number(wrap?.[STORAGE_KEYS.EXTRACTION_COUNT] || 0);
   await storageSet("local", {
-    [STORAGE_KEYS.HAS_REVIEWED]: true
+    [STORAGE_KEYS.HAS_REVIEWED]: true,
+    [STORAGE_KEYS.LAST_REVIEW_PROMPT_COUNT]: count
   });
-  return { ok: true, hasReviewed: true };
+  return { ok: true, hasReviewed: true, lastPromptCount: count };
 }
 
 async function recordReviewDismissed() {

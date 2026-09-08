@@ -156,7 +156,7 @@
     try {
       const st = await send({ type: "calio:getState" });
       if (st?.ok) {
-        el.versionBadge.textContent = `v${st.state.version || "1.16.0"}`;
+        el.versionBadge.textContent = `v${st.state.version || "1.17.0"}`;
         applyAppTheme("teal");
         updatePlanAndUsageDisplay(st.state.usage, st.state.settings);
       }
@@ -685,7 +685,7 @@
     return CALIO_REVIEWS_URL;
   }
 
-  function showReviewDialog(count = 5) {
+  function showReviewDialog(count = 3) {
     const dialog = document.getElementById("reviewDialog");
     if (!dialog) return;
     const badge = document.getElementById("reviewExtractBadge");

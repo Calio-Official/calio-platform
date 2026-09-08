@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SEC EDGAR Filings Extract & Excel \u2014 CALIO",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "description": "Extract 10-K, 10-Q, 8-K, Form 4 & more from SEC EDGAR. Compare periods, export Excel/PDF, watchlist. Private, on-device.",
   "permissions": [
     "storage",
