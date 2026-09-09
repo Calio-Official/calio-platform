@@ -731,8 +731,12 @@
         btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
       }
 
-      // Initial render: default Semiconductors & AI Hardware in Annual mode
-      renderPeerComps();
+      // Initial render: parse URL search parameters if present, else default
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialTicker = urlParams.get("ticker") || urlParams.get("symbol") || null;
+      const initialSector = urlParams.get("sector") || "semi";
+      const initialMode = (urlParams.get("mode") === "quarterly" || urlParams.get("mode") === "10-Q") ? "quarterly" : "annual";
+      renderPeerComps(initialTicker, initialSector, initialMode);
     </script>
   
     <!-- Chrome Extension Overview Pop-up Modal -->
