@@ -1064,18 +1064,12 @@
           showToast("Extract a filing first to export financial line items.");
           return;
         }
-        let csv = `CALIO Financial Extraction: ${currentCompany.name} (${currentCompany.ticker})
-`;
-        csv += `Extraction Type,${type}
-`;
-        csv += `Source,SEC EDGAR XBRL Click-to-Source Verified
-
-`;
-        csv += "Line Item,US-GAAP Tag,Amount,Spreadsheet Formula
-";
+        let csv = "CALIO Financial Extraction: " + currentCompany.name + " (" + currentCompany.ticker + ")\n";
+        csv += "Extraction Type," + type + "\n";
+        csv += "Source,SEC EDGAR XBRL Click-to-Source Verified\n\n";
+        csv += "Line Item,US-GAAP Tag,Amount,Spreadsheet Formula\n";
         currentExtractedData.lineItems.forEach(item => {
-          csv += `"${item.label}","${item.tag || 'Not reported'}","${item.display}","${item.formula}"
-`;
+          csv += '"' + item.label + '","' + (item.tag || 'Not reported') + '","' + item.display + '","' + item.formula + '"\n';
         });
 
         const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
