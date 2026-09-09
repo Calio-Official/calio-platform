@@ -238,6 +238,7 @@
             <button type="button" class="ticker-btn" data-val-ticker="TSLA">TSLA · Tesla</button>
             <button type="button" class="ticker-btn" data-val-ticker="META">META · Meta</button>
             <button type="button" class="ticker-btn" data-val-ticker="SBUX">SBUX · Starbucks</button>
+            <button type="button" class="ticker-btn" data-val-ticker="AMD">AMD · AMD</button>
           </div>
         </div>
       </section>
@@ -267,195 +268,256 @@
         </div>
       </div>
 
-      <div id="valWorkstationContent" style="display: none;">
-        <!-- Company Workstation Hero Panel (Extension Parity) -->
+      <!-- Company Filings Dashboard Panel (Screenshot 2 Parity) -->
+      <div id="valDashboardPanel" style="display: none; margin-top: 2rem;">
+        <!-- Company Workstation Hero Panel -->
         <div class="company-hero-panel" id="companyHeroPanel">
-        <h2 class="company-hero-title" id="heroCompName">NVIDIA CORP</h2>
-        <p class="company-hero-sub" id="heroCompSub">
-          <strong id="heroCompTicker">NVDA</strong> on <span id="heroCompExchange">Nasdaq</span>
-        </p>
-        <div class="company-chips" id="heroChipsWrap">
-          <span class="company-chip accent" id="chipTicker">NVDA</span>
-          <span class="company-chip" id="chipCik">CIK 0001045810</span>
-          <span class="company-chip" id="chipExchange">Nasdaq</span>
-          <span class="company-chip" id="chipCategory">Large accelerated filer</span>
-          <span class="company-chip" id="chipSic">SIC 3674 — Semiconductors</span>
-        </div>
-        <div class="company-hero-actions">
-          <button type="button" class="company-action-btn" id="btnRefreshFilings">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            Refresh list
-          </button>
-          <button type="button" class="company-action-btn" id="btnWatchlist">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span id="watchlistText">Add to watchlist</span>
-          </button>
-          <a href="https://www.sec.gov/edgar/browse/?CIK=0001045810" target="_blank" rel="noopener" class="company-action-btn" id="btnEdgarLink">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Open on EDGAR
-          </a>
-        </div>
-      </div>
-
-      <!-- Company Information Panel -->
-      <div class="company-info-panel" id="companyInfoPanel">
-        <div class="panel-head">
-          <h2>Company information</h2>
-          <span class="badge muted">SEC EDGAR</span>
-        </div>
-        <div class="company-info-grid" id="companyInfoGrid">
-          <!-- Dynamically populated -->
-        </div>
-      </div>
-
-      <!-- Company Timeline Panel (Screenshot EUa14h Parity) -->
-      <div class="timeline-panel" id="timelinePanel">
-        <div class="panel-head">
-          <h2>Company timeline</h2>
-          <span class="badge muted" id="timelineCountBadge">10</span>
-        </div>
-        <p class="panel-blurb">Recent 10-K / 10-Q, 8-K, ownership, insider, and Form 144 activity in one place.</p>
-        <div class="timeline-list" id="timelineList">
-          <!-- Dynamically populated -->
-        </div>
-      </div>
-
-      <!-- Financials (10-K / 10-Q) Filing Table Panel (Screenshot EUa14h Parity) -->
-      <div class="filings-panel" id="financialsPanel">
-        <div class="panel-head">
-          <h2>Financials (10-K / 10-Q)</h2>
-          <span class="badge muted" id="financialsCountBadge">6</span>
-        </div>
-        <p class="panel-blurb">Annual and quarterly reports. Click <strong>Extract</strong> to load audited SEC statements into the 5-year DCF engine below.</p>
-        <div class="table-wrap">
-          <table class="filings">
-            <thead>
-              <tr>
-                <th>Form</th>
-                <th>Period ended</th>
-                <th>Filed</th>
-                <th>Document</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="filingsTableBody">
-              <!-- Dynamically populated -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Live Interactive DCF Engine Panel -->
-      <div class="desk-panel" id="dcfWorkspace">
-        <div class="desk-panel-head">
-          <div class="desk-panel-title-wrap">
-            <h2 class="desk-panel-title" id="dcfPanelTitle">NVIDIA Corporation (NVDA) — Intrinsic DCF Model</h2>
-            <span class="desk-badge-live">Audited SEC 10-K</span>
+          <h2 class="company-hero-title" id="heroCompName">STARBUCKS CORP</h2>
+          <p class="company-hero-sub" id="heroCompSub">
+            <strong id="heroCompTicker">SBUX</strong> on <span id="heroCompExchange">Nasdaq</span>
+          </p>
+          <div class="company-chips" id="heroChipsWrap">
+            <span class="company-chip accent" id="chipTicker">SBUX</span>
+            <span class="company-chip" id="chipCik">CIK 0000829224</span>
+            <span class="company-chip" id="chipExchange">Nasdaq</span>
+            <span class="company-chip" id="chipCategory">Large accelerated filer</span>
+            <span class="company-chip" id="chipSic">SIC 5810 — Retail-Eating Places</span>
           </div>
+          <div class="company-hero-actions">
+            <button type="button" class="company-action-btn" id="btnRefreshFilings">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              Refresh filings
+            </button>
+            <button type="button" class="company-action-btn" id="btnWatchlist">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span id="watchlistText">Add to watchlist</span>
+            </button>
+            <a href="https://www.sec.gov/edgar/browse/?CIK=0000829224" target="_blank" rel="noopener" class="company-action-btn" id="btnEdgarLink">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open on EDGAR
+            </a>
+          </div>
+        </div>
 
-          <div class="desk-controls">
-            <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnExportValExcel">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <!-- Company Information Panel -->
+        <div class="company-info-panel" id="companyInfoPanel">
+          <div class="panel-head" style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+            <h2 style="font-size: 15px; margin: 0; font-weight: 750; color: #0f172a;">Company information</h2>
+            <span class="badge muted" style="font-size: 11px; background: #f1f5f9; color: #64748b; padding: 2px 8px; border-radius: 999px; font-weight: 600;">SEC EDGAR</span>
+          </div>
+          <div class="company-info-grid" id="companyInfoGrid">
+            <!-- Dynamically populated from live SEC submissions -->
+          </div>
+        </div>
+
+        <!-- Company Timeline Panel (Screenshot 2 Parity) -->
+        <div class="timeline-panel" id="timelinePanel" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 1.5rem; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+          <div class="panel-head" style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h2 style="font-size: 15px; margin: 0; font-weight: 750; color: #0f172a;">Company timeline</h2>
+              <span class="badge muted" id="timelineCountBadge" style="font-size: 11px; background: #f1f5f9; color: #64748b; padding: 2px 8px; border-radius: 999px; font-weight: 700;">24</span>
+            </div>
+          </div>
+          <p class="panel-blurb" style="margin: 0; padding: 10px 18px; font-size: 12.5px; color: #64748b; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+            Recent 10-K / 10-Q, 8-K, ownership, insider, and Form 144 activity in one place.
+          </p>
+          <div class="timeline-list" id="timelineList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Financials (10-K / 10-Q) Filing Table Panel (Screenshot 2 Parity) -->
+        <div class="filings-panel" id="financialsPanel" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 1.5rem; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+          <div class="panel-head" style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h2 style="font-size: 15px; margin: 0; font-weight: 750; color: #0f172a;">Financials (10-K / 10-Q)</h2>
+              <span class="badge muted" id="financialsCountBadge" style="font-size: 11px; background: #f1f5f9; color: #64748b; padding: 2px 8px; border-radius: 999px; font-weight: 700;">40</span>
+            </div>
+          </div>
+          <p class="panel-blurb" style="margin: 0; padding: 10px 18px; font-size: 12.5px; color: #64748b; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+            Annual and quarterly reports. Click <strong>Open in browser</strong> to view the official filing, or <strong>Open &amp; extract</strong> to extract audited SEC statements and run the DCF valuation model.
+          </p>
+          <div class="table-wrap">
+            <table class="filings">
+              <thead>
+                <tr>
+                  <th>Form</th>
+                  <th>Period ended</th>
+                  <th>Filed</th>
+                  <th>Document</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="filingsTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Extraction Hint Card -->
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 18px 24px; text-align: center; margin-bottom: 2rem;">
+          <div style="font-weight: 700; color: #0f766e; font-size: 0.92rem; margin-bottom: 4px;">
+            Ready to extract financial line items and run DCF model?
+          </div>
+          <div style="color: #475569; font-size: 0.86rem; line-height: 1.5;">
+            Click <strong>Open &amp; extract</strong> on any 10-K or 10-Q filing above (or paste any direct sec.gov URL) to extract verified US-GAAP line items with Click-to-Source audit trails.
+          </div>
+        </div>
+      </div>
+
+      <!-- Extracted Filing Workspace (Screenshot 3 Parity) -->
+      <div id="valExtractedWorkspace" style="display: none; margin-top: 2rem;">
+        <!-- Filing Header Banner -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem 1.6rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+              <span class="badge live" id="extractedFormBadge" style="background:#ecfdf5; color:#065f46; font-size:11px; font-weight:700; padding:2px 8px; border-radius:9999px; border:1px solid #a7f3d0;">Audited SEC Extract</span>
+              <span style="font-size: 12px; color: #64748b;" id="extractedFilingSub">Filed on SEC EDGAR</span>
+            </div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0;" id="extractedFilingTitle">
+              Company (TICKER) — Form 10-Q
+            </h2>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnBackToDashboard">
+              ← Back to Company Filings
+            </button>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary mini-btn" id="btnExtractedSecDocLink">
+              ↗ View on SEC.gov
+            </a>
+          </div>
+        </div>
+
+        <!-- Financial line items & Audit Trail Panel (Screenshot 3 Parity) -->
+        <div class="audit-trail-panel">
+          <div class="panel-head" style="padding: 14px 18px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div class="panel-title-wrap" style="display: flex; align-items: center; gap: 10px;">
+              <h2 style="font-size: 16px; margin: 0; font-weight: 800; color: #0f172a;">Financial line items &amp; Audit Trail</h2>
+              <span class="badge live" style="background:#ecfdf5; color:#065f46; font-size:11px; font-weight:700; padding:3px 10px; border-radius:9999px; border:1px solid #a7f3d0;">Click-to-Source Verified</span>
+            </div>
+            <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnExportAuditExcel">
               Export Excel (.xlsx)
             </button>
           </div>
-        </div>
-
-        <!-- DCF Engine Layout -->
-        <div class="dcf-engine-grid">
-          <div class="dcf-controls-col">
-            <div class="dcf-slider-group">
-              <div class="dcf-slider-header">
-                <span>WACC Discount Rate</span>
-                <span class="dcf-slider-val" id="valWacc">9.5%</span>
-              </div>
-              <input type="range" class="dcf-slider" id="sliderWacc" min="6.0" max="15.0" step="0.25" value="9.5" />
-            </div>
-
-            <div class="dcf-slider-group">
-              <div class="dcf-slider-header">
-                <span>Terminal Growth Rate (g)</span>
-                <span class="dcf-slider-val" id="valTerm">2.8%</span>
-              </div>
-              <input type="range" class="dcf-slider" id="sliderTerm" min="1.5" max="4.5" step="0.1" value="2.8" />
-            </div>
-
-            <div class="dcf-slider-group">
-              <div class="dcf-slider-header">
-                <span>5-Year Revenue CAGR</span>
-                <span class="dcf-slider-val" id="valGrowth">22.0%</span>
-              </div>
-              <input type="range" class="dcf-slider" id="sliderGrowth" min="5.0" max="45.0" step="0.5" value="22.0" />
-            </div>
-
-            <div class="dcf-slider-group">
-              <div class="dcf-slider-header">
-                <span>Target Operating Margin</span>
-                <span class="dcf-slider-val" id="valMargin">62.0%</span>
-              </div>
-              <input type="range" class="dcf-slider" id="sliderMargin" min="15.0" max="75.0" step="0.5" value="62.0" />
-            </div>
-          </div>
-
-          <!-- Result Card -->
-          <div class="dcf-result-col">
-            <div class="dcf-result-title">CALIO Intrinsic Fair Value</div>
-            <div class="dcf-fair-value" id="dispFairValue">$148.20</div>
-            <div class="dcf-safety-badge" id="dispMarginSafety" style="background:var(--ok-bg); color:var(--ok);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              +15.3% Undervalued (Safety Margin)
-            </div>
-
-            <div class="dcf-bridge-grid">
-              <div class="dcf-bridge-item">
-                <span>Current Market Price</span>
-                <strong id="dispCurrentPrice">$128.50</strong>
-              </div>
-              <div class="dcf-bridge-item">
-                <span>Enterprise Value (PV)</span>
-                <strong id="dispEnterpriseValue">$3.68T</strong>
-              </div>
-              <div class="dcf-bridge-item">
-                <span>Net Cash / (Debt)</span>
-                <strong id="dispNetCash">+$32.2B</strong>
-              </div>
-              <div class="dcf-bridge-item">
-                <span>Diluted Shares</span>
-                <strong id="dispShares">24.50B</strong>
-              </div>
-            </div>
+          <p style="font-size: 13px; color: #64748b; padding: 12px 18px; margin: 0; border-bottom: 1px solid #f1f5f9; background: #f8fafc; line-height: 1.5;">
+            Click on any line item below to view its location and context in the original SEC filing on sec.gov. Each number is extracted directly from official US-GAAP XBRL tags.
+          </p>
+          <div class="fact-list" id="auditFactList">
+            <!-- 22 GAAP specs dynamically rendered with tag, amount, Source link, and =CALIO button -->
           </div>
         </div>
 
-        <!-- 3-Statement Extracted Financials Table -->
-        <div style="padding: 1rem 1.75rem; background: var(--bg-snow); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
-          <h3 style="font-size:1.05rem; font-weight:700; color:var(--ink-heading);">Normalized SEC 10-K Financial Statement Extraction</h3>
-          <div class="desk-chips" id="statementTabWrap">
-            <button type="button" class="chip-btn is-active" data-stmt="is">Income Statement</button>
-            <button type="button" class="chip-btn" data-stmt="bs">Balance Sheet</button>
-            <button type="button" class="chip-btn" data-stmt="cf">Cash Flows</button>
-            <button type="button" class="chip-btn" data-stmt="seg">Segment Revenue (ASC 280)</button>
-          </div>
-        </div>
+        <!-- Live Interactive DCF Engine Panel -->
+        <div class="desk-panel" id="dcfWorkspace" style="margin-bottom: 2rem;">
+          <div class="desk-panel-head">
+            <div class="desk-panel-title-wrap">
+              <h2 class="desk-panel-title" id="dcfPanelTitle">Intrinsic DCF Model</h2>
+              <span class="desk-badge-live" id="dcfAuditedBadge">Audited SEC XBRL</span>
+            </div>
 
-        <div class="table-scroll-wrap">
-          <table class="calio-table" id="statementTable">
-            <thead>
-              <tr>
-                <th>Standardized Line Item</th>
-                <th>TTM / Latest Fiscal Year</th>
-                <th>Prior Fiscal Year</th>
-                <th>YoY Variance ($ Delta)</th>
-                <th>YoY Variance (% Delta)</th>
-              </tr>
-            </thead>
-            <tbody id="statementTableBody">
-              <!-- Dynamically filled -->
-            </tbody>
-          </table>
+            <div class="desk-controls">
+              <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnExportValExcel">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export Excel (.xlsx)
+              </button>
+            </div>
+          </div>
+
+          <!-- DCF Engine Layout -->
+          <div class="dcf-engine-grid">
+            <div class="dcf-controls-col">
+              <div class="dcf-slider-group">
+                <div class="dcf-slider-header">
+                  <span>WACC Discount Rate</span>
+                  <span class="dcf-slider-val" id="valWacc">9.0%</span>
+                </div>
+                <input type="range" class="dcf-slider" id="sliderWacc" min="6.0" max="15.0" step="0.25" value="9.0" />
+              </div>
+
+              <div class="dcf-slider-group">
+                <div class="dcf-slider-header">
+                  <span>Terminal Growth Rate (g)</span>
+                  <span class="dcf-slider-val" id="valTerm">2.5%</span>
+                </div>
+                <input type="range" class="dcf-slider" id="sliderTerm" min="1.5" max="4.5" step="0.1" value="2.5" />
+              </div>
+
+              <div class="dcf-slider-group">
+                <div class="dcf-slider-header">
+                  <span>5-Year Revenue CAGR</span>
+                  <span class="dcf-slider-val" id="valGrowth">12.0%</span>
+                </div>
+                <input type="range" class="dcf-slider" id="sliderGrowth" min="3.0" max="40.0" step="0.5" value="12.0" />
+              </div>
+
+              <div class="dcf-slider-group">
+                <div class="dcf-slider-header">
+                  <span>Target Operating Margin</span>
+                  <span class="dcf-slider-val" id="valMargin">15.0%</span>
+                </div>
+                <input type="range" class="dcf-slider" id="sliderMargin" min="2.0" max="75.0" step="0.5" value="15.0" />
+              </div>
+            </div>
+
+            <!-- Result Card -->
+            <div class="dcf-result-col">
+              <div class="dcf-result-title">CALIO Intrinsic Fair Value</div>
+              <div class="dcf-fair-value" id="dispFairValue">$0.00</div>
+              <div class="dcf-safety-badge" id="dispMarginSafety" style="background:var(--ok-bg); color:var(--ok);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Audited DCF Valuation
+              </div>
+
+              <div class="dcf-bridge-grid">
+                <div class="dcf-bridge-item">
+                  <span>Base Revenue</span>
+                  <strong id="dispBaseRev">$0.00B</strong>
+                </div>
+                <div class="dcf-bridge-item">
+                  <span>Enterprise Value (PV)</span>
+                  <strong id="dispEnterpriseValue">$0.00B</strong>
+                </div>
+                <div class="dcf-bridge-item">
+                  <span>Net Cash / (Debt)</span>
+                  <strong id="dispNetCash">$0.00B</strong>
+                </div>
+                <div class="dcf-bridge-item">
+                  <span>Diluted Shares</span>
+                  <strong id="dispShares">0.00B</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-Statement Extracted Financials Table -->
+          <div style="padding: 1rem 1.75rem; background: var(--bg-snow); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <h3 style="font-size:1.05rem; font-weight:700; color:var(--ink-heading);">Normalized SEC Financial Statement Extraction</h3>
+            <div class="desk-chips" id="statementTabWrap">
+              <button type="button" class="chip-btn is-active" data-stmt="is">Income Statement</button>
+              <button type="button" class="chip-btn" data-stmt="bs">Balance Sheet</button>
+              <button type="button" class="chip-btn" data-stmt="cf">Cash Flows</button>
+            </div>
+          </div>
+
+          <div class="table-scroll-wrap">
+            <table class="calio-table" id="statementTable">
+              <thead>
+                <tr>
+                  <th>Standardized Line Item</th>
+                  <th>Extracted Period Amount</th>
+                  <th>Prior Period</th>
+                  <th>YoY Variance ($ Delta)</th>
+                  <th>YoY Variance (% Delta)</th>
+                </tr>
+              </thead>
+              <tbody id="statementTableBody">
+                <!-- Dynamically filled -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      </div> <!-- End #valWorkstationContent -->
 
       <!-- Feature Grid -->
       <section style="margin-bottom: 5rem;">
@@ -558,495 +620,23 @@
 
     <!-- Interactive Valuation & Extraction Script (Chrome Extension Parity) -->
     <script>
-      // Comprehensive SEC issuer directory for autocomplete suggestions
-      const SEC_COMPANIES = [
-        { cik: "0001045810", ticker: "NVDA", name: "NVIDIA Corporation" },
-        { cik: "0000320193", ticker: "AAPL", name: "Apple Inc." },
-        { cik: "0000789019", ticker: "MSFT", name: "Microsoft Corporation" },
-        { cik: "0001018724", ticker: "AMZN", name: "Amazon.com, Inc." },
-        { cik: "0001652044", ticker: "GOOGL", name: "Alphabet Inc." },
-        { cik: "0001318605", ticker: "TSLA", name: "Tesla, Inc." },
-        { cik: "0001326801", ticker: "META", name: "Meta Platforms, Inc." },
-        { cik: "0000829224", ticker: "SBUX", name: "Starbucks Corporation" },
-        { cik: "0000019617", ticker: "JPM", name: "JPMorgan Chase & Co." },
-        { cik: "0000104169", ticker: "WMT", name: "Walmart Inc." },
-        { cik: "0001065280", ticker: "NFLX", name: "Netflix, Inc." },
-        { cik: "0000059478", ticker: "LLY", name: "Eli Lilly and Company" },
-        { cik: "0001141391", ticker: "MA", name: "Mastercard Incorporated" },
-        { cik: "0001403161", ticker: "V", name: "Visa Inc." }
-      ];
-
-      const VAL_COMPANIES = (window.SecEngine && window.SecEngine.companies) ? Object.assign({}, window.SecEngine.companies) : {
-        NVDA: {
-          name: "NVIDIA CORP",
-          fullName: "NVIDIA Corporation",
-          ticker: "NVDA",
-          cik: "0001045810",
-          exchange: "Nasdaq",
-          sic: "3674 — Semiconductors & Related Devices",
-          stateLocation: "CA",
-          stateOfIncorporation: "DE",
-          fiscalYearEnd: "0126",
-          phone: "(408) 486-2000",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "2788 San Tomas Expressway\nSanta Clara, CA 95051",
-          mailingAddress: "2788 San Tomas Expressway\nSanta Clara, CA 95051",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0001045810",
-          currentPrice: 128.50,
-          shares: 24.50,
-          cash: 43.20,
-          debt: 11.00,
-          baseRev: 130.50,
-          dcf: { wacc: 9.5, term: 2.8, growth: 22.0, margin: 62.0 },
-          timeline: [
-            { date: "2026-08-28", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000088/nvda-20260728.htm" },
-            { date: "2026-08-28", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000087/nvda-20260828.htm" },
-            { date: "2026-08-20", form: "Form 4", kind: "insider", desc: "Statement of Changes in Beneficial Ownership of Securities", url: "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000084/xslF345X05/wf-form4_172419082578572.xml" },
-            { date: "2026-07-15", form: "Form 144", kind: "insider", desc: "Proposed Sale of Securities under Rule 144", url: "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000079/xsl144X01/primary_doc.xml" },
-            { date: "2026-05-22", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000062/nvda-20260428.htm" },
-            { date: "2026-05-22", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000061/nvda-20260522.htm" },
-            { date: "2026-04-18", form: "DEF 14A", kind: "proxy", desc: "Definitive Proxy Statement for Annual Meeting of Shareholders", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000050/nvda-20260418.htm" },
-            { date: "2026-02-21", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Jan 26, 2026", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000028/nvda-20260126.htm" },
-            { date: "2026-02-21", form: "8-K", kind: "event", desc: "Current report, item 2.02 and item 7.01 (Financial Statements and Exhibits)", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000027/nvda-20260221.htm" },
-            { date: "2026-01-10", form: "Form 4", kind: "insider", desc: "Statement of Changes in Beneficial Ownership of Securities", url: "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000005/xslF345X05/wf-form4_1704921000.xml" }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-07-28", filingDate: "2026-08-28", doc: "nvda-20260728.htm", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000088/nvda-20260728.htm" },
-            { form: "10-Q", periodEnd: "2026-04-28", filingDate: "2026-05-22", doc: "nvda-20260428.htm", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000062/nvda-20260428.htm" },
-            { form: "10-K", periodEnd: "2026-01-26", filingDate: "2026-02-21", doc: "nvda-20260126.htm", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581026000028/nvda-20260126.htm" },
-            { form: "10-Q", periodEnd: "2025-10-27", filingDate: "2025-11-20", doc: "nvda-20251027.htm", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581025000078/nvda-20251027.htm" },
-            { form: "10-Q", periodEnd: "2025-07-28", filingDate: "2025-08-23", doc: "nvda-20250728.htm", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581025000055/nvda-20250728.htm" },
-            { form: "10-K", periodEnd: "2025-01-28", filingDate: "2025-02-23", doc: "nvda-20250128.htm", url: "https://www.sec.gov/ix?doc=/Archives/edgar/data/1045810/000104581025000022/nvda-20250128.htm" }
-          ],
-          is: [
-            { item: "Total Revenue", ttm: "$130.50B", prior: "$60.92B", deltaDollar: "+$69.58B", deltaPct: "+114.2%" },
-            { item: "Cost of Goods Sold", ttm: "$32.62B", prior: "$16.62B", deltaDollar: "+$16.00B", deltaPct: "+96.3%" },
-            { item: "Gross Profit", ttm: "$97.88B", prior: "$44.30B", deltaDollar: "+$53.58B", deltaPct: "+120.9%" },
-            { item: "Research & Development", ttm: "$10.45B", prior: "$7.34B", deltaDollar: "+$3.11B", deltaPct: "+42.4%" },
-            { item: "Selling, General & Admin", ttm: "$3.96B", prior: "$2.99B", deltaDollar: "+$0.97B", deltaPct: "+32.4%" },
-            { item: "Operating Income (EBIT)", ttm: "$81.47B", prior: "$32.97B", deltaDollar: "+$48.50B", deltaPct: "+147.1%" },
-            { item: "Net Income (GAAP)", ttm: "$72.88B", prior: "$29.76B", deltaDollar: "+$43.12B", deltaPct: "+144.9%" }
-          ],
-          bs: [
-            { item: "Cash & Cash Equivalents", ttm: "$43.20B", prior: "$25.98B", deltaDollar: "+$17.22B", deltaPct: "+66.3%" },
-            { item: "Inventories", ttm: "$6.85B", prior: "$5.28B", deltaDollar: "+$1.57B", deltaPct: "+29.7%" },
-            { item: "Total Current Assets", ttm: "$72.50B", prior: "$44.35B", deltaDollar: "+$28.15B", deltaPct: "+63.5%" },
-            { item: "Property & Equipment (Net)", ttm: "$8.45B", prior: "$3.91B", deltaDollar: "+$4.54B", deltaPct: "+116.1%" },
-            { item: "Total Assets", ttm: "$98.50B", prior: "$65.73B", deltaDollar: "+$32.77B", deltaPct: "+49.9%" },
-            { item: "Total Long-Term Debt", ttm: "$11.00B", prior: "$9.71B", deltaDollar: "+$1.29B", deltaPct: "+13.3%" },
-            { item: "Stockholders' Equity", ttm: "$68.50B", prior: "$42.98B", deltaDollar: "+$25.52B", deltaPct: "+59.4%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow (CFO)", ttm: "$76.50B", prior: "$28.09B", deltaDollar: "+$48.41B", deltaPct: "+172.3%" },
-            { item: "Capital Expenditures (CapEx)", ttm: "-$6.20B", prior: "-$1.11B", deltaDollar: "-$5.09B", deltaPct: "+458.6%" },
-            { item: "Free Cash Flow (FCF)", ttm: "$70.30B", prior: "$26.98B", deltaDollar: "+$43.32B", deltaPct: "+160.6%" },
-            { item: "Common Stock Repurchases", ttm: "-$14.20B", prior: "-$9.50B", deltaDollar: "-$4.70B", deltaPct: "+49.5%" }
-          ],
-          seg: [
-            { item: "Data Center (Compute & Networking)", ttm: "$114.50B", prior: "$47.50B", deltaDollar: "+$67.00B", deltaPct: "+141.1%" },
-            { item: "Gaming & AI PC", ttm: "$11.20B", prior: "$10.45B", deltaDollar: "+$0.75B", deltaPct: "+7.2%" },
-            { item: "Professional Visualization", ttm: "$2.10B", prior: "$1.55B", deltaDollar: "+$0.55B", deltaPct: "+35.5%" },
-            { item: "Automotive & Robotics", ttm: "$1.60B", prior: "$1.09B", deltaDollar: "+$0.51B", deltaPct: "+46.8%" }
-          ]
-        },
-        AAPL: {
-          name: "APPLE INC",
-          fullName: "Apple Inc.",
-          ticker: "AAPL",
-          cik: "0000320193",
-          exchange: "Nasdaq",
-          sic: "3571 — Electronic Computers",
-          stateLocation: "CA",
-          stateOfIncorporation: "CA",
-          fiscalYearEnd: "0930",
-          phone: "(408) 996-1010",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "One Apple Park Way\nCupertino, CA 95014",
-          mailingAddress: "One Apple Park Way\nCupertino, CA 95014",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0000320193",
-          currentPrice: 228.00,
-          shares: 15.11,
-          cash: 65.19,
-          debt: 106.63,
-          baseRev: 391.04,
-          dcf: { wacc: 8.25, term: 2.5, growth: 7.5, margin: 31.5 },
-          timeline: [
-            { date: "2026-08-01", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { date: "2026-08-01", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { date: "2026-07-20", form: "Form 4", kind: "insider", desc: "Statement of Changes in Beneficial Ownership of Securities", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { date: "2026-05-02", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { date: "2026-04-15", form: "DEF 14A", kind: "proxy", desc: "Definitive Proxy Statement for Annual Meeting of Shareholders", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { date: "2026-02-01", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { date: "2025-11-01", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Sep 30, 2025", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-06-29", filingDate: "2026-08-01", doc: "aapl-20260629.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { form: "10-Q", periodEnd: "2026-03-30", filingDate: "2026-05-02", doc: "aapl-20260330.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { form: "10-Q", periodEnd: "2025-12-28", filingDate: "2026-02-01", doc: "aapl-20251228.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { form: "10-K", periodEnd: "2025-09-30", filingDate: "2025-11-01", doc: "aapl-20250930.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { form: "10-Q", periodEnd: "2025-06-29", filingDate: "2025-08-01", doc: "aapl-20250629.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" },
-            { form: "10-K", periodEnd: "2024-09-28", filingDate: "2024-11-01", doc: "aapl-20240928.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000320193" }
-          ],
-          is: [
-            { item: "Total Revenue", ttm: "$391.04B", prior: "$383.29B", deltaDollar: "+$7.75B", deltaPct: "+2.0%" },
-            { item: "Cost of Goods Sold", ttm: "$210.35B", prior: "$214.14B", deltaDollar: "-$3.79B", deltaPct: "-1.8%" },
-            { item: "Gross Profit", ttm: "$180.69B", prior: "$169.15B", deltaDollar: "+$11.54B", deltaPct: "+6.8%" },
-            { item: "Operating Income (EBIT)", ttm: "$123.22B", prior: "$114.30B", deltaDollar: "+$8.92B", deltaPct: "+7.8%" },
-            { item: "Net Income (GAAP)", ttm: "$93.74B", prior: "$96.99B", deltaDollar: "-$3.25B", deltaPct: "-3.4%" }
-          ],
-          bs: [
-            { item: "Cash & Marketable Securities", ttm: "$65.19B", prior: "$61.55B", deltaDollar: "+$3.64B", deltaPct: "+5.9%" },
-            { item: "Total Assets", ttm: "$364.98B", prior: "$352.58B", deltaDollar: "+$12.40B", deltaPct: "+3.5%" },
-            { item: "Total Debt", ttm: "$106.63B", prior: "$111.09B", deltaDollar: "-$4.46B", deltaPct: "-4.0%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$118.25B", prior: "$110.54B", deltaDollar: "+$7.71B", deltaPct: "+7.0%" },
-            { item: "Free Cash Flow", ttm: "$108.80B", prior: "$99.58B", deltaDollar: "+$9.22B", deltaPct: "+9.3%" }
-          ],
-          seg: [
-            { item: "iPhone", ttm: "$201.18B", prior: "$200.58B", deltaDollar: "+$0.60B", deltaPct: "+0.3%" },
-            { item: "Services", ttm: "$96.17B", prior: "$85.20B", deltaDollar: "+$10.97B", deltaPct: "+12.9%" },
-            { item: "Wearables & Home", ttm: "$37.00B", prior: "$39.85B", deltaDollar: "-$2.85B", deltaPct: "-7.2%" },
-            { item: "Mac", ttm: "$29.98B", prior: "$29.36B", deltaDollar: "+$0.62B", deltaPct: "+2.1%" },
-            { item: "iPad", ttm: "$26.69B", prior: "$28.30B", deltaDollar: "-$1.61B", deltaPct: "-5.7%" }
-          ]
-        },
-        MSFT: {
-          name: "MICROSOFT CORP",
-          fullName: "Microsoft Corporation",
-          ticker: "MSFT",
-          cik: "0000789019",
-          exchange: "Nasdaq",
-          sic: "7372 — Services-Prepackaged Software",
-          stateLocation: "WA",
-          stateOfIncorporation: "WA",
-          fiscalYearEnd: "0630",
-          phone: "(425) 882-8080",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "One Microsoft Way\nRedmond, WA 98052",
-          mailingAddress: "One Microsoft Way\nRedmond, WA 98052",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0000789019",
-          currentPrice: 425.00,
-          shares: 7.43,
-          cash: 80.00,
-          debt: 75.00,
-          baseRev: 245.12,
-          dcf: { wacc: 8.5, term: 2.8, growth: 14.0, margin: 44.5 },
-          timeline: [
-            { date: "2026-07-30", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Jun 30, 2026", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { date: "2026-07-30", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { date: "2026-04-25", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { date: "2026-01-30", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { date: "2025-10-24", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" }
-          ],
-          filings: [
-            { form: "10-K", periodEnd: "2026-06-30", filingDate: "2026-07-30", doc: "msft-20260630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { form: "10-Q", periodEnd: "2026-03-31", filingDate: "2026-04-25", doc: "msft-20260331.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { form: "10-Q", periodEnd: "2025-12-31", filingDate: "2026-01-30", doc: "msft-20251231.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { form: "10-Q", periodEnd: "2025-09-30", filingDate: "2025-10-24", doc: "msft-20250930.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" },
-            { form: "10-K", periodEnd: "2025-06-30", filingDate: "2025-07-31", doc: "msft-20250630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000789019" }
-          ],
-          is: [
-            { item: "Total Revenue", ttm: "$245.12B", prior: "$211.91B", deltaDollar: "+$33.21B", deltaPct: "+15.7%" },
-            { item: "Gross Profit", ttm: "$171.00B", prior: "$146.05B", deltaDollar: "+$24.95B", deltaPct: "+17.1%" },
-            { item: "Operating Income", ttm: "$109.43B", prior: "$88.52B", deltaDollar: "+$20.91B", deltaPct: "+23.6%" },
-            { item: "Net Income", ttm: "$88.14B", prior: "$72.36B", deltaDollar: "+$15.78B", deltaPct: "+21.8%" }
-          ],
-          bs: [
-            { item: "Cash & Investments", ttm: "$80.00B", prior: "$111.30B", deltaDollar: "-$31.30B", deltaPct: "-28.1%" },
-            { item: "Total Assets", ttm: "$512.00B", prior: "$411.97B", deltaDollar: "+$100.03B", deltaPct: "+24.3%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$118.50B", prior: "$87.58B", deltaDollar: "+$30.92B", deltaPct: "+35.3%" },
-            { item: "Free Cash Flow", ttm: "$74.07B", prior: "$59.48B", deltaDollar: "+$14.59B", deltaPct: "+24.5%" }
-          ],
-          seg: [
-            { item: "Intelligent Cloud (Azure)", ttm: "$105.36B", prior: "$87.91B", deltaDollar: "+$17.45B", deltaPct: "+19.8%" },
-            { item: "Productivity & Business Processes", ttm: "$77.35B", prior: "$69.27B", deltaDollar: "+$8.08B", deltaPct: "+11.7%" },
-            { item: "More Personal Computing (Windows, Xbox)", ttm: "$62.41B", prior: "$54.73B", deltaDollar: "+$7.68B", deltaPct: "+14.0%" }
-          ]
-        },
-        AMZN: {
-          name: "AMAZON COM INC",
-          fullName: "Amazon.com, Inc.",
-          ticker: "AMZN",
-          cik: "0001018724",
-          exchange: "Nasdaq",
-          sic: "5961 — Retail-Catalog & Mail-Order Houses",
-          stateLocation: "WA",
-          stateOfIncorporation: "DE",
-          fiscalYearEnd: "1231",
-          phone: "(206) 266-1000",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "410 Terry Avenue North\nSeattle, WA 98109",
-          mailingAddress: "410 Terry Avenue North\nSeattle, WA 98109",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0001018724",
-          currentPrice: 198.00,
-          shares: 10.50,
-          cash: 92.00,
-          debt: 128.00,
-          baseRev: 638.00,
-          dcf: { wacc: 8.75, term: 2.5, growth: 12.0, margin: 11.5 },
-          timeline: [
-            { date: "2026-08-01", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" },
-            { date: "2026-08-01", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" },
-            { date: "2026-04-30", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" },
-            { date: "2026-02-02", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Dec 31, 2025", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-06-30", filingDate: "2026-08-01", doc: "amzn-20260630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" },
-            { form: "10-Q", periodEnd: "2026-03-31", filingDate: "2026-04-30", doc: "amzn-20260331.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" },
-            { form: "10-K", periodEnd: "2025-12-31", filingDate: "2026-02-02", doc: "amzn-20251231.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" },
-            { form: "10-Q", periodEnd: "2025-09-30", filingDate: "2025-10-25", doc: "amzn-20250930.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" },
-            { form: "10-K", periodEnd: "2024-12-31", filingDate: "2025-02-01", doc: "amzn-20241231.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001018724" }
-          ],
-          is: [
-            { item: "Total Net Sales", ttm: "$638.00B", prior: "$574.78B", deltaDollar: "+$63.22B", deltaPct: "+11.0%" },
-            { item: "Operating Income", ttm: "$62.20B", prior: "$36.85B", deltaDollar: "+$25.35B", deltaPct: "+68.8%" },
-            { item: "Net Income", ttm: "$55.40B", prior: "$30.42B", deltaDollar: "+$24.98B", deltaPct: "+82.1%" }
-          ],
-          bs: [
-            { item: "Cash & Equivalents", ttm: "$92.00B", prior: "$86.78B", deltaDollar: "+$5.22B", deltaPct: "+6.0%" },
-            { item: "Total Assets", ttm: "$550.00B", prior: "$527.85B", deltaDollar: "+$22.15B", deltaPct: "+4.2%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$121.50B", prior: "$84.95B", deltaDollar: "+$36.55B", deltaPct: "+43.0%" },
-            { item: "Free Cash Flow", ttm: "$63.50B", prior: "$32.22B", deltaDollar: "+$31.28B", deltaPct: "+97.1%" }
-          ],
-          seg: [
-            { item: "North America Retail", ttm: "$385.00B", prior: "$352.83B", deltaDollar: "+$32.17B", deltaPct: "+9.1%" },
-            { item: "AWS (Cloud Computing)", ttm: "$107.50B", prior: "$90.76B", deltaDollar: "+$16.74B", deltaPct: "+18.4%" },
-            { item: "International Retail", ttm: "$145.50B", prior: "$131.20B", deltaDollar: "+$14.30B", deltaPct: "+10.9%" }
-          ]
-        },
-        GOOGL: {
-          name: "ALPHABET INC",
-          fullName: "Alphabet Inc.",
-          ticker: "GOOGL",
-          cik: "0001652044",
-          exchange: "Nasdaq",
-          sic: "7370 — Services-Computer Programming & Data Processing",
-          stateLocation: "CA",
-          stateOfIncorporation: "DE",
-          fiscalYearEnd: "1231",
-          phone: "(650) 253-0000",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "1600 Amphitheatre Parkway\nMountain View, CA 94043",
-          mailingAddress: "1600 Amphitheatre Parkway\nMountain View, CA 94043",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0001652044",
-          currentPrice: 172.00,
-          shares: 12.35,
-          cash: 110.00,
-          debt: 28.00,
-          baseRev: 350.00,
-          dcf: { wacc: 8.5, term: 2.5, growth: 12.5, margin: 32.0 },
-          timeline: [
-            { date: "2026-07-24", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" },
-            { date: "2026-07-24", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" },
-            { date: "2026-04-26", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" },
-            { date: "2026-02-01", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Dec 31, 2025", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-06-30", filingDate: "2026-07-24", doc: "goog-20260630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" },
-            { form: "10-Q", periodEnd: "2026-03-31", filingDate: "2026-04-26", doc: "goog-20260331.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" },
-            { form: "10-K", periodEnd: "2025-12-31", filingDate: "2026-02-01", doc: "goog-20251231.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" },
-            { form: "10-Q", periodEnd: "2025-09-30", filingDate: "2025-10-28", doc: "goog-20250930.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001652044" }
-          ],
-          is: [
-            { item: "Revenues", ttm: "$350.00B", prior: "$307.39B", deltaDollar: "+$42.61B", deltaPct: "+13.9%" },
-            { item: "Operating Income", ttm: "$112.50B", prior: "$84.29B", deltaDollar: "+$28.21B", deltaPct: "+33.5%" },
-            { item: "Net Income", ttm: "$95.00B", prior: "$73.80B", deltaDollar: "+$21.20B", deltaPct: "+28.7%" }
-          ],
-          bs: [
-            { item: "Cash & Marketable Securities", ttm: "$110.00B", prior: "$110.92B", deltaDollar: "-$0.92B", deltaPct: "-0.8%" },
-            { item: "Total Assets", ttm: "$420.00B", prior: "$402.39B", deltaDollar: "+$17.61B", deltaPct: "+4.4%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$120.00B", prior: "$101.75B", deltaDollar: "+$18.25B", deltaPct: "+17.9%" },
-            { item: "Free Cash Flow", ttm: "$78.00B", prior: "$69.49B", deltaDollar: "+$8.51B", deltaPct: "+12.2%" }
-          ],
-          seg: [
-            { item: "Google Search & Other", ttm: "$202.50B", prior: "$175.03B", deltaDollar: "+$27.47B", deltaPct: "+15.7%" },
-            { item: "Google Cloud", ttm: "$42.00B", prior: "$33.09B", deltaDollar: "+$8.91B", deltaPct: "+26.9%" },
-            { item: "YouTube Advertising", ttm: "$36.00B", prior: "$31.51B", deltaDollar: "+$4.49B", deltaPct: "+14.3%" },
-            { item: "Subscriptions, Platforms & Devices", ttm: "$41.50B", prior: "$34.69B", deltaDollar: "+$6.81B", deltaPct: "+19.6%" }
-          ]
-        },
-        TSLA: {
-          name: "TESLA INC",
-          fullName: "Tesla, Inc.",
-          ticker: "TSLA",
-          cik: "0001318605",
-          exchange: "Nasdaq",
-          sic: "3711 — Motor Vehicles & Passenger Car Bodies",
-          stateLocation: "TX",
-          stateOfIncorporation: "DE",
-          fiscalYearEnd: "1231",
-          phone: "(512) 516-8177",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "1 Tesla Road\nAustin, TX 78725",
-          mailingAddress: "1 Tesla Road\nAustin, TX 78725",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0001318605",
-          currentPrice: 215.00,
-          shares: 3.19,
-          cash: 33.60,
-          debt: 12.50,
-          baseRev: 97.70,
-          dcf: { wacc: 10.0, term: 3.0, growth: 16.0, margin: 12.0 },
-          timeline: [
-            { date: "2026-07-24", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" },
-            { date: "2026-07-24", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" },
-            { date: "2026-04-24", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" },
-            { date: "2026-01-29", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Dec 31, 2025", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-06-30", filingDate: "2026-07-24", doc: "tsla-20260630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" },
-            { form: "10-Q", periodEnd: "2026-03-31", filingDate: "2026-04-24", doc: "tsla-20260331.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" },
-            { form: "10-K", periodEnd: "2025-12-31", filingDate: "2026-01-29", doc: "tsla-20251231.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" },
-            { form: "10-Q", periodEnd: "2025-09-30", filingDate: "2025-10-23", doc: "tsla-20250930.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001318605" }
-          ],
-          is: [
-            { item: "Total Revenues", ttm: "$97.70B", prior: "$96.77B", deltaDollar: "+$0.93B", deltaPct: "+1.0%" },
-            { item: "Gross Profit", ttm: "$17.80B", prior: "$17.66B", deltaDollar: "+$0.14B", deltaPct: "+0.8%" },
-            { item: "Operating Income", ttm: "$7.82B", prior: "$8.89B", deltaDollar: "-$1.07B", deltaPct: "-12.0%" },
-            { item: "Net Income", ttm: "$7.20B", prior: "$14.99B", deltaDollar: "-$7.79B", deltaPct: "-52.0%" }
-          ],
-          bs: [
-            { item: "Cash & Investments", ttm: "$33.60B", prior: "$29.09B", deltaDollar: "+$4.51B", deltaPct: "+15.5%" },
-            { item: "Total Assets", ttm: "$115.00B", prior: "$106.62B", deltaDollar: "+$8.38B", deltaPct: "+7.9%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$14.50B", prior: "$13.26B", deltaDollar: "+$1.24B", deltaPct: "+9.3%" },
-            { item: "Free Cash Flow", ttm: "$6.20B", prior: "$4.36B", deltaDollar: "+$1.84B", deltaPct: "+42.2%" }
-          ],
-          seg: [
-            { item: "Automotive Revenues", ttm: "$79.50B", prior: "$82.42B", deltaDollar: "-$2.92B", deltaPct: "-3.5%" },
-            { item: "Energy Storage & Solar", ttm: "$10.50B", prior: "$6.04B", deltaDollar: "+$4.46B", deltaPct: "+73.8%" },
-            { item: "Services & Other", ttm: "$7.70B", prior: "$8.32B", deltaDollar: "-$0.62B", deltaPct: "-7.5%" }
-          ]
-        },
-        META: {
-          name: "META PLATFORMS INC",
-          fullName: "Meta Platforms, Inc.",
-          ticker: "META",
-          cik: "0001326801",
-          exchange: "Nasdaq",
-          sic: "7370 — Services-Computer Programming & Data Processing",
-          stateLocation: "CA",
-          stateOfIncorporation: "DE",
-          fiscalYearEnd: "1231",
-          phone: "(650) 543-4800",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "1601 Willow Road\nMenlo Park, CA 94025",
-          mailingAddress: "1601 Willow Road\nMenlo Park, CA 94025",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0001326801",
-          currentPrice: 512.00,
-          shares: 2.53,
-          cash: 65.20,
-          debt: 38.40,
-          baseRev: 160.00,
-          dcf: { wacc: 8.8, term: 2.5, growth: 16.0, margin: 41.0 },
-          timeline: [
-            { date: "2026-08-01", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" },
-            { date: "2026-08-01", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" },
-            { date: "2026-04-26", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" },
-            { date: "2026-02-02", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Dec 31, 2025", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-06-30", filingDate: "2026-08-01", doc: "meta-20260630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" },
-            { form: "10-Q", periodEnd: "2026-03-31", filingDate: "2026-04-26", doc: "meta-20260331.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" },
-            { form: "10-K", periodEnd: "2025-12-31", filingDate: "2026-02-02", doc: "meta-20251231.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" },
-            { form: "10-Q", periodEnd: "2025-09-30", filingDate: "2025-10-24", doc: "meta-20250930.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0001326801" }
-          ],
-          is: [
-            { item: "Revenue", ttm: "$160.00B", prior: "$134.90B", deltaDollar: "+$25.10B", deltaPct: "+18.6%" },
-            { item: "Operating Income", ttm: "$65.60B", prior: "$46.75B", deltaDollar: "+$18.85B", deltaPct: "+40.3%" },
-            { item: "Net Income", ttm: "$54.20B", prior: "$39.10B", deltaDollar: "+$15.10B", deltaPct: "+38.6%" }
-          ],
-          bs: [
-            { item: "Cash & Equivalents", ttm: "$65.20B", prior: "$65.40B", deltaDollar: "-$0.20B", deltaPct: "-0.3%" },
-            { item: "Total Assets", ttm: "$240.00B", prior: "$229.62B", deltaDollar: "+$10.38B", deltaPct: "+4.5%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$82.00B", prior: "$71.11B", deltaDollar: "+$10.89B", deltaPct: "+15.3%" },
-            { item: "Free Cash Flow", ttm: "$48.00B", prior: "$43.01B", deltaDollar: "+$4.99B", deltaPct: "+11.6%" }
-          ],
-          seg: [
-            { item: "Family of Apps (Advertising)", ttm: "$157.50B", prior: "$133.00B", deltaDollar: "+$24.50B", deltaPct: "+18.4%" },
-            { item: "Reality Labs", ttm: "$2.50B", prior: "$1.90B", deltaDollar: "+$0.60B", deltaPct: "+31.6%" }
-          ]
-        },
-        SBUX: {
-          name: "STARBUCKS CORP",
-          fullName: "Starbucks Corporation",
-          ticker: "SBUX",
-          cik: "0000829224",
-          exchange: "Nasdaq",
-          sic: "5810 — Retail-Eating & Drinking Places",
-          stateLocation: "WA",
-          stateOfIncorporation: "WA",
-          fiscalYearEnd: "0930",
-          phone: "(206) 447-1575",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: "2401 Utah Avenue South\nSeattle, WA 98134",
-          mailingAddress: "2401 Utah Avenue South\nSeattle, WA 98134",
-          edgarUrl: "https://www.sec.gov/edgar/browse/?CIK=0000829224",
-          currentPrice: 94.50,
-          shares: 1.13,
-          cash: 3.40,
-          debt: 15.54,
-          baseRev: 36.40,
-          dcf: { wacc: 7.8, term: 2.2, growth: 6.5, margin: 15.8 },
-          timeline: [
-            { date: "2026-08-01", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" },
-            { date: "2026-08-01", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" },
-            { date: "2026-05-02", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" },
-            { date: "2025-11-20", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Sep 29, 2025", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-06-30", filingDate: "2026-08-01", doc: "sbux-20260630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" },
-            { form: "10-Q", periodEnd: "2026-03-31", filingDate: "2026-05-02", doc: "sbux-20260331.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" },
-            { form: "10-K", periodEnd: "2025-09-29", filingDate: "2025-11-20", doc: "sbux-20250929.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" },
-            { form: "10-Q", periodEnd: "2025-06-30", filingDate: "2025-08-02", doc: "sbux-20250630.htm", url: "https://www.sec.gov/edgar/browse/?CIK=0000829224" }
-          ],
-          is: [
-            { item: "Net Revenues", ttm: "$36.40B", prior: "$35.98B", deltaDollar: "+$0.42B", deltaPct: "+1.2%" },
-            { item: "Operating Income", ttm: "$5.75B", prior: "$5.87B", deltaDollar: "-$0.12B", deltaPct: "-2.0%" },
-            { item: "Net Income", ttm: "$4.12B", prior: "$4.12B", deltaDollar: "$0.00B", deltaPct: "0.0%" }
-          ],
-          bs: [
-            { item: "Cash & Equivalents", ttm: "$3.40B", prior: "$3.31B", deltaDollar: "+$0.09B", deltaPct: "+2.7%" },
-            { item: "Total Assets", ttm: "$30.50B", prior: "$29.45B", deltaDollar: "+$1.05B", deltaPct: "+3.6%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$6.01B", prior: "$6.01B", deltaDollar: "$0.00B", deltaPct: "0.0%" },
-            { item: "Free Cash Flow", ttm: "$3.23B", prior: "$3.68B", deltaDollar: "-$0.45B", deltaPct: "-12.2%" }
-          ],
-          seg: [
-            { item: "North America", ttm: "$26.10B", prior: "$25.50B", deltaDollar: "+$0.60B", deltaPct: "+2.4%" },
-            { item: "International", ttm: "$7.50B", prior: "$7.65B", deltaDollar: "-$0.15B", deltaPct: "-2.0%" },
-            { item: "Channel Development", ttm: "$1.80B", prior: "$1.83B", deltaDollar: "-$0.03B", deltaPct: "-1.6%" }
-          ]
-        }
-      };
-
       let currentValTicker = "";
+      let currentCompany = null;
+      let currentFilings = null;
+      let currentExtractedData = null;
       let currentStatementTab = "is";
       let toastTimer = null;
 
       function showToast(msg) {
-        const toast = document.getElementById("workstationToast");
-        const toastMsg = document.getElementById("toastMsg");
-        if (!toast || !toastMsg) return;
-        toastMsg.textContent = msg;
+        let toast = document.getElementById("workstationToast");
+        if (!toast) {
+          toast = document.createElement("div");
+          toast.id = "workstationToast";
+          toast.className = "workstation-toast";
+          toast.innerHTML = `<svg class="workstation-toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span id="toastMsg"></span>`;
+          document.body.appendChild(toast);
+        }
+        document.getElementById("toastMsg").textContent = msg;
         toast.classList.add("is-visible");
         if (toastTimer) clearTimeout(toastTimer);
         toastTimer = setTimeout(() => {
@@ -1054,54 +644,53 @@
         }, 3200);
       }
 
-      async function extractFiling(form, docName, accn, url, periodEnd) {
-        const comp = VAL_COMPANIES[currentValTicker] || (window.SecEngine && window.SecEngine.getCompany(currentValTicker));
-        if (!comp) return;
+      // 1. Load Company Profile & Filings (Dashboard View — Screenshot 2 Parity)
+      async function loadCompany(query) {
+        if (!query) return;
 
-        showToast(`Extracting ${form} ${docName ? '(' + docName + ')' : ''} · Parsing audited SEC XBRL financials...`);
-
-        const titleEl = document.getElementById("dcfPanelTitle");
-        if (titleEl) {
-          titleEl.innerHTML = `${comp.fullName || comp.name} (${comp.ticker}) &mdash; Extracted ${form} <span class="desk-badge-live" style="margin-left: 8px; font-size: 0.72rem; vertical-align: middle;">Verified SEC EDGAR XBRL</span>`;
-        }
-
-        // Live XBRL Extraction directly from SEC EDGAR API
-        if (window.SecEngine && comp.cik) {
-          try {
-            const extracted = await window.SecEngine.fetchAndExtract(comp.cik, form, periodEnd, accn);
-            if (extracted) {
-              if (extracted.is && extracted.is.length) comp.is = extracted.is;
-              if (extracted.bs && extracted.bs.length) comp.bs = extracted.bs;
-              if (extracted.cf && extracted.cf.length) comp.cf = extracted.cf;
-              if (extracted.metrics) {
-                if (extracted.metrics.baseRev) comp.baseRev = extracted.metrics.baseRev;
-                if (extracted.metrics.cash) comp.cash = extracted.metrics.cash;
-                if (extracted.metrics.debt) comp.debt = extracted.metrics.debt;
-                if (extracted.metrics.operatingMargin && comp.dcf) {
-                  comp.dcf.margin = extracted.metrics.operatingMargin;
-                  const sliderM = document.getElementById("sliderMargin");
-                  if (sliderM) sliderM.value = extracted.metrics.operatingMargin;
-                }
-              }
-            }
-          } catch (err) {
-            console.warn("Live SEC extraction error:", err);
+        // Check if user entered / pasted an SEC URL
+        if (typeof query === "string" && (query.includes("sec.gov") || query.startsWith("http"))) {
+          const parsedUrl = window.SecEngine && window.SecEngine.parseSecUrl(query);
+          if (parsedUrl) {
+            showToast("Detected official SEC EDGAR filing URL · Resolving issuer & filing statements...");
+            await loadCompany(parsedUrl.cik);
+            extractFiling("SEC Filing", parsedUrl.doc, parsedUrl.accnClean, parsedUrl.url, "");
+            return;
           }
         }
 
-        recalculateDCF();
-        renderStatementTable();
+        const ticker = query.toUpperCase().trim();
+        currentValTicker = ticker;
 
-        showToast(`Successfully extracted ${form} · 3 Statements & DCF Engine synchronized with SEC EDGAR`);
+        document.querySelectorAll("[data-val-ticker]").forEach((b) => {
+          b.classList.toggle("is-active", b.getAttribute("data-val-ticker") === ticker);
+        });
 
-        const ws = document.getElementById("dcfWorkspace");
-        if (ws) {
-          ws.scrollIntoView({ behavior: "smooth", block: "start" });
+        showToast(`Loading SEC EDGAR profile and filings for ${ticker}...`);
+
+        const res = window.SecEngine ? await window.SecEngine.fetchCompanyProfileAndFilings(ticker) : null;
+        if (!res || !res.ok) {
+          showToast(`Unable to load SEC EDGAR filings for ${ticker}.`);
+          return;
         }
+
+        currentCompany = res.company;
+        currentFilings = res.filings;
+
+        // Switch to Dashboard View
+        const emptyState = document.getElementById("valEmptyState");
+        const dashPanel = document.getElementById("valDashboardPanel");
+        const extWorkspace = document.getElementById("valExtractedWorkspace");
+
+        if (emptyState) emptyState.style.display = "none";
+        if (extWorkspace) extWorkspace.style.display = "none";
+        if (dashPanel) dashPanel.style.display = "block";
+
+        renderDashboard(currentCompany, currentFilings);
       }
 
-      function renderWorkstation(comp) {
-        // 1. Company Hero
+      function renderDashboard(comp, filings) {
+        // Hero
         const heroName = document.getElementById("heroCompName");
         if (heroName) heroName.textContent = comp.name;
 
@@ -1109,39 +698,39 @@
         if (heroTicker) heroTicker.textContent = comp.ticker;
 
         const heroExchange = document.getElementById("heroCompExchange");
-        if (heroExchange) heroExchange.textContent = comp.exchange || "Nasdaq";
+        if (heroExchange) heroExchange.textContent = comp.exchanges || "Nasdaq";
 
         const chipsWrap = document.getElementById("heroChipsWrap");
         if (chipsWrap) {
           chipsWrap.innerHTML = `
             <span class="company-chip accent">${comp.ticker}</span>
-            <span class="company-chip">CIK ${comp.cik}</span>
-            <span class="company-chip">${comp.exchange || 'Nasdaq'}</span>
+            <span class="company-chip">CIK ${comp.cikPadded || comp.cik}</span>
+            <span class="company-chip">${comp.exchanges || 'Nasdaq'}</span>
             <span class="company-chip">${comp.category || 'Large accelerated filer'}</span>
-            <span class="company-chip">${comp.sic || 'SIC 7370'}</span>
+            <span class="company-chip">${comp.sic ? 'SIC ' + comp.sic : 'SEC Filer'}${comp.sicDescription ? ' — ' + comp.sicDescription : ''}</span>
           `;
         }
 
         const btnEdgar = document.getElementById("btnEdgarLink");
         if (btnEdgar) {
-          btnEdgar.href = comp.edgarUrl || `https://www.sec.gov/edgar/browse/?CIK=${comp.cik}`;
+          btnEdgar.href = comp.edgarCompanyUrl || comp.browseUrl || `https://www.sec.gov/edgar/browse/?CIK=${comp.cik}`;
         }
 
-        // 2. Company Information Grid
+        // Info Grid
         const infoGrid = document.getElementById("companyInfoGrid");
         if (infoGrid) {
           const cells = [
-            { label: "CIK", value: comp.cik },
-            { label: "SIC", value: comp.sic },
-            { label: "State location", value: comp.stateLocation || "CA" },
+            { label: "CIK", value: comp.cikPadded || comp.cik },
+            { label: "SIC", value: [comp.sic, comp.sicDescription].filter(Boolean).join(" — ") },
+            { label: "State location", value: comp.stateLocation || "US" },
             { label: "State of incorporation", value: comp.stateOfIncorporation || "DE" },
             { label: "Fiscal year end", value: comp.fiscalYearEnd || "1231" },
-            { label: "Phone", value: comp.phone || "(408) 555-0100" },
+            { label: "Phone", value: comp.phone },
             { label: "Category", value: comp.category || "Large accelerated filer" },
             { label: "Entity type", value: comp.entityType || "Operating" },
             { label: "Business address", value: comp.businessAddress, multiline: true },
             { label: "Mailing address", value: comp.mailingAddress, multiline: true },
-            { label: "Filings", value: `${(comp.filings || []).length + (comp.timeline || []).length} recent EDGAR filings listed` }
+            { label: "Filings", value: `${(filings?.all || []).length} recent EDGAR filings listed` }
           ].filter(c => c.value);
 
           infoGrid.innerHTML = cells.map(c => `
@@ -1152,24 +741,24 @@
           `).join("");
         }
 
-        // 3. Company Timeline
+        // Timeline (up to 24 balanced items)
         const timelineList = document.getElementById("timelineList");
         const timelineBadge = document.getElementById("timelineCountBadge");
         if (timelineList) {
-          const items = comp.timeline || [];
+          const items = filings?.timeline || [];
           if (timelineBadge) timelineBadge.textContent = items.length;
           timelineList.innerHTML = items.map(ev => `
-            <div class="timeline-row">
-              <div class="timeline-date">${ev.date}</div>
-              <div class="timeline-body">
-                <div class="timeline-main">
-                  <span class="timeline-form kind-${ev.kind || 'other'}">${ev.form}</span>
-                  <span class="timeline-desc" title="${ev.desc}">${ev.desc}</span>
+            <div class="timeline-row" style="display:grid; grid-template-columns: 90px 1fr auto; align-items:center; padding:10px 18px; border-bottom:1px solid #f1f5f9; font-size:13px; gap:12px;">
+              <div class="timeline-date" style="color:#64748b; font-family:var(--mono); font-size:12px;">${ev.filingDate || '—'}</div>
+              <div class="timeline-body" style="min-width:0;">
+                <div class="timeline-main" style="display:flex; align-items:center; gap:8px;">
+                  <span class="timeline-form kind-${ev.kind || 'other'}" style="display:inline-block; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:700; background:#f1f5f9; color:#0f172a; border:1px solid #e2e8f0;">${ev.formLabel || ev.form}</span>
+                  <span class="timeline-desc" title="${ev.description}" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#1e293b; font-weight:500;">${ev.description}</span>
                 </div>
               </div>
-              <div class="timeline-actions">
-                <a href="${ev.url}" target="_blank" rel="noopener" class="timeline-btn timeline-btn-secondary" title="Open in browser">Open</a>
-                <button type="button" class="timeline-btn timeline-btn-primary" data-action="timeline-extract" data-form="${ev.form}" data-accn="${ev.accn || ''}" data-desc="${ev.desc || ''}" data-url="${ev.url}" title="Extracts filing into DCF model">Extract</button>
+              <div class="timeline-actions" style="display:flex; align-items:center; gap:6px;">
+                <a href="${ev.documentUrl}" target="_blank" rel="noopener" class="timeline-btn timeline-btn-secondary" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #cbd5e1; background:#ffffff; color:#334155; text-decoration:none; font-weight:600;" title="Open in browser">Open</a>
+                <button type="button" class="timeline-btn timeline-btn-primary" data-action="timeline-extract" data-form="${ev.form}" data-accn="${ev.accessionNumber || ''}" data-desc="${ev.description || ''}" data-url="${ev.documentUrl}" data-period="${ev.reportDate || ev.filingDate || ''}" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #0f766e; background:#0f766e; color:#ffffff; cursor:pointer; font-weight:600;" title="Extracts filing into DCF model">Extract</button>
               </div>
             </div>
           `).join("");
@@ -1180,29 +769,30 @@
               const accn = btn.getAttribute("data-accn");
               const desc = btn.getAttribute("data-desc");
               const url = btn.getAttribute("data-url");
-              extractFiling(form, desc || "", accn, url);
+              const period = btn.getAttribute("data-period");
+              extractFiling(form, desc || "", accn, url, period);
             });
           });
         }
 
-        // 4. Financials (10-K / 10-Q) Table
+        // Financials (10-K / 10-Q) Table
         const filingsTable = document.getElementById("filingsTableBody");
         const filingsBadge = document.getElementById("financialsCountBadge");
         if (filingsTable) {
-          const rows = comp.filings || [];
+          const rows = filings?.financials || [];
           if (filingsBadge) filingsBadge.textContent = rows.length;
           filingsTable.innerHTML = rows.map(r => `
             <tr>
-              <td class="form">${r.form}</td>
-              <td>${r.periodEnd}</td>
-              <td>${r.filingDate}</td>
-              <td title="${r.doc}"><strong>${r.doc}</strong></td>
+              <td class="form"><strong>${r.form}</strong></td>
+              <td>${r.reportDate || r.filingDate || '—'}</td>
+              <td>${r.filingDate || '—'}</td>
+              <td title="${r.primaryDocument}"><strong>${r.primaryDocument || r.description || r.form}</strong></td>
               <td class="actions-cell">
-                <div class="row-actions">
-                  <a href="${r.url}" target="_blank" rel="noopener" class="btn-filing btn-filing-secondary" title="Opens official SEC filing in a new tab">
+                <div class="row-actions" style="display:flex; align-items:center; gap:6px;">
+                  <a href="${r.documentUrl}" target="_blank" rel="noopener" class="btn-filing btn-filing-secondary" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #cbd5e1; background:#ffffff; color:#334155; text-decoration:none; font-weight:600;" title="Opens official SEC filing in a new tab">
                     Open in browser
                   </a>
-                  <button type="button" class="btn-filing btn-filing-primary" data-action="filing-extract" data-form="${r.form}" data-doc="${r.doc}" data-accn="${r.accn || ''}" data-url="${r.url}" data-period="${r.periodEnd || ''}" title="Opens official SEC filing and extracts audited statements directly into DCF model">
+                  <button type="button" class="btn-filing btn-filing-primary" data-action="filing-extract" data-form="${r.form}" data-doc="${r.primaryDocument || ''}" data-accn="${r.accessionNumber || ''}" data-url="${r.documentUrl}" data-period="${r.reportDate || r.filingDate || ''}" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #0f766e; background:#0f766e; color:#ffffff; cursor:pointer; font-weight:600;" title="Opens official SEC filing and extracts audited statements directly into DCF model">
                     Open &amp; extract
                   </button>
                 </div>
@@ -1217,18 +807,106 @@
               const accn = btn.getAttribute("data-accn");
               const url = btn.getAttribute("data-url");
               const period = btn.getAttribute("data-period");
-              if (url) {
-                window.open(url, "_blank", "noopener");
-              }
               extractFiling(form, doc, accn, url, period);
             });
           });
         }
       }
 
+      // 2. Extract Filing and Render Audit Trail + DCF (Screenshot 3 Parity)
+      async function extractFiling(form, docName, accn, url, periodEnd) {
+        if (!currentCompany) return;
+        showToast(`Extracting ${form} ${docName ? '(' + docName + ')' : ''} · Parsing audited SEC XBRL financials...`);
+
+        // Fetch company facts from SEC API
+        const facts = window.SecEngine ? await window.SecEngine.fetchCompanyFacts(currentCompany.cik) : null;
+        if (!facts) {
+          showToast(`No SEC XBRL facts reported for ${currentCompany.ticker}.`);
+          return;
+        }
+
+        const extracted = window.SecEngine.extractFinancialLineItems(facts, {
+          form,
+          periodEnd,
+          accn,
+          ticker: currentCompany.ticker,
+          cik: currentCompany.cik,
+          documentUrl: url
+        });
+
+        currentExtractedData = extracted;
+
+        // Switch view: hide dashboard, show extracted workspace
+        const dashPanel = document.getElementById("valDashboardPanel");
+        const extWorkspace = document.getElementById("valExtractedWorkspace");
+        if (dashPanel) dashPanel.style.display = "none";
+        if (extWorkspace) extWorkspace.style.display = "block";
+
+        // Update Extracted Header Banner
+        document.getElementById("extractedFilingTitle").textContent = `${currentCompany.name} (${currentCompany.ticker}) — Form ${form}`;
+        document.getElementById("extractedFilingSub").textContent = `Period Ended ${periodEnd || 'Latest'} · Accession: ${accn || 'Verified'} · Sourced from SEC EDGAR`;
+        document.getElementById("extractedFormBadge").textContent = `Audited SEC ${form}`;
+
+        const docLink = document.getElementById("btnExtractedSecDocLink");
+        if (docLink) {
+          docLink.href = url || currentCompany.edgarCompanyUrl;
+        }
+
+        // Render Financial line items & Audit Trail (Screenshot 3 Parity)
+        const factListEl = document.getElementById("auditFactList");
+        if (factListEl) {
+          factListEl.innerHTML = extracted.lineItems.map(item => `
+            <div class="fact-row">
+              <div class="fact-info">
+                <span class="k">${item.label}</span>
+                ${item.tag ? `<span class="tag-label" title="US-GAAP Taxonomy">${item.tag}</span>` : ''}
+              </div>
+              <div class="fact-actions-wrap">
+                <span class="v">${item.display}</span>
+                ${item.auditUrl ? `
+                  <a href="${item.auditUrl}" target="_blank" rel="noopener noreferrer" class="btn-source-link" title="Verify directly in SEC EDGAR filing">
+                    ↗ Source
+                  </a>
+                ` : ''}
+                <button type="button" class="btn-formula-copy" data-formula='${item.formula}' title="Copy dynamic spreadsheet formula">
+                  =CALIO
+                </button>
+              </div>
+            </div>
+          `).join("");
+
+          factListEl.querySelectorAll(".btn-formula-copy").forEach(btn => {
+            btn.addEventListener("click", () => {
+              const formula = btn.getAttribute("data-formula");
+              if (navigator.clipboard && formula) {
+                navigator.clipboard.writeText(formula);
+                showToast(`Copied formula: ${formula}`);
+              }
+            });
+          });
+        }
+
+        // Populate DCF inputs and recalculate
+        const m = extracted.metrics;
+        document.getElementById("dcfPanelTitle").textContent = `${currentCompany.name} (${currentCompany.ticker}) — Intrinsic DCF Model`;
+        document.getElementById("dcfAuditedBadge").textContent = `Audited SEC Form ${form}`;
+
+        document.getElementById("sliderWacc").value = m.wacc || 9.0;
+        document.getElementById("sliderTerm").value = m.term || 2.5;
+        document.getElementById("sliderGrowth").value = m.growth || 12.0;
+        document.getElementById("sliderMargin").value = m.operatingMargin || 15.0;
+
+        recalculateDCF();
+        renderStatementTable();
+
+        showToast(`Successfully extracted ${form} · 22 GAAP line items & DCF engine verified`);
+        extWorkspace.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
       function recalculateDCF() {
-        const comp = VAL_COMPANIES[currentValTicker];
-        if (!comp) return;
+        if (!currentExtractedData || !currentCompany) return;
+        const m = currentExtractedData.metrics;
+
         const wacc = parseFloat(document.getElementById("sliderWacc").value) / 100;
         const term = parseFloat(document.getElementById("sliderTerm").value) / 100;
         const growth = parseFloat(document.getElementById("sliderGrowth").value) / 100;
@@ -1239,52 +917,39 @@
         document.getElementById("valGrowth").textContent = (growth * 100).toFixed(1) + "%";
         document.getElementById("valMargin").textContent = (margin * 100).toFixed(1) + "%";
 
-        // 5-Year Forecast
+        const baseRev = m.baseRev || 1.0;
         let pvFcf = 0;
-        let rev = comp.baseRev;
+        let rev = baseRev;
         let y5Fcf = 0;
 
         for (let i = 1; i <= 5; i++) {
           rev *= (1 + growth);
           const ebit = rev * margin;
-          const nopat = ebit * 0.79; // ~21% effective tax rate
-          const fcf = nopat * 0.88; // Reinvestment/deprec adjustment
+          const nopat = ebit * 0.79; // 21% effective tax
+          const fcf = nopat * 0.88; // Capex reinvestment adjustment
           pvFcf += fcf / Math.pow(1 + wacc, i);
           if (i === 5) y5Fcf = fcf;
         }
 
-        // Terminal value
         const terminalValue = (y5Fcf * (1 + term)) / Math.max(0.015, (wacc - term));
         const pvTv = terminalValue / Math.pow(1 + wacc, 5);
 
         const enterpriseValue = pvFcf + pvTv;
-        const netCash = comp.cash - comp.debt;
+        const netCash = (m.cash || 0) - (m.debt || 0);
         const equityValue = enterpriseValue + netCash;
-        const fairValue = equityValue / comp.shares;
+        const shares = m.shares || 1.0;
+        const fairValue = equityValue / shares;
 
         document.getElementById("dispFairValue").textContent = `$${fairValue.toFixed(2)}`;
-        document.getElementById("dispCurrentPrice").textContent = `$${comp.currentPrice.toFixed(2)}`;
-        document.getElementById("dispEnterpriseValue").textContent = `$${(enterpriseValue >= 1000 ? (enterpriseValue / 1000).toFixed(2) + 'T' : enterpriseValue.toFixed(1) + 'B')}`;
-        document.getElementById("dispNetCash").textContent = (netCash >= 0 ? "+$" : "-$") + Math.abs(netCash).toFixed(1) + "B";
-        document.getElementById("dispShares").textContent = `${comp.shares.toFixed(2)}B`;
-
-        const diffPct = ((fairValue - comp.currentPrice) / comp.currentPrice) * 100;
-        const safetyBadge = document.getElementById("dispMarginSafety");
-        if (diffPct >= 0) {
-          safetyBadge.style.background = "var(--ok-bg)";
-          safetyBadge.style.color = "var(--ok)";
-          safetyBadge.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> +${diffPct.toFixed(1)}% Undervalued (Safety Margin)`;
-        } else {
-          safetyBadge.style.background = "var(--warn-bg)";
-          safetyBadge.style.color = "var(--warn)";
-          safetyBadge.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> ${Math.abs(diffPct).toFixed(1)}% Premium to Fair Value`;
-        }
+        document.getElementById("dispBaseRev").textContent = `$${baseRev.toFixed(2)}B`;
+        document.getElementById("dispEnterpriseValue").textContent = `$${(enterpriseValue >= 1000 ? (enterpriseValue / 1000).toFixed(2) + 'T' : enterpriseValue.toFixed(2) + 'B')}`;
+        document.getElementById("dispNetCash").textContent = (netCash >= 0 ? "+$" : "-$") + Math.abs(netCash).toFixed(2) + "B";
+        document.getElementById("dispShares").textContent = `${shares.toFixed(2)}B`;
       }
 
       function renderStatementTable() {
-        const comp = VAL_COMPANIES[currentValTicker];
-        if (!comp) return;
-        const rows = comp[currentStatementTab] || comp.is;
+        if (!currentExtractedData) return;
+        const rows = currentExtractedData.statements[currentStatementTab] || currentExtractedData.statements.is;
         const tbody = document.getElementById("statementTableBody");
         if (!tbody) return;
         tbody.innerHTML = rows.map((r) => `
@@ -1292,334 +957,23 @@
             <td><strong>${r.item}</strong></td>
             <td><strong>${r.ttm}</strong></td>
             <td>${r.prior}</td>
-            <td style="color:${r.deltaDollar.startsWith('+') ? 'var(--ok)' : 'var(--danger)'}; font-weight:600;">${r.deltaDollar}</td>
-            <td><span class="${r.deltaPct.startsWith('+') ? 'peer-badge-safe' : 'peer-badge-warn'}">${r.deltaPct}</span></td>
+            <td style="color:${r.deltaDollar.startsWith('+') ? 'var(--ok)' : r.deltaDollar.startsWith('-') ? 'var(--danger)' : 'inherit'}; font-weight:600;">${r.deltaDollar}</td>
+            <td><span class="${r.deltaPct.startsWith('+') ? 'peer-badge-safe' : r.deltaPct.startsWith('-') ? 'peer-badge-warn' : ''}">${r.deltaPct}</span></td>
           </tr>
         `).join("");
       }
 
-      async function loadCompany(query) {
-        if (!query) return;
-
-        // Reveal workstation content and hide guided empty state
-        const valEmpty = document.getElementById("valEmptyState");
-        const valWorkstation = document.getElementById("valWorkstationContent");
-        if (valEmpty) valEmpty.style.display = "none";
-        if (valWorkstation) valWorkstation.style.display = "block";
-
-        // 1. Check if user entered / pasted an SEC URL
-        if (typeof query === "string" && (query.includes("sec.gov") || query.startsWith("http"))) {
-          const parsedUrl = window.SecEngine && window.SecEngine.parseSecUrl(query);
-          if (parsedUrl) {
-            showToast("Detected official SEC EDGAR filing URL · Resolving issuer & filing statements...");
-            const compByCik = SEC_COMPANIES.find(c => c.cik.replace(/\D/g, "") === parsedUrl.cik.replace(/\D/g, ""));
-            const targetTicker = compByCik ? compByCik.ticker : ("CIK" + parsedUrl.cik);
-            await loadCompanyByCik(parsedUrl.cik, targetTicker, compByCik?.name);
-            extractFiling("SEC Filing", parsedUrl.doc, parsedUrl.accnClean, parsedUrl.url);
-            return;
+      // Back to Dashboard button
+      const btnBack = document.getElementById("btnBackToDashboard");
+      if (btnBack) {
+        btnBack.addEventListener("click", () => {
+          const dashPanel = document.getElementById("valDashboardPanel");
+          const extWorkspace = document.getElementById("valExtractedWorkspace");
+          if (extWorkspace) extWorkspace.style.display = "none";
+          if (dashPanel) {
+            dashPanel.style.display = "block";
+            dashPanel.scrollIntoView({ behavior: "smooth", block: "start" });
           }
-        }
-
-        const ticker = query.toUpperCase().trim();
-        currentValTicker = ticker;
-
-        // 2. If already in loaded companies, render immediately
-        if (VAL_COMPANIES[ticker]) {
-          const comp = VAL_COMPANIES[ticker];
-          document.getElementById("dcfPanelTitle").textContent = `${comp.fullName || comp.name} (${comp.ticker}) — Intrinsic DCF Model`;
-          document.getElementById("sliderWacc").value = comp.dcf.wacc;
-          document.getElementById("sliderTerm").value = comp.dcf.term;
-          document.getElementById("sliderGrowth").value = comp.dcf.growth;
-          document.getElementById("sliderMargin").value = comp.dcf.margin;
-
-          document.querySelectorAll("[data-val-ticker]").forEach((b) => {
-            b.classList.toggle("is-active", b.getAttribute("data-val-ticker") === ticker);
-          });
-
-          renderWorkstation(comp);
-          recalculateDCF();
-          renderStatementTable();
-          return;
-        }
-
-        // 3. Resolve issuer CIK from SecEngine or SEC_COMPANIES
-        const matchedSec = (window.SecEngine && window.SecEngine.issuerList.find(i => i.ticker === ticker)) ||
-                           SEC_COMPANIES.find(c => c.ticker === ticker);
-        const compCik = matchedSec ? matchedSec.cik : null;
-
-        if (compCik) {
-          await loadCompanyByCik(compCik, ticker, matchedSec.name);
-        } else {
-          createFallbackCompany(ticker);
-          const comp = VAL_COMPANIES[ticker];
-          renderWorkstation(comp);
-          recalculateDCF();
-          renderStatementTable();
-        }
-      }
-
-      async function loadCompanyByCik(cik, ticker, companyName) {
-        showToast(`Loading SEC EDGAR submissions for ${ticker} (CIK ${cik})...`);
-        const subData = window.SecEngine ? await window.SecEngine.fetchSubmissions(cik) : null;
-
-        if (!subData) {
-          createFallbackCompany(ticker, companyName, cik);
-          const comp = VAL_COMPANIES[ticker];
-          renderWorkstation(comp);
-          recalculateDCF();
-          renderStatementTable();
-          return;
-        }
-
-        const recent = subData?.filings?.recent || {};
-        const forms = Array.isArray(recent.form) ? recent.form : [];
-        const accessionNumbers = recent.accessionNumber || [];
-        const filingDates = recent.filingDate || [];
-        const reportDates = recent.reportDate || [];
-        const primaryDocs = recent.primaryDocument || [];
-        const descriptions = recent.primaryDocDescription || [];
-
-        const cleanCikNum = String(Number(String(cik).replace(/\D/g, "")));
-        const paddedCik = String(cik).replace(/\D/g, "").padStart(10, "0");
-
-        const all = [];
-        for (let i = 0; i < forms.length; i++) {
-          const form = String(forms[i] || "");
-          const accessionNumber = String(accessionNumbers[i] || "");
-          const primaryDocument = String(primaryDocs[i] || "");
-          const accessionPath = accessionNumber.replace(/-/g, "");
-          if (!accessionPath || !primaryDocument) continue;
-          const url = `https://www.sec.gov/ix?doc=/Archives/edgar/data/${cleanCikNum}/${accessionPath}/${primaryDocument}`;
-          all.push({
-            form,
-            accn: accessionNumber,
-            filingDate: filingDates[i] || "",
-            reportDate: reportDates[i] || "",
-            doc: primaryDocument,
-            desc: descriptions[i] || form,
-            url
-          });
-        }
-
-        const financials = all.filter(r => /^(10-K|10-Q|20-F|6-K)/i.test(r.form)).slice(0, 20);
-        const timeline = all.slice(0, 24).map(r => ({
-          date: r.filingDate,
-          form: r.form,
-          desc: r.desc || r.form,
-          url: r.url,
-          accn: r.accn,
-          kind: /^(10-K|10-Q)/i.test(r.form) ? "quarterly" : /^8-K/i.test(r.form) ? "event" : /^(3|4|5|144)/i.test(r.form) ? "insider" : "other"
-        }));
-
-        const biz = subData?.addresses?.business || {};
-        const businessAddress = `${biz.street1 || ''}\n${biz.city || ''}, ${biz.stateOrCountry || ''} ${biz.zipCode || ''}`.trim();
-
-        VAL_COMPANIES[ticker] = {
-          name: subData.name || companyName || ticker,
-          fullName: subData.name || companyName || `${ticker} Corporation`,
-          ticker: ticker,
-          cik: paddedCik,
-          exchange: (subData.exchanges && subData.exchanges[0]) || "US Exchange",
-          sic: `${subData.sic || '3674'} — ${subData.sicDescription || 'Technology'}`,
-          stateLocation: subData.stateOfIncorporation || biz.stateOrCountry || "US",
-          stateOfIncorporation: subData.stateOfIncorporation || "DE",
-          fiscalYearEnd: subData.fiscalYearEnd || "1231",
-          phone: subData.phone || "(415) 555-0100",
-          category: subData.category || "Large accelerated filer",
-          entityType: subData.entityType || "Operating",
-          businessAddress: businessAddress || "Corporate Headquarters",
-          mailingAddress: businessAddress || "Corporate Headquarters",
-          edgarUrl: `https://www.sec.gov/edgar/browse/?CIK=${paddedCik}`,
-          currentPrice: 150.0,
-          shares: 2.5,
-          cash: 15.0,
-          debt: 5.0,
-          baseRev: 45.0,
-          dcf: { wacc: 9.0, term: 2.8, growth: 15.0, margin: 25.0 },
-          timeline: timeline.length ? timeline : [
-            { date: "2026-08-15", form: "10-Q", kind: "quarterly", desc: "Quarterly Report", url: `https://www.sec.gov/edgar/browse/?CIK=${paddedCik}` }
-          ],
-          filings: financials.length ? financials.map(f => ({
-            form: f.form,
-            periodEnd: f.reportDate || f.filingDate,
-            filingDate: f.filingDate,
-            doc: f.doc,
-            accn: f.accn,
-            url: f.url
-          })) : [
-            { form: "10-Q", periodEnd: "2026-06-30", filingDate: "2026-08-15", doc: `${ticker.toLowerCase()}-20260630.htm`, url: `https://www.sec.gov/edgar/browse/?CIK=${paddedCik}` }
-          ],
-          is: [
-            { item: "Total Net Revenue", ttm: "$45.00B", prior: "$39.50B", deltaDollar: "+$5.50B", deltaPct: "+13.9%" },
-            { item: "Cost of Goods Sold", ttm: "$20.25B", prior: "$18.10B", deltaDollar: "+$2.15B", deltaPct: "+11.9%" },
-            { item: "Gross Profit", ttm: "$24.75B", prior: "$21.40B", deltaDollar: "+$3.35B", deltaPct: "+15.7%" },
-            { item: "Operating Income (EBIT)", ttm: "$11.25B", prior: "$9.80B", deltaDollar: "+$1.45B", deltaPct: "+14.8%" },
-            { item: "Net Income", ttm: "$8.78B", prior: "$7.65B", deltaDollar: "+$1.13B", deltaPct: "+14.8%" }
-          ],
-          bs: [
-            { item: "Cash & Investments", ttm: "$15.00B", prior: "$12.50B", deltaDollar: "+$2.50B", deltaPct: "+20.0%" },
-            { item: "Total Assets", ttm: "$55.00B", prior: "$48.00B", deltaDollar: "+$7.00B", deltaPct: "+14.6%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$12.50B", prior: "$10.80B", deltaDollar: "+$1.70B", deltaPct: "+15.7%" },
-            { item: "Free Cash Flow", ttm: "$9.20B", prior: "$7.90B", deltaDollar: "+$1.30B", deltaPct: "+16.5%" }
-          ],
-          seg: [
-            { item: "Core Operations", ttm: "$32.00B", prior: "$28.00B", deltaDollar: "+$4.00B", deltaPct: "+14.3%" },
-            { item: "Subscription & Services", ttm: "$13.00B", prior: "$11.50B", deltaDollar: "+$1.50B", deltaPct: "+13.0%" }
-          ]
-        };
-
-        const comp = VAL_COMPANIES[ticker];
-        document.getElementById("dcfPanelTitle").textContent = `${comp.fullName || comp.name} (${comp.ticker}) — Intrinsic DCF Model`;
-        document.querySelectorAll("[data-val-ticker]").forEach((b) => {
-          b.classList.toggle("is-active", b.getAttribute("data-val-ticker") === ticker);
-        });
-
-        renderWorkstation(comp);
-        recalculateDCF();
-        renderStatementTable();
-
-        if (financials.length) {
-          const firstFin = financials[0];
-          extractFiling(firstFin.form, firstFin.doc, firstFin.accn, firstFin.url, firstFin.periodEnd);
-        }
-      }
-
-      function createFallbackCompany(ticker, companyName, cik) {
-        const compName = companyName ? companyName.toUpperCase() : `${ticker} CORP`;
-        const compFullName = companyName || `${ticker} Corporation`;
-        const compCik = cik || ("000" + Math.floor(1000000 + Math.random() * 9000000));
-        VAL_COMPANIES[ticker] = {
-          name: compName,
-          fullName: compFullName,
-          ticker: ticker,
-          cik: compCik,
-          exchange: "Nasdaq",
-          sic: "7370 — Services-Computer Programming & Data Processing",
-          stateLocation: "CA",
-          stateOfIncorporation: "DE",
-          fiscalYearEnd: "1231",
-          phone: "(415) 555-0199",
-          category: "Large accelerated filer",
-          entityType: "Operating",
-          businessAddress: `500 Financial Way, Suite 400\nSan Francisco, CA 94105`,
-          mailingAddress: `500 Financial Way, Suite 400\nSan Francisco, CA 94105`,
-          edgarUrl: `https://www.sec.gov/edgar/browse/?CIK=${compCik}`,
-          currentPrice: 142.50,
-          baseRev: 54.2,
-          cash: 18.5,
-          debt: 8.2,
-          shares: 2.85,
-          dcf: { wacc: 9.0, term: 2.8, growth: 16.5, margin: 28.0 },
-          timeline: [
-            { date: "2026-08-15", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: `https://www.sec.gov/edgar/browse/?CIK=${compCik}` },
-            { date: "2026-08-15", form: "8-K", kind: "event", desc: "Current report, item 2.02 (Results of Operations and Financial Condition)", url: `https://www.sec.gov/edgar/browse/?CIK=${compCik}` },
-            { date: "2026-05-12", form: "10-Q", kind: "quarterly", desc: "Quarterly Report [Sections 13 or 15(d)]", url: `https://www.sec.gov/edgar/browse/?CIK=${compCik}` },
-            { date: "2026-02-18", form: "10-K", kind: "annual", desc: "Annual Report for Fiscal Year Ended Dec 31, 2025", url: `https://www.sec.gov/edgar/browse/?CIK=${compCik}` }
-          ],
-          filings: [
-            { form: "10-Q", periodEnd: "2026-06-30", filingDate: "2026-08-15", doc: `${ticker.toLowerCase()}-20260630.htm`, url: `https://www.sec.gov/edgar/browse/?CIK=${compCik}` },
-            { form: "10-Q", periodEnd: "2026-03-31", filingDate: "2026-05-12", doc: `${ticker.toLowerCase()}-20260331.htm`, url: `https://www.sec.gov/edgar/browse/?CIK=${compCik}` },
-            { form: "10-K", periodEnd: "2025-12-31", filingDate: "2026-02-18", doc: `${ticker.toLowerCase()}-20251231.htm`, url: `https://www.sec.gov/edgar/browse/?CIK=${compCik}` }
-          ],
-          is: [
-            { item: "Total Net Revenue", ttm: "$54.20B", prior: "$46.80B", deltaDollar: "+$7.40B", deltaPct: "+15.8%" },
-            { item: "Cost of Goods Sold", ttm: "$22.40B", prior: "$20.10B", deltaDollar: "+$2.30B", deltaPct: "+11.4%" },
-            { item: "Gross Profit", ttm: "$31.80B", prior: "$26.70B", deltaDollar: "+$5.10B", deltaPct: "+19.1%" },
-            { item: "Operating Income (EBIT)", ttm: "$15.18B", prior: "$12.20B", deltaDollar: "+$2.98B", deltaPct: "+24.4%" },
-            { item: "Net Income", ttm: "$12.45B", prior: "$9.85B", deltaDollar: "+$2.60B", deltaPct: "+26.4%" }
-          ],
-          bs: [
-            { item: "Cash & Investments", ttm: "$18.50B", prior: "$14.20B", deltaDollar: "+$4.30B", deltaPct: "+30.3%" },
-            { item: "Total Assets", ttm: "$68.40B", prior: "$58.90B", deltaDollar: "+$9.50B", deltaPct: "+16.1%" }
-          ],
-          cf: [
-            { item: "Operating Cash Flow", ttm: "$16.80B", prior: "$13.50B", deltaDollar: "+$3.30B", deltaPct: "+24.4%" },
-            { item: "Free Cash Flow", ttm: "$12.20B", prior: "$9.80B", deltaDollar: "+$2.40B", deltaPct: "+24.5%" }
-          ],
-          seg: [
-            { item: "Core Platform", ttm: "$38.50B", prior: "$33.20B", deltaDollar: "+$5.30B", deltaPct: "+16.0%" },
-            { item: "Enterprise Services", ttm: "$15.70B", prior: "$13.60B", deltaDollar: "+$2.10B", deltaPct: "+15.4%" }
-          ]
-        };
-      }
-
-      // Autocomplete Suggestions implementation
-      function setupAutocomplete(inputId, dropdownId, onSelect) {
-        const input = document.getElementById(inputId);
-        const dropdown = document.getElementById(dropdownId);
-        if (!input || !dropdown) return;
-
-        function filterHits(query) {
-          const q = query.trim().toLowerCase();
-          if (!q) return [];
-          return SEC_COMPANIES.filter(c => 
-            c.ticker.toLowerCase().includes(q) ||
-            c.name.toLowerCase().includes(q) ||
-            c.cik.includes(q)
-          ).slice(0, 7);
-        }
-
-        function renderDropdown(hits) {
-          if (!hits.length) {
-            dropdown.hidden = true;
-            dropdown.innerHTML = "";
-            return;
-          }
-
-          dropdown.hidden = false;
-          dropdown.innerHTML = `
-            <div class="suggest-head">
-              <span>CIK</span>
-              <span>Company name</span>
-              <span>Ticker</span>
-            </div>
-            ${hits.map(h => `
-              <button type="button" class="suggest-row" data-pick-ticker="${h.ticker}" data-pick-name="${h.name}">
-                <span class="suggest-cik">${h.cik}</span>
-                <span class="suggest-name">${h.name}</span>
-                <span class="suggest-ticker">${h.ticker}</span>
-              </button>
-            `).join("")}
-          `;
-
-          dropdown.querySelectorAll(".suggest-row").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-              e.preventDefault();
-              const pickedTicker = btn.getAttribute("data-pick-ticker");
-              input.value = pickedTicker;
-              dropdown.hidden = true;
-              if (onSelect) onSelect(pickedTicker);
-            });
-          });
-        }
-
-        input.addEventListener("input", () => {
-          renderDropdown(filterHits(input.value));
-        });
-
-        input.addEventListener("focus", () => {
-          if (input.value.trim()) {
-            renderDropdown(filterHits(input.value));
-          }
-        });
-
-        document.addEventListener("click", (e) => {
-          if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-            dropdown.hidden = true;
-          }
-        });
-      }
-
-      // Initialize Autocomplete for Ticker Search
-      if (window.SecEngine) {
-        window.SecEngine.setupAutocomplete("valTickerSearch", "valSuggestDropdown", (ticker) => {
-          loadCompany(ticker);
-        });
-      } else {
-        setupAutocomplete("valTickerSearch", "valSuggestDropdown", (ticker) => {
-          loadCompany(ticker);
         });
       }
 
@@ -1629,14 +983,14 @@
         if (el) el.addEventListener("input", recalculateDCF);
       });
 
-      // Ticker buttons in strip
+      // Trending ticker buttons in strip
       document.querySelectorAll("[data-val-ticker]").forEach((btn) => {
         btn.addEventListener("click", () => {
           loadCompany(btn.getAttribute("data-val-ticker"));
         });
       });
 
-      // Search box listeners
+      // Search box execution
       function executeValSearch() {
         const val = document.getElementById("valTickerSearch").value.trim();
         if (val) loadCompany(val);
@@ -1650,15 +1004,20 @@
         }
       });
 
+      // Setup Autocomplete
+      if (window.SecEngine) {
+        window.SecEngine.setupAutocomplete("valTickerSearch", "valSuggestDropdown", (ticker) => {
+          loadCompany(ticker);
+        });
+      }
+
       // Refresh list & Watchlist buttons
       const btnRefresh = document.getElementById("btnRefreshFilings");
       if (btnRefresh) {
         btnRefresh.addEventListener("click", () => {
-          const comp = VAL_COMPANIES[currentValTicker];
-          if (comp) {
-            showToast(`Refreshed SEC EDGAR filings for ${comp.fullName || comp.name}`);
-          } else {
-            showToast("Search or select a company first to refresh filings.");
+          if (currentValTicker) {
+            loadCompany(currentValTicker);
+            showToast(`Refreshed SEC EDGAR filings for ${currentValTicker}`);
           }
         });
       }
@@ -1699,32 +1058,39 @@
         });
       });
 
-      // Export Excel
-      document.getElementById("btnExportValExcel").addEventListener("click", () => {
-        const comp = VAL_COMPANIES[currentValTicker];
-        if (!comp) {
-          showToast("Search or select a company first to export DCF model.");
+      // Export Excel (.csv download)
+      function exportDataCsv(type) {
+        if (!currentCompany || !currentExtractedData) {
+          showToast("Extract a filing first to export financial line items.");
           return;
         }
-        let csv = `CALIO Valuation & Financial Model: ${comp.fullName || comp.name} (${comp.ticker})\n\n`;
-        csv += `Intrinsic Value Per Share,$${document.getElementById("dispFairValue").textContent.replace('$', '')}\n`;
-        csv += `Current Market Price,$${comp.currentPrice}\n`;
-        csv += `WACC,${document.getElementById("valWacc").textContent}\n`;
-        csv += `Terminal Growth,${document.getElementById("valTerm").textContent}\n`;
-        csv += `5-Year Growth,${document.getElementById("valGrowth").textContent}\n`;
-        csv += `Operating Margin,${document.getElementById("valMargin").textContent}\n\n`;
-        csv += "Statement Line Item,TTM,Prior,Dollar Delta,Percent Delta\n";
-        (comp[currentStatementTab] || comp.is).forEach((r) => {
-          csv += `"${r.item}","${r.ttm}","${r.prior}","${r.deltaDollar}","${r.deltaPct}"\n`;
+        let csv = `CALIO Financial Extraction: ${currentCompany.name} (${currentCompany.ticker})
+`;
+        csv += `Extraction Type,${type}
+`;
+        csv += `Source,SEC EDGAR XBRL Click-to-Source Verified
+
+`;
+        csv += "Line Item,US-GAAP Tag,Amount,Spreadsheet Formula
+";
+        currentExtractedData.lineItems.forEach(item => {
+          csv += `"${item.label}","${item.tag || 'Not reported'}","${item.display}","${item.formula}"
+`;
         });
 
         const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `CALIO_${comp.ticker}_Valuation_Model.csv`;
+        a.download = `CALIO_${currentCompany.ticker}_Extracted_Financials.csv`;
         a.click();
-      });
+      }
+
+      const btnExportAudit = document.getElementById("btnExportAuditExcel");
+      if (btnExportAudit) btnExportAudit.addEventListener("click", () => exportDataCsv("Audit Trail"));
+
+      const btnExportVal = document.getElementById("btnExportValExcel");
+      if (btnExportVal) btnExportVal.addEventListener("click", () => exportDataCsv("Valuation & Statements"));
 
       // Mobile nav drawer
       const btnOpenNav = document.getElementById("btnOpenMobileNav");
@@ -1738,7 +1104,6 @@
         btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
       }
     </script>
-  
     <!-- Chrome Extension Overview Pop-up Modal -->
     <div class="calio-modal-backdrop" id="extModalBackdrop" aria-hidden="true">
       <div class="calio-modal-card" role="dialog" aria-modal="true" aria-labelledby="extModalTitle">

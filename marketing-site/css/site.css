@@ -3070,3 +3070,104 @@ table.filings .row-actions {
   flex-shrink: 0;
 }
 
+
+/* Financial Line Items & Audit Trail (Chrome Extension Parity) */
+.audit-trail-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.fact-list {
+  background: #ffffff;
+}
+
+.fact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13.5px;
+  transition: background 0.12s ease;
+}
+
+.fact-row:hover {
+  background: #f8fafc;
+}
+
+.fact-row:last-child {
+  border-bottom: none;
+}
+
+.fact-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.fact-info .k {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.tag-label {
+  display: inline-block;
+  font-size: 10.5px;
+  font-family: var(--mono);
+  color: #0f766e;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 1px 7px;
+  border-radius: 4px;
+}
+
+.fact-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.fact-actions-wrap .v {
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.btn-source-link,
+.btn-formula-copy {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-family: var(--mono);
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f766e;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-source-link:hover {
+  background: #0f766e;
+  color: #ffffff;
+  border-color: #0f766e;
+}
+
+.btn-formula-copy:hover {
+  background: #0f2e29;
+  color: #ffffff;
+  border-color: #0f2e29;
+}
