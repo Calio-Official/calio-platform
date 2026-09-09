@@ -1899,7 +1899,7 @@
                 <td>
                   <div style="display:flex; align-items:center; gap:6px;">
                     <strong>${escapeHtml(p.ticker)}</strong>
-                    ${isCustomTop ? `<span class="badge accent" style="font-size:10px; padding:1px 5px;">Target Benchmark</span>` : `<span class="badge muted" style="font-size:10px; padding:1px 5px;">#${idx + (currentCustomBenchmarkTicker ? 0 : 1)} Revenue</span>`}
+                    ${isCustomTop ? `<span class="badge accent" style="font-size:10px; padding:1px 5px;">Target Benchmark</span>` : ''}
                   </div>
                   <div style="font-size:11px; opacity:0.75; margin-top:2px;">${escapeHtml(truncate(p.companyName, 26))}</div>
                 </td>
