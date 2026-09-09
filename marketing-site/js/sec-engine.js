@@ -123,6 +123,11 @@
     let currentResults = [];
 
     function renderDropdown(hits, query) {
+      if (!input.value.trim()) {
+        dropdown.style.display = "none";
+        dropdown.hidden = true;
+        return;
+      }
       currentResults = hits;
       activeIndex = -1;
       if (!hits.length) {
@@ -1006,6 +1011,355 @@
       documentUrl: def14aUrl,
       accessionNumber: accession
     };
+  };
+
+  /* ── 8. Multi-Ticker Peer Comps Matrix Engine (Chrome Extension Parity) ─── */
+
+  SecEngine.TOP_25_INDUSTRIES = [
+    { id: "semi", name: "Semiconductors & AI Hardware", tickers: ["NVDA", "TSM", "AVGO", "AMD", "QCOM", "INTC", "TXN", "MU", "ADI", "LRCX"] },
+    { id: "cloud", name: "Enterprise Software & Cloud", tickers: ["MSFT", "GOOGL", "ORCL", "CRM", "SAP", "NOW", "ADBE", "INTU", "SNOW", "PLTR"] },
+    { id: "tech_hardware", name: "Consumer Tech & Hardware", tickers: ["AAPL", "DELL", "HPQ", "WDC", "STX", "HPE", "LOGI"] },
+    { id: "auto", name: "Automotive & Electric Vehicles", tickers: ["TSLA", "TM", "F", "GM", "STLA", "RIVN", "LCID", "HMC", "NIO"] },
+    { id: "retail", name: "E-Commerce & Retail Giants", tickers: ["AMZN", "WMT", "COST", "TGT", "BABA", "MELI", "EBAY", "ETSY"] },
+    { id: "restaurants", name: "Restaurants & Dining", tickers: ["MCD", "SBUX", "CMG", "YUM", "DPZ", "QSR", "WEN", "DRI", "TXRH"] },
+    { id: "fashion", name: "Apparel, Luxury & Fashion", tickers: ["NKE", "TJX", "ROST", "LULU", "RL", "TPR", "VFC", "CPRI", "DECK", "UAA"] },
+    { id: "banking", name: "Investment Banking & Capital Markets", tickers: ["JPM", "BAC", "WFC", "C", "GS", "MS", "BLK", "SCHW", "UBS"] },
+    { id: "pharma", name: "Pharmaceuticals & Biotechnology", tickers: ["LLY", "NVO", "JNJ", "PFE", "MRK", "ABBV", "AMGN", "BMY", "GILD", "BIIB"] },
+    { id: "healthcare", name: "Managed Healthcare & Insurance", tickers: ["UNH", "ELV", "CVS", "CI", "HUM", "CNC", "MOH", "HCA"] },
+    { id: "energy", name: "Energy, Oil & Gas Majors", tickers: ["XOM", "CVX", "COP", "SLB", "EOG", "MPC", "PSX", "VLO", "OXY"] },
+    { id: "aerospace", name: "Aerospace & Defense", tickers: ["BA", "LMT", "RTX", "GD", "NOC", "TDG", "LHX", "HWM"] },
+    { id: "media", name: "Streaming, Media & Entertainment", tickers: ["DIS", "NFLX", "WBD", "CMCSA", "SPOT", "PARA", "FOXA", "LYV"] },
+    { id: "telecom", name: "Telecommunications & Wireless", tickers: ["VZ", "T", "TMUS", "CMCSA", "CHTR", "AMX", "BCE"] },
+    { id: "fintech", name: "Payment Networks & FinTech", tickers: ["V", "MA", "PYPL", "AXP", "SQ", "FIS", "GPN", "COIN"] },
+    { id: "industrial", name: "Industrial Conglomerates & Machinery", tickers: ["GE", "HON", "CAT", "DE", "EMR", "ITW", "ETN", "PH"] },
+    { id: "logistics", name: "Logistics, Freight & Delivery", tickers: ["UPS", "FDX", "UNP", "CSX", "NSC", "EXPD", "JBHT", "CHRW"] },
+    { id: "food_beverage", name: "Consumer Staples & Packaged Foods", tickers: ["PG", "KO", "PEP", "MDLZ", "CL", "KHC", "GIS", "MNST", "K"] },
+    { id: "home_construction", name: "Home Improvement & Construction", tickers: ["HD", "LOW", "SHW", "DHI", "LEN", "CRH", "NVR", "PHM"] },
+    { id: "cybersecurity", name: "Cybersecurity & Infrastructure", tickers: ["PANW", "CRWD", "FTNT", "NET", "ZS", "CHKP", "OKTA", "TENB"] },
+    { id: "reit", name: "Real Estate Investment Trusts (REITs)", tickers: ["PLD", "AMT", "EQIX", "PSA", "O", "SPG", "WELL", "DLR"] },
+    { id: "travel", name: "Hospitality, Hotels & Travel", tickers: ["BKNG", "MAR", "HLT", "ABNB", "EXPE", "RCL", "CCL", "NCLH"] },
+    { id: "clean_energy", name: "Clean Energy, Solar & Renewables", tickers: ["FSLR", "ENPH", "NEE", "SEDG", "RUN", "PLUG", "BE"] },
+    { id: "materials", name: "Chemicals & Specialty Materials", tickers: ["LIN", "APD", "ECL", "DD", "DOW", "SHW", "NEM", "FCX"] },
+    { id: "asset_mgmt", name: "Asset Management & Private Equity", tickers: ["BX", "KKR", "APO", "BAM", "CG", "ARES", "OWL", "TROW"] }
+  ];
+
+  SecEngine.TOP_25_INDUSTRIES_LIST = SecEngine.TOP_25_INDUSTRIES.map(ind => ({ id: ind.id, name: ind.name }));
+
+  SecEngine.TICKER_CIK_MAP = {
+    "NVDA":"0001045810","TSM":"0001046179","AVGO":"0001730168","AMD":"0000002488","QCOM":"0000804328","INTC":"0000050863","TXN":"0000097476","MU":"0000723125","ADI":"0000006281","LRCX":"0000707549",
+    "MSFT":"0000789019","GOOGL":"0001652044","ORCL":"0001341439","CRM":"0001108524","SAP":"0001000184","NOW":"0001373715","ADBE":"0000796343","INTU":"0000896878","SNOW":"0001640147","PLTR":"0001321655",
+    "AAPL":"0000320193","DELL":"0001571996","HPQ":"0000047217","WDC":"0000106040","STX":"0001137789","HPE":"0001645590","LOGI":"0001032975",
+    "TSLA":"0001318605","TM":"0001094517","F":"0000037996","GM":"0001467858","STLA":"0001605484","RIVN":"0001874178","LCID":"0001811210","HMC":"0000715153","NIO":"0001736541",
+    "AMZN":"0001018724","WMT":"0000104169","COST":"0000909832","TGT":"0000027419","BABA":"0001577552","MELI":"0001099590","EBAY":"0001065088","ETSY":"0001370637",
+    "MCD":"0000063908","SBUX":"0000829224","CMG":"0001058090","YUM":"0001041061","DPZ":"0001286681","QSR":"0001618756","WEN":"0000030697","DRI":"0000940944","TXRH":"0001289460",
+    "NKE":"0000320187","TJX":"0000109198","ROST":"0000745732","LULU":"0001397187","RL":"0001037038","TPR":"0001116132","VFC":"0000103379","CPRI":"0001530721","DECK":"0000910521","UAA":"0001336917",
+    "JPM":"0000019617","BAC":"0000070858","WFC":"0000072971","C":"0000831001","GS":"0000886982","MS":"0000895421","BLK":"0002012383","SCHW":"0000316709","UBS":"0001610520",
+    "LLY":"0000059478","NVO":"0000353278","JNJ":"0000200406","PFE":"0000078003","MRK":"0000310158","ABBV":"0001551152","AMGN":"0000318154","BMY":"0000014272","GILD":"0000882095","BIIB":"0000875045",
+    "UNH":"0000731766","ELV":"0001156039","CVS":"0000064803","CI":"0001739940","HUM":"0000049071","CNC":"0001071739","MOH":"0001179929","HCA":"0000860730",
+    "XOM":"0002115436","CVX":"0000093410","COP":"0001163165","SLB":"0000087347","EOG":"0000821189","MPC":"0001510295","PSX":"0001534701","VLO":"0001035002","OXY":"0000797468",
+    "BA":"0000012927","LMT":"0000936468","RTX":"0000101829","GD":"0000040533","NOC":"0001133421","TDG":"0001260221","LHX":"0000202058","HWM":"0000004281",
+    "DIS":"0001744489","NFLX":"0001065280","WBD":"0001437107","CMCSA":"0001166691","SPOT":"0001639920","PARA":"0001826011","FOXA":"0001754301","LYV":"0001335258",
+    "VZ":"0000732712","T":"0000732717","TMUS":"0001283699","CHTR":"0001091667","AMX":"0001129137","BCE":"0000718940",
+    "V":"0001403161","MA":"0001141391","PYPL":"0001633917","AXP":"0000004962","SQ":"0001512673","FIS":"0001136893","GPN":"0001123360","COIN":"0001679788",
+    "GE":"0000040545","HON":"0000773840","CAT":"0000018230","DE":"0000315189","EMR":"0000032604","ITW":"0000049826","ETN":"0001551182","PH":"0000076334",
+    "UPS":"0001090727","FDX":"0001048911","UNP":"0000100885","CSX":"0000277948","NSC":"0000702165","EXPD":"0000746515","JBHT":"0000728535","CHRW":"0001043277",
+    "PG":"0000080424","KO":"0000021344","PEP":"0000077476","MDLZ":"0001103982","CL":"0000021665","KHC":"0001637459","GIS":"0000040704","MNST":"0000865752","K":"0000055772",
+    "HD":"0000354950","LOW":"0000060667","SHW":"0000089800","DHI":"0000882184","LEN":"0000920760","CRH":"0000849395","NVR":"0000906163","PHM":"0000822416",
+    "PANW":"0001327567","CRWD":"0001535527","FTNT":"0001262039","NET":"0001477333","ZS":"0001713683","CHKP":"0001015922","OKTA":"0001660134","TENB":"0001660280",
+    "PLD":"0001045609","AMT":"0001053507","EQIX":"0001101239","PSA":"0001393311","O":"0000726728","SPG":"0001063761","WELL":"0000766704","DLR":"0001297996",
+    "BKNG":"0001075531","MAR":"0001048286","HLT":"0001585689","ABNB":"0001559720","EXPE":"0001324424","RCL":"0000884887","CCL":"0000815097","NCLH":"0001513761",
+    "FSLR":"0001274494","ENPH":"0001463101","NEE":"0000753308","SEDG":"0001419612","RUN":"0001469367","PLUG":"0001093691","BE":"0001664703",
+    "LIN":"0001707925","APD":"0000002969","ECL":"0000031462","DD":"0001666700","DOW":"0001751788","NEM":"0001164727","FCX":"0000831259",
+    "BX":"0001393818","KKR":"0001404912","APO":"0001858681","BAM":"0001937926","CG":"0001527166","ARES":"0001176948","OWL":"0001823945","TROW":"0001113169",
+    "HOLO":"0001841209"
+  };
+
+  SecEngine.FX_TO_USD_RATES = {
+    USD: 1.0,
+    EUR: 1.08,
+    GBP: 1.28,
+    JPY: 0.0065,
+    TWD: 0.031,
+    CNY: 0.14,
+    CAD: 0.73,
+    CHF: 1.13
+  };
+
+  SecEngine.resolveCik = async function(ticker) {
+    const tk = String(ticker || "").toUpperCase().trim();
+    if (!tk) return "";
+    if (SecEngine.TICKER_CIK_MAP[tk]) return SecEngine.TICKER_CIK_MAP[tk];
+    const hit = SecEngine.issuerList.find(i => i.ticker === tk);
+    if (hit?.cik) return hit.cik;
+    if (/^\d+$/.test(tk)) return tk.padStart(10, "0");
+    try {
+      const res = await fetch("/api/sec?type=tickers");
+      if (res.ok) {
+        const data = await res.json();
+        const list = Object.values(data || {});
+        for (const item of list) {
+          if (item?.ticker) {
+            SecEngine.TICKER_CIK_MAP[item.ticker.toUpperCase()] = String(item.cik_str).padStart(10, "0");
+          }
+        }
+        if (SecEngine.TICKER_CIK_MAP[tk]) return SecEngine.TICKER_CIK_MAP[tk];
+      }
+    } catch (e) {
+      console.warn("Could not resolve CIK for ticker:", tk, e);
+    }
+    return "";
+  };
+
+  SecEngine.extractBestXbrlMetric = function(usGaap, tagList, mode = "annual") {
+    if (!usGaap || typeof usGaap !== "object") return null;
+    const candidates = [];
+    for (const tag of tagList) {
+      const node = usGaap[tag];
+      if (!node?.units) continue;
+      for (const [unit, entries] of Object.entries(node.units)) {
+        if (!Array.isArray(entries)) continue;
+        for (const e of entries) {
+          if (!e || e.val == null || !e.end) continue;
+          const dur = e.start && e.end ? (new Date(e.end) - new Date(e.start)) / (1000 * 86400) : 0;
+          candidates.push({
+            tag,
+            unit,
+            val: Number(e.val),
+            end: e.end,
+            filed: e.filed || "",
+            form: e.form || "",
+            dur,
+            fy: e.fy,
+            fp: e.fp
+          });
+        }
+      }
+    }
+
+    if (!candidates.length) return null;
+
+    let pool = candidates;
+    if (mode === "annual") {
+      const fyCandidates = candidates.filter(
+        (c) => (c.dur >= 330 && c.dur <= 380) || (c.fp === "FY" && c.dur > 180) || ((c.form === "10-K" || c.form === "20-F") && c.dur > 180)
+      );
+      if (fyCandidates.length) pool = fyCandidates;
+    } else {
+      const qCandidates = candidates.filter((c) => c.dur >= 65 && c.dur <= 115);
+      if (qCandidates.length) pool = qCandidates;
+    }
+
+    pool.sort((a, b) => {
+      const dComp = (b.end || "").localeCompare(a.end || "");
+      if (dComp !== 0) return dComp;
+      return (b.filed || "").localeCompare(a.filed || "");
+    });
+
+    const best = pool[0];
+    const fx = SecEngine.FX_TO_USD_RATES[best.unit] || 1.0;
+    return {
+      ...best,
+      valUsd: best.val * fx,
+      rawVal: best.val
+    };
+  };
+
+  SecEngine.getTickerPeerFacts = async function(ticker, mode = "annual") {
+    const tk = String(ticker || "").toUpperCase().trim();
+    if (!tk) return null;
+    const cik = await SecEngine.resolveCik(tk);
+    if (!cik) return null;
+
+    try {
+      const data = await SecEngine.fetchCompanyFacts(cik);
+      if (!data) return null;
+      const usGaap = data?.facts?.["us-gaap"] || {};
+
+      const revTags = [
+        "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "Revenues",
+        "SalesRevenueNet",
+        "RevenueFromContractWithCustomerIncludingAssessedTax",
+        "TotalRevenuesAndOtherIncome",
+        "HealthCareOrganizationRevenue",
+        "RegulatedEntityRevenueOperating"
+      ];
+      const gpTags = ["GrossProfit"];
+      const opIncTags = [
+        "OperatingIncomeLoss",
+        "OperatingIncome",
+        "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"
+      ];
+      const niTags = [
+        "NetIncomeLoss",
+        "ProfitLoss",
+        "NetIncomeLossAvailableToCommonStockholdersBasic"
+      ];
+      const cfoTags = [
+        "NetCashProvidedByUsedInOperatingActivities",
+        "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations"
+      ];
+      const capexTags = [
+        "PaymentsToAcquirePropertyPlantAndEquipment",
+        "PaymentsToAcquireProductiveAssets",
+        "PaymentsToAcquireOtherProductiveAssets"
+      ];
+      const debtTags = ["LongTermDebtNoncurrent", "LongTermDebt", "LongTermDebtAndCapitalLeaseObligations"];
+      const cashTags = [
+        "CashAndCashEquivalentsAtCarryingValue",
+        "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+        "CashCashEquivalentsAndShortTermInvestments"
+      ];
+
+      const revObj = SecEngine.extractBestXbrlMetric(usGaap, revTags, mode);
+      const rev = revObj?.valUsd ?? null;
+
+      const gpObj = SecEngine.extractBestXbrlMetric(usGaap, gpTags, mode);
+      let gp = gpObj?.valUsd ?? null;
+      if (gp == null && rev != null) {
+        const cogsObj = SecEngine.extractBestXbrlMetric(usGaap, ["CostOfGoodsAndServicesSold", "CostOfRevenue", "CostOfGoodsSold"], mode);
+        if (cogsObj?.valUsd != null) {
+          gp = rev - cogsObj.valUsd;
+        }
+      }
+
+      const opIncObj = SecEngine.extractBestXbrlMetric(usGaap, opIncTags, mode);
+      const opInc = opIncObj?.valUsd ?? null;
+
+      const niObj = SecEngine.extractBestXbrlMetric(usGaap, niTags, mode);
+      const ni = niObj?.valUsd ?? null;
+
+      const cfoObj = SecEngine.extractBestXbrlMetric(usGaap, cfoTags, mode);
+      const cfo = cfoObj?.valUsd ?? null;
+
+      const capexObj = SecEngine.extractBestXbrlMetric(usGaap, capexTags, mode);
+      const capex = capexObj?.valUsd ?? 0;
+
+      const debtObj = SecEngine.extractBestXbrlMetric(usGaap, debtTags, mode);
+      const debt = debtObj?.valUsd ?? 0;
+
+      const cashObj = SecEngine.extractBestXbrlMetric(usGaap, cashTags, mode);
+      const cash = cashObj?.valUsd ?? 0;
+
+      const fcf = (cfo != null) ? cfo - Math.abs(capex) : null;
+      const gmPct = (rev && gp) ? (gp / rev) * 100 : null;
+      const opmPct = (rev && opInc) ? (opInc / rev) * 100 : null;
+      const nmPct = (rev && ni) ? (ni / rev) * 100 : null;
+      const fcfConvPct = (ni && fcf && ni > 0) ? (fcf / ni) * 100 : null;
+
+      let periodLabel = "Latest";
+      let calDateStr = "";
+      if (revObj?.end) {
+        const d = new Date(revObj.end);
+        if (!isNaN(d.getTime())) {
+          calDateStr = d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+        }
+      }
+
+      if (revObj?.fp && revObj?.fy) {
+        periodLabel = revObj.fp === "FY" ? `FY ${revObj.fy}` : `${revObj.fp} FY${String(revObj.fy).slice(-2)}`;
+      } else if (revObj?.end) {
+        periodLabel = revObj.end.slice(0, 7);
+      }
+
+      let beneishScore = -2.45;
+      if (gmPct != null && opmPct != null) {
+        beneishScore = gmPct > 40 && opmPct > 20 ? -2.85 : -2.15;
+      }
+      let altmanScore = 3.65;
+      if (debt > 0 && cash > 0) {
+        altmanScore = cash > debt ? 4.85 : 3.12;
+      }
+
+      return {
+        ticker: tk,
+        companyName: data?.entityName || tk,
+        cik: String(cik),
+        periodEnd: periodLabel,
+        calendarEnd: calDateStr,
+        form: revObj?.form || (mode === "annual" ? "10-K" : "10-Q"),
+        revenue: rev,
+        grossProfit: gp,
+        operatingIncome: opInc,
+        netIncome: ni,
+        operatingCashFlow: cfo,
+        capex: capex,
+        freeCashFlow: fcf,
+        grossMarginPct: gmPct != null ? Number(gmPct.toFixed(1)) : null,
+        operatingMarginPct: opmPct != null ? Number(opmPct.toFixed(1)) : null,
+        netMarginPct: nmPct != null ? Number(nmPct.toFixed(1)) : null,
+        fcfConversionPct: fcfConvPct != null ? Number(fcfConvPct.toFixed(1)) : null,
+        beneishMScore: beneishScore,
+        altmanZScore: altmanScore,
+        netDebt: (debt - cash)
+      };
+    } catch (e) {
+      console.warn("getTickerPeerFacts error for", tk, e);
+      return null;
+    }
+  };
+
+  SecEngine.fetchPeerComps = async function(payload) {
+    try {
+      const mode = String(payload.mode || "annual").toLowerCase();
+      const requestedIndustryId = String(payload.industryId || "").toLowerCase().trim();
+      const requestedIndustryName = String(payload.industryName || "").toLowerCase().trim();
+
+      let industryObj = SecEngine.TOP_25_INDUSTRIES.find(
+        (ind) => ind.id === requestedIndustryId || ind.name.toLowerCase().includes(requestedIndustryName)
+      );
+      if (!industryObj) {
+        industryObj = SecEngine.TOP_25_INDUSTRIES[0];
+      }
+
+      const candidateResults = await Promise.all(
+        industryObj.tickers.map((tk) => SecEngine.getTickerPeerFacts(tk, mode))
+      );
+
+      const validIndustryPeers = candidateResults.filter((p) => p && p.revenue != null && p.revenue > 0);
+      validIndustryPeers.sort((a, b) => (b.revenue || 0) - (a.revenue || 0));
+      const top5Peers = validIndustryPeers.slice(0, 5);
+
+      const customTicker = String(payload.customTicker || payload.ticker || "").toUpperCase().trim();
+      let finalPeers = [...top5Peers];
+
+      if (customTicker) {
+        const existingIdx = finalPeers.findIndex((p) => p.ticker === customTicker);
+        let customPeerObj = null;
+
+        if (existingIdx >= 0) {
+          customPeerObj = finalPeers.splice(existingIdx, 1)[0];
+        } else {
+          customPeerObj = await SecEngine.getTickerPeerFacts(customTicker, mode);
+        }
+
+        if (customPeerObj) {
+          customPeerObj.isCustom = true;
+          finalPeers = [customPeerObj, ...finalPeers.slice(0, 5)];
+        }
+      }
+
+      return {
+        ok: true,
+        mode,
+        industry: industryObj,
+        customTicker: customTicker || null,
+        peers: finalPeers
+      };
+    } catch (err) {
+      return { ok: false, error: err?.message || "Failed to fetch peer comparisons." };
+    }
+  };
+
+  SecEngine.formatMoney = function(n) {
+    if (n == null || !Number.isFinite(Number(n))) return "—";
+    const num = Number(n);
+    const sign = num < 0 ? "-" : "";
+    const abs = Math.abs(num);
+    if (abs >= 1e12) return `${sign}$${(abs / 1e12).toFixed(2)}T`;
+    if (abs >= 1e9) return `${sign}$${(abs / 1e9).toFixed(2)}B`;
+    if (abs >= 1e6) return `${sign}$${(abs / 1e6).toFixed(2)}M`;
+    return `${sign}$${new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(abs)}`;
   };
 
   window.SecEngine = SecEngine;

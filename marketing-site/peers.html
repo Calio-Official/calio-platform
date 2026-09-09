@@ -237,12 +237,22 @@
               <option value="fashion">Apparel, Luxury &amp; Fashion</option>
               <option value="banking">Investment Banking &amp; Capital Markets</option>
               <option value="pharma">Pharmaceuticals &amp; Biotechnology</option>
+              <option value="healthcare">Managed Healthcare &amp; Insurance</option>
               <option value="energy">Energy, Oil &amp; Gas Majors</option>
-              <option value="clean_energy">Clean Energy, Solar &amp; Renewables</option>
               <option value="aerospace">Aerospace &amp; Defense</option>
+              <option value="media">Streaming, Media &amp; Entertainment</option>
+              <option value="telecom">Telecommunications &amp; Wireless</option>
               <option value="fintech">Payment Networks &amp; FinTech</option>
+              <option value="industrial">Industrial Conglomerates &amp; Machinery</option>
+              <option value="logistics">Logistics, Freight &amp; Delivery</option>
+              <option value="food_beverage">Consumer Staples &amp; Packaged Foods</option>
+              <option value="home_construction">Home Improvement &amp; Construction</option>
               <option value="cybersecurity">Cybersecurity &amp; Infrastructure</option>
               <option value="reit">Real Estate Investment Trusts (REITs)</option>
+              <option value="travel">Hospitality, Hotels &amp; Travel</option>
+              <option value="clean_energy">Clean Energy, Solar &amp; Renewables</option>
+              <option value="materials">Chemicals &amp; Specialty Materials</option>
+              <option value="asset_mgmt">Asset Management &amp; Private Equity</option>
             </select>
           </div>
 
@@ -295,10 +305,12 @@
               <button type="button" class="chip-btn" id="btnModeQuarterly">Quarterly (10-Q)</button>
             </div>
 
-            <div style="display:flex; align-items:center; gap:6px; position:relative;">
-              <input type="text" id="inputCustomPeer" class="desk-input" placeholder="Search issuer (e.g. HOLO, SBUX, NVDA)" autocomplete="off" spellcheck="false" />
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div class="suggest-wrap" style="position:relative; width:220px;">
+                <input type="text" id="inputCustomPeer" class="desk-input" placeholder="Search issuer (e.g. HOLO, SBUX, NVDA)" autocomplete="off" spellcheck="false" style="width:100%; box-sizing:border-box;" />
+                <div id="customPeerSuggestDropdown" class="suggest-dropdown" hidden></div>
+              </div>
               <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnAddPeer">+ Add</button>
-              <div id="customPeerSuggestDropdown" class="suggest-dropdown" hidden></div>
             </div>
 
             <button type="button" class="btn-pill btn-pill-secondary mini-btn" id="btnExportExcel">
@@ -454,137 +466,15 @@
       </div>
     </footer>
 
-    <!-- Peer Comps Interactive Script -->
+    <!-- Peer Comps Interactive Script (Live SEC EDGAR Parity) -->
     <script>
-      const PEER_DATABASE = {
-        semi: {
-          title: "Semiconductors & AI Hardware",
-          peers: [
-            { ticker: "NVDA", name: "NVIDIA Corporation", period: "FY 2026", form: "10-K", rev: "$130.50B", qRev: "$39.33B", gm: "75.0%", om: "62.4%", nm: "55.8%", fcf: "96.4%", mScore: "-2.48", zScore: "14.85", netDebt: "-$32.20B", isSafeM: true, isSafeZ: true },
-            { ticker: "TSM", name: "Taiwan Semiconductor Mfg", period: "FY 2025", form: "20-F", rev: "$88.20B", qRev: "$23.50B", gm: "54.1%", om: "43.5%", nm: "38.2%", fcf: "88.2%", mScore: "-2.61", zScore: "7.92", netDebt: "-$18.40B", isSafeM: true, isSafeZ: true },
-            { ticker: "AVGO", name: "Broadcom Inc.", period: "FY 2025", form: "10-K", rev: "$51.40B", qRev: "$14.05B", gm: "64.2%", om: "38.1%", nm: "31.4%", fcf: "92.5%", mScore: "-2.22", zScore: "4.15", netDebt: "$68.20B", isSafeM: true, isSafeZ: true },
-            { ticker: "AMD", name: "Advanced Micro Devices", period: "FY 2025", form: "10-K", rev: "$25.70B", qRev: "$6.82B", gm: "50.5%", om: "12.8%", nm: "11.2%", fcf: "76.4%", mScore: "-2.35", zScore: "5.82", netDebt: "-$1.85B", isSafeM: true, isSafeZ: true },
-            { ticker: "QCOM", name: "Qualcomm Inc.", period: "FY 2025", form: "10-K", rev: "$38.96B", qRev: "$10.24B", gm: "56.2%", om: "29.8%", nm: "25.9%", fcf: "84.1%", mScore: "-2.54", zScore: "5.21", netDebt: "$3.12B", isSafeM: true, isSafeZ: true }
-          ]
-        },
-        cloud: {
-          title: "Enterprise Software & Cloud",
-          peers: [
-            { ticker: "MSFT", name: "Microsoft Corporation", period: "FY 2025", form: "10-K", rev: "$245.12B", qRev: "$65.58B", gm: "69.8%", om: "44.6%", nm: "36.0%", fcf: "88.5%", mScore: "-2.62", zScore: "8.14", netDebt: "-$12.50B", isSafeM: true, isSafeZ: true },
-            { ticker: "ORCL", name: "Oracle Corporation", period: "FY 2025", form: "10-K", rev: "$54.20B", qRev: "$14.06B", gm: "71.2%", om: "30.5%", nm: "23.8%", fcf: "78.2%", mScore: "-2.18", zScore: "2.85", netDebt: "$78.40B", isSafeM: true, isSafeZ: false },
-            { ticker: "CRM", name: "Salesforce Inc.", period: "FY 2025", form: "10-K", rev: "$38.00B", qRev: "$9.85B", gm: "75.8%", om: "19.2%", nm: "14.5%", fcf: "91.2%", mScore: "-2.45", zScore: "4.65", netDebt: "$4.20B", isSafeM: true, isSafeZ: true },
-            { ticker: "ADBE", name: "Adobe Inc.", period: "FY 2025", form: "10-K", rev: "$21.50B", qRev: "$5.55B", gm: "88.6%", om: "35.4%", nm: "28.5%", fcf: "94.8%", mScore: "-2.58", zScore: "6.92", netDebt: "-$2.10B", isSafeM: true, isSafeZ: true },
-            { ticker: "NOW", name: "ServiceNow Inc.", period: "FY 2025", form: "10-K", rev: "$11.00B", qRev: "$2.98B", gm: "78.4%", om: "22.1%", nm: "18.4%", fcf: "89.1%", mScore: "-2.51", zScore: "5.45", netDebt: "-$4.20B", isSafeM: true, isSafeZ: true }
-          ]
-        },
-        auto: {
-          title: "Automotive & Electric Vehicles",
-          peers: [
-            { ticker: "TM", name: "Toyota Motor Corp", period: "FY 2025", form: "20-F", rev: "$298.00B", qRev: "$74.50B", gm: "20.5%", om: "11.2%", nm: "8.4%", fcf: "62.4%", mScore: "-2.42", zScore: "3.12", netDebt: "$145.0B", isSafeM: true, isSafeZ: true },
-            { ticker: "F", name: "Ford Motor Company", period: "FY 2025", form: "10-K", rev: "$176.20B", qRev: "$44.10B", gm: "12.4%", om: "4.1%", nm: "2.8%", fcf: "48.5%", mScore: "-1.82", zScore: "1.45", netDebt: "$118.0B", isSafeM: true, isSafeZ: false },
-            { ticker: "GM", name: "General Motors Co", period: "FY 2025", form: "10-K", rev: "$171.80B", qRev: "$43.20B", gm: "13.6%", om: "6.8%", nm: "5.2%", fcf: "54.2%", mScore: "-2.14", zScore: "1.68", netDebt: "$98.50B", isSafeM: true, isSafeZ: false },
-            { ticker: "TSLA", name: "Tesla Inc.", period: "FY 2025", form: "10-K", rev: "$97.70B", qRev: "$25.18B", gm: "18.2%", om: "8.0%", nm: "7.4%", fcf: "78.2%", mScore: "-2.31", zScore: "5.88", netDebt: "-$16.80B", isSafeM: true, isSafeZ: true }
-          ]
-        },
-        fashion: {
-          title: "Apparel, Luxury & Fashion",
-          peers: [
-            { ticker: "NKE", name: "NIKE Inc.", period: "FY 2025", form: "10-K", rev: "$51.36B", qRev: "$12.84B", gm: "44.6%", om: "11.8%", nm: "9.2%", fcf: "82.4%", mScore: "-2.44", zScore: "4.82", netDebt: "$4.10B", isSafeM: true, isSafeZ: true },
-            { ticker: "LVMUY", name: "LVMH Moët Hennessy", period: "FY 2025", form: "Annual", rev: "$91.20B", qRev: "$22.80B", gm: "68.8%", om: "25.6%", nm: "17.4%", fcf: "74.8%", mScore: "-2.38", zScore: "3.95", netDebt: "$12.40B", isSafeM: true, isSafeZ: true },
-            { ticker: "TJX", name: "The TJX Companies", period: "FY 2025", form: "10-K", rev: "$54.20B", qRev: "$14.40B", gm: "30.1%", om: "10.9%", nm: "8.2%", fcf: "86.1%", mScore: "-2.55", zScore: "5.12", netDebt: "-$1.20B", isSafeM: true, isSafeZ: true },
-            { ticker: "LULU", name: "Lululemon Athletica", period: "FY 2025", form: "10-K", rev: "$10.20B", qRev: "$2.75B", gm: "58.4%", om: "22.8%", nm: "16.5%", fcf: "88.2%", mScore: "-2.62", zScore: "7.84", netDebt: "-$1.95B", isSafeM: true, isSafeZ: true }
-          ]
-        },
-        restaurants: {
-          title: "Restaurants & Dining",
-          peers: [
-            { ticker: "MCD", name: "McDonald's Corp", period: "FY 2025", form: "10-K", rev: "$25.50B", qRev: "$6.87B", gm: "57.2%", om: "46.1%", nm: "33.2%", fcf: "84.5%", mScore: "-2.35", zScore: "3.45", netDebt: "$36.80B", isSafeM: true, isSafeZ: true },
-            { ticker: "SBUX", name: "Starbucks Corporation", period: "FY 2025", form: "10-K", rev: "$36.00B", qRev: "$9.10B", gm: "68.2%", om: "14.8%", nm: "10.5%", fcf: "72.4%", mScore: "-2.28", zScore: "2.95", netDebt: "$14.50B", isSafeM: true, isSafeZ: false },
-            { ticker: "CMG", name: "Chipotle Mexican Grill", period: "FY 2025", form: "10-K", rev: "$11.20B", qRev: "$2.95B", gm: "40.5%", om: "17.4%", nm: "13.2%", fcf: "91.8%", mScore: "-2.68", zScore: "8.24", netDebt: "-$1.45B", isSafeM: true, isSafeZ: true },
-            { ticker: "YUM", name: "Yum! Brands Inc.", period: "FY 2025", form: "10-K", rev: "$7.45B", qRev: "$1.95B", gm: "48.2%", om: "32.4%", nm: "21.5%", fcf: "80.2%", mScore: "-2.15", zScore: "2.80", netDebt: "$11.20B", isSafeM: true, isSafeZ: false }
-          ]
-        },
-        banking: {
-          title: "Investment Banking & Capital Markets",
-          peers: [
-            { ticker: "JPM", name: "JPMorgan Chase & Co.", period: "FY 2025", form: "10-K", rev: "$165.20B", qRev: "$42.50B", gm: "N/A", om: "38.5%", nm: "32.4%", fcf: "N/A", mScore: "-2.68", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true },
-            { ticker: "BAC", name: "Bank of America Corp", period: "FY 2025", form: "10-K", rev: "$102.50B", qRev: "$26.10B", gm: "N/A", om: "32.1%", nm: "26.8%", fcf: "N/A", mScore: "-2.52", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true },
-            { ticker: "GS", name: "Goldman Sachs Group", period: "FY 2025", form: "10-K", rev: "$52.80B", qRev: "$13.80B", gm: "N/A", om: "30.2%", nm: "24.5%", fcf: "N/A", mScore: "-2.49", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true },
-            { ticker: "MS", name: "Morgan Stanley", period: "FY 2025", form: "10-K", rev: "$61.50B", qRev: "$15.90B", gm: "N/A", om: "28.5%", nm: "21.8%", fcf: "N/A", mScore: "-2.45", zScore: "N/A", netDebt: "N/A", isSafeM: true, isSafeZ: true }
-          ]
-        },
-        pharma: {
-          title: "Pharmaceuticals & Biotechnology",
-          peers: [
-            { ticker: "JNJ", name: "Johnson & Johnson", period: "FY 2025", form: "10-K", rev: "$88.80B", qRev: "$22.40B", gm: "68.2%", om: "28.5%", nm: "21.4%", fcf: "82.4%", mScore: "-2.72", zScore: "4.85", netDebt: "$18.20B", isSafeM: true, isSafeZ: true },
-            { ticker: "MRK", name: "Merck & Co. Inc.", period: "FY 2025", form: "10-K", rev: "$63.20B", qRev: "$16.10B", gm: "74.8%", om: "31.0%", nm: "23.5%", fcf: "79.1%", mScore: "-2.54", zScore: "4.12", netDebt: "$28.40B", isSafeM: true, isSafeZ: true },
-            { ticker: "ABBV", name: "AbbVie Inc.", period: "FY 2025", form: "10-K", rev: "$55.40B", qRev: "$14.20B", gm: "70.1%", om: "34.2%", nm: "24.8%", fcf: "85.2%", mScore: "-2.25", zScore: "2.82", netDebt: "$54.00B", isSafeM: true, isSafeZ: false },
-            { ticker: "LLY", name: "Eli Lilly and Company", period: "FY 2025", form: "10-K", rev: "$45.00B", qRev: "$12.40B", gm: "80.4%", om: "32.1%", nm: "26.4%", fcf: "78.4%", mScore: "-2.38", zScore: "6.95", netDebt: "$22.10B", isSafeM: true, isSafeZ: true }
-          ]
-        },
-        energy: {
-          title: "Energy, Oil & Gas Majors",
-          peers: [
-            { ticker: "XOM", name: "Exxon Mobil Corporation", period: "FY 2025", form: "10-K", rev: "$344.60B", qRev: "$88.50B", gm: "32.4%", om: "14.8%", nm: "10.8%", fcf: "84.2%", mScore: "-2.62", zScore: "4.25", netDebt: "$14.50B", isSafeM: true, isSafeZ: true },
-            { ticker: "CVX", name: "Chevron Corporation", period: "FY 2025", form: "10-K", rev: "$202.40B", qRev: "$51.20B", gm: "28.5%", om: "12.4%", nm: "9.2%", fcf: "81.0%", mScore: "-2.58", zScore: "4.10", netDebt: "$18.20B", isSafeM: true, isSafeZ: true },
-            { ticker: "COP", name: "ConocoPhillips", period: "FY 2025", form: "10-K", rev: "$58.20B", qRev: "$14.80B", gm: "42.1%", om: "24.5%", nm: "18.2%", fcf: "86.5%", mScore: "-2.45", zScore: "3.85", netDebt: "$11.40B", isSafeM: true, isSafeZ: true }
-          ]
-        }
-      };
-
       let currentSector = "semi";
       let currentMode = "annual";
+      let currentCustomTicker = "";
+      let currentPeersData = [];
+      let isFetchingPeers = false;
 
-      function renderPeerTable() {
-        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
-        document.getElementById("panelSectorTitle").textContent = `${secData.title} — Top Revenue Leaders`;
-        document.getElementById("thRevenueHeader").textContent = currentMode === "annual" ? "Annual Net Revenue (USD)" : "Quarterly Net Revenue (USD)";
-
-        const tbody = document.getElementById("peerTableBody");
-        tbody.innerHTML = secData.peers.map((p, idx) => `
-          <tr class="${idx === 0 ? 'main-ticker-row' : ''}">
-            <td>
-              <div class="ticker-title">
-                <strong>${p.ticker}</strong>
-                <span class="chip-btn" style="font-size:10px; padding:1px 6px;">#${idx + 1} Revenue</span>
-              </div>
-              <div class="ticker-name">${p.name}</div>
-            </td>
-            <td>
-              <strong>${p.period}</strong>
-              <div style="font-size:10.5px; color:var(--soft);">${p.form}</div>
-            </td>
-            <td style="font-weight:700;">${currentMode === "annual" ? p.rev : p.qRev}</td>
-            <td>${p.gm}</td>
-            <td>${p.om}</td>
-            <td>${p.nm}</td>
-            <td>${p.fcf}</td>
-            <td><span class="${p.isSafeM ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.mScore}</span></td>
-            <td><span class="${p.isSafeZ ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.zScore}</span></td>
-            <td>${p.netDebt}</td>
-          </tr>
-        `).join("");
-      }
-
-      // Dropdown listener
       const secSelect = document.getElementById("peerSectorSelect");
-      if (secSelect) {
-        secSelect.addEventListener("change", (e) => {
-          currentSector = e.target.value;
-          updateActivePill(currentSector);
-          renderPeerTable();
-        });
-      }
-
-      // Quick pills listener
-      document.querySelectorAll("#quickPillsWrap .chip-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          currentSector = btn.getAttribute("data-sec");
-          if (secSelect) secSelect.value = currentSector;
-          updateActivePill(currentSector);
-          renderPeerTable();
-        });
-      });
 
       function updateActivePill(secKey) {
         document.querySelectorAll("#quickPillsWrap .chip-btn").forEach((b) => {
@@ -592,128 +482,242 @@
         });
       }
 
+      async function renderPeerComps(customTicker = null, targetIndustryId = null, targetMode = null) {
+        if (targetIndustryId) currentSector = targetIndustryId;
+        if (customTicker !== null) currentCustomTicker = customTicker ? customTicker.toUpperCase().trim() : "";
+        if (targetMode) currentMode = targetMode;
+
+        const activeIndObj = (window.SecEngine && window.SecEngine.TOP_25_INDUSTRIES)
+          ? window.SecEngine.TOP_25_INDUSTRIES.find(x => x.id === currentSector) || window.SecEngine.TOP_25_INDUSTRIES[0]
+          : { id: "semi", name: "Semiconductors & AI Hardware" };
+
+        const titleEl = document.getElementById("panelSectorTitle");
+        if (titleEl) {
+          titleEl.textContent = `${activeIndObj.name.toUpperCase()} — TOP REVENUE LEADERS`;
+        }
+
+        const revHeaderEl = document.getElementById("thRevenueHeader");
+        if (revHeaderEl) {
+          revHeaderEl.textContent = currentMode === "annual" ? "Annual Net Revenue (USD)" : "Quarterly Net Revenue (USD)";
+        }
+
+        const btnAnn = document.getElementById("btnModeAnnual");
+        const btnQtr = document.getElementById("btnModeQuarterly");
+        if (btnAnn && btnQtr) {
+          btnAnn.classList.toggle("is-active", currentMode === "annual");
+          btnQtr.classList.toggle("is-active", currentMode === "quarterly");
+        }
+
+        if (secSelect) secSelect.value = currentSector;
+        updateActivePill(currentSector);
+
+        const drop1 = document.getElementById("customPeerSuggestDropdown");
+        if (drop1) { drop1.style.display = "none"; drop1.hidden = true; }
+        const drop2 = document.getElementById("peerSuggestDropdown");
+        if (drop2) { drop2.style.display = "none"; drop2.hidden = true; }
+
+        const tbody = document.getElementById("peerTableBody");
+        if (!tbody) return;
+
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="10" style="padding: 0;">
+              <div class="extract-loading">
+                <div class="extract-spinner"></div>
+                <strong>Fetching live SEC audited financial statements and ranking top 5 by revenue…</strong>
+                <p style="font-size:12px; color:var(--soft); margin-top:6px;">Querying SEC EDGAR XBRL company facts in parallel for ${activeIndObj.name}</p>
+              </div>
+            </td>
+          </tr>
+        `;
+
+        isFetchingPeers = true;
+        try {
+          const res = await window.SecEngine.fetchPeerComps({
+            industryId: activeIndObj.id,
+            industryName: activeIndObj.name,
+            customTicker: currentCustomTicker || null,
+            mode: currentMode
+          });
+
+          isFetchingPeers = false;
+          if (!res?.ok || !Array.isArray(res.peers) || !res.peers.length) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="10" style="text-align: center; padding: 36px 16px; color: var(--soft);">
+                  ${res?.error || "Unable to fetch live SEC peer comparisons for this sector. Please try another sector."}
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          currentPeersData = res.peers;
+          const isAnnual = currentMode === "annual";
+
+          tbody.innerHTML = res.peers.map((p, idx) => {
+            const isCustomTop = p.isCustom || (currentCustomTicker && p.ticker === currentCustomTicker);
+            return `
+              <tr class="${isCustomTop ? 'main-ticker-row' : ''}">
+                <td>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <strong>${p.ticker}</strong>
+                    ${isCustomTop 
+                      ? `<span class="badge accent" style="font-size:10px; padding:2px 6px; background:var(--teal-primary,#0d9488); color:#ffffff; border-radius:4px; font-weight:700;">Target Benchmark</span>` 
+                      : `<span class="badge muted" style="font-size:10px; padding:2px 6px; background:#f1f5f9; color:#475569; border-radius:4px; font-weight:600;">#${idx + (currentCustomTicker ? 0 : 1)} Revenue</span>`}
+                  </div>
+                  <div style="font-size:11px; opacity:0.75; margin-top:2px;">${p.companyName || p.ticker}</div>
+                </td>
+                <td>
+                  <span style="font-size:12.5px; font-weight:700;">${p.periodEnd || (isAnnual ? "FY 2025" : "Latest")}</span>
+                  <div style="font-size:10.5px; color:var(--soft); margin-top:2px;">${[p.calendarEnd, p.form].filter(Boolean).join(" · ")}</div>
+                </td>
+                <td style="font-weight:700;">${p.revenue ? window.SecEngine.formatMoney(p.revenue) : '—'}</td>
+                <td>${p.grossMarginPct != null ? `${p.grossMarginPct}%` : '—'}</td>
+                <td>${p.operatingMarginPct != null ? `${p.operatingMarginPct}%` : '—'}</td>
+                <td>${p.netMarginPct != null ? `${p.netMarginPct}%` : '—'}</td>
+                <td>${p.fcfConversionPct != null ? `${p.fcfConversionPct}%` : '—'}</td>
+                <td><span class="${p.beneishMScore != null && p.beneishMScore < -1.78 ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.beneishMScore != null ? p.beneishMScore : '—'}</span></td>
+                <td><span class="${p.altmanZScore != null && p.altmanZScore > 2.99 ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.altmanZScore != null ? p.altmanZScore : '—'}</span></td>
+                <td>${p.netDebt != null ? window.SecEngine.formatMoney(p.netDebt) : '—'}</td>
+              </tr>
+            `;
+          }).join("");
+        } catch (err) {
+          isFetchingPeers = false;
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="10" style="text-align: center; padding: 36px 16px; color: var(--soft);">
+                Failed to communicate with SEC EDGAR. Please retry.
+              </td>
+            </tr>
+          `;
+        }
+      }
+
+      // Dropdown listener
+      if (secSelect) {
+        secSelect.addEventListener("change", (e) => {
+          renderPeerComps(currentCustomTicker, e.target.value);
+        });
+      }
+
+      // Quick pills listener
+      document.querySelectorAll("#quickPillsWrap .chip-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const secKey = btn.getAttribute("data-sec");
+          renderPeerComps(currentCustomTicker, secKey);
+        });
+      });
+
       // Mode toggles
       const btnAnn = document.getElementById("btnModeAnnual");
       const btnQtr = document.getElementById("btnModeQuarterly");
-
-      btnAnn.addEventListener("click", () => {
-        currentMode = "annual";
-        btnAnn.classList.add("is-active");
-        btnQtr.classList.remove("is-active");
-        renderPeerTable();
-      });
-
-      btnQtr.addEventListener("click", () => {
-        currentMode = "quarterly";
-        btnQtr.classList.add("is-active");
-        btnAnn.classList.remove("is-active");
-        renderPeerTable();
-      });
-
-      function addAndHighlightPeer(val) {
-        if (!val) return;
-        const ticker = val.trim().toUpperCase();
-        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
-
-        // Clear existing isMain
-        secData.peers.forEach((p) => { p.isMain = false; });
-
-        // Check if peer already exists
-        const existing = secData.peers.find((p) => p.ticker === ticker);
-        if (existing) {
-          existing.isMain = true;
-        } else {
-          const comp = window.SecEngine ? window.SecEngine.getCompany(ticker) : null;
-          const pRev = comp && comp.baseRev ? `$${comp.baseRev.toFixed(2)}B` : "$48.50B";
-          const pqRev = comp && comp.baseRev ? `$${(comp.baseRev / 4).toFixed(2)}B` : "$12.80B";
-          const pOm = comp && comp.dcf?.margin ? `${comp.dcf.margin.toFixed(1)}%` : "26.5%";
-          const pGm = comp && comp.dcf?.margin ? `${(comp.dcf.margin + 15).toFixed(1)}%` : "54.2%";
-          const pNm = comp && comp.dcf?.margin ? `${(comp.dcf.margin * 0.75).toFixed(1)}%` : "21.0%";
-          const pNetDebt = comp && comp.cash && comp.debt ? `${(comp.debt - comp.cash) >= 0 ? '$' : '-$'}${Math.abs(comp.debt - comp.cash).toFixed(2)}B` : "-$6.40B";
-          
-          secData.peers.unshift({
-            ticker: ticker,
-            name: comp ? (comp.fullName || comp.name) : `${ticker} Corporation`,
-            period: "FY 2025",
-            form: "10-K",
-            rev: pRev,
-            qRev: pqRev,
-            gm: pGm,
-            om: pOm,
-            nm: pNm,
-            fcf: "84.5%",
-            mScore: "-2.62",
-            zScore: "4.95",
-            netDebt: pNetDebt,
-            isSafeM: true,
-            isSafeZ: true,
-            isMain: true
-          });
-        }
-
-        // Update pills active state
-        document.querySelectorAll("[data-quick-peer]").forEach((btn) => {
-          btn.classList.toggle("is-active", btn.getAttribute("data-quick-peer") === ticker);
+      if (btnAnn) {
+        btnAnn.addEventListener("click", () => {
+          if (currentMode !== "annual") {
+            renderPeerComps(null, null, "annual");
+          }
         });
-
-        renderPeerTable();
+      }
+      if (btnQtr) {
+        btnQtr.addEventListener("click", () => {
+          if (currentMode !== "quarterly") {
+            renderPeerComps(null, null, "quarterly");
+          }
+        });
       }
 
       // Add Custom Ticker
-      document.getElementById("btnAddPeer").addEventListener("click", () => {
-        const inp = document.getElementById("inputCustomPeer");
-        addAndHighlightPeer(inp.value);
-        inp.value = "";
-      });
-
-      // Universal Search
-      function executePeerUniversalSearch() {
-        const inp = document.getElementById("peerUniversalSearch");
-        addAndHighlightPeer(inp.value);
+      const btnAddPeer = document.getElementById("btnAddPeer");
+      const inputCustomPeer = document.getElementById("inputCustomPeer");
+      function submitCustomPeer() {
+        if (!inputCustomPeer) return;
+        const val = inputCustomPeer.value.trim();
+        const drop = document.getElementById("customPeerSuggestDropdown");
+        if (drop) { drop.style.display = "none"; drop.hidden = true; }
+        if (val) {
+          renderPeerComps(val);
+          inputCustomPeer.value = "";
+        }
+      }
+      if (btnAddPeer) btnAddPeer.addEventListener("click", submitCustomPeer);
+      if (inputCustomPeer) {
+        inputCustomPeer.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            submitCustomPeer();
+          }
+        });
       }
 
-      document.getElementById("peerBtnUniversalSearch").addEventListener("click", executePeerUniversalSearch);
-      document.getElementById("peerUniversalSearch").addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          executePeerUniversalSearch();
+      // Universal Search
+      const peerUniversalSearch = document.getElementById("peerUniversalSearch");
+      const peerBtnUniversalSearch = document.getElementById("peerBtnUniversalSearch");
+      function submitUniversalSearch() {
+        if (!peerUniversalSearch) return;
+        const val = peerUniversalSearch.value.trim();
+        const drop = document.getElementById("peerSuggestDropdown");
+        if (drop) { drop.style.display = "none"; drop.hidden = true; }
+        if (val) {
+          renderPeerComps(val);
+          const tbl = document.getElementById("peerTable");
+          if (tbl) tbl.scrollIntoView({ behavior: "smooth", block: "center" });
         }
-      });
+      }
+      if (peerBtnUniversalSearch) peerBtnUniversalSearch.addEventListener("click", submitUniversalSearch);
+      if (peerUniversalSearch) {
+        peerUniversalSearch.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            submitUniversalSearch();
+          }
+        });
+      }
 
-      // Wire up Autocomplete Recommendations
+      // Autocomplete setup
       if (window.SecEngine) {
         window.SecEngine.setupAutocomplete("peerUniversalSearch", "peerSuggestDropdown", (ticker) => {
-          addAndHighlightPeer(ticker);
+          renderPeerComps(ticker);
           const tbl = document.getElementById("peerTable");
           if (tbl) tbl.scrollIntoView({ behavior: "smooth", block: "center" });
         });
 
         window.SecEngine.setupAutocomplete("inputCustomPeer", "customPeerSuggestDropdown", (ticker) => {
-          addAndHighlightPeer(ticker);
+          renderPeerComps(ticker);
         });
       }
 
       // Quick peer buttons
       document.querySelectorAll("[data-quick-peer]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          addAndHighlightPeer(btn.getAttribute("data-quick-peer"));
+          const tk = btn.getAttribute("data-quick-peer");
+          document.querySelectorAll("[data-quick-peer]").forEach(b => b.classList.toggle("is-active", b === btn));
+          renderPeerComps(tk);
         });
       });
 
-      // Export Excel
-      document.getElementById("btnExportExcel").addEventListener("click", () => {
-        const secData = PEER_DATABASE[currentSector] || PEER_DATABASE.semi;
-        let csv = "Ticker,Company,Period,Form,Revenue,Gross Margin,Operating Margin,Net Margin,FCF Conversion,Beneish M-Score,Altman Z-Score,Net Debt\n";
-        secData.peers.forEach((p) => {
-          csv += `"${p.ticker}","${p.name}","${p.period}","${p.form}","${currentMode === 'annual' ? p.rev : p.qRev}","${p.gm}","${p.om}","${p.nm}","${p.fcf}","${p.mScore}","${p.zScore}","${p.netDebt}"\n`;
+      // Export Excel (.xlsx/.csv)
+      const btnExportExcel = document.getElementById("btnExportExcel");
+      if (btnExportExcel) {
+        btnExportExcel.addEventListener("click", () => {
+          if (!currentPeersData.length) return;
+          const activeIndObj = (window.SecEngine && window.SecEngine.TOP_25_INDUSTRIES)
+            ? window.SecEngine.TOP_25_INDUSTRIES.find(x => x.id === currentSector) || { name: currentSector }
+            : { name: currentSector };
+
+          let csv = "Ticker,Company,Period,Form,Net Revenue (USD),Gross Margin,Operating Margin,Net Margin,FCF Conversion,Beneish M-Score,Altman Z-Score,Net Cash / Debt\n";
+          currentPeersData.forEach((p) => {
+            csv += `"${p.ticker}","${p.companyName || p.ticker}","${p.periodEnd || ''}","${p.form || ''}","${p.revenue ? window.SecEngine.formatMoney(p.revenue) : '—'}","${p.grossMarginPct != null ? p.grossMarginPct + '%' : '—'}","${p.operatingMarginPct != null ? p.operatingMarginPct + '%' : '—'}","${p.netMarginPct != null ? p.netMarginPct + '%' : '—'}","${p.fcfConversionPct != null ? p.fcfConversionPct + '%' : '—'}","${p.beneishMScore != null ? p.beneishMScore : '—'}","${p.altmanZScore != null ? p.altmanZScore : '—'}","${p.netDebt != null ? window.SecEngine.formatMoney(p.netDebt) : '—'}"\n`;
+          });
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `CALIO_${activeIndObj.name.replace(/\\s+/g, '_')}_${currentMode}_Comps.csv`;
+          a.click();
         });
-        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `CALIO_${secData.title.replace(/\s+/g, '_')}_Comps.csv`;
-        a.click();
-      });
+      }
 
       // Mobile nav drawer
       const btnOpenNav = document.getElementById("btnOpenMobileNav");
@@ -727,8 +731,8 @@
         btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
       }
 
-      // Initial render
-      renderPeerTable();
+      // Initial render: default Semiconductors & AI Hardware in Annual mode
+      renderPeerComps();
     </script>
   
     <!-- Chrome Extension Overview Pop-up Modal -->
