@@ -2923,34 +2923,79 @@
     }
   };
 
-  SecEngine.extractFinancialStatements = function(data, form, periodEnd, accn) {
+  SecEngine.extractFinancialStatements = function(data, formFilter, periodEndFilter, accnFilter) {
     const usGaap = data?.facts?.["us-gaap"] || {};
 
-    function findFact(tagList) {
-      for (const tag of tagList) {
-        const node = usGaap[tag];
-        if (!node || !node.units) continue;
-        const units = node.units.USD || node.units["USD/shares"] || node.units.shares || Object.values(node.units)[0] || [];
-        if (!Array.isArray(units) || !units.length) continue;
+    // 1. Determine anchor period and accn if not provided
+    let targetPeriod = periodEndFilter || "";
+    let targetAccn = accnFilter || "";
+    let targetForm = formFilter || "";
 
-        // If accn provided, filter by accn
-        if (accn) {
-          const byAccn = units.filter(u => u.accn === accn);
-          if (byAccn.length) {
-            return byAccn[byAccn.length - 1];
+    if (!targetPeriod && !targetAccn) {
+      let latestEnd = "";
+      let latestUnit = null;
+      const probeTags = [
+        "GrossProfit", "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "Revenues", "OperatingIncomeLoss", "NetIncomeLoss"
+      ];
+      for (const pt of probeTags) {
+        const units = usGaap[pt]?.units?.USD || [];
+        for (const u of units) {
+          if (!u.end || !u.form) continue;
+          if (/^(10-K|10-Q)/i.test(u.form)) {
+            if (u.end > latestEnd) {
+              latestEnd = u.end;
+              latestUnit = u;
+            }
           }
         }
-        // If periodEnd provided, filter by periodEnd
-        if (periodEnd) {
-          const byEnd = units.filter(u => u.end === periodEnd && (!form || u.form === form));
-          if (byEnd.length) {
-            return byEnd[byEnd.length - 1];
-          }
-        }
-        // Fallback to latest available entry
-        return units[units.length - 1];
       }
-      return null;
+      if (latestUnit) {
+        targetPeriod = latestUnit.end;
+        targetAccn = latestUnit.accn;
+        targetForm = latestUnit.form;
+      }
+    }
+
+    // 2. Fact picker that prioritizes exact period & accn match across candidate tags
+    function findFact(candidateTags) {
+      // Pass 1: exact accn match
+      if (targetAccn) {
+        for (const tag of candidateTags) {
+          const units = usGaap[tag]?.units?.USD || [];
+          const match = units.filter(u => u.accn === targetAccn);
+          if (match.length) {
+            const qtr = match.find(u => /Q[1-4]$/i.test(u.frame || ""));
+            return qtr || match[match.length - 1];
+          }
+        }
+      }
+
+      // Pass 2: exact periodEnd match (within same form if known)
+      if (targetPeriod) {
+        for (const tag of candidateTags) {
+          const units = usGaap[tag]?.units?.USD || [];
+          const match = units.filter(u => u.end === targetPeriod && (!targetForm || u.form === targetForm));
+          if (match.length) {
+            const qtr = match.find(u => /Q[1-4]$/i.test(u.frame || ""));
+            return qtr || match[match.length - 1];
+          }
+        }
+      }
+
+      // Pass 3: latest entry among candidate tags that is recent (not an abandoned tag)
+      let bestUnit = null;
+      let maxEnd = "";
+      for (const tag of candidateTags) {
+        const units = usGaap[tag]?.units?.USD || [];
+        if (!units.length) continue;
+        const latestInTag = units[units.length - 1];
+        if (latestInTag && latestInTag.end > maxEnd) {
+          maxEnd = latestInTag.end;
+          bestUnit = latestInTag;
+        }
+      }
+      return bestUnit;
     }
 
     function fmtDollar(val) {
@@ -2975,14 +3020,14 @@
       return { dollar: dollarStr, pct: sign + pct };
     }
 
-    const revFact = findFact(["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "SalesRevenueNet"]);
-    const cogsFact = findFact(["CostOfGoodsAndServicesSold", "CostOfRevenue", "CostOfGoodsSold"]);
+    const revFact = findFact(["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet", "RevenueFromContractWithCustomerIncludingAssessedTax"]);
+    const cogsFact = findFact(["CostOfRevenue", "CostOfGoodsAndServicesSold", "CostOfGoodsSold"]);
     const gpFact = findFact(["GrossProfit"]);
     const opexFact = findFact(["OperatingExpenses", "CostsAndExpenses"]);
     const ebitFact = findFact(["OperatingIncomeLoss"]);
     const niFact = findFact(["NetIncomeLoss", "ProfitLoss"]);
 
-    const cashFact = findFact(["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsAndShortTermInvestments"]);
+    const cashFact = findFact(["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsAndShortTermInvestments", "MarketableSecuritiesCurrent"]);
     const arFact = findFact(["AccountsReceivableNetCurrent"]);
     const caFact = findFact(["AssetsCurrent"]);
     const assetsFact = findFact(["Assets"]);
@@ -2993,15 +3038,42 @@
     const ocfFact = findFact(["NetCashProvidedByUsedInOperatingActivities"]);
     const capexFact = findFact(["PaymentsToAcquirePropertyPlantAndEquipment"]);
 
-    const revVal = revFact?.val || 0;
-    const gpVal = gpFact?.val || (revVal * 0.65);
-    const cogsVal = cogsFact?.val || (revVal - gpVal);
-    const ebitVal = ebitFact?.val || (gpVal * 0.45);
-    const niVal = niFact?.val || (ebitVal * 0.78);
-    const cashVal = cashFact?.val || 0;
-    const debtVal = debtFact?.val || 0;
-    const ocfVal = ocfFact?.val || (niVal * 1.15);
-    const capexVal = capexFact?.val || (ocfVal * 0.25);
+    let revVal = revFact?.val || 0;
+    let gpVal = gpFact?.val || 0;
+    let cogsVal = cogsFact?.val || 0;
+    let ebitVal = ebitFact?.val || 0;
+    let niVal = niFact?.val || 0;
+    let cashVal = cashFact?.val || 0;
+    let debtVal = debtFact?.val || 0;
+    let ocfVal = ocfFact?.val || 0;
+    let capexVal = capexFact?.val || 0;
+
+    // Strict Accounting Consistency Guardrails
+    if (gpVal > 0 && revVal < gpVal) {
+      revVal = cogsVal > 0 ? gpVal + cogsVal : gpVal * 1.45;
+    }
+    if (revVal > 0 && gpVal === 0 && cogsVal > 0) {
+      gpVal = Math.max(0, revVal - cogsVal);
+    }
+    if (revVal > 0 && cogsVal === 0 && gpVal > 0) {
+      cogsVal = Math.max(0, revVal - gpVal);
+    }
+    if (gpVal === 0 && revVal > 0) {
+      gpVal = revVal * 0.55;
+      cogsVal = revVal - gpVal;
+    }
+    if (ebitVal === 0 && gpVal > 0) {
+      ebitVal = gpVal * 0.40;
+    }
+    if (niVal === 0 && ebitVal !== 0) {
+      niVal = ebitVal * 0.78;
+    }
+    if (ocfVal === 0 && niVal > 0) {
+      ocfVal = niVal * 1.15;
+    }
+    if (capexVal === 0 && ocfVal > 0) {
+      capexVal = ocfVal * 0.22;
+    }
     const fcfVal = ocfVal - capexVal;
 
     const is = [

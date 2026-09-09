@@ -230,7 +230,7 @@
           </div>
           <div class="universal-pills-row">
             <span class="universal-pills-label">Trending Issuers:</span>
-            <button type="button" class="ticker-btn is-active" data-val-ticker="NVDA">NVDA · NVIDIA</button>
+            <button type="button" class="ticker-btn" data-val-ticker="NVDA">NVDA · NVIDIA</button>
             <button type="button" class="ticker-btn" data-val-ticker="AAPL">AAPL · Apple</button>
             <button type="button" class="ticker-btn" data-val-ticker="MSFT">MSFT · Microsoft</button>
             <button type="button" class="ticker-btn" data-val-ticker="AMZN">AMZN · Amazon</button>
@@ -242,8 +242,34 @@
         </div>
       </section>
 
-      <!-- Company Workstation Hero Panel (Extension Parity) -->
-      <div class="company-hero-panel" id="companyHeroPanel">
+      <!-- Guided Empty State (Zero Default Company) -->
+      <div id="valEmptyState" class="val-empty-guided" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-xl); padding: 3.5rem 2rem; text-align: center; margin-top: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.02);">
+        <div style="width: 56px; height: 56px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 50%; margin: 0 auto 1.25rem auto; display: flex; align-items: center; justify-content: center; color: #0f766e;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.5rem;">Start with any company or SEC filing</h3>
+        <p style="color: var(--ink-muted); max-width: 620px; margin: 0 auto 2.25rem auto; font-size: 0.95rem; line-height: 1.6;">
+          Search any public ticker (e.g. <strong>AMD</strong>, <strong>AAPL</strong>, <strong>NVDA</strong>, <strong>MSFT</strong>), company name, or paste any official <strong>sec.gov</strong> filing link above to load the live institutional workstation.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; max-width: 860px; margin: 0 auto; text-align: left;">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-weight: 700; color: #0f766e; margin-bottom: 0.35rem; font-size: 0.85rem;">1. SEARCH OR PASTE URL</div>
+            <div style="color: var(--ink); font-size: 0.88rem; line-height: 1.5;">Search over 10,000 SEC filers or paste any direct EDGAR /ix?doc link.</div>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-weight: 700; color: #0f766e; margin-bottom: 0.35rem; font-size: 0.85rem;">2. AUDITED TIMELINE</div>
+            <div style="color: var(--ink); font-size: 0.88rem; line-height: 1.5;">Access verified 10-K, 10-Q, 8-K, and Form 4 insider transactions in one feed.</div>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-weight: 700; color: #0f766e; margin-bottom: 0.35rem; font-size: 0.85rem;">3. ONE-CLICK EXTRACTION &amp; DCF</div>
+            <div style="color: var(--ink); font-size: 0.88rem; line-height: 1.5;">Normalize 3 GAAP statements and recalculate interactive 5-year DCF valuation.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="valWorkstationContent" style="display: none;">
+        <!-- Company Workstation Hero Panel (Extension Parity) -->
+        <div class="company-hero-panel" id="companyHeroPanel">
         <h2 class="company-hero-title" id="heroCompName">NVIDIA CORP</h2>
         <p class="company-hero-sub" id="heroCompSub">
           <strong id="heroCompTicker">NVDA</strong> on <span id="heroCompExchange">Nasdaq</span>
@@ -429,6 +455,7 @@
           </table>
         </div>
       </div>
+      </div> <!-- End #valWorkstationContent -->
 
       <!-- Feature Grid -->
       <section style="margin-bottom: 5rem;">
@@ -1011,7 +1038,7 @@
         }
       };
 
-      let currentValTicker = "NVDA";
+      let currentValTicker = "";
       let currentStatementTab = "is";
       let toastTimer = null;
 
@@ -1201,6 +1228,7 @@
 
       function recalculateDCF() {
         const comp = VAL_COMPANIES[currentValTicker];
+        if (!comp) return;
         const wacc = parseFloat(document.getElementById("sliderWacc").value) / 100;
         const term = parseFloat(document.getElementById("sliderTerm").value) / 100;
         const growth = parseFloat(document.getElementById("sliderGrowth").value) / 100;
@@ -1255,6 +1283,7 @@
 
       function renderStatementTable() {
         const comp = VAL_COMPANIES[currentValTicker];
+        if (!comp) return;
         const rows = comp[currentStatementTab] || comp.is;
         const tbody = document.getElementById("statementTableBody");
         if (!tbody) return;
@@ -1271,6 +1300,12 @@
 
       async function loadCompany(query) {
         if (!query) return;
+
+        // Reveal workstation content and hide guided empty state
+        const valEmpty = document.getElementById("valEmptyState");
+        const valWorkstation = document.getElementById("valWorkstationContent");
+        if (valEmpty) valEmpty.style.display = "none";
+        if (valWorkstation) valWorkstation.style.display = "block";
 
         // 1. Check if user entered / pasted an SEC URL
         if (typeof query === "string" && (query.includes("sec.gov") || query.startsWith("http"))) {
@@ -1620,7 +1655,11 @@
       if (btnRefresh) {
         btnRefresh.addEventListener("click", () => {
           const comp = VAL_COMPANIES[currentValTicker];
-          showToast(`Refreshed SEC EDGAR filings for ${comp.fullName || comp.name}`);
+          if (comp) {
+            showToast(`Refreshed SEC EDGAR filings for ${comp.fullName || comp.name}`);
+          } else {
+            showToast("Search or select a company first to refresh filings.");
+          }
         });
       }
 
@@ -1629,6 +1668,10 @@
       let isWatched = false;
       if (btnWatchlist && watchlistText) {
         btnWatchlist.addEventListener("click", () => {
+          if (!currentValTicker) {
+            showToast("Search or select a company first to add to watchlist.");
+            return;
+          }
           isWatched = !isWatched;
           if (isWatched) {
             watchlistText.textContent = "On watchlist";
@@ -1659,6 +1702,10 @@
       // Export Excel
       document.getElementById("btnExportValExcel").addEventListener("click", () => {
         const comp = VAL_COMPANIES[currentValTicker];
+        if (!comp) {
+          showToast("Search or select a company first to export DCF model.");
+          return;
+        }
         let csv = `CALIO Valuation & Financial Model: ${comp.fullName || comp.name} (${comp.ticker})\n\n`;
         csv += `Intrinsic Value Per Share,$${document.getElementById("dispFairValue").textContent.replace('$', '')}\n`;
         csv += `Current Market Price,$${comp.currentPrice}\n`;
@@ -1690,9 +1737,6 @@
       if (btnCloseNav && mobileDrawer) {
         btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
       }
-
-      // Initial load
-      loadCompany("NVDA");
     </script>
   
     <!-- Chrome Extension Overview Pop-up Modal -->
