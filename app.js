@@ -753,40 +753,76 @@
 
   function updatePlanAndUsageDisplay(usage = {}, settings = {}) {
     const micro = document.getElementById("usageMicro");
+    const planTierName = document.getElementById("sidebarPlanTierName");
     const planBadge = document.getElementById("sidebarPlanBadge");
+    const planBadgeText = document.getElementById("sidebarPlanBadgeText");
     const upgradeBtn = document.getElementById("sidebarUpgradeBtn");
+    const upgradeBtnText = document.getElementById("sidebarUpgradeBtnText");
+    const meterCount = document.getElementById("usageMeterCount");
+    const progressBar = document.getElementById("usageProgressBar");
+
     const plan = settings?.plan || usage?.plan || usage?.tierId || "free";
     const count = Number(usage?.count) || 0;
     const limit = Number(usage?.monthlyExtractLimit || usage?.freeLimit) || 80;
     const hourCount = Number(usage?.hourCount) || 0;
     const hourLimit = Number(usage?.hourlyExtractLimit) || 25;
 
+    if (meterCount) {
+      if (plan === "institutional" || plan === "pro") {
+        meterCount.textContent = `${count} (Unlimited)`;
+      } else {
+        meterCount.textContent = `${count} / ${limit}`;
+      }
+    }
+
+    if (progressBar) {
+      if (plan === "institutional" || plan === "pro") {
+        progressBar.style.width = "100%";
+      } else {
+        const pct = Math.min(100, Math.round((count / Math.max(1, limit)) * 100));
+        progressBar.style.width = `${pct}%`;
+      }
+    }
+
     if (micro) {
-      micro.textContent = `Extracts this month: ${count} / ${limit} · Hour: ${hourCount}/${hourLimit}`;
+      micro.textContent = `Hourly: ${hourCount} / ${hourLimit} limit`;
+    }
+
+    if (planTierName) {
+      if (plan === "institutional") {
+        planTierName.textContent = "Institutional Desk";
+      } else if (plan === "pro") {
+        planTierName.textContent = "Pro Analyst";
+      } else {
+        planTierName.textContent = "Community Starter";
+      }
     }
 
     if (planBadge) {
       if (plan === "institutional") {
-        planBadge.textContent = "Institutional Desk";
-        planBadge.className = "badge live";
+        planBadge.className = "plan-tier-badge inst";
+        if (planBadgeText) planBadgeText.textContent = "Institutional";
       } else if (plan === "pro") {
-        planBadge.textContent = "Pro Analyst";
-        planBadge.className = "badge accent";
+        planBadge.className = "plan-tier-badge pro";
+        if (planBadgeText) planBadgeText.textContent = "Pro";
       } else {
-        planBadge.textContent = "Free Starter";
-        planBadge.className = "badge muted";
+        planBadge.className = "plan-tier-badge free";
+        if (planBadgeText) planBadgeText.textContent = "Free";
       }
     }
 
     if (upgradeBtn) {
       if (plan === "institutional") {
-        upgradeBtn.textContent = "Institutional Active";
+        if (upgradeBtnText) upgradeBtnText.textContent = "Institutional Active";
+        else upgradeBtn.textContent = "Institutional Active";
         upgradeBtn.style.opacity = "0.75";
       } else if (plan === "pro") {
-        upgradeBtn.textContent = "Upgrade to Institutional ($55/mo)";
+        if (upgradeBtnText) upgradeBtnText.textContent = "Upgrade to Institutional";
+        else upgradeBtn.textContent = "Upgrade to Institutional";
         upgradeBtn.style.opacity = "1";
       } else {
-        upgradeBtn.textContent = "Upgrade to Pro ($35/mo)";
+        if (upgradeBtnText) upgradeBtnText.textContent = "Upgrade to Pro";
+        else upgradeBtn.textContent = "Upgrade to Pro";
         upgradeBtn.style.opacity = "1";
       }
     }

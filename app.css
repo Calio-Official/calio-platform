@@ -165,31 +165,31 @@ body {
   margin-top: auto;
 }
 
-/* Identical sibling actions — same width & height */
+/* Identical sibling actions — sleek 2-column grid */
 .sidebar-actions {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .sidebar-btn {
   appearance: none;
   box-sizing: border-box;
   width: 100%;
-  height: 42px;
-  min-height: 42px;
-  max-height: 42px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
   margin: 0;
-  padding: 0 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
   font-family: inherit;
-  font-size: 12.5px;
-  font-weight: 650;
+  font-size: 11.5px;
+  font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1;
   text-align: center;
@@ -197,16 +197,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: all 0.16s ease;
 }
 
 .sidebar-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
 .sidebar-btn:active {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .micro {
@@ -1593,51 +1594,181 @@ table.filings .row-actions {
   color: var(--ink);
 }
 
-/* Sidebar Plan Card & Upgrade Button */
+/* Sidebar Plan Card & Upgrade Button — Institutional Terminal Aesthetic */
 .sidebar-plan-box {
   margin: 8px 0 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(15, 118, 110, 0.08);
-  border: 1px solid rgba(15, 118, 110, 0.22);
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.32) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 16px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .sidebar-plan-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.sidebar-plan-label {
-  font-size: 11px;
+.plan-tier-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.plan-tier-label {
+  font-size: 9px;
   font-weight: 700;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--soft);
+  font-family: var(--mono);
+}
+
+.plan-tier-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.plan-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  font-family: var(--mono);
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.plan-tier-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+
+.plan-tier-badge.free {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.plan-tier-badge.pro {
+  background: rgba(13, 148, 136, 0.18);
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  color: #2dd4bf;
+}
+
+.plan-tier-badge.pro .plan-tier-dot {
+  background: #2dd4bf;
+  box-shadow: 0 0 6px rgba(45, 212, 191, 0.6);
+}
+
+.plan-tier-badge.inst {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  color: #34d399;
+}
+
+.plan-tier-badge.inst .plan-tier-dot {
+  background: #34d399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
+}
+
+.sidebar-usage-meter {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.usage-meter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.usage-meter-label {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.usage-meter-val {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.usage-progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.usage-progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #10b981, #14b8a6);
+  transition: width 0.3s ease;
+}
+
+.usage-meter-sub {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.42);
+  font-family: var(--mono);
 }
 
 .btn-upgrade-sidebar {
   width: 100%;
-  padding: 7px 10px;
-  font-size: 12px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 11.5px;
   font-weight: 700;
+  letter-spacing: -0.01em;
   border-radius: 8px;
-  border: none;
-  background: var(--accent);
-  color: #fff;
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.28) 0%, rgba(13, 148, 136, 0.38) 100%);
+  color: #e6fffa;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s ease;
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+  gap: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 10px rgba(13, 148, 136, 0.25);
 }
 
 .btn-upgrade-sidebar:hover {
-  background: #0d6860;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.48) 0%, rgba(13, 148, 136, 0.58) 100%);
+  border-color: rgba(94, 234, 212, 0.6);
+  color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(15, 118, 110, 0.35);
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.4);
+}
+
+.btn-upgrade-sidebar:active {
+  transform: translateY(0);
+}
+
+.upgrade-arrow-icon {
+  transition: transform 0.2s ease;
+}
+
+.btn-upgrade-sidebar:hover .upgrade-arrow-icon {
+  transform: translateX(2px);
 }
 
 /* Quota Modal Styles */
@@ -2367,8 +2498,8 @@ table.filings tr:hover td {
 
 .sidebar-seg-control {
   display: grid;
-  grid-template-columns: 1fr 1.2fr 1.3fr;
-  background: rgba(0, 0, 0, 0.38);
+  grid-template-columns: repeat(3, 1fr);
+  background: rgba(0, 0, 0, 0.4);
   padding: 4px;
   gap: 3px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -2378,16 +2509,15 @@ table.filings tr:hover td {
   appearance: none;
   border: none;
   background: transparent;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(255, 255, 255, 0.65);
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  padding: 7px 4px;
-  border-radius: 8px;
+  padding: 6px 2px;
+  border-radius: 7px;
   cursor: pointer;
   text-align: center;
   white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2398,10 +2528,10 @@ table.filings tr:hover td {
 }
 
 .seg-btn.is-active {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.16);
   color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 }
 
 .sidebar-drawer-body {

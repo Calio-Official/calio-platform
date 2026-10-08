@@ -47,15 +47,15 @@
         <!-- High-Efficiency Segmented Drawer -->
         <div class="sidebar-drawer-container">
           <div class="sidebar-seg-control" role="tablist">
-            <button type="button" class="seg-btn is-active" data-drawer-target="watchlist" role="tab" aria-selected="true">Watchlist</button>
-            <button type="button" class="seg-btn" data-drawer-target="searches" role="tab" aria-selected="false">Recent Searches</button>
-            <button type="button" class="seg-btn" data-drawer-target="extracts" role="tab" aria-selected="false">Extraction History</button>
+            <button type="button" class="seg-btn is-active" data-drawer-target="watchlist" role="tab" aria-selected="true" title="Watchlist">Watchlist</button>
+            <button type="button" class="seg-btn" data-drawer-target="searches" role="tab" aria-selected="false" title="Recent Searches">Recent</button>
+            <button type="button" class="seg-btn" data-drawer-target="extracts" role="tab" aria-selected="false" title="Extraction History">Extracts</button>
           </div>
 
           <div class="sidebar-drawer-body">
             <div id="drawerWatchlist" class="drawer-panel is-active">
               <div id="watchlistList">
-                <p class="history-empty">No companies watched.</p>
+                <p class="history-empty">No companies watched yet.</p>
               </div>
               <div id="alertsList" class="alerts-list" hidden></div>
             </div>
@@ -85,14 +85,34 @@
           </div>
           <div class="sidebar-plan-box" id="sidebarPlanBox">
             <div class="sidebar-plan-row">
-              <span class="sidebar-plan-label">Plan</span>
-              <span class="badge" id="sidebarPlanBadge">Free Starter</span>
+              <div class="plan-tier-info">
+                <span class="plan-tier-label">TERMINAL TIER</span>
+                <span class="plan-tier-name" id="sidebarPlanTierName">Community Starter</span>
+              </div>
+              <span class="plan-tier-badge free" id="sidebarPlanBadge">
+                <span class="plan-tier-dot"></span>
+                <span id="sidebarPlanBadgeText">Free</span>
+              </span>
             </div>
+
+            <div class="sidebar-usage-meter" id="sidebarUsageMeter">
+              <div class="usage-meter-header">
+                <span class="usage-meter-label">Monthly Quota</span>
+                <span class="usage-meter-val" id="usageMeterCount">0 / 80</span>
+              </div>
+              <div class="usage-progress-track">
+                <div class="usage-progress-bar" id="usageProgressBar" style="width: 0%;"></div>
+              </div>
+              <div class="usage-meter-sub" id="usageMicro">Hourly: 0 / 25 limit</div>
+            </div>
+
             <button type="button" class="btn-upgrade-sidebar" data-action="open-upgrade" id="sidebarUpgradeBtn">
-              Upgrade Account
+              <span id="sidebarUpgradeBtnText">Upgrade to Pro</span>
+              <svg class="upgrade-arrow-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
             </button>
           </div>
-          <p class="micro" id="usageMicro">Checking usage…</p>
           <p class="micro">
             On-Device SEC Engine • 100% Private
           </p>
