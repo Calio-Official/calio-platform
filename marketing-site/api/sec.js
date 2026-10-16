@@ -1,20 +1,40 @@
 // Vercel Serverless Function: SEC EDGAR Proxy
 // Allows web frontends to fetch live SEC submissions, company facts, tickers,
 // and arbitrary SEC filing documents (HTML/XML/JSON) with SEC Fair Access
-// compliant User-Agent headers and CORS headers.
+// compliant User-Agent headers and strictly scoped CORS security.
 
 const https = require("https");
 const zlib = require("zlib");
 
 const SEC_USER_AGENT = "CalioPlatform research@calio.io";
+const MAX_BODY_SIZE = 15 * 1024 * 1024; // 15MB payload safety limit
+const MAX_REDIRECTS = 3;
 
-function fetchSec(url) {
+function isSecHost(hostname) {
+  if (!hostname) return false;
+  const h = String(hostname).toLowerCase().trim();
+  return h === "sec.gov" || h === "data.sec.gov" || h.endsWith(".sec.gov");
+}
+
+function fetchSec(url, redirectCount = 0) {
   return new Promise((resolve, reject) => {
     let parsed;
     try {
       parsed = new URL(url);
     } catch (e) {
       return reject(new Error("Invalid target URL"));
+    }
+
+    if (parsed.protocol !== "https:") {
+      return reject(new Error("Only HTTPS protocol is permitted for SEC requests."));
+    }
+
+    if (!isSecHost(parsed.hostname)) {
+      return reject(new Error("Target host is not an authorized sec.gov domain."));
+    }
+
+    if (redirectCount > MAX_REDIRECTS) {
+      return reject(new Error("Too many redirects encountered."));
     }
 
     const options = {
@@ -29,12 +49,25 @@ function fetchSec(url) {
     };
 
     const req = https.request(options, (res) => {
-      // Handle redirects (e.g. 301/302)
+      // Handle redirects (e.g. 301/302) safely with domain and protocol re-validation
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        const redirectUrl = res.headers.location.startsWith("http")
-          ? res.headers.location
-          : `https://${parsed.hostname}${res.headers.location.startsWith("/") ? "" : "/"}${res.headers.location}`;
-        return resolve(fetchSec(redirectUrl));
+        let redirectTarget = res.headers.location;
+        if (!redirectTarget.startsWith("http://") && !redirectTarget.startsWith("https://")) {
+          redirectTarget = `https://${parsed.hostname}${redirectTarget.startsWith("/") ? "" : "/"}${redirectTarget}`;
+        }
+        
+        let parsedRedirect;
+        try {
+          parsedRedirect = new URL(redirectTarget);
+        } catch {
+          return reject(new Error("Invalid redirect URL encountered"));
+        }
+
+        if (parsedRedirect.protocol !== "https:" || !isSecHost(parsedRedirect.hostname)) {
+          return reject(new Error("Redirect to non-SEC host was blocked for security."));
+        }
+
+        return resolve(fetchSec(parsedRedirect.href, redirectCount + 1));
       }
 
       let stream = res;
@@ -48,9 +81,18 @@ function fetchSec(url) {
       }
 
       let data = "";
+      let totalBytes = 0;
+
       stream.on("data", (chunk) => {
+        totalBytes += chunk.length;
+        if (totalBytes > MAX_BODY_SIZE) {
+          req.destroy();
+          stream.destroy();
+          return reject(new Error("Response size exceeded maximum allowed limit (15MB)."));
+        }
         data += chunk;
       });
+
       stream.on("end", () => {
         resolve({
           statusCode: res.statusCode,
@@ -74,9 +116,25 @@ function fetchSec(url) {
 }
 
 module.exports = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  const origin = req.headers.origin;
+  const isAllowedOrigin = !origin || 
+    origin === "https://calio-pink.vercel.app" ||
+    origin.endsWith(".vercel.app") ||
+    origin.startsWith("chrome-extension://") ||
+    origin.startsWith("http://localhost") ||
+    origin.startsWith("http://127.0.0.1");
+
+  if (isAllowedOrigin && origin) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else if (!origin) {
+    res.setHeader("Access-Control-Allow-Origin", "https://calio-pink.vercel.app");
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", "null");
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, User-Agent");
+  res.setHeader("X-Content-Type-Options", "nosniff");
 
   if (req.method === "OPTIONS") {
     res.statusCode = 204;
@@ -98,8 +156,14 @@ module.exports = async (req, res) => {
         return res.end(JSON.stringify({ ok: false, error: "Invalid URL provided." }));
       }
 
+      if (parsedTarget.protocol !== "https:") {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        return res.end(JSON.stringify({ ok: false, error: "Only HTTPS requests are supported." }));
+      }
+
       const host = parsedTarget.hostname.toLowerCase();
-      if (host !== "sec.gov" && !host.endsWith(".sec.gov")) {
+      if (!isSecHost(host)) {
         res.statusCode = 403;
         res.setHeader("Content-Type", "application/json");
         return res.end(JSON.stringify({ ok: false, error: "Only sec.gov domains are permitted." }));
