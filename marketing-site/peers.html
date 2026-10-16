@@ -39,13 +39,13 @@
         </a>
 
         <div class="nav-links">
-          <!-- Products & Solutions Dropdown (Apple/Wix style) -->
+          <!-- Products & Solutions Dropdown -->
           <div class="nav-item-wrap">
             <button type="button" class="nav-item" aria-expanded="false">
               <span>Products &amp; Solutions</span>
               <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
-                        <div class="nav-dropdown">
+            <div class="nav-dropdown">
               <div class="nav-dropdown-group">
                 <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
                 <a class="nav-dropdown-link" href="valuation.html">
@@ -141,32 +141,180 @@
             </div>
           </div>
 
-          <a class="nav-item" href="pricing.html">Pricing</a>
-
-          <!-- Guides Dropdown -->
+          <!-- Financial Models Dropdown -->
           <div class="nav-item-wrap">
             <button type="button" class="nav-item" aria-expanded="false">
-              <span>Guides &amp; Data</span>
+              <span>Financial Models</span>
               <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
-            <div class="nav-dropdown" style="min-width: 320px; grid-template-columns: 1fr;">
+            <div class="nav-dropdown" style="min-width: 660px; grid-template-columns: 1fr 1fr;">
               <div class="nav-dropdown-group">
-                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                <div class="nav-dropdown-title">Valuation &amp; Operating Templates</div>
+                <a class="nav-dropdown-link" href="templates/dcf-model-template-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  </div>
                   <div class="nav-dropdown-text">
-                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
-                    <span class="nav-dropdown-desc">Automated workbook generation</span>
+                    <span class="nav-dropdown-heading">Discounted Cash Flow (DCF)</span>
+                    <span class="nav-dropdown-desc">5-year unlevered FCF &amp; WACC sensitivity (.xlsx)</span>
                   </div>
                 </a>
-                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                <a class="nav-dropdown-link" href="templates/3-statement-financial-model-template.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                  </div>
                   <div class="nav-dropdown-text">
-                    <span class="nav-dropdown-heading">BamSEC Free Alternative</span>
-                    <span class="nav-dropdown-desc">Feature &amp; speed comparison</span>
+                    <span class="nav-dropdown-heading">Three-Statement Operating Model</span>
+                    <span class="nav-dropdown-desc">Linked IS, BS &amp; CFS with debt schedules (.xlsx)</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="templates/comparable-company-analysis-template.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Trading Comps Valuation Model</span>
+                    <span class="nav-dropdown-desc">Peer multiples, EV bridge &amp; comps matrix (.xlsx)</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="templates/ebitda-bridge-template-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">GAAP to EBITDA Bridge</span>
+                    <span class="nav-dropdown-desc">Operating income walk &amp; dilution adjustments (.xlsx)</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon" style="background: rgba(20, 184, 166, 0.15); color: #0d9488;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Live DCF Valuation Terminal</span>
+                    <span class="nav-dropdown-desc">Instant dynamic modeler for any SEC ticker</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Public Company 10-K Models</div>
+                <a class="nav-dropdown-link" href="stocks/nvda-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">NVIDIA (NVDA) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Data Center compute, margins &amp; FCF (.xlsx)</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/aapl-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06z"/><path d="M10 2c1 .5 2 2 2 3.5"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Apple (AAPL) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Services gross margins &amp; buybacks (.xlsx)</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/msft-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Microsoft (MSFT) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Intelligent Cloud &amp; Azure margins (.xlsx)</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/tsla-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Tesla (TSLA) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Auto margins ex-credits &amp; CapEx (.xlsx)</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/amzn-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Amazon (AMZN) 10-K Model</span>
+                    <span class="nav-dropdown-desc">AWS profitability &amp; fulfillment bridge (.xlsx)</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+
+          <!-- Blog & Guides Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Blog &amp; Guides</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 620px; grid-template-columns: 1fr 1fr;">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">SEC Filing Workflows &amp; Guides</div>
+                <a class="nav-dropdown-link" href="how-to-export-sec-filings-to-excel.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Export SEC Filings to Excel</span>
+                    <span class="nav-dropdown-desc">Step-by-step 10-K &amp; 10-Q workbook generation</span>
                   </div>
                 </a>
                 <a class="nav-dropdown-link" href="form-4-extractor.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
                   <div class="nav-dropdown-text">
                     <span class="nav-dropdown-heading">Form 4 Insider Trading Guide</span>
-                    <span class="nav-dropdown-desc">Table I &amp; Table II tracking</span>
+                    <span class="nav-dropdown-desc">How to track Table I &amp; Table II officer trades</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="redline.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Filing Redline &amp; Text Changes</span>
+                    <span class="nav-dropdown-desc">Word-level NLP disclosure delta detection</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Platform Analysis &amp; Benchmarks</div>
+                <a class="nav-dropdown-link" href="bamsec-alternative-free.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">BamSEC Free Alternative Guide</span>
+                    <span class="nav-dropdown-desc">Feature, speed &amp; pricing breakdown vs BamSEC</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Peer Benchmark Framework</span>
+                    <span class="nav-dropdown-desc">25 sector matrices, M-Score &amp; Z-Score forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Pay &amp; DEF 14A Guide</span>
+                    <span class="nav-dropdown-desc">Analyzing NEO compensation &amp; governance proxies</span>
                   </div>
                 </a>
               </div>
@@ -205,12 +353,26 @@
       <a class="mobile-nav-link" href="compare.html">Period Comparison &amp; Variance</a>
       <a class="mobile-nav-link" href="redline.html">Filing Text Disclosure Changes</a>
       <a class="mobile-nav-link" href="index.html#terminal">Interactive Terminal Sandbox</a>
+
+      <div class="mobile-nav-group-title">Financial Models (.xlsx)</div>
+      <a class="mobile-nav-link" href="templates/dcf-model-template-excel.html">Discounted Cash Flow (DCF) Model</a>
+      <a class="mobile-nav-link" href="templates/3-statement-financial-model-template.html">Three-Statement Operating Model</a>
+      <a class="mobile-nav-link" href="templates/comparable-company-analysis-template.html">Trading Comps Valuation Model</a>
+      <a class="mobile-nav-link" href="templates/ebitda-bridge-template-excel.html">GAAP to EBITDA Reconciliation</a>
+      <a class="mobile-nav-link" href="stocks/nvda-10k-financial-model-excel.html">NVIDIA (NVDA) 10-K Model</a>
+      <a class="mobile-nav-link" href="stocks/aapl-10k-financial-model-excel.html">Apple (AAPL) 10-K Model</a>
+      <a class="mobile-nav-link" href="stocks/msft-10k-financial-model-excel.html">Microsoft (MSFT) 10-K Model</a>
+      <a class="mobile-nav-link" href="stocks/tsla-10k-financial-model-excel.html">Tesla (TSLA) 10-K Model</a>
+      <a class="mobile-nav-link" href="stocks/amzn-10k-financial-model-excel.html">Amazon (AMZN) 10-K Model</a>
+
+      <div class="mobile-nav-group-title">Blog &amp; Guides</div>
+      <a class="mobile-nav-link" href="how-to-export-sec-filings-to-excel.html">Export SEC Filings to Excel</a>
+      <a class="mobile-nav-link" href="form-4-extractor.html">Form 4 Insider Trading Guide</a>
+      <a class="mobile-nav-link" href="bamsec-alternative-free.html">BamSEC Free Alternative Guide</a>
+
       <div class="mobile-nav-group-title">Platform</div>
       <a class="mobile-nav-link" href="pricing.html">Plans &amp; Pricing</a>
       <a class="mobile-nav-link" href="about.html">About &amp; Architecture</a>
-      <a class="mobile-nav-link" href="how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a>
-      <a class="mobile-nav-link" href="bamsec-alternative-free.html">Free BamSEC Alternative</a>
-      <a class="mobile-nav-link" href="form-4-extractor.html">Form 4 Insider Extractor</a>
       <div style="margin-top: 1rem;">
         <a class="btn-pill btn-pill-primary" style="width: 100%;" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Add to Chrome — Free</a>
       </div>
