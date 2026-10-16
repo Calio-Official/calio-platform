@@ -1,6 +1,6 @@
-// CALIO SEC EDGAR Engine (Zero Hardcoded Parity Edition)
+// CALIO SEC EDGAR Financial Analysis Engine
 // Live SEC XBRL normalization, company resolution, autocomplete, and DCF math
-// Directly mirrors functionality from CALIO Chrome Extension background.js & content.js
+// Mirrors core institutional modeling logic from CALIO Extension
 
 (function(window) {
   "use strict";
@@ -659,7 +659,7 @@
     return abs.toLocaleString() + " shares";
   }
 
-  // 7. Full US-GAAP Extraction & Audit Trail Generator (Zero Mock Numbers)
+  // 7. Full US-GAAP Extraction & Audit Trail Generator
   SecEngine.extractFinancialLineItems = function(factsData, options = {}) {
     const usGaap = factsData?.facts?.["us-gaap"] || {};
     const { form, periodEnd, accn, ticker, cik, documentUrl } = options;

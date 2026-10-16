@@ -1,6 +1,6 @@
 /**
  * CALIO Web Terminal — Client-Side Financial & Valuation Engine
- * 100% In-Browser · Zero Data Storage · SEC EDGAR Data
+ * Direct SEC EDGAR Data · Client-Side Local Execution
  */
 (() => {
   // High-signal pre-computed universe from verified SEC 10-K & 10-Q filings
