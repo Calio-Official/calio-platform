@@ -135,6 +135,7 @@ module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, User-Agent");
   res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Vary", "Origin");
 
   if (req.method === "OPTIONS") {
     res.statusCode = 204;
