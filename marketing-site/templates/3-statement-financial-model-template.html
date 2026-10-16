@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3-Statement Financial Model Template Excel (.xlsx) — Integrated Model | CALIO</title>
+    <meta
+      name="description"
+      content="Download an integrated 3-statement financial model template in Excel (.xlsx). Dynamic linking across Income Statement, Balance Sheet, and Cash Flow Statement with circular debt logic."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio-pink.vercel.app/templates/3-statement-financial-model-template.html" />
+    <link rel="icon" href="../assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/site.css" />
+    <script src="../js/sec-engine.js"></script>
+
+    <!-- Schema.org Dataset & Technical Article -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Integrated 3-Statement Financial Model Template in Excel (.xlsx)",
+      "description": "Institutional corporate finance guide and downloadable 3-statement model template dynamically integrating the Income Statement, Balance Sheet, and Cash Flow Statement.",
+      "author": {
+        "@type": "Organization",
+        "name": "CALIO Research"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "CALIO Technologies",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+        }
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="../index.html">
+          <img src="../assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="../valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="../peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="../pricing.html">Pricing</a>
+          <a class="nav-item" href="../about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="../valuation.html">
+            Open Terminal
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding: clamp(2.5rem, 5vw, 4.5rem) 0 5rem 0;">
+      <article style="max-width: 860px; margin: 0 auto;">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted);">
+          <a href="../index.html" style="color: var(--soft); text-decoration: none;">Home</a>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--ink);">Templates</span>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--teal-bright); font-weight: 600;">3-Statement Financial Model Template</span>
+        </nav>
+
+        <div class="section-tag">Integrated Financial Model</div>
+        
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
+          Integrated 3-Statement Financial Model Template in Excel (.xlsx)
+        </h1>
+        
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
+          The foundation of institutional corporate valuation and credit analysis. This integrated 3-statement template models historical financial performance and projects future periods across the Income Statement, Balance Sheet, and Cash Flow Statement with zero circular reference breakages.
+        </p>
+
+        <!-- Download & Automation Action Card -->
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #f7faf9 100%); border: 1.5px solid #bbf7d0; border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 3px 10px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                Free Download &bull; XLSX Format
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
+                Download Integrated 3-Statement Excel Model
+              </h3>
+              <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
+                Includes dynamic formula tabs for Income Statement, Balance Sheet, and Cash Flow Statement
+              </p>
+            </div>
+            <button type="button" id="btnDownload3StmtXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
+              Download .XLSX Model
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid rgba(22, 101, 52, 0.15); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; font-size: 0.88rem; color: #1e3a34;">
+            <span><strong>Automate Data Entry:</strong> Extract audited SEC 10-K multi-period statements directly into this structure:</span>
+            <a href="../valuation.html" style="color: #0f766e; font-weight: 700; text-decoration: underline;">Open CALIO Extraction Engine &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Section: Linking Architecture -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          1. The 3 Core Connection Mechanisms
+        </h2>
+        
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          In an integrated financial model, changes in operational drivers propagate across all three statements simultaneously. The workbook enforces the three fundamental accounting bridges:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; margin: 1.5rem 0 2.5rem 0;">
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+            <div style="font-weight: 700; color: #0f766e; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Link 1: Net Income</div>
+            <h4 style="font-size: 1.1rem; color: var(--ink-heading); margin-bottom: 0.5rem;">P&amp;L &rarr; Cash Flow &rarr; Equity</h4>
+            <p style="color: var(--soft); font-size: 0.92rem; line-height: 1.6; margin: 0;">
+              Net Income from the bottom of the Income Statement serves as the top row of Cash Flow from Operations (CFO), and flows into Retained Earnings on the Balance Sheet.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+            <div style="font-weight: 700; color: #0f766e; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Link 2: Depreciation &amp; CapEx</div>
+            <h4 style="font-size: 1.1rem; color: var(--ink-heading); margin-bottom: 0.5rem;">PP&amp;E Roll-Forward Schedule</h4>
+            <p style="color: var(--soft); font-size: 0.92rem; line-height: 1.6; margin: 0;">
+              CapEx increases Property, Plant &amp; Equipment (PP&amp;E) under Cash Flow from Investing (CFI), while D&amp;A reduces PP&amp;E and is added back to CFO as a non-cash expense.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+            <div style="font-weight: 700; color: #0f766e; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Link 3: Ending Cash</div>
+            <h4 style="font-size: 1.1rem; color: var(--ink-heading); margin-bottom: 0.5rem;">Cash Balance Reconciler</h4>
+            <p style="color: var(--soft); font-size: 0.92rem; line-height: 1.6; margin: 0;">
+              Net change in cash from operating, investing, and financing activities reconciles into Cash &amp; Cash Equivalents at the top of the Balance Sheet, ensuring Assets = Liabilities + Equity.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section: Visual Statement Architecture -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          2. Workbook Structure &amp; Sheet Hierarchy
+        </h2>
+        
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          To prevent messy cross-sheet formulas, the model follows an institutional tab layout:
+        </p>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Tab Name</th>
+                <th>Core Function</th>
+                <th>Primary Accounting Formulas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Income Statement</strong></td>
+                <td>P&amp;L revenue, gross margin, operating expenses, tax, net income</td>
+                <td style="font-family: monospace;">Gross Profit = Revenue - COGS; EBIT = Gross Profit - OpEx</td>
+              </tr>
+              <tr>
+                <td><strong>2. Balance Sheet</strong></td>
+                <td>Assets, liabilities, shareholder equity balance verification</td>
+                <td style="font-family: monospace;">Total Assets = Total Liabilities + Total Equity</td>
+              </tr>
+              <tr>
+                <td><strong>3. Cash Flow</strong></td>
+                <td>CFO (operating), CFI (investing), CFF (financing) cash flows</td>
+                <td style="font-family: monospace;">Ending Cash = Beginning Cash + CFO + CFI + CFF</td>
+              </tr>
+              <tr>
+                <td><strong>4. Debt &amp; Interest</strong></td>
+                <td>Maturity schedules, revolving credit line, interest expense</td>
+                <td style="font-family: monospace;">Interest Expense = Average Debt &times; Effective Interest Rate</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section: How to Automate with CALIO -->
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">
+            Automate Multi-Period 10-K Statements
+          </h3>
+          <p style="color: var(--soft); max-width: 580px; margin: 0 auto 1.75rem auto; font-size: 1.05rem; line-height: 1.6;">
+            Instead of manually re-typing audited SEC filings, CALIO parses live US-GAAP XBRL data into this exact 3-statement structure with pre-linked formulas in 1 click.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a class="btn-pill btn-pill-primary" href="../valuation.html" style="padding: 0.75rem 2rem;">
+              Launch Live Terminal Sandbox
+            </a>
+            <a class="btn-pill btn-pill-secondary" href="dcf-model-template-excel.html" style="padding: 0.75rem 2rem;">
+              View DCF Model Template
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="../assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Templates &amp; Models</h5>
+            <ul>
+              <li><a href="dcf-model-template-excel.html">DCF Model Template (.xlsx)</a></li>
+              <li><a href="3-statement-financial-model-template.html">3-Statement Model (.xlsx)</a></li>
+              <li><a href="comparable-company-analysis-template.html">Comps Analysis Model (.xlsx)</a></li>
+              <li><a href="ebitda-bridge-template-excel.html">EBITDA Bridge Template (.xlsx)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Research Modules</h5>
+            <ul>
+              <li><a href="../valuation.html">Financial Extraction &amp; DCF</a></li>
+              <li><a href="../peers.html">Industry Peer Benchmark</a></li>
+              <li><a href="../governance.html">Executive Compensation (DEF 14A)</a></li>
+              <li><a href="../how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="../privacy.html">Privacy Policy</a></li>
+              <li><a href="../support.html">Contact Support</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Direct SEC EDGAR Integration &bull; Institutional Financial Modeling</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Client-side OpenXML XLSX Generator for 3-Statement Model Template
+      document.getElementById("btnDownload3StmtXlsx").addEventListener("click", function() {
+        const stmtExtract = {
+          companyName: "Integrated 3-Statement Financial Model",
+          ticker: "3STMT",
+          filingType: "Template",
+          filingDate: "2026",
+          periodEnd: "FY2026",
+          cik: "0000000000",
+          statements: {
+            annual: {
+              periods: [
+                { label: "FY2023A", end: "2023-12-31" },
+                { label: "FY2024A", end: "2024-12-31" },
+                { label: "FY2025A", end: "2025-12-31" },
+                { label: "FY2026E", end: "2026-12-31" }
+              ],
+              incomeStatement: [
+                { label: "Total Revenue", tag: "RevenueFromContractWithCustomerExcludingAssessedTax", values: [120000000, 145000000, 172000000, 202000000] },
+                { label: "Cost of Goods Sold (COGS)", tag: "CostOfGoodsAndServicesSold", values: [50000000, 59000000, 68000000, 78000000] },
+                { label: "Gross Profit", tag: "GrossProfit", values: [70000000, 86000000, 104000000, 124000000] },
+                { label: "Research & Development (R&D)", tag: "ResearchAndDevelopmentExpense", values: [15000000, 18000000, 22000000, 26000000] },
+                { label: "Selling, General & Administrative (SG&A)", tag: "SellingGeneralAndAdministrativeExpense", values: [20000000, 24000000, 28000000, 32000000] },
+                { label: "Operating Income (EBIT)", tag: "OperatingIncomeLoss", values: [35000000, 44000000, 54000000, 66000000] },
+                { label: "Interest Expense, Net", tag: "InterestExpense", values: [3000000, 2800000, 2500000, 2200000] },
+                { label: "Income Before Income Taxes (EBT)", tag: "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments", values: [32000000, 41200000, 51500000, 63800000] },
+                { label: "Provision for Income Taxes", tag: "IncomeTaxExpenseBenefit", values: [6720000, 8652000, 10815000, 13398000] },
+                { label: "Net Income", tag: "NetIncomeLoss", values: [25280000, 32548000, 40685000, 50402000] }
+              ],
+              balanceSheet: [
+                { label: "Cash & Cash Equivalents", tag: "CashAndCashEquivalentsAtCarryingValue", values: [30000000, 42000000, 58000000, 78000000] },
+                { label: "Accounts Receivable", tag: "AccountsReceivableNetCurrent", values: [18000000, 21000000, 24500000, 28500000] },
+                { label: "Inventories", tag: "InventoryNet", values: [12000000, 14000000, 16000000, 18500000] },
+                { label: "Total Current Assets", tag: "AssetsCurrent", values: [60000000, 77000000, 98500000, 125000000] },
+                { label: "Property, Plant & Equipment, Net", tag: "PropertyPlantAndEquipmentNet", values: [55000000, 62000000, 70000000, 79000000] },
+                { label: "Total Assets", tag: "Assets", values: [115000000, 139000000, 168500000, 204000000] },
+                { label: "Accounts Payable", tag: "AccountsPayableCurrent", values: [14000000, 16500000, 19500000, 23000000] },
+                { label: "Current Debt Obligations", tag: "DebtCurrent", values: [5000000, 5000000, 5000000, 5000000] },
+                { label: "Long-Term Debt", tag: "LongTermDebtNoncurrent", values: [35000000, 30000000, 25000000, 20000000] },
+                { label: "Total Liabilities", tag: "Liabilities", values: [54000000, 51500000, 49500000, 48000000] },
+                { label: "Stockholders' Equity", tag: "StockholdersEquity", values: [61000000, 87500000, 119000000, 156000000] }
+              ],
+              cashFlow: [
+                { label: "Net Income", tag: "NetIncomeLoss", values: [25280000, 32548000, 40685000, 50402000] },
+                { label: "Depreciation & Amortization Addback", tag: "DepreciationDepletionAndAmortization", values: [6000000, 7000000, 8000000, 9000000] },
+                { label: "Change in Accounts Receivable", tag: "IncreaseDecreaseInAccountsReceivable", values: [-2500000, -3000000, -3500000, -4000000] },
+                { label: "Change in Accounts Payable", tag: "IncreaseDecreaseInAccountsPayable", values: [2000000, 2500000, 3000000, 3500000] },
+                { label: "Net Cash from Operating Activities (CFO)", tag: "NetCashProvidedByUsedInOperatingActivities", values: [30780000, 39048000, 48185000, 58902000] },
+                { label: "Capital Expenditures (CapEx)", tag: "PaymentsToAcquirePropertyPlantAndEquipment", values: [-13000000, -14000000, -16000000, -18000000] },
+                { label: "Net Cash from Investing Activities (CFI)", tag: "NetCashProvidedByUsedInInvestingActivities", values: [-13000000, -14000000, -16000000, -18000000] },
+                { label: "Repayment of Long-Term Debt", tag: "RepaymentsOfLongTermDebt", values: [-5000000, -5000000, -5000000, -5000000] },
+                { label: "Net Cash from Financing Activities (CFF)", tag: "NetCashProvidedByUsedInFinancingActivities", values: [-5000000, -5000000, -5000000, -5000000] },
+                { label: "Net Change in Cash", tag: "CashAndCashEquivalentsPeriodIncreaseDecrease", values: [12780000, 20048000, 27185000, 35902000] }
+              ]
+            }
+          }
+        };
+
+        if (window.SecEngine && typeof window.SecEngine.exportToExcel === "function") {
+          window.SecEngine.exportToExcel(stmtExtract, "CALIO_Integrated_3_Statement_Model_Template.xlsx");
+        } else {
+          alert("SecEngine is initializing. Please try again in a moment.");
+        }
+      });
+    </script>
+  </body>
+</html>

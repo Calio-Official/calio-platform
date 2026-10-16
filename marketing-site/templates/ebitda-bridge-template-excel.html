@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EBITDA Bridge & Reconciliation Template Excel (.xlsx) — CALIO</title>
+    <meta
+      name="description"
+      content="Download an institutional EBITDA bridge and waterfall reconciliation template in Excel (.xlsx). Reconciles US-GAAP Operating Income (EBIT) to Adjusted EBITDA, SBC, and Free Cash Flow."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio-pink.vercel.app/templates/ebitda-bridge-template-excel.html" />
+    <link rel="icon" href="../assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/site.css" />
+    <script src="../js/sec-engine.js"></script>
+
+    <!-- Schema.org Dataset & Technical Article -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Institutional EBITDA Bridge and Reconciliation Template in Excel (.xlsx)",
+      "description": "Financial accounting methodology and downloadable spreadsheet reconciling reported GAAP operating income to Adjusted EBITDA, Stock-Based Compensation, and Free Cash Flow.",
+      "author": {
+        "@type": "Organization",
+        "name": "CALIO Research"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "CALIO Technologies",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+        }
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="../index.html">
+          <img src="../assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="../valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="../peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="../pricing.html">Pricing</a>
+          <a class="nav-item" href="../about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="../valuation.html">
+            Open Terminal
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding: clamp(2.5rem, 5vw, 4.5rem) 0 5rem 0;">
+      <article style="max-width: 860px; margin: 0 auto;">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted);">
+          <a href="../index.html" style="color: var(--soft); text-decoration: none;">Home</a>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--ink);">Templates</span>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--teal-bright); font-weight: 600;">EBITDA Bridge Template Excel</span>
+        </nav>
+
+        <div class="section-tag">Quality of Earnings Framework</div>
+        
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
+          Institutional EBITDA Bridge &amp; Waterfall Template in Excel (.xlsx)
+        </h1>
+        
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
+          A rigorous reconciliation framework bridging reported US-GAAP Operating Income (EBIT) to Standard EBITDA, Adjusted EBITDA, and Free Cash Flow. Isolates non-cash depreciation, stock-based compensation dilution, and working capital cash drags.
+        </p>
+
+        <!-- Download & Automation Action Card -->
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #f7faf9 100%); border: 1.5px solid #bbf7d0; border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 3px 10px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                Free Download &bull; XLSX Format
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
+                Download EBITDA Reconciliation Waterfall Spreadsheet
+              </h3>
+              <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
+                Pre-linked formulas reconciling EBIT to Adjusted EBITDA across multi-year historical periods
+              </p>
+            </div>
+            <button type="button" id="btnDownloadEbitdaXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
+              Download .XLSX Model
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid rgba(22, 101, 52, 0.15); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; font-size: 0.88rem; color: #1e3a34;">
+            <span><strong>Automated Quality of Earnings:</strong> Extract audited SBC and D&amp;A lines for any public company:</span>
+            <a href="../valuation.html" style="color: #0f766e; font-weight: 700; text-decoration: underline;">Open CALIO Extraction Engine &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Section: The EBITDA Reconciliation Walk -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          1. The Institutional EBITDA Reconciliation Walk
+        </h2>
+        
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          While companies frequently report customized non-GAAP EBITDA definitions, institutional analysts build standard reconciliation bridges to identify structural cash leakages:
+        </p>
+
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.7; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># The Quality of Earnings Walk:</div>
+          <div>Reported GAAP Operating Income (EBIT)</div>
+          <div>(+) Depreciation Expense (PP&amp;E physical asset wear)</div>
+          <div>(+) Amortization Expense (Acquired intangible write-offs)</div>
+          <div style="border-top: 1px dashed #166534; padding-top: 0.35rem; color: #6ee7b7;">= Standard EBITDA</div>
+          <div>(+) Stock-Based Compensation (Non-cash employee grant expense)</div>
+          <div>(&plusmn;) One-time Restructuring, Legal &amp; Acquisition Charges</div>
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 700;">
+            = Adjusted Institutional EBITDA
+          </div>
+        </div>
+
+        <!-- Section: The Stock-Based Compensation Dilemma -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          2. The Stock-Based Compensation (SBC) Trap
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          In corporate reporting, management teams routinely add back Stock-Based Compensation to non-GAAP metrics, claiming it is a "non-cash" item. However, in private equity and equity research:
+        </p>
+
+        <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.5rem;">
+          <li><strong>Dilution Cost</strong>: SBC dilutes existing shareholders by expanding share counts over time.</li>
+          <li><strong>Cash Outflow Disguise</strong>: If a firm buys back shares to offset dilution, the buyback is a real cash outflow recorded under financing activities (CFF), not operating cash flow.</li>
+          <li><strong>Real FCF Calculation</strong>: The template features a dedicated toggle calculating <em>Real FCF = Reported FCF &minus; Stock-Based Compensation</em>.</li>
+        </ul>
+
+        <!-- Section: How to Automate with CALIO -->
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">
+            Extract Official 10-K Footnotes in Seconds
+          </h3>
+          <p style="color: var(--soft); max-width: 580px; margin: 0 auto 1.75rem auto; font-size: 1.05rem; line-height: 1.6;">
+            CALIO inspects official US-GAAP taxonomy tags from audited SEC EDGAR filings to automatically construct the complete EBITDA bridge and contractual debt maturity schedules.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a class="btn-pill btn-pill-primary" href="../valuation.html" style="padding: 0.75rem 2rem;">
+              Launch Live Terminal Sandbox
+            </a>
+            <a class="btn-pill btn-pill-secondary" href="3-statement-financial-model-template.html" style="padding: 0.75rem 2rem;">
+              View 3-Statement Model
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="../assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Templates &amp; Models</h5>
+            <ul>
+              <li><a href="dcf-model-template-excel.html">DCF Model Template (.xlsx)</a></li>
+              <li><a href="3-statement-financial-model-template.html">3-Statement Model (.xlsx)</a></li>
+              <li><a href="comparable-company-analysis-template.html">Comps Analysis Model (.xlsx)</a></li>
+              <li><a href="ebitda-bridge-template-excel.html">EBITDA Bridge Template (.xlsx)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Research Modules</h5>
+            <ul>
+              <li><a href="../valuation.html">Financial Extraction &amp; DCF</a></li>
+              <li><a href="../peers.html">Industry Peer Benchmark</a></li>
+              <li><a href="../governance.html">Executive Compensation (DEF 14A)</a></li>
+              <li><a href="../how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="../privacy.html">Privacy Policy</a></li>
+              <li><a href="../support.html">Contact Support</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Direct SEC EDGAR Integration &bull; Institutional Financial Modeling</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Client-side OpenXML XLSX Generator for EBITDA Bridge Template
+      document.getElementById("btnDownloadEbitdaXlsx").addEventListener("click", function() {
+        const ebitdaExtract = {
+          companyName: "Institutional EBITDA Bridge Model",
+          ticker: "EBITDA",
+          filingType: "Template",
+          filingDate: "2026",
+          periodEnd: "FY2026",
+          cik: "0000000000",
+          statements: {
+            annual: {
+              periods: [
+                { label: "FY2023A", end: "2023-12-31" },
+                { label: "FY2024A", end: "2024-12-31" },
+                { label: "FY2025A", end: "2025-12-31" },
+                { label: "FY2026E", end: "2026-12-31" }
+              ],
+              incomeStatement: [
+                { label: "Reported Operating Income (EBIT)", tag: "OperatingIncomeLoss", values: [45000000, 58000000, 72000000, 88000000] },
+                { label: "(+) Depreciation Expense", tag: "Depreciation", values: [8000000, 9200000, 10500000, 11800000] },
+                { label: "(+) Amortization of Intangibles", tag: "AmortizationOfIntangibleAssets", values: [2500000, 2500000, 2300000, 2000000] },
+                { label: "Standard EBITDA", tag: "EBITDA", values: [55500000, 69700000, 84800000, 101800000] },
+                { label: "(+) Stock-Based Compensation (SBC)", tag: "ShareBasedCompensation", values: [6500000, 7800000, 9200000, 10500000] },
+                { label: "(+) Restructuring & One-Off Severance", tag: "RestructuringCharges", values: [1500000, 800000, 0, 0] },
+                { label: "Adjusted EBITDA", tag: "AdjustedEBITDA", values: [63500000, 78300000, 94000000, 112300000] },
+                { label: "(-) Capital Expenditures", tag: "PaymentsToAcquirePropertyPlantAndEquipment", values: [-12000000, -14000000, -16500000, -18500000] },
+                { label: "(-) Cash Taxes Paid", tag: "IncomeTaxesPaidNet", values: [-9000000, -11500000, -14500000, -17800000] },
+                { label: "Real Free Cash Flow (Post-SBC)", tag: "RealFreeCashFlow", values: [36000000, 45000000, 53800000, 65500000] }
+              ]
+            }
+          }
+        };
+
+        if (window.SecEngine && typeof window.SecEngine.exportToExcel === "function") {
+          window.SecEngine.exportToExcel(ebitdaExtract, "CALIO_EBITDA_Bridge_Waterfall_Template.xlsx");
+        } else {
+          alert("SecEngine is initializing. Please try again in a moment.");
+        }
+      });
+    </script>
+  </body>
+</html>

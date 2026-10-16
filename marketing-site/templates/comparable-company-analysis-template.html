@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comparable Company Analysis (Comps) Template Excel (.xlsx) — CALIO</title>
+    <meta
+      name="description"
+      content="Download an institutional Comparable Company Analysis (Trading Comps) model template in Excel (.xlsx). Includes EV/EBITDA, EV/Revenue, P/E multiple benchmarking, and median valuation bridges."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio-pink.vercel.app/templates/comparable-company-analysis-template.html" />
+    <link rel="icon" href="../assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/site.css" />
+    <script src="../js/sec-engine.js"></script>
+
+    <!-- Schema.org Dataset & Technical Article -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Institutional Comparable Company Analysis (Comps) Template in Excel (.xlsx)",
+      "description": "Investment banking valuation guide and downloadable trading comps spreadsheet modeling Enterprise Value to EBITDA, P/E, and sector benchmarking matrices.",
+      "author": {
+        "@type": "Organization",
+        "name": "CALIO Research"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "CALIO Technologies",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+        }
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="../index.html">
+          <img src="../assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="../valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="../peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="../pricing.html">Pricing</a>
+          <a class="nav-item" href="../about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="../peers.html">
+            Explore 25 Sectors
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding: clamp(2.5rem, 5vw, 4.5rem) 0 5rem 0;">
+      <article style="max-width: 860px; margin: 0 auto;">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted);">
+          <a href="../index.html" style="color: var(--soft); text-decoration: none;">Home</a>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--ink);">Templates</span>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--teal-bright); font-weight: 600;">Comparable Company Analysis Template</span>
+        </nav>
+
+        <div class="section-tag">Relative Valuation Model</div>
+        
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
+          Comparable Company Analysis (Comps) Template in Excel (.xlsx)
+        </h1>
+        
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
+          A relative valuation framework benchmarking public peer multiples across Enterprise Value (EV) and Equity Value metrics. Computes median and mean EV/Revenue, EV/EBITDA, P/E, and PEG ratios with capital structure normalization.
+        </p>
+
+        <!-- Download & Automation Action Card -->
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #f7faf9 100%); border: 1.5px solid #bbf7d0; border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 3px 10px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                Free Download &bull; XLSX Format
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
+                Download Public Comps Valuation Spreadsheet
+              </h3>
+              <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
+                Pre-formatted matrix with formulas for EV calculation, multiple benchmarking, and implied share pricing
+              </p>
+            </div>
+            <button type="button" id="btnDownloadCompsXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
+              Download .XLSX Model
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid rgba(22, 101, 52, 0.15); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; font-size: 0.88rem; color: #1e3a34;">
+            <span><strong>Live SEC XBRL Benchmark:</strong> View live peer multiples calculated across 25 institutional sectors:</span>
+            <a href="../peers.html" style="color: #0f766e; font-weight: 700; text-decoration: underline;">Launch CALIO Peer Matrix &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Section: EV Calculation Bridge -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          1. The Enterprise Value (EV) Bridge
+        </h2>
+        
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          To compare companies with disparate debt and cash positions, relative valuation uses <strong>Enterprise Value</strong> (the total value of core operating assets) rather than raw market capitalization:
+        </p>
+
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.7; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># Enterprise Value Equation:</div>
+          <div>Equity Value (Share Price &times; Diluted Shares Outstanding)</div>
+          <div>+ Total Debt (Short-Term Borrowings + Long-Term Debt)</div>
+          <div>+ Preferred Stock &amp; Non-Controlling (Minority) Interests</div>
+          <div>&minus; Cash &amp; Cash Equivalents</div>
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 700;">
+            = Enterprise Value (EV)
+          </div>
+        </div>
+
+        <!-- Section: Multiples Table Preview -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          2. Valuation Multiples &amp; Capital Structure Neutrality
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          When selecting valuation multiples, enterprise metrics must pair with operational denominators, while equity metrics pair with post-interest denominators:
+        </p>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Multiple</th>
+                <th>Denominator</th>
+                <th>Capital Structure Neutral?</th>
+                <th>Primary Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>EV / EBITDA</strong></td>
+                <td>Operating Cash Flow proxy</td>
+                <td style="color: #166534; font-weight: 700;">Yes</td>
+                <td>Standard M&amp;A and leveraged buyout (LBO) benchmark</td>
+              </tr>
+              <tr>
+                <td><strong>EV / Revenue</strong></td>
+                <td>Top-line sales</td>
+                <td style="color: #166534; font-weight: 700;">Yes</td>
+                <td>High-growth tech, SaaS, or early-stage unprofitable firms</td>
+              </tr>
+              <tr>
+                <td><strong>P / E</strong></td>
+                <td>Diluted Net Income</td>
+                <td style="color: #991b1b; font-weight: 700;">No (Impacted by Debt)</td>
+                <td>Mature, dividend-paying cash generators</td>
+              </tr>
+              <tr>
+                <td><strong>EV / Free Cash Flow</strong></td>
+                <td>Unlevered FCF</td>
+                <td style="color: #166534; font-weight: 700;">Yes</td>
+                <td>Capital-intensive businesses with varying D&amp;A schedules</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section: How to Automate with CALIO -->
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">
+            Instant Peer Benchmarks Across 25 Sectors
+          </h3>
+          <p style="color: var(--soft); max-width: 580px; margin: 0 auto 1.75rem auto; font-size: 1.05rem; line-height: 1.6;">
+            CALIO continuously computes US-GAAP XBRL multiples across semiconductors, enterprise software, banking, retail, and energy with zero manual data entry.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a class="btn-pill btn-pill-primary" href="../peers.html" style="padding: 0.75rem 2rem;">
+              View Live Sector Comps
+            </a>
+            <a class="btn-pill btn-pill-secondary" href="dcf-model-template-excel.html" style="padding: 0.75rem 2rem;">
+              View DCF Model Template
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="../assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Templates &amp; Models</h5>
+            <ul>
+              <li><a href="dcf-model-template-excel.html">DCF Model Template (.xlsx)</a></li>
+              <li><a href="3-statement-financial-model-template.html">3-Statement Model (.xlsx)</a></li>
+              <li><a href="comparable-company-analysis-template.html">Comps Analysis Model (.xlsx)</a></li>
+              <li><a href="ebitda-bridge-template-excel.html">EBITDA Bridge Template (.xlsx)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Research Modules</h5>
+            <ul>
+              <li><a href="../valuation.html">Financial Extraction &amp; DCF</a></li>
+              <li><a href="../peers.html">Industry Peer Benchmark</a></li>
+              <li><a href="../governance.html">Executive Compensation (DEF 14A)</a></li>
+              <li><a href="../how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="../privacy.html">Privacy Policy</a></li>
+              <li><a href="../support.html">Contact Support</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Direct SEC EDGAR Integration &bull; Institutional Financial Modeling</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Client-side OpenXML XLSX Generator for Comps Model Template
+      document.getElementById("btnDownloadCompsXlsx").addEventListener("click", function() {
+        const compsExtract = {
+          companyName: "Public Comparable Company Analysis",
+          ticker: "COMPS",
+          filingType: "Template",
+          filingDate: "2026",
+          periodEnd: "LTM",
+          cik: "0000000000",
+          statements: {
+            annual: {
+              periods: [
+                { label: "Company A", end: "Large Cap" },
+                { label: "Company B", end: "Mid Cap" },
+                { label: "Company C", end: "Growth" },
+                { label: "Median", end: "Benchmark" }
+              ],
+              incomeStatement: [
+                { label: "Share Price ($)", tag: "SharePrice", values: [185.50, 94.20, 240.00, 185.50] },
+                { label: "Diluted Shares (M)", tag: "SharesOutstanding", values: [15500, 3200, 1250, 3200] },
+                { label: "Equity Value ($M)", tag: "MarketCapitalization", values: [2875250, 301440, 300000, 301440] },
+                { label: "(+) Total Debt ($M)", tag: "TotalDebt", values: [110000, 24000, 12000, 24000] },
+                { label: "(-) Cash & Cash Equivalents ($M)", tag: "CashAndCashEquivalents", values: [65000, 18000, 9500, 18000] },
+                { label: "Enterprise Value (EV) ($M)", tag: "EnterpriseValue", values: [2920250, 307440, 302500, 307440] },
+                { label: "LTM Revenue ($M)", tag: "Revenue", values: [385000, 62000, 41000, 62000] },
+                { label: "LTM EBITDA ($M)", tag: "EBITDA", values: [128000, 17500, 11800, 17500] },
+                { label: "LTM Net Income ($M)", tag: "NetIncome", values: [98000, 12200, 7800, 12200] },
+                { label: "EV / Revenue Multiple (x)", tag: "MultipleEvRev", values: [7.58, 4.96, 7.38, 7.38] },
+                { label: "EV / EBITDA Multiple (x)", tag: "MultipleEvEbitda", values: [22.8, 17.6, 25.6, 22.8] },
+                { label: "Price / Earnings (P/E) Multiple (x)", tag: "MultiplePe", values: [29.3, 24.7, 38.5, 29.3] }
+              ]
+            }
+          }
+        };
+
+        if (window.SecEngine && typeof window.SecEngine.exportToExcel === "function") {
+          window.SecEngine.exportToExcel(compsExtract, "CALIO_Comparable_Company_Analysis_Template.xlsx");
+        } else {
+          alert("SecEngine is initializing. Please try again in a moment.");
+        }
+      });
+    </script>
+  </body>
+</html>

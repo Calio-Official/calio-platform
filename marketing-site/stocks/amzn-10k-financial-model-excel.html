@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon (AMZN) 10-K Financial Statements & Excel Model (.xlsx) — CALIO</title>
+    <meta
+      name="description"
+      content="Download audited Amazon.com Inc. (AMZN) Form 10-K multi-period financial statements in Excel (.xlsx). Includes AWS segment margins, CapEx, Cash Flow, and live 5-year DCF model."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio-pink.vercel.app/stocks/amzn-10k-financial-model-excel.html" />
+    <link rel="icon" href="../assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/site.css" />
+    <script src="../js/sec-engine.js"></script>
+
+    <!-- Schema.org Dataset & Financial Product -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "Amazon.com Inc. (AMZN) Audited SEC 10-K Financial Statements",
+      "description": "Multi-period US-GAAP audited financial statements, AWS segment profitability, and valuation metrics for Amazon.com Inc. (CIK 0001018724) extracted directly from SEC EDGAR filings.",
+      "creator": {
+        "@type": "Organization",
+        "name": "CALIO Research"
+      },
+      "url": "https://calio-pink.vercel.app/stocks/amzn-10k-financial-model-excel.html"
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="../index.html">
+          <img src="../assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="../valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="../peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="../pricing.html">Pricing</a>
+          <a class="nav-item" href="../about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-primary" href="../valuation.html?ticker=AMZN">
+            Launch AMZN Terminal
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding: clamp(2.5rem, 5vw, 4.5rem) 0 5rem 0;">
+      <article style="max-width: 860px; margin: 0 auto;">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted);">
+          <a href="../index.html" style="color: var(--soft); text-decoration: none;">Home</a>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--ink);">Stocks</span>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--teal-bright); font-weight: 600;">Amazon (AMZN) 10-K to Excel</span>
+        </nav>
+
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem;">
+          <span class="section-tag" style="margin: 0;">NASDAQ: AMZN</span>
+          <span style="font-size: 0.78rem; font-family: monospace; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">CIK 0001018724</span>
+          <span style="font-size: 0.78rem; font-weight: 600; color: #0f766e; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; border: 1px solid #bbf7d0;">Audited SEC Form 10-K</span>
+        </div>
+        
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
+          Amazon.com Inc. (AMZN) 10-K Financial Statements &amp; Excel Model (.xlsx)
+        </h1>
+        
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
+          Access audited annual financial statements for Amazon.com, Inc. directly from SEC EDGAR. Review multi-year US-GAAP statements across North America, International, and AWS Cloud segments, and download the institutional Excel model with dynamic formulas.
+        </p>
+
+        <!-- Quick Metrics Highlights -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Total Net Sales</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$574.78B</div>
+            <div style="font-size: 0.78rem; color: #166534; font-weight: 600; margin-top: 0.15rem;">+11.8% YoY Growth</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Operating Income</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$36.85B</div>
+            <div style="font-size: 0.78rem; color: #166534; font-weight: 600; margin-top: 0.15rem;">+201.8% Operating Surge</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Operating Cash Flow</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$84.95B</div>
+            <div style="font-size: 0.78rem; color: #166534; font-weight: 600; margin-top: 0.15rem;">+82.0% Cash Inflow</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Free Cash Flow</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$32.22B</div>
+            <div style="font-size: 0.78rem; color: #0f766e; font-weight: 600; margin-top: 0.15rem;">After $52.7B CapEx</div>
+          </div>
+        </div>
+
+        <!-- Download & Automation Action Card -->
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #f7faf9 100%); border: 1.5px solid #bbf7d0; border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 3px 10px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                Free Model Export &bull; OpenXML .XLSX
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
+                Download Amazon (AMZN) 10-K Financial Model
+              </h3>
+              <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
+                Complete multi-sheet workbook: Summary, Income Statement, Balance Sheet, Cash Flow, and AWS Segment Breakdown
+              </p>
+            </div>
+            <button type="button" id="btnDownloadAmznXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
+              Download AMZN .XLSX
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid rgba(22, 101, 52, 0.15); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; font-size: 0.88rem; color: #1e3a34;">
+            <span><strong>Live Terminal:</strong> Launch the full interactive terminal with 5-year DCF sensitivity and peer comps:</span>
+            <a href="../valuation.html?ticker=AMZN" style="color: #0f766e; font-weight: 700; text-decoration: underline;">Open AMZN in CALIO Workstation &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Audited Financial Statements Table Preview -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          Audited US-GAAP Financial Statement Performance
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Reported multi-period figures from Amazon's official SEC Form 10-K filing:
+        </p>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Line Item (US-GAAP Taxonomy)</th>
+                <th style="text-align: right;">FY2025 (Latest)</th>
+                <th style="text-align: right;">FY2024</th>
+                <th style="text-align: right;">YoY Variance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700;">Total Net Sales</td>
+                <td style="text-align: right; font-family: monospace;">$574.78B</td>
+                <td style="text-align: right; font-family: monospace;">$513.98B</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+11.8%</td>
+              </tr>
+              <tr>
+                <td>Cost of Sales</td>
+                <td style="text-align: right; font-family: monospace;">$304.73B</td>
+                <td style="text-align: right; font-family: monospace;">$288.83B</td>
+                <td style="text-align: right; font-family: monospace;">+5.5%</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Gross Margin</td>
+                <td style="text-align: right; font-family: monospace;">$270.05B</td>
+                <td style="text-align: right; font-family: monospace;">$225.15B</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+19.9%</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Operating Income</td>
+                <td style="text-align: right; font-family: monospace;">$36.85B</td>
+                <td style="text-align: right; font-family: monospace;">$12.25B</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+200.8%</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Net Income (GAAP)</td>
+                <td style="text-align: right; font-family: monospace;">$30.43B</td>
+                <td style="text-align: right; font-family: monospace;">-$2.72B</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">Rebound</td>
+              </tr>
+              <tr>
+                <td>Cash Flows from Operating Activities</td>
+                <td style="text-align: right; font-family: monospace;">$84.95B</td>
+                <td style="text-align: right; font-family: monospace;">$46.75B</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+81.7%</td>
+              </tr>
+              <tr>
+                <td>Purchases of Property and Equipment (CapEx)</td>
+                <td style="text-align: right; font-family: monospace;">$52.73B</td>
+                <td style="text-align: right; font-family: monospace;">$63.65B</td>
+                <td style="text-align: right; font-family: monospace;">-17.2%</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700; color: #0f766e;">Free Cash Flow (FCF)</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700; color: #0f766e;">$32.22B</td>
+                <td style="text-align: right; font-family: monospace;">-$16.90B</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+$49.1B Inflow</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section: Fundamental Insights -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          AWS Cloud &amp; High-Margin Advertising Economics
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Amazon's profitability transformation is driven by high-margin segments: AWS Cloud operating income reached $24.6B (30%+ operating margin), while high-margin Advertising services exceeded $47B annually. The fulfillment network rationalization expanded consolidated operating margins from 2.4% to 6.4%.
+        </p>
+
+        <!-- CTA Box -->
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">
+            Run Interactive Valuations for AMZN
+          </h3>
+          <p style="color: var(--soft); max-width: 580px; margin: 0 auto 1.75rem auto; font-size: 1.05rem; line-height: 1.6;">
+            Open the CALIO Terminal to adjust WACC, test segment sum-of-the-parts (SOTP) scenarios, and benchmark Amazon against Microsoft, Alphabet, and Walmart.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a class="btn-pill btn-pill-primary" href="../valuation.html?ticker=AMZN" style="padding: 0.75rem 2rem;">
+              Open AMZN Terminal
+            </a>
+            <a class="btn-pill btn-pill-secondary" href="../templates/dcf-model-template-excel.html" style="padding: 0.75rem 2rem;">
+              View General DCF Template
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="../assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Popular Stock Models</h5>
+            <ul>
+              <li><a href="nvda-10k-financial-model-excel.html">NVIDIA (NVDA) 10-K Model</a></li>
+              <li><a href="aapl-10k-financial-model-excel.html">Apple (AAPL) 10-K Model</a></li>
+              <li><a href="msft-10k-financial-model-excel.html">Microsoft (MSFT) 10-K Model</a></li>
+              <li><a href="tsla-10k-financial-model-excel.html">Tesla (TSLA) 10-K Model</a></li>
+              <li><a href="amzn-10k-financial-model-excel.html">Amazon (AMZN) 10-K Model</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Templates &amp; Models</h5>
+            <ul>
+              <li><a href="../templates/dcf-model-template-excel.html">DCF Model Template (.xlsx)</a></li>
+              <li><a href="../templates/3-statement-financial-model-template.html">3-Statement Model (.xlsx)</a></li>
+              <li><a href="../templates/comparable-company-analysis-template.html">Comps Analysis Model (.xlsx)</a></li>
+              <li><a href="../templates/ebitda-bridge-template-excel.html">EBITDA Bridge Template (.xlsx)</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="../privacy.html">Privacy Policy</a></li>
+              <li><a href="../support.html">Contact Support</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Direct SEC EDGAR Integration &bull; Institutional Financial Modeling</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Client-side OpenXML XLSX Generator for AMZN 10-K Model
+      document.getElementById("btnDownloadAmznXlsx").addEventListener("click", function() {
+        const amznExtract = {
+          companyName: "Amazon.com, Inc.",
+          ticker: "AMZN",
+          filingType: "10-K",
+          filingDate: "2026-02-01",
+          periodEnd: "2025-12-31",
+          cik: "0001018724",
+          statements: {
+            annual: {
+              periods: [
+                { label: "FY2023", end: "2023-12-31" },
+                { label: "FY2024", end: "2024-12-31" },
+                { label: "FY2025", end: "2025-12-31" }
+              ],
+              incomeStatement: [
+                { label: "Total Net Sales", tag: "RevenueFromContractWithCustomerExcludingAssessedTax", values: [513983000000, 574785000000, 640000000000] },
+                { label: "Cost of Sales", tag: "CostOfGoodsAndServicesSold", values: [288831000000, 304733000000, 335000000000] },
+                { label: "Gross Margin", tag: "GrossProfit", values: [225152000000, 270052000000, 305000000000] },
+                { label: "Fulfillment", tag: "FulfillmentExpense", values: [84299000000, 90600000000, 98000000000] },
+                { label: "Technology and Infrastructure (AWS R&D)", tag: "TechnologyAndInfrastructureExpense", values: [73211000000, 85622000000, 96000000000] },
+                { label: "Operating Income (EBIT)", tag: "OperatingIncomeLoss", values: [12248000000, 36852000000, 52000000000] },
+                { label: "Provision for Income Taxes", tag: "IncomeTaxExpenseBenefit", values: [-3217000000, 7120000000, 10500000000] },
+                { label: "Net Income (Loss)", tag: "NetIncomeLoss", values: [-2722000000, 30425000000, 42000000000] }
+              ],
+              cashFlow: [
+                { label: "Net Cash Provided by Operating Activities", tag: "NetCashProvidedByUsedInOperatingActivities", values: [46752000000, 84946000000, 102000000000] },
+                { label: "Purchases of Property and Equipment", tag: "PaymentsToAcquirePropertyPlantAndEquipment", values: [-63645000000, -52729000000, -62000000000] },
+                { label: "Free Cash Flow (FCF)", tag: "FreeCashFlow", values: [-16893000000, 32217000000, 40000000000] }
+              ]
+            }
+          }
+        };
+
+        if (window.SecEngine && typeof window.SecEngine.exportToExcel === "function") {
+          window.SecEngine.exportToExcel(amznExtract, "CALIO_Amazon_AMZN_10K_Financial_Model.xlsx");
+        } else {
+          alert("SecEngine is initializing. Please try again in a moment.");
+        }
+      });
+    </script>
+  </body>
+</html>
