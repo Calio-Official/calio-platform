@@ -878,6 +878,9 @@
           if (xbrlRes?.ok && xbrlRes.facts) {
             state.context.xbrlFacts = xbrlRes.facts;
             state.context.xbrlEntityName = xbrlRes.entityName || "";
+            if (xbrlRes.statements) {
+              state.context.statements = xbrlRes.statements;
+            }
           }
         } catch {
           // XBRL optional — HTML extract still runs
@@ -2851,6 +2854,42 @@
       eventTags[0] ? eventTags[0].label : null
     ].filter(Boolean);
 
+    // Item 2.02 Earnings Release & Exhibit 99.1 Press Release Parser
+    const hasItem202 = items.some((i) => i.code === "2.02");
+    let earningsRelease = null;
+    if (hasItem202 || /item\s*2\.02/i.test(text) || /exhibit\s*99\.1/i.test(text)) {
+      let headlineRevenue = "";
+      let headlineEps = "";
+      let guidanceSnippet = "";
+      let exhibit991Url = "";
+
+      const revMatch = text.match(/(?:revenue[s]?|sales)\s+(?:of|were|reached|increased\s+to)\s+\$?([\d,.]+\s*(?:billion|million|B|M)?)/i);
+      if (revMatch) headlineRevenue = revMatch[1];
+
+      const epsMatch = text.match(/(?:diluted\s+)?(?:net\s+income|earnings)\s+per\s+share\s+(?:of|was)?\s*\$?([\d.]+)/i);
+      if (epsMatch) headlineEps = epsMatch[1];
+
+      const guidMatch = text.match(/(?:guidance|outlook|financial\s+outlook|forecast)[\s\S]{0,120}?(?:expects|projects|anticipates|ranges?[\s\S]{0,60}?\$\d[\d,.]*)/i);
+      if (guidMatch) guidanceSnippet = normalizeWhitespace(guidMatch[0]).slice(0, 260);
+
+      if (typeof document !== "undefined") {
+        const exLink = Array.from(document.querySelectorAll("a")).find((a) =>
+          /99\.1|exhibit\s*99/i.test(a.textContent || "") || /ex-99|ex99/i.test(a.href || "")
+        );
+        if (exLink?.href) exhibit991Url = exLink.href;
+      }
+
+      earningsRelease = {
+        isEarningsRelease: true,
+        itemCode: "2.02",
+        title: "Results of Operations and Financial Condition",
+        headlineRevenue,
+        headlineEps,
+        guidanceSnippet,
+        exhibit991Url
+      };
+    }
+
     return {
       kind: "event",
       headline,
@@ -2859,7 +2898,8 @@
       organizations: orgs,
       facts,
       highlights,
-      eventTags
+      eventTags,
+      earningsRelease
     };
   }
 
@@ -3729,6 +3769,8 @@
       financials,
       insurance,
       corporateIntel,
+      rawXbrlFacts: context.xbrlFacts || null,
+      statements: context.statements || null,
       risks,
       eightK,
       sections,

@@ -2791,4 +2791,592 @@ table.filings tr:hover td {
   border-radius: 10px;
 }
 
+/* ── 8-K Earnings Flash Release ── */
+.earnings-flash-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--brand);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+.earnings-flash-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.earnings-flash-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.earnings-flash-title-wrap h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.earnings-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--mist);
+  color: var(--brand-deep);
+}
+.earnings-flash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+.earnings-flash-metric {
+  background: var(--snow);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.earnings-flash-metric .metric-lbl {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--soft);
+}
+.earnings-flash-metric .metric-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.earnings-guidance-box {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--mist);
+  border-radius: 8px;
+  border: 1px dashed var(--line-strong);
+}
+.earnings-guidance-box .guidance-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand-deep);
+}
+.earnings-guidance-box .guidance-text {
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+
+/* ── Institutional Financial Statement Suite ── */
+.institutional-panel {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+.institutional-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.institutional-head .head-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.institutional-head .head-left h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.verified-badge {
+  background: rgba(4, 120, 87, 0.09);
+  color: #047857;
+  border: 1px solid rgba(4, 120, 87, 0.22);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.institutional-head .head-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.period-toggle-group {
+  display: inline-flex;
+  background: var(--mist);
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+.btn-period-toggle {
+  border: none;
+  background: transparent;
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-period-toggle:hover {
+  color: var(--ink);
+}
+.btn-period-toggle.active {
+  background: #ffffff;
+  color: var(--brand-deep);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-weight: 700;
+}
+
+/* ── Statement Tabs ── */
+.statement-nav-tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+.stmt-tab-btn {
+  border: none;
+  background: transparent;
+  color: var(--soft);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.stmt-tab-btn:hover {
+  color: var(--ink);
+  background: var(--snow);
+}
+.stmt-tab-btn.active {
+  color: var(--brand);
+  font-weight: 700;
+  border-bottom: 2px solid var(--brand);
+  background: transparent;
+}
+
+/* ── Statement Tables ── */
+.stmt-table-wrapper {
+  width: 100%;
+}
+.stmt-table-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.stmt-table-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.stmt-table-units {
+  font-size: 11px;
+  color: var(--muted);
+}
+.stmt-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+.stmt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+.stmt-table th {
+  background: var(--table-head);
+  color: var(--ink);
+  font-weight: 700;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+.stmt-table th.th-label {
+  min-width: 270px;
+}
+.stmt-table th.th-period {
+  min-width: 115px;
+  text-align: right;
+}
+.stmt-table th.th-period .period-label {
+  font-size: 13px;
+  font-weight: 700;
+}
+.stmt-table th.th-period .period-end {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.stmt-table th.th-audit {
+  min-width: 75px;
+  text-align: center;
+}
+.stmt-row-section td {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--soft);
+  background: var(--snow);
+  padding: 10px 12px 6px;
+  border-top: 1px solid var(--line);
+}
+.stmt-row {
+  border-bottom: 1px solid rgba(25, 68, 60, 0.06);
+  transition: background 0.12s ease;
+}
+.stmt-row:hover {
+  background: var(--snow);
+}
+.stmt-row.is-subtotal {
+  font-weight: 700;
+  border-top: 1px solid var(--line-strong);
+  background: rgba(238, 244, 242, 0.35);
+}
+.stmt-row.is-total {
+  font-weight: 800;
+  border-top: 1px solid var(--ink);
+  border-bottom: 3px double var(--ink);
+  background: rgba(238, 244, 242, 0.55);
+}
+.stmt-row.is-check {
+  font-weight: 700;
+  background: rgba(4, 120, 87, 0.04);
+  border-top: 1px dashed var(--line-strong);
+}
+.stmt-col-label {
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.stmt-label-text {
+  color: var(--ink);
+}
+.stmt-tag-pill {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--muted);
+  background: var(--snow);
+  border: 1px solid var(--line);
+  padding: 1px 5px;
+  border-radius: 3px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.stmt-col-val {
+  padding: 7px 12px;
+  text-align: right;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.stmt-col-pct {
+  padding: 7px 12px;
+  text-align: right;
+  color: var(--soft);
+}
+.stmt-col-audit {
+  padding: 7px 8px;
+  text-align: center;
+}
+.stmt-col-formula {
+  padding: 7px 8px;
+  text-align: center;
+}
+.btn-stmt-audit {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-stmt-audit:hover {
+  background: var(--mist);
+  border-color: var(--brand);
+}
+.btn-stmt-audit.ixb-btn {
+  color: #0284c7;
+  border-color: rgba(2, 132, 199, 0.3);
+}
+.btn-stmt-audit.ixb-btn:hover {
+  background: #f0f9ff;
+  border-color: #0284c7;
+}
+.no-audit {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ── SBC Forensics Card ── */
+.sbc-forensics-card {
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--snow);
+  padding: 18px 20px;
+}
+.forensics-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.forensics-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.forensics-title-wrap h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.forensics-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(180, 83, 9, 0.1);
+  color: #b45309;
+  border: 1px solid rgba(180, 83, 9, 0.25);
+}
+.dilution-trend-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brand-deep);
+  background: var(--mist);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+}
+.sbc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.sbc-metric-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sbc-metric-card.highlight {
+  border-color: rgba(25, 68, 60, 0.25);
+  background: linear-gradient(to bottom, #ffffff, #f7faf9);
+}
+.sbc-metric-card .lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--soft);
+}
+.sbc-metric-card .val {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.sbc-metric-card .sub {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+.fcf-compare-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.fcf-compare-row .reported-val {
+  color: var(--soft);
+}
+.fcf-compare-row .arrow {
+  color: var(--muted);
+}
+.fcf-compare-row .real-val {
+  color: var(--brand-deep);
+}
+.sbc-footnote-callout {
+  font-size: 12px;
+  color: var(--soft);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 14px;
+  line-height: 1.45;
+}
+
+/* ── Debt Maturity Card ── */
+.debt-maturity-card {
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 18px 20px;
+}
+.maturity-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.maturity-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.maturity-title-wrap h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.footnote-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--mist);
+  color: var(--brand-deep);
+  border: 1px solid var(--line);
+}
+.maturity-total {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.maturity-table {
+  margin-top: 8px;
+}
+
+/* ── Audit Trail View ── */
+.audit-trail-container {
+  width: 100%;
+}
+.audit-trail-head {
+  margin-bottom: 14px;
+}
+.audit-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.audit-title-wrap h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.audit-trail-desc {
+  font-size: 12px;
+  color: var(--soft);
+  line-height: 1.4;
+  margin: 0;
+}
+.audit-table th {
+  font-size: 12px;
+}
+
+/* ── Status Badges & Loaders ── */
+.badge.balanced {
+  background: rgba(4, 120, 87, 0.1);
+  color: #047857;
+  border: 1px solid rgba(4, 120, 87, 0.25);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.badge.unbalance {
+  background: rgba(185, 28, 28, 0.1);
+  color: #b91c1c;
+  border: 1px solid rgba(185, 28, 28, 0.25);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.institutional-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 36px 20px;
+  color: var(--soft);
+  font-size: 13px;
+}
+.stmt-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--line-strong);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+.stmt-empty-state {
+  text-align: center;
+  padding: 30px 20px;
+}
+.stmt-empty-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.stmt-empty-sub {
+  font-size: 13px;
+  color: var(--soft);
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+
+
 
