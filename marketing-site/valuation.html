@@ -501,31 +501,39 @@
             </div>
           </div>
 
-          <!-- 3-Statement Extracted Financials Table -->
-          <div style="padding: 1rem 1.75rem; background: var(--bg-snow); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
-            <h3 style="font-size:1.05rem; font-weight:700; color:var(--ink-heading);">Normalized SEC Financial Statement Extraction</h3>
-            <div class="desk-chips" id="statementTabWrap">
-              <button type="button" class="chip-btn is-active" data-stmt="is">Income Statement</button>
-              <button type="button" class="chip-btn" data-stmt="bs">Balance Sheet</button>
-              <button type="button" class="chip-btn" data-stmt="cf">Cash Flows</button>
+          <!-- Institutional Financial Statement Engine (v1.18.0 Parity) -->
+          <div class="institutional-panel" id="institutionalStmtPanel" style="margin-top: 1.5rem; border: none; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none;">
+            <div class="institutional-head">
+              <div class="head-left">
+                <h3>Institutional Financial Statement Engine</h3>
+                <span class="badge verified-badge">SEC EDGAR Multi-Period</span>
+              </div>
+              <div class="head-right">
+                <div class="period-toggle-group">
+                  <button type="button" class="btn-period-toggle active" id="btnPeriodAnnual" data-period="annual">Annual (10-K)</button>
+                  <button type="button" class="btn-period-toggle" id="btnPeriodQuarterly" data-period="quarterly">Quarterly (10-Q)</button>
+                </div>
+                <button type="button" class="btn-pill btn-pill-outline btn-small" id="btnExportExcelModel" style="font-size:12px; font-weight:700; padding:5px 12px; border-radius:6px; cursor:pointer;" title="Download Excel workbook with 7 live-formula sheets">
+                  Export Model (.xlsx)
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div class="table-scroll-wrap">
-            <table class="calio-table" id="statementTable">
-              <thead>
-                <tr>
-                  <th>Standardized Line Item</th>
-                  <th>Extracted Period Amount</th>
-                  <th>Prior Period</th>
-                  <th>YoY Variance ($ Delta)</th>
-                  <th>YoY Variance (% Delta)</th>
-                </tr>
-              </thead>
-              <tbody id="statementTableBody">
-                <!-- Dynamically filled -->
-              </tbody>
-            </table>
+            <div class="statement-nav-tabs" id="statementNavTabs">
+              <button type="button" class="stmt-tab-btn active" data-tab="income">Income Statement</button>
+              <button type="button" class="stmt-tab-btn" data-tab="balance">Balance Sheet</button>
+              <button type="button" class="stmt-tab-btn" data-tab="cashflow">Cash Flows</button>
+              <button type="button" class="stmt-tab-btn" data-tab="ebitda">EBITDA Bridge &amp; SBC</button>
+              <button type="button" class="stmt-tab-btn" data-tab="debt">Debt Schedule</button>
+              <button type="button" class="stmt-tab-btn" data-tab="audit">Footnote Audit Trail</button>
+            </div>
+
+            <div class="statement-tab-body" id="statementTabBody">
+              <div class="stmt-empty-state">
+                <div class="stmt-empty-title">Loading Institutional Statements...</div>
+                <p class="stmt-empty-sub">Multi-period statements and footnote schedules are being extracted directly from audited SEC EDGAR XBRL filings.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -908,7 +916,29 @@
         document.getElementById("sliderMargin").value = m.operatingMargin || 15.0;
 
         recalculateDCF();
-        renderStatementTable();
+
+        // Multi-period Institutional Statements
+        activePeriodMode = (/10-Q/i.test(form) || /Q[1-4]/i.test(periodEnd || "")) ? "quarterly" : "annual";
+        const btnAnnual = document.getElementById("btnPeriodAnnual");
+        const btnQuarterly = document.getElementById("btnPeriodQuarterly");
+        if (btnAnnual && btnQuarterly) {
+          btnAnnual.classList.toggle("active", activePeriodMode === "annual");
+          btnQuarterly.classList.toggle("active", activePeriodMode === "quarterly");
+        }
+
+        renderInstitutionalStatementsSuite();
+
+        // Fetch multi-period XBRL statements
+        if (window.SecEngine?.getCompanyStatements) {
+          window.SecEngine.getCompanyStatements(currentCompany.cik).then(res => {
+            if (res?.ok && res.statements) {
+              currentCompanyStatements = res.statements;
+              renderInstitutionalStatementsSuite();
+            }
+          }).catch(err => {
+            console.warn("Error fetching multi-period statements:", err);
+          });
+        }
 
         showToast(`Successfully extracted ${form} · 22 GAAP line items & DCF engine verified`);
         extWorkspace.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -958,20 +988,330 @@
         document.getElementById("dispShares").textContent = `${shares.toFixed(2)}B`;
       }
 
-      function renderStatementTable() {
-        if (!currentExtractedData) return;
-        const rows = currentExtractedData.statements[currentStatementTab] || currentExtractedData.statements.is;
-        const tbody = document.getElementById("statementTableBody");
-        if (!tbody) return;
-        tbody.innerHTML = rows.map((r) => `
-          <tr>
-            <td><strong>${r.item}</strong></td>
-            <td><strong>${r.ttm}</strong></td>
-            <td>${r.prior}</td>
-            <td style="color:${r.deltaDollar.startsWith('+') ? 'var(--ok)' : r.deltaDollar.startsWith('-') ? 'var(--danger)' : 'inherit'}; font-weight:600;">${r.deltaDollar}</td>
-            <td><span class="${r.deltaPct.startsWith('+') ? 'peer-badge-safe' : r.deltaPct.startsWith('-') ? 'peer-badge-warn' : ''}">${r.deltaPct}</span></td>
-          </tr>
-        `).join("");
+      /* ── Institutional Statement Renderers (v1.18.0 Parity) ── */
+      let currentCompanyStatements = null;
+      let activeStatementTab = "income";
+      let activePeriodMode = "annual";
+
+      function renderStatementTable(rows, periods, p, title) {
+        if (!rows?.length) return `<div class="empty" style="padding:24px; text-align:center; color:var(--ink-muted);">No line items reported for this statement in SEC filings.</div>`;
+        if (!periods?.length) return `<div class="empty" style="padding:24px; text-align:center; color:var(--ink-muted);">No matching historical filing periods found in SEC EDGAR.</div>`;
+
+        return `
+          <div class="stmt-table-wrapper">
+            <div class="stmt-table-header-bar">
+              <div class="stmt-table-title">${SecEngine.escapeHtml(title)}</div>
+              <div class="stmt-table-units">All figures in USD ($ millions / billions) · Form 10-K / 10-Q XBRL</div>
+            </div>
+            <div class="stmt-table-scroll">
+              <table class="stmt-table">
+                <thead>
+                  <tr>
+                    <th class="th-label">Line Item / Accounting Concept</th>
+                    ${periods.map((per) => `
+                      <th class="th-period mono">
+                        <div class="period-label">${SecEngine.escapeHtml(per.label)}</div>
+                        <div class="period-end">${SecEngine.escapeHtml(per.end)}</div>
+                      </th>
+                    `).join("")}
+                    <th class="th-audit">SEC Audit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rows.map((row) => {
+                    if (row.isSection) {
+                      return `
+                        <tr class="stmt-row-section">
+                          <td colspan="${periods.length + 2}">${SecEngine.escapeHtml(row.label)}</td>
+                        </tr>
+                      `;
+                    }
+                    const rowClass = [
+                      "stmt-row",
+                      row.isSubtotal ? "is-subtotal" : "",
+                      row.isTotal ? "is-total" : "",
+                      row.isCheck ? "is-check" : ""
+                    ].filter(Boolean).join(" ");
+
+                    return `
+                      <tr class="${rowClass}">
+                        <td class="stmt-col-label">
+                          <span class="stmt-label-text" style="padding-left: ${row.indent * 14}px">
+                            ${SecEngine.escapeHtml(row.label)}
+                          </span>
+                          ${row.tag ? `<span class="stmt-tag-pill" title="US-GAAP Taxonomy: ${SecEngine.escapeHtml(row.tag)}">${SecEngine.escapeHtml(row.tag)}</span>` : ""}
+                        </td>
+                        ${(row.values || []).map((val, idx) => {
+                          const fact = row.facts ? row.facts[idx] : null;
+                          const formatted = SecEngine.formatFinancialVal(val, row);
+                          const titleText = fact ? `${fact.tag}: $${Number(val).toLocaleString()} (${fact.form || "SEC"})` : "";
+                          return `<td class="stmt-col-val mono" title="${SecEngine.escapeHtml(titleText)}">${formatted}</td>`;
+                        }).join("")}
+                        <td class="stmt-col-audit">
+                          ${row.auditUrl ? `
+                            <a href="${SecEngine.escapeHtml(row.auditUrl)}" target="_blank" rel="noopener noreferrer" class="btn-stmt-audit" title="Verify directly in SEC EDGAR filing (${SecEngine.escapeHtml(row.accn || "Index")})">SEC ↗</a>
+                          ` : `<span class="no-audit">—</span>`}
+                        </td>
+                      </tr>
+                    `;
+                  }).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderEbitdaBridgeView(rows, periods, p) {
+        if (!rows?.length) return `<div class="empty" style="padding:24px; text-align:center; color:var(--ink-muted);">No EBITDA bridge data available.</div>`;
+
+        const bridgeRows = rows.filter((r) =>
+          !r.key.startsWith("secSbc") &&
+          r.key !== "sbcPctRev" &&
+          r.key !== "sbcPctCfo" &&
+          r.key !== "dilutedShares" &&
+          r.key !== "capexForFcf" &&
+          r.key !== "tradFcf" &&
+          r.key !== "realFcf"
+        );
+
+        const sbcRow = rows.find((r) => r.key === "sbcExpense" || r.key === "sbc");
+        const revRow = rows.find((r) => r.key === "revenue");
+        const cfoRow = rows.find((r) => r.key === "cfoForSbc");
+        const tradFcfRow = rows.find((r) => r.key === "tradFcf");
+        const realFcfRow = rows.find((r) => r.key === "realFcf");
+        const sharesRow = rows.find((r) => r.key === "dilutedShares");
+
+        const latestSbc = sbcRow?.values ? sbcRow.values[0] : null;
+        const latestRev = revRow?.values ? revRow.values[0] : null;
+        const latestCfo = cfoRow?.values ? cfoRow.values[0] : null;
+        const latestTradFcf = tradFcfRow?.values ? tradFcfRow.values[0] : null;
+        const latestRealFcf = realFcfRow?.values ? realFcfRow.values[0] : null;
+
+        const sbcPctRevText = latestSbc != null && latestRev ? ((latestSbc / latestRev) * 100).toFixed(1) + "%" : "—";
+        const sbcPctCfoText = latestSbc != null && latestCfo ? ((latestSbc / latestCfo) * 100).toFixed(1) + "%" : "—";
+        const tradFcfText = latestTradFcf != null ? SecEngine.formatFinancialVal(latestTradFcf) : "—";
+        const realFcfText = latestRealFcf != null ? SecEngine.formatFinancialVal(latestRealFcf) : "—";
+
+        let shareDilutionNotice = "";
+        if (sharesRow?.values?.length >= 2) {
+          const latestSh = sharesRow.values[0];
+          const oldestSh = sharesRow.values[sharesRow.values.length - 1];
+          if (latestSh && oldestSh) {
+            const pctChg = ((latestSh - oldestSh) / oldestSh) * 100;
+            shareDilutionNotice = `Diluted shares moved ${pctChg >= 0 ? "+" : ""}${pctChg.toFixed(1)}% across the past ${sharesRow.values.length} reported periods.`;
+          }
+        }
+
+        return `
+          <div class="ebitda-suite-container">
+            ${renderStatementTable(bridgeRows, periods, p, "GAAP Operating Income to Adjusted EBITDA Bridge")}
+
+            <div class="sbc-forensics-card">
+              <div class="forensics-card-head">
+                <div class="forensics-title-wrap">
+                  <h4>Share-Based Compensation Dilution Forensics</h4>
+                  <span class="badge forensics-badge">Economic Cash Divergence</span>
+                </div>
+                ${shareDilutionNotice ? `<span class="dilution-trend-badge">${SecEngine.escapeHtml(shareDilutionNotice)}</span>` : ""}
+              </div>
+              <div class="sbc-grid">
+                <div class="sbc-metric-card">
+                  <span class="lbl">SBC as % of Total Revenue</span>
+                  <span class="val mono">${SecEngine.escapeHtml(sbcPctRevText)}</span>
+                  <span class="sub">Annual run-rate equity grant overhead</span>
+                </div>
+                <div class="sbc-metric-card">
+                  <span class="lbl">SBC as % of Operating Cash Flow</span>
+                  <span class="val mono">${SecEngine.escapeHtml(sbcPctCfoText)}</span>
+                  <span class="sub">Cash flow masked by non-cash stock compensation</span>
+                </div>
+                <div class="sbc-metric-card highlight">
+                  <span class="lbl">Real FCF vs. Reported FCF</span>
+                  <div class="fcf-compare-row mono">
+                    <span class="reported-val">Reported: ${SecEngine.escapeHtml(tradFcfText)}</span>
+                    <span class="arrow">→</span>
+                    <span class="real-val">Real FCF: ${SecEngine.escapeHtml(realFcfText)}</span>
+                  </div>
+                  <span class="sub">Real Free Cash Flow = Traditional FCF minus SBC Dilution</span>
+                </div>
+              </div>
+              <div class="sbc-footnote-callout">
+                <strong>Institutional Accounting Note:</strong> While management Adjusted EBITDA presentations routinely add back stock-based compensation because it is a non-cash GAAP expense, equity investors bear the real economic cost of ongoing share dilution. CALIO Real FCF deducts SBC from traditional Free Cash Flow to reflect actual owner cash generation.
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderDebtScheduleView(rows, maturities = [], totalContractual = 0, periods = [], p = {}) {
+        if (!rows?.length) return `<div class="empty" style="padding:24px; text-align:center; color:var(--ink-muted);">No debt schedule data available.</div>`;
+
+        return `
+          <div class="debt-suite-container">
+            ${renderStatementTable(rows, periods, p, "Debt Capital Structure & Liquidity Metrics")}
+
+            ${maturities && maturities.some((m) => m.val != null) ? `
+              <div class="debt-maturity-card">
+                <div class="maturity-head">
+                  <div class="maturity-title-wrap">
+                    <h4>Contractual Debt Principal Repayment Schedule</h4>
+                    <span class="badge footnote-badge">Form 10-K Note Disclosures</span>
+                  </div>
+                  <span class="maturity-total mono">Total Contractual Principal: ${SecEngine.formatFinancialVal(totalContractual)}</span>
+                </div>
+                <div class="stmt-table-scroll">
+                  <table class="stmt-table maturity-table">
+                    <thead>
+                      <tr>
+                        <th>Contractual Maturity Window</th>
+                        <th>SEC Taxonomy Tag</th>
+                        <th class="mono" style="text-align:right;">Carrying Principal (USD)</th>
+                        <th class="mono" style="text-align:right;">% of Total Debt</th>
+                        <th style="text-align:center;">SEC Audit</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${maturities.map((m) => `
+                        <tr class="stmt-row">
+                          <td class="stmt-col-label"><strong>${SecEngine.escapeHtml(m.label)}</strong></td>
+                          <td class="stmt-col-tag"><span class="stmt-tag-pill">${SecEngine.escapeHtml(m.tag)}</span></td>
+                          <td class="stmt-col-val mono">${SecEngine.formatFinancialVal(m.val)}</td>
+                          <td class="stmt-col-pct mono">${totalContractual > 0 && m.val != null ? ((m.val / totalContractual) * 100).toFixed(1) + "%" : "—"}</td>
+                          <td class="stmt-col-audit">
+                            ${m.auditUrl ? `
+                              <a href="${SecEngine.escapeHtml(m.auditUrl)}" target="_blank" rel="noopener noreferrer" class="btn-stmt-audit" title="Verify directly in SEC Footnote">SEC ↗</a>
+                            ` : `<span class="no-audit">—</span>`}
+                          </td>
+                        </tr>
+                      `).join("")}
+                      <tr class="stmt-row is-total">
+                        <td class="stmt-col-label"><strong>Total Contractual Principal Obligations</strong></td>
+                        <td class="stmt-col-tag">—</td>
+                        <td class="stmt-col-val mono"><strong>${SecEngine.formatFinancialVal(totalContractual)}</strong></td>
+                        <td class="stmt-col-pct mono"><strong>100.0%</strong></td>
+                        <td class="stmt-col-audit">—</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      }
+
+      function renderAuditTrailView(stmts, periods, p) {
+        if (!periods?.length) return `<div class="empty" style="padding:24px; text-align:center; color:var(--ink-muted);">No audit trail periods available.</div>`;
+
+        const mode = activePeriodMode || "annual";
+        const dataset = mode === "quarterly" ? stmts.quarterly : stmts.annual;
+        const ticker = currentCompany?.ticker || "TICKER";
+
+        const allRows = [
+          ...(dataset?.incomeStatement || []),
+          ...(dataset?.balanceSheet || []),
+          ...(dataset?.cashFlow || [])
+        ].filter((r) => !r.isSection && (r.tag || r.auditUrl));
+
+        return `
+          <div class="audit-trail-container">
+            <div class="audit-trail-head">
+              <div class="audit-title-wrap">
+                <h4>Click-to-Source Footnote Citations &amp; Audit Trail</h4>
+                <span class="badge verified-badge">Institutional Compliance</span>
+              </div>
+              <p class="audit-trail-desc">Every financial metric is linked directly to its official SEC EDGAR accession filing index or interactive IXBRL footnote. Copy dynamic formulas to link live models directly to your spreadsheet.</p>
+            </div>
+            <div class="stmt-table-scroll">
+              <table class="stmt-table audit-table">
+                <thead>
+                  <tr>
+                    <th>Accounting Metric</th>
+                    <th>Reported Value (${SecEngine.escapeHtml(periods[0]?.label || "Latest")})</th>
+                    <th>US-GAAP Taxonomy Tag</th>
+                    <th style="text-align:center;">SEC Primary Source</th>
+                    <th style="text-align:center;">Interactive IXBRL</th>
+                    <th style="text-align:center;">Dynamic Formula</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${allRows.map((r) => {
+                    const latestVal = r.values ? r.values[0] : null;
+                    const formulaStr = `=CALIO("${SecEngine.escapeHtml(ticker)}", "${SecEngine.escapeHtml(r.key)}", "${SecEngine.escapeHtml(periods[0]?.label || "LATEST")}")`;
+                    return `
+                      <tr class="stmt-row">
+                        <td class="stmt-col-label"><strong>${SecEngine.escapeHtml(r.label)}</strong></td>
+                        <td class="stmt-col-val mono">${SecEngine.formatFinancialVal(latestVal, r)}</td>
+                        <td class="stmt-col-tag"><span class="stmt-tag-pill">${SecEngine.escapeHtml(r.tag || "Custom")}</span></td>
+                        <td class="stmt-col-audit">
+                          ${r.auditUrl ? `
+                            <a href="${SecEngine.escapeHtml(r.auditUrl)}" target="_blank" rel="noopener noreferrer" class="btn-stmt-audit" title="Open SEC EDGAR Filing Index">SEC Index ↗</a>
+                          ` : `<span class="no-audit">—</span>`}
+                        </td>
+                        <td class="stmt-col-audit">
+                          ${r.ixbrlUrl ? `
+                            <a href="${SecEngine.escapeHtml(r.ixbrlUrl)}" target="_blank" rel="noopener noreferrer" class="btn-stmt-audit" style="color:#0284c7; border-color:rgba(2,132,199,0.3);" title="Open Interactive IXBRL Viewer">IXBRL ↗</a>
+                          ` : `<span class="no-audit">—</span>`}
+                        </td>
+                        <td class="stmt-col-audit">
+                          <button type="button" class="btn-stmt-audit btn-copy-audit-formula" data-formula="${SecEngine.escapeHtml(formulaStr)}" style="background:#f0fdfa; color:#0f766e; border-color:#0f766e; cursor:pointer;" title="Copy dynamic spreadsheet formula">=CALIO</button>
+                        </td>
+                      </tr>
+                    `;
+                  }).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderInstitutionalStatementsSuite() {
+        const panelBody = document.getElementById("statementTabBody");
+        if (!panelBody) return;
+        if (!currentCompanyStatements) {
+          panelBody.innerHTML = `
+            <div class="stmt-empty-state">
+              <div class="stmt-empty-title">Loading Multi-Period Statements...</div>
+              <p class="stmt-empty-sub">Access multi-period Income Statement, Balance Sheet, Cash Flows, EBITDA Bridge, and Footnote Debt Schedules directly from SEC XBRL filings.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const mode = activePeriodMode || "annual";
+        const activeTab = activeStatementTab || "income";
+        const dataset = mode === "quarterly" ? currentCompanyStatements.quarterly : currentCompanyStatements.annual;
+        const periods = dataset?.periods || [];
+
+        let contentHtml = "";
+        if (activeTab === "income") {
+          contentHtml = renderStatementTable(dataset?.incomeStatement || [], periods, currentCompany, "Income Statement");
+        } else if (activeTab === "balance") {
+          contentHtml = renderStatementTable(dataset?.balanceSheet || [], periods, currentCompany, "Balance Sheet");
+        } else if (activeTab === "cashflow") {
+          contentHtml = renderStatementTable(dataset?.cashFlow || [], periods, currentCompany, "Cash Flow Statement");
+        } else if (activeTab === "ebitda") {
+          contentHtml = renderEbitdaBridgeView(dataset?.ebitdaBridge || [], periods, currentCompany);
+        } else if (activeTab === "debt") {
+          contentHtml = renderDebtScheduleView(dataset?.debtSchedule || [], currentCompanyStatements.debtMaturities || [], currentCompanyStatements.totalContractualPrincipal, periods, currentCompany);
+        } else if (activeTab === "audit") {
+          contentHtml = renderAuditTrailView(currentCompanyStatements, periods, currentCompany);
+        }
+
+        panelBody.innerHTML = contentHtml;
+
+        // Wire up copy formula buttons in audit trail
+        panelBody.querySelectorAll(".btn-copy-audit-formula").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const f = btn.getAttribute("data-formula");
+            if (f && navigator.clipboard) {
+              navigator.clipboard.writeText(f);
+              showToast(`Copied formula: ${f}`);
+            }
+          });
+        });
       }
 
       // Back to Dashboard button
@@ -1059,15 +1399,62 @@
         });
       }
 
-      // Statement tabs
-      document.querySelectorAll("#statementTabWrap .chip-btn").forEach((btn) => {
+      // Statement navigation tabs
+      document.querySelectorAll("#statementNavTabs .stmt-tab-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          document.querySelectorAll("#statementTabWrap .chip-btn").forEach((b) => b.classList.remove("is-active"));
-          btn.classList.add("is-active");
-          currentStatementTab = btn.getAttribute("data-stmt");
-          renderStatementTable();
+          document.querySelectorAll("#statementNavTabs .stmt-tab-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeStatementTab = btn.getAttribute("data-tab");
+          renderInstitutionalStatementsSuite();
         });
       });
+
+      // Period toggles (Annual vs Quarterly)
+      const btnAnnual = document.getElementById("btnPeriodAnnual");
+      const btnQuarterly = document.getElementById("btnPeriodQuarterly");
+      if (btnAnnual) {
+        btnAnnual.addEventListener("click", () => {
+          activePeriodMode = "annual";
+          btnAnnual.classList.add("active");
+          if (btnQuarterly) btnQuarterly.classList.remove("active");
+          renderInstitutionalStatementsSuite();
+        });
+      }
+      if (btnQuarterly) {
+        btnQuarterly.addEventListener("click", () => {
+          activePeriodMode = "quarterly";
+          btnQuarterly.classList.add("active");
+          if (btnAnnual) btnAnnual.classList.remove("active");
+          renderInstitutionalStatementsSuite();
+        });
+      }
+
+      // Export Model (.xlsx download with live formulas)
+      const btnExportExcel = document.getElementById("btnExportExcelModel");
+      if (btnExportExcel) {
+        btnExportExcel.addEventListener("click", () => {
+          if (!currentCompany || !currentExtractedData) {
+            showToast("Extract a filing first to export financial statements.");
+            return;
+          }
+          try {
+            const extractPayload = {
+              companyName: currentCompany.name,
+              ticker: currentCompany.ticker,
+              cik: currentCompany.cik,
+              filingType: currentExtractedData.form || "10-K",
+              periodEnd: currentExtractedData.periodEnd || "",
+              documentUrl: currentExtractedData.documentUrl || currentCompany.edgarCompanyUrl,
+              statements: currentCompanyStatements
+            };
+            const res = window.SecEngine.downloadExcelModel(extractPayload);
+            showToast(`Downloaded dynamic formula Excel model: ${res.filename}`);
+          } catch (err) {
+            console.error("Excel download error:", err);
+            showToast(err.message || "Excel download failed.");
+          }
+        });
+      }
 
       // Export Excel (.csv download)
       function exportDataCsv(type) {

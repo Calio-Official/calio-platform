@@ -1362,5 +1362,936 @@
     return `${sign}$${new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(abs)}`;
   };
 
+  /* ── Institutional 3-Statement, EBITDA Bridge & Debt Schedule Engine (v1.18.0 Parity) ─── */
+
+  const IS_SPEC = [
+    { key: "revenue", label: "Revenue / Net Sales", tags: ["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet", "RevenueFromContractWithCustomerIncludingAssessedTax"], indent: 0 },
+    { key: "costOfRevenue", label: "Cost of Goods & Services Sold", tags: ["CostOfGoodsAndServicesSold", "CostOfRevenue", "CostOfGoodsSold"], indent: 0 },
+    { key: "grossProfit", label: "Gross Profit", formula: "revenue - costOfRevenue", tags: ["GrossProfit"], isSubtotal: true, indent: 0 },
+    { key: "secOpex", label: "OPERATING EXPENSES:", isSection: true },
+    { key: "rdExpense", label: "  Research & Development (R&D)", tags: ["ResearchAndDevelopmentExpense", "ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"], indent: 1 },
+    { key: "sgaExpense", label: "  Selling, General & Administrative (SG&A)", tags: ["SellingGeneralAndAdministrativeExpense", "SellingAndMarketingExpense", "GeneralAndAdministrativeExpense"], indent: 1 },
+    { key: "restructuring", label: "  Restructuring & Other Charges", tags: ["RestructuringAndRelatedCost", "RestructuringCharges", "AssetImpairmentCharges"], indent: 1 },
+    { key: "totalOpex", label: "Total Operating Expenses", formula: "SUM(rdExpense, sgaExpense, restructuring)", tags: ["OperatingExpenses", "CostsAndExpenses"], isSubtotal: true, indent: 0 },
+    { key: "operatingIncome", label: "Operating Income (EBIT)", formula: "grossProfit - totalOpex", tags: ["OperatingIncomeLoss"], isTotal: true, indent: 0 },
+    { key: "secNonOp", label: "NON-OPERATING & FINANCIAL ITEMS:", isSection: true },
+    { key: "interestExpense", label: "  Interest Expense", tags: ["InterestExpense", "InterestAndDebtExpense", "InterestExpenseDebt"], indent: 1 },
+    { key: "interestIncome", label: "  Interest & Investment Income", tags: ["InvestmentIncomeInterest", "InterestAndDividendIncomeOperating"], indent: 1 },
+    { key: "ebt", label: "Income Before Income Taxes (EBT)", formula: "operatingIncome - interestExpense + interestIncome", tags: ["IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"], isSubtotal: true, indent: 0 },
+    { key: "incomeTax", label: "Income Tax Expense / (Benefit)", tags: ["IncomeTaxExpenseBenefit"], indent: 0 },
+    { key: "netIncome", label: "Net Income (Loss)", formula: "ebt - incomeTax", tags: ["NetIncomeLoss", "ProfitLoss"], isTotal: true, indent: 0 },
+    { key: "epsBasic", label: "Basic Earnings Per Share ($)", tags: ["EarningsPerShareBasic"], isEps: true, indent: 0 },
+    { key: "epsDiluted", label: "Diluted Earnings Per Share ($)", tags: ["EarningsPerShareDiluted"], isEps: true, indent: 0 },
+    { key: "sharesBasic", label: "Weighted Average Shares — Basic", tags: ["WeightedAverageNumberOfSharesOutstandingBasic"], isShares: true, indent: 0 },
+    { key: "sharesDiluted", label: "Weighted Average Shares — Diluted", tags: ["WeightedAverageNumberOfDilutedSharesOutstanding"], isShares: true, indent: 0 }
+  ];
+
+  const BS_SPEC = [
+    { key: "secCa", label: "CURRENT ASSETS:", isSection: true },
+    { key: "cash", label: "  Cash and Cash Equivalents", tags: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsAndShortTermInvestments"], indent: 1 },
+    { key: "marketableSecurities", label: "  Marketable Securities / Short-Term Investments", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent"], indent: 1 },
+    { key: "ar", label: "  Accounts Receivable, Net", tags: ["AccountsReceivableNetCurrent", "AccountsAndNotesReceivableNet"], indent: 1 },
+    { key: "inventory", label: "  Inventories, Net", tags: ["InventoryNet"], indent: 1 },
+    { key: "otherCurrentAssets", label: "  Prepaid Expenses & Other Current Assets", tags: ["PrepaidExpenseAndOtherAssetsCurrent", "OtherAssetsCurrent"], indent: 1 },
+    { key: "totalCurrentAssets", label: "Total Current Assets", formula: "SUM(cash, marketableSecurities, ar, inventory, otherCurrentAssets)", tags: ["AssetsCurrent"], isSubtotal: true, indent: 0 },
+    { key: "secNca", label: "NON-CURRENT ASSETS:", isSection: true },
+    { key: "ppeNet", label: "  Property, Plant and Equipment, Net", tags: ["PropertyPlantAndEquipmentNet"], indent: 1 },
+    { key: "operatingLeaseAsset", label: "  Operating Lease Right-of-Use Assets", tags: ["OperatingLeaseRightOfUseAsset"], indent: 1 },
+    { key: "goodwill", label: "  Goodwill", tags: ["Goodwill"], indent: 1 },
+    { key: "intangibles", label: "  Intangible Assets, Net", tags: ["IntangibleAssetsNetExcludingGoodwill"], indent: 1 },
+    { key: "otherNonCurrentAssets", label: "  Other Non-Current Assets", tags: ["OtherAssetsNoncurrent", "DeferredTaxAssetsNetNoncurrent"], indent: 1 },
+    { key: "totalAssets", label: "TOTAL ASSETS", formula: "totalCurrentAssets + ppeNet + operatingLeaseAsset + goodwill + intangibles + otherNonCurrentAssets", tags: ["Assets"], isTotal: true, indent: 0 },
+    { key: "secCl", label: "CURRENT LIABILITIES:", isSection: true },
+    { key: "ap", label: "  Accounts Payable", tags: ["AccountsPayableCurrent"], indent: 1 },
+    { key: "accruedLiab", label: "  Accrued Expenses & Other Current Liabilities", tags: ["AccruedLiabilitiesCurrent", "OtherLiabilitiesCurrent"], indent: 1 },
+    { key: "shortTermDebt", label: "  Short-Term Debt & Current Portion of LTD", tags: ["ShortTermBorrowings", "CommercialPaper", "LinesOfCreditCurrent", "LongTermDebtCurrent"], indent: 1 },
+    { key: "currentLeaseLiab", label: "  Current Operating Lease Liabilities", tags: ["OperatingLeaseLiabilityCurrent"], indent: 1 },
+    { key: "totalCurrentLiabilities", label: "Total Current Liabilities", formula: "SUM(ap, accruedLiab, shortTermDebt, currentLeaseLiab)", tags: ["LiabilitiesCurrent"], isSubtotal: true, indent: 0 },
+    { key: "secNcl", label: "NON-CURRENT LIABILITIES:", isSection: true },
+    { key: "longTermDebt", label: "  Long-Term Debt, Non-Current", tags: ["LongTermDebtNoncurrent", "LongTermDebt"], indent: 1 },
+    { key: "nonCurrentLeaseLiab", label: "  Non-Current Operating Lease Liabilities", tags: ["OperatingLeaseLiabilityNoncurrent"], indent: 1 },
+    { key: "otherNonCurrentLiab", label: "  Other Non-Current Liabilities", tags: ["DeferredTaxLiabilitiesNoncurrent", "OtherLiabilitiesNoncurrent"], indent: 1 },
+    { key: "totalLiabilities", label: "Total Liabilities", formula: "totalCurrentLiabilities + longTermDebt + nonCurrentLeaseLiab + otherNonCurrentLiab", tags: ["Liabilities"], isSubtotal: true, indent: 0 },
+    { key: "secEq", label: "STOCKHOLDERS' EQUITY:", isSection: true },
+    { key: "commonStock", label: "  Common Stock & Additional Paid-In Capital", tags: ["CommonStockValue", "AdditionalPaidInCapital"], indent: 1 },
+    { key: "retainedEarnings", label: "  Retained Earnings / (Accumulated Deficit)", tags: ["RetainedEarningsAccumulatedDeficit"], indent: 1 },
+    { key: "aoci", label: "  Accumulated Other Comprehensive Income / (Loss)", tags: ["AccumulatedOtherComprehensiveIncomeLossNetOfTax"], indent: 1 },
+    { key: "totalEquity", label: "Total Stockholders' Equity", formula: "SUM(commonStock, retainedEarnings, aoci)", tags: ["StockholdersEquity"], isSubtotal: true, indent: 0 },
+    { key: "totalLiabAndEquity", label: "TOTAL LIABILITIES & STOCKHOLDERS' EQUITY", formula: "totalLiabilities + totalEquity", tags: ["LiabilitiesAndStockholdersEquity"], isTotal: true, indent: 0 },
+    { key: "balanceCheck", label: "Balance Check (Assets - Liab & Equity)", formula: "totalAssets - totalLiabAndEquity", isCheck: true, indent: 0 }
+  ];
+
+  const CF_SPEC = [
+    { key: "secCfo", label: "OPERATING ACTIVITIES:", isSection: true },
+    { key: "netIncomeCf", label: "  Net Income (Loss)", tags: ["NetIncomeLoss", "ProfitLoss"], indent: 1 },
+    { key: "da", label: "  Depreciation & Amortization", tags: ["DepreciationDepletionAndAmortization", "Depreciation", "AmortizationOfIntangibleAssets"], indent: 1 },
+    { key: "sbc", label: "  Share-Based Compensation", tags: ["ShareBasedCompensation"], indent: 1 },
+    { key: "deferredTaxCf", label: "  Deferred Income Taxes", tags: ["DeferredIncomeTaxExpenseBenefit"], indent: 1 },
+    { key: "chgWorkingCapital", label: "  Net Change in Working Capital", tags: ["IncreaseDecreaseInOperatingCapital", "IncreaseDecreaseInOtherOperatingCapitalNet"], indent: 1 },
+    { key: "cfo", label: "Net Cash Provided by Operating Activities", tags: ["NetCashProvidedByUsedInOperatingActivities"], isTotal: true, indent: 0 },
+    { key: "secCfi", label: "INVESTING ACTIVITIES:", isSection: true },
+    { key: "capex", label: "  Capital Expenditures (PP&E Purchases)", tags: ["PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsToAcquireProductiveAssets"], indent: 1 },
+    { key: "securitiesPurchases", label: "  Purchases of Marketable Securities", tags: ["PaymentsToAcquireMarketableSecurities"], indent: 1 },
+    { key: "securitiesSales", label: "  Proceeds from Sales/Maturities of Securities", tags: ["ProceedsFromSaleAndMaturityOfMarketableSecurities"], indent: 1 },
+    { key: "cfi", label: "Net Cash Used in / Provided by Investing Activities", tags: ["NetCashProvidedByUsedInInvestingActivities"], isTotal: true, indent: 0 },
+    { key: "secCff", label: "FINANCING ACTIVITIES:", isSection: true },
+    { key: "debtIssued", label: "  Proceeds from Issuance of Long-Term Debt", tags: ["ProceedsFromIssuanceOfLongTermDebt"], indent: 1 },
+    { key: "debtRepaid", label: "  Repayments of Long-Term Debt", tags: ["RepaymentsOfLongTermDebt"], indent: 1 },
+    { key: "buybacks", label: "  Payments for Repurchase of Common Stock", tags: ["PaymentsForRepurchaseOfCommonStock"], indent: 1 },
+    { key: "dividends", label: "  Payments of Dividends", tags: ["PaymentsOfDividendsCommonStock", "PaymentsOfDividends"], indent: 1 },
+    { key: "cff", label: "Net Cash Used in / Provided by Financing Activities", tags: ["NetCashProvidedByUsedInFinancingActivities"], isTotal: true, indent: 0 },
+    { key: "secFcf", label: "FREE CASH FLOW & ECONOMIC CASH ANALYTICS:", isSection: true },
+    { key: "fcf", label: "Traditional Free Cash Flow (CFO - CapEx)", formula: "cfo - capex", isSubtotal: true, indent: 0 },
+    { key: "realFcf", label: "Real Free Cash Flow (FCF - SBC Dilution)", formula: "fcf - sbc", isTotal: true, indent: 0 }
+  ];
+
+  const EBITDA_SPEC = [
+    { key: "secBridge", label: "GAAP OPERATING INCOME TO ADJUSTED EBITDA BRIDGE:", isSection: true },
+    { key: "operatingIncome", label: "Operating Income (Loss) [GAAP EBIT]", tags: ["OperatingIncomeLoss"], indent: 0 },
+    { key: "da", label: "(+) Depreciation & Amortization (D&A)", tags: ["DepreciationDepletionAndAmortization", "Depreciation", "AmortizationOfIntangibleAssets"], indent: 1 },
+    { key: "unadjEbitda", label: "(=) Unadjusted EBITDA", formula: "operatingIncome + da", isSubtotal: true, indent: 0 },
+    { key: "sbc", label: "(+) Share-Based Compensation Expense", tags: ["ShareBasedCompensation"], indent: 1 },
+    { key: "restructuring", label: "(+) Restructuring & Severance Charges", tags: ["RestructuringAndRelatedCost", "RestructuringCharges"], indent: 1 },
+    { key: "adjEbitda", label: "(=) Adjusted EBITDA", formula: "unadjEbitda + sbc + restructuring", isTotal: true, indent: 0 },
+    { key: "revenue", label: "Total Revenue / Net Sales", tags: ["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues"], indent: 0 },
+    { key: "adjEbitdaMargin", label: "Adjusted EBITDA Margin (%)", formula: "adjEbitda / revenue", isPct: true, indent: 0 },
+    { key: "secSbc", label: "SBC DILUTION FORENSICS & CASH DIVERGENCE:", isSection: true },
+    { key: "sbcExpense", label: "Share-Based Compensation Expense", tags: ["ShareBasedCompensation"], indent: 0 },
+    { key: "sbcPctRev", label: "  SBC as % of Total Revenue", formula: "sbcExpense / revenue", isPct: true, indent: 1 },
+    { key: "cfoForSbc", label: "  Operating Cash Flow (CFO)", tags: ["NetCashProvidedByUsedInOperatingActivities"], indent: 1 },
+    { key: "sbcPctCfo", label: "  SBC as % of Operating Cash Flow", formula: "sbcExpense / cfoForSbc", isPct: true, indent: 1 },
+    { key: "dilutedShares", label: "Diluted Shares Outstanding", tags: ["WeightedAverageNumberOfDilutedSharesOutstanding"], isShares: true, indent: 0 },
+    { key: "capexForFcf", label: "Capital Expenditures (CapEx)", tags: ["PaymentsToAcquirePropertyPlantAndEquipment"], indent: 0 },
+    { key: "tradFcf", label: "Reported Free Cash Flow (CFO - CapEx)", formula: "cfoForSbc - capexForFcf", isSubtotal: true, indent: 0 },
+    { key: "realFcf", label: "REAL FCF (Economic Free Cash Flow = FCF - SBC)", formula: "tradFcf - sbcExpense", isTotal: true, indent: 0 }
+  ];
+
+  const DEBT_SPEC = [
+    { key: "secDebtStructure", label: "DEBT CAPITAL STRUCTURE & OBLIGATIONS:", isSection: true },
+    { key: "commercialPaper", label: "  Commercial Paper & Short-Term Borrowings", tags: ["CommercialPaper", "ShortTermBorrowings"], indent: 1 },
+    { key: "currentPortionLtd", label: "  Current Portion of Long-Term Debt", tags: ["LongTermDebtCurrent"], indent: 1 },
+    { key: "currentLeaseLiab", label: "  Current Lease Obligations", tags: ["OperatingLeaseLiabilityCurrent", "FinanceLeaseLiabilityCurrent"], indent: 1 },
+    { key: "totalShortTermDebt", label: "Total Short-Term Debt Obligations", formula: "SUM(commercialPaper, currentPortionLtd, currentLeaseLiab)", isSubtotal: true, indent: 0 },
+    { key: "seniorNotes", label: "  Senior Notes & Long-Term Debt", tags: ["LongTermDebtNoncurrent", "LongTermDebt"], indent: 1 },
+    { key: "nonCurrentLeaseLiab", label: "  Non-Current Lease Liabilities", tags: ["OperatingLeaseLiabilityNoncurrent", "FinanceLeaseLiabilityNoncurrent"], indent: 1 },
+    { key: "totalLongTermDebt", label: "Total Long-Term Debt Obligations", formula: "SUM(seniorNotes, nonCurrentLeaseLiab)", isSubtotal: true, indent: 0 },
+    { key: "totalGrossDebt", label: "TOTAL GROSS DEBT", formula: "totalShortTermDebt + totalLongTermDebt", isTotal: true, indent: 0 },
+    { key: "secLiquidity", label: "LIQUIDITY & NET DEBT POSITION:", isSection: true },
+    { key: "cashEquivalents", label: "  Cash and Cash Equivalents", tags: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsAndShortTermInvestments"], indent: 1 },
+    { key: "marketableSecurities", label: "  Marketable Securities / Short-Term Investments", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent"], indent: 1 },
+    { key: "totalCashLiquidity", label: "Total Cash & Liquid Investments", formula: "cashEquivalents + marketableSecurities", isSubtotal: true, indent: 0 },
+    { key: "netDebt", label: "NET DEBT / (NET CASH)", formula: "totalGrossDebt - totalCashLiquidity", isTotal: true, indent: 0 },
+    { key: "secSolvency", label: "SOLVENCY & COVERAGE METRICS:", isSection: true },
+    { key: "opIncomeDebt", label: "  Operating Income (EBIT)", tags: ["OperatingIncomeLoss"], indent: 1 },
+    { key: "interestExpenseDebt", label: "  Interest Expense", tags: ["InterestExpense", "InterestAndDebtExpense"], indent: 1 },
+    { key: "interestCoverage", label: "  Interest Coverage Ratio (EBIT / Interest)", formula: "opIncomeDebt / interestExpenseDebt", indent: 1 }
+  ];
+
+  SecEngine.buildMultiPeriodStatementsFromCompanyFacts = function(usGaap = {}, entityName = "", rawCik = "") {
+    const cikNum = Number(String(rawCik || "").replace(/\D/g, ""));
+    
+    const revTags = [
+      "RevenueFromContractWithCustomerExcludingAssessedTax",
+      "Revenues",
+      "SalesRevenueNet",
+      "RevenueFromContractWithCustomerIncludingAssessedTax"
+    ];
+    let revSeries = [];
+    for (const t of revTags) {
+      if (usGaap[t]?.units?.USD?.length) {
+        revSeries = usGaap[t].units.USD;
+        break;
+      }
+    }
+
+    // Annual Periods (~365 days, 10-K, fp FY)
+    const annualMap = new Map();
+    for (const item of revSeries) {
+      if (item.form === "10-K" && item.fp === "FY" && item.start && item.end) {
+        const days = (new Date(item.end) - new Date(item.start)) / (1000 * 3600 * 24);
+        if (days >= 330 && days <= 390) {
+          const key = item.end;
+          if (!annualMap.has(key) || String(item.filed || "") > String(annualMap.get(key).filed || "")) {
+            const yr = item.end.slice(0, 4);
+            annualMap.set(key, {
+              end: item.end,
+              start: item.start,
+              fy: item.fy || Number(yr),
+              fp: "FY",
+              label: `FY ${yr}`,
+              form: "10-K",
+              accn: item.accn
+            });
+          }
+        }
+      }
+    }
+    const annualPeriods = Array.from(annualMap.values()).sort((a, b) => b.end.localeCompare(a.end)).slice(0, 4);
+
+    // Quarterly Periods (~90 days, 10-Q or fp Q1/Q2/Q3/Q4)
+    const qMap = new Map();
+    for (const item of revSeries) {
+      if (item.start && item.end && (item.form === "10-Q" || (item.fp && item.fp.startsWith("Q")))) {
+        const days = (new Date(item.end) - new Date(item.start)) / (1000 * 3600 * 24);
+        if (days >= 70 && days <= 110) {
+          const key = item.end;
+          if (!qMap.has(key) || String(item.filed || "") > String(qMap.get(key).filed || "")) {
+            const yr = item.end.slice(0, 4);
+            qMap.set(key, {
+              end: item.end,
+              start: item.start,
+              fy: item.fy || Number(yr),
+              fp: item.fp,
+              label: `${item.fp || "Q"} ${yr}`,
+              form: item.form || "10-Q",
+              accn: item.accn
+            });
+          }
+        }
+      }
+    }
+    const quarterlyPeriods = Array.from(qMap.values()).sort((a, b) => b.end.localeCompare(a.end)).slice(0, 4);
+
+    function getFact(tags, period, isBalanceSheet = false) {
+      if (!period) return null;
+      for (const tag of tags) {
+        const node = usGaap[tag];
+        if (!node?.units) continue;
+        const unitKey = node.units.USD
+          ? "USD"
+          : node.units["USD/shares"]
+          ? "USD/shares"
+          : node.units.shares
+          ? "shares"
+          : Object.keys(node.units)[0];
+        const series = node.units[unitKey] || [];
+        
+        const matched = series.filter((x) => {
+          if (!x || x.val == null || !x.end) return false;
+          if (x.end.slice(0, 10) !== period.end.slice(0, 10)) return false;
+          if (!isBalanceSheet) {
+            if (period.fp === "FY") {
+              if (x.fp !== "FY" && x.form !== "10-K") return false;
+              if (x.start && x.end) {
+                const d = (new Date(x.end) - new Date(x.start)) / (1000 * 3600 * 24);
+                if (d < 300) return false;
+              }
+            } else {
+              if (x.start && x.end) {
+                const d = (new Date(x.end) - new Date(x.start)) / (1000 * 3600 * 24);
+                if (d > 120) return false;
+              }
+            }
+          }
+          return true;
+        });
+
+        if (matched.length) {
+          matched.sort((a, b) => String(b.filed || "").localeCompare(String(a.filed || "")));
+          const best = matched[0];
+          const accnClean = String(best.accn || "").replace(/-/g, "");
+          const auditUrl = best.accn && cikNum
+            ? `https://www.sec.gov/Archives/edgar/data/${cikNum}/${accnClean}/${best.accn}-index.htm`
+            : `https://www.sec.gov/edgar/browse/?CIK=${rawCik}`;
+          const ixbrlUrl = best.accn && cikNum
+            ? `https://www.sec.gov/ix?doc=/Archives/edgar/data/${cikNum}/${accnClean}/${String(best.form || "10k").toLowerCase().replace(/[^a-z0-9]/g, "")}.htm`
+            : "";
+          return {
+            val: Number(best.val),
+            tag,
+            unit: unitKey,
+            label: node.label || tag,
+            accn: best.accn || "",
+            form: best.form || period.form,
+            filed: best.filed || "",
+            end: best.end || period.end,
+            auditUrl,
+            ixbrlUrl
+          };
+        }
+      }
+      return null;
+    }
+
+    function buildStatement(spec, periods, isBalanceSheet = false) {
+      const rows = [];
+      for (const item of spec) {
+        if (item.isSection) {
+          rows.push({
+            key: item.key,
+            label: item.label,
+            isSection: true,
+            values: periods.map(() => null),
+            tag: "",
+            auditUrl: ""
+          });
+          continue;
+        }
+
+        const rowValues = [];
+        const rowFacts = [];
+        for (const p of periods) {
+          const fact = item.tags ? getFact(item.tags, p, isBalanceSheet) : null;
+          rowValues.push(fact ? fact.val : null);
+          rowFacts.push(fact);
+        }
+
+        const primaryFact = rowFacts.find(Boolean);
+        rows.push({
+          key: item.key,
+          label: item.label,
+          indent: item.indent || 0,
+          isSubtotal: Boolean(item.isSubtotal),
+          isTotal: Boolean(item.isTotal),
+          isCheck: Boolean(item.isCheck),
+          isPct: Boolean(item.isPct),
+          isEps: Boolean(item.isEps),
+          isShares: Boolean(item.isShares),
+          formulaTemplate: item.formula || null,
+          tag: primaryFact?.tag || (item.tags ? item.tags[0] : ""),
+          auditUrl: primaryFact?.auditUrl || "",
+          ixbrlUrl: primaryFact?.ixbrlUrl || "",
+          accn: primaryFact?.accn || "",
+          values: rowValues,
+          facts: rowFacts
+        });
+      }
+      return rows;
+    }
+
+    const annual = {
+      periods: annualPeriods,
+      incomeStatement: buildStatement(IS_SPEC, annualPeriods, false),
+      balanceSheet: buildStatement(BS_SPEC, annualPeriods, true),
+      cashFlow: buildStatement(CF_SPEC, annualPeriods, false),
+      ebitdaBridge: buildStatement(EBITDA_SPEC, annualPeriods, false),
+      debtSchedule: buildStatement(DEBT_SPEC, annualPeriods, true)
+    };
+
+    const quarterly = {
+      periods: quarterlyPeriods,
+      incomeStatement: buildStatement(IS_SPEC, quarterlyPeriods, false),
+      balanceSheet: buildStatement(BS_SPEC, quarterlyPeriods, true),
+      cashFlow: buildStatement(CF_SPEC, quarterlyPeriods, false),
+      ebitdaBridge: buildStatement(EBITDA_SPEC, quarterlyPeriods, false),
+      debtSchedule: buildStatement(DEBT_SPEC, quarterlyPeriods, true)
+    };
+
+    const matTags = [
+      { key: "year1", label: "Next Twelve Months (Year 1)", tag: "LongTermDebtMaturitiesRepaymentsOfPrincipalInNextTwelveMonths" },
+      { key: "year2", label: "Year Two", tag: "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearTwo" },
+      { key: "year3", label: "Year Three", tag: "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearThree" },
+      { key: "year4", label: "Year Four", tag: "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearFour" },
+      { key: "year5", label: "Year Five", tag: "LongTermDebtMaturitiesRepaymentsOfPrincipalInYearFive" },
+      { key: "afterYear5", label: "Thereafter (After Year Five)", tag: "LongTermDebtMaturitiesRepaymentsOfPrincipalAfterYearFive" }
+    ];
+    const maturities = [];
+    let totalContractual = 0;
+    for (const m of matTags) {
+      const f = getFact([m.tag], annualPeriods[0], true);
+      const val = f ? f.val : null;
+      if (val != null) totalContractual += val;
+      maturities.push({
+        key: m.key,
+        label: m.label,
+        tag: m.tag,
+        val,
+        accn: f?.accn || "",
+        auditUrl: f?.auditUrl || ""
+      });
+    }
+
+    return {
+      annual,
+      quarterly,
+      debtMaturities: maturities,
+      totalContractualPrincipal: totalContractual
+    };
+  };
+
+  SecEngine.getCompanyStatements = async function(tickerOrCik) {
+    const rawCik = String(tickerOrCik || "").replace(/\D/g, "");
+    if (!rawCik) return { ok: false, error: "CIK or company identifier required." };
+
+    try {
+      const facts = await SecEngine.fetchCompanyFacts(rawCik);
+      if (!facts) return { ok: false, error: "Unable to retrieve SEC facts." };
+
+      const usGaap = facts.facts?.["us-gaap"] || facts.facts?.["ifrs-full"] || {};
+      const statements = SecEngine.buildMultiPeriodStatementsFromCompanyFacts(
+        usGaap,
+        facts.entityName || "",
+        rawCik
+      );
+
+      return {
+        ok: true,
+        cik: String(Number(rawCik)),
+        entityName: facts.entityName || "",
+        statements
+      };
+    } catch (err) {
+      return { ok: false, error: err?.message || "Failed to load financial statements." };
+    }
+  };
+
+  SecEngine.formatFinancialVal = function(val, row = {}) {
+    if (val == null || isNaN(val)) return "—";
+    if (row.isPct) {
+      return (val * 100).toFixed(1) + "%";
+    }
+    if (row.isEps) {
+      const isNeg = val < 0;
+      const abs = Math.abs(val).toFixed(2);
+      return isNeg ? `-$${abs}` : `$${abs}`;
+    }
+    if (row.isShares) {
+      const m = val / 1e6;
+      return `${m.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}M`;
+    }
+    if (row.isCheck) {
+      if (Math.abs(val) < 1e5) {
+        return `<span class="badge balanced">$0 (Balanced)</span>`;
+      }
+      const isNeg = val < 0;
+      const abs = Math.abs(val) >= 1e9
+        ? `$${(Math.abs(val) / 1e9).toFixed(2)}B`
+        : `$${(Math.abs(val) / 1e6).toFixed(1)}M`;
+      return `<span class="badge unbalance">${isNeg ? `-${abs}` : abs} (Variance)</span>`;
+    }
+    const isNeg = val < 0;
+    const abs = Math.abs(val);
+    let str = "";
+    if (abs >= 1e9) {
+      str = `$${(abs / 1e9).toFixed(2)}B`;
+    } else if (abs >= 1e6) {
+      str = `$${(abs / 1e6).toFixed(1)}M`;
+    } else if (abs >= 1e3) {
+      str = `$${(abs / 1e3).toFixed(1)}K`;
+    } else {
+      str = `$${abs.toFixed(0)}`;
+    }
+    return isNeg ? `(${str})` : str;
+  };
+
+  /* ── OpenXML Dynamic Formula Excel Generator (Client-Side) ── */
+
+  function todayStamp() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  function safeFilename(name) {
+    return String(name || "extract")
+      .replace(/[^a-zA-Z0-9_-]/g, "_")
+      .replace(/_+/g, "_")
+      .slice(0, 40);
+  }
+
+  function colLetter(index) {
+    let n = index;
+    let s = "";
+    do {
+      s = String.fromCharCode(65 + (n % 26)) + s;
+      n = Math.floor(n / 26) - 1;
+    } while (n >= 0);
+    return s;
+  }
+
+  function crc32(buf) {
+    let c = ~0;
+    for (let i = 0; i < buf.length; i += 1) {
+      c ^= buf[i];
+      for (let k = 0; k < 8; k += 1) {
+        c = c & 1 ? (0xedb88320 ^ (c >>> 1)) : c >>> 1;
+      }
+    }
+    return ~c >>> 0;
+  }
+
+  function escapeXmlAttr(s) {
+    return String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function buildSheetXml(rows, opts = {}) {
+    const esc = (s) =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    const titleRows = new Set(opts.titleRows || [0]);
+    const headerRow =
+      opts.headerRow != null
+        ? opts.headerRow
+        : rows.length > 1 && rows[0]?.length <= 2
+        ? null
+        : 0;
+    const freezeRow = Math.max(1, Number(opts.freezeRow) || (headerRow != null ? headerRow + 1 : 1));
+
+    const colCount = Math.max(...rows.map((r) => (Array.isArray(r) ? r.length : 1)), 1);
+    const widths = [];
+    for (let c = 0; c < colCount; c += 1) {
+      let maxLen = 10;
+      for (const row of rows) {
+        const cell = Array.isArray(row) ? row[c] : "";
+        const len = String(cell?.v ?? cell ?? "").length;
+        if (len > maxLen) maxLen = len;
+      }
+      const w = Math.min(50, Math.max(c === 0 ? 32 : 16, maxLen + 2));
+      widths.push(
+        `<col min="${c + 1}" max="${c + 1}" width="${w}" customWidth="1"/>`
+      );
+    }
+
+    const sheetRows = rows
+      .map((row, rIdx) => {
+        const cellsArr = Array.isArray(row) ? row : [row];
+        const first = String(cellsArr[0]?.v ?? cellsArr[0] ?? "");
+        const isSection =
+          first.startsWith("▸ ") ||
+          (cellsArr.length <= 2 &&
+            first === first.toUpperCase() &&
+            first.length > 2 &&
+            first.length < 52 &&
+            !first.includes("http") &&
+            rIdx > 2);
+        let defaultStyleId = 0;
+        if (titleRows.has(rIdx) && rIdx === 0) defaultStyleId = 2;
+        else if (titleRows.has(rIdx)) defaultStyleId = 3;
+        else if (headerRow != null && rIdx === headerRow) defaultStyleId = 1;
+        else if (isSection) defaultStyleId = 4;
+
+        const cells = cellsArr
+          .map((cell, cIdx) => {
+            const ref = colLetter(cIdx) + String(rIdx + 1);
+            if (cell && typeof cell === "object") {
+              const s = cell.s != null ? cell.s : (defaultStyleId || (cell.v != null && typeof cell.v === "number" ? 5 : 0));
+              const style = ` s="${s}"`;
+              if (cell.f) {
+                const formula = cell.f.startsWith("=") ? cell.f.slice(1) : cell.f;
+                const valTag = cell.v != null ? `<v>${cell.v}</v>` : "";
+                return `<c r="${ref}"${style}><f>${esc(formula)}</f>${valTag}</c>`;
+              }
+              if (typeof cell.v === "number" && Number.isFinite(cell.v)) {
+                return `<c r="${ref}"${style}><v>${cell.v}</v></c>`;
+              }
+              return `<c r="${ref}"${style} t="inlineStr"><is><t>${esc(cell.v ?? "")}</t></is></c>`;
+            }
+            if (typeof cell === "string" && cell.startsWith("=")) {
+              const style = ` s="${defaultStyleId || 5}"`;
+              return `<c r="${ref}"${style}><f>${esc(cell.slice(1))}</f></c>`;
+            }
+            if (typeof cell === "number" && Number.isFinite(cell)) {
+              const s = defaultStyleId || 5;
+              return `<c r="${ref}" s="${s}"><v>${cell}</v></c>`;
+            }
+            const t = String(cell ?? "");
+            return `<c r="${ref}" s="${defaultStyleId}" t="inlineStr"><is><t>${esc(t)}</t></is></c>`;
+          })
+          .join("");
+        const ht =
+          titleRows.has(rIdx) && rIdx === 0
+            ? ' ht="22" customHeight="1"'
+            : isSection
+            ? ' ht="18" customHeight="1"'
+            : "";
+        return `<row r="${rIdx + 1}"${ht}>${cells}</row>`;
+      })
+      .join("");
+
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+  <sheetViews>
+    <sheetView workbookViewId="0">
+      <pane ySplit="${freezeRow}" topLeftCell="A${freezeRow + 1}" activePane="bottomLeft" state="frozen"/>
+    </sheetView>
+  </sheetViews>
+  <cols>${widths.join("")}</cols>
+  <sheetData>${sheetRows}</sheetData>
+  <autoFilter ref="A${(headerRow != null ? headerRow : 0) + 1}:${colLetter(colCount - 1)}${rows.length}"/>
+</worksheet>`;
+  }
+
+  function zipStore(fileMap) {
+    const enc = new TextEncoder();
+    const parts = [];
+    const central = [];
+    let offset = 0;
+
+    const entries = Object.entries(fileMap);
+    for (const [name, content] of entries) {
+      const nameBytes = enc.encode(name);
+      const data =
+        typeof content === "string" ? enc.encode(content) : content;
+      const crc = crc32(data);
+      const size = data.length;
+
+      const local = new Uint8Array(30 + nameBytes.length);
+      const lv = new DataView(local.buffer);
+      lv.setUint32(0, 0x04034b50, true);
+      lv.setUint16(4, 20, true);
+      lv.setUint16(6, 0, true);
+      lv.setUint16(8, 0, true);
+      lv.setUint16(10, 0, true);
+      lv.setUint16(12, 0, true);
+      lv.setUint32(14, crc, true);
+      lv.setUint32(18, size, true);
+      lv.setUint32(22, size, true);
+      lv.setUint16(26, nameBytes.length, true);
+      lv.setUint16(28, 0, true);
+      local.set(nameBytes, 30);
+
+      parts.push(local, data);
+
+      const cen = new Uint8Array(46 + nameBytes.length);
+      const cv = new DataView(cen.buffer);
+      cv.setUint32(0, 0x02014b50, true);
+      cv.setUint16(4, 20, true);
+      cv.setUint16(6, 20, true);
+      cv.setUint16(8, 0, true);
+      cv.setUint16(10, 0, true);
+      cv.setUint16(12, 0, true);
+      cv.setUint16(14, 0, true);
+      cv.setUint32(16, crc, true);
+      cv.setUint32(20, size, true);
+      cv.setUint32(24, size, true);
+      cv.setUint16(28, nameBytes.length, true);
+      cv.setUint16(30, 0, true);
+      cv.setUint16(32, 0, true);
+      cv.setUint16(34, 0, true);
+      cv.setUint16(36, 0, true);
+      cv.setUint32(38, 0, true);
+      cv.setUint32(42, offset, true);
+      cen.set(nameBytes, 46);
+      central.push(cen);
+
+      offset += local.length + data.length;
+    }
+
+    const centralSize = central.reduce((n, u) => n + u.length, 0);
+    const centralOffset = offset;
+    const end = new Uint8Array(22);
+    const ev = new DataView(end.buffer);
+    ev.setUint32(0, 0x06054b50, true);
+    ev.setUint16(4, 0, true);
+    ev.setUint16(6, 0, true);
+    ev.setUint16(8, entries.length, true);
+    ev.setUint16(10, entries.length, true);
+    ev.setUint32(12, centralSize, true);
+    ev.setUint32(16, centralOffset, true);
+    ev.setUint16(20, 0, true);
+
+    const totalBytes =
+      parts.reduce((n, p) => n + p.length, 0) + centralSize + 22;
+    const out = new Uint8Array(totalBytes);
+    let pOffset = 0;
+    for (const p of parts) {
+      out.set(p, pOffset);
+      pOffset += p.length;
+    }
+    for (const c of central) {
+      out.set(c, pOffset);
+      pOffset += c.length;
+    }
+    out.set(end, pOffset);
+    return out;
+  }
+
+  function convertStatementToExcelSheet(statementName, stmtData, entityName, cik) {
+    const periods = stmtData.periods || [];
+    const rows = [
+      [`CALIO Financial Terminal — ${statementName}`],
+      [`Company: ${entityName} | CIK: ${cik} | Source: SEC EDGAR US-GAAP XBRL`],
+      [""],
+      ["Financial Line Item", ...periods.map((p) => p.label), "US-GAAP Taxonomy Tag", "SEC Accession No.", "Verified SEC EDGAR Source"]
+    ];
+
+    const keyToRowNumber = {};
+    const stmtRows = stmtData.rows || [];
+    stmtRows.forEach((r, idx) => {
+      keyToRowNumber[r.key] = 5 + idx;
+    });
+
+    for (let rIdx = 0; rIdx < stmtRows.length; rIdx++) {
+      const row = stmtRows[rIdx];
+      if (row.isSection) {
+        rows.push([`▸ ${row.label}`]);
+        continue;
+      }
+
+      const sheetRow = [];
+      const indentPrefix = row.indent === 1 ? "  " : row.indent === 2 ? "    " : "";
+      sheetRow.push(`${indentPrefix}${row.label}`);
+
+      for (let cIdx = 0; cIdx < periods.length; cIdx++) {
+        const col = colLetter(cIdx + 1);
+        const val = row.values ? row.values[cIdx] : null;
+        let styleId = row.isTotal ? 9 : row.isSubtotal ? 8 : row.isPct ? 7 : (row.isEps ? 0 : 5);
+
+        if (row.formulaTemplate) {
+          const formula = row.formulaTemplate.replace(/\b([a-zA-Z_]\w*)\b/g, (token) => {
+            if (token === "SUM") return "SUM";
+            if (keyToRowNumber[token]) {
+              return col + keyToRowNumber[token];
+            }
+            return token;
+          });
+          sheetRow.push({
+            f: formula,
+            v: val,
+            s: styleId
+          });
+        } else if (val != null) {
+          sheetRow.push({
+            v: val,
+            s: styleId
+          });
+        } else {
+          sheetRow.push("");
+        }
+      }
+
+      sheetRow.push(row.tag || "");
+      sheetRow.push(row.accn || "");
+      if (row.auditUrl) {
+        sheetRow.push({
+          f: `HYPERLINK("${row.auditUrl}", "SEC EDGAR ↗")`,
+          v: "SEC EDGAR ↗",
+          s: 10
+        });
+      } else {
+        sheetRow.push("");
+      }
+
+      rows.push(sheetRow);
+    }
+
+    return {
+      name: statementName,
+      rows,
+      titleRows: [0, 1],
+      headerRow: 3
+    };
+  }
+
+  SecEngine.buildExcelSheetsFromExtract = function(extract) {
+    const sheets = [];
+    const title = `CALIO · ${extract.companyName || "Extract"} · ${extract.filingType || "Filing"}`;
+    const blank = () => [""];
+    const section = (label) => [`▸ ${label}`];
+
+    // Summary Sheet
+    const summary = [
+      [title],
+      ["Financial extraction model"],
+      blank(),
+      section("IDENTITY"),
+      ["Field", "Value"],
+      ["Company", extract.companyName || ""],
+      ["Ticker", extract.ticker || ""],
+      ["Form type", extract.filingType || ""],
+      ["Filing date", extract.filingDate || ""],
+      ["Period end", extract.periodEnd || ""],
+      ["CIK", extract.cik || ""],
+      blank(),
+      section("SOURCE"),
+      ["Document URL", extract.documentUrl || ""],
+      ["Generated by", "CALIO (calio.app)"],
+      ["Generated on", todayStamp()],
+      blank(),
+      ["Notice"],
+      ["Data normalized directly from audited SEC EDGAR US-GAAP XBRL filings with live mathematical OpenXML formulas."]
+    ];
+    sheets.push({ name: "Summary", rows: summary, titleRows: [0, 1] });
+
+    // Multi-Period 3-Statement Suite
+    const stmts = extract.statements;
+    if (stmts && (stmts.annual || stmts.quarterly)) {
+      const isQuarterly = extract.filingType === "10-Q" || /Q[1-4]/i.test(extract.periodEnd || "");
+      const activeData = (isQuarterly && stmts.quarterly?.incomeStatement?.length)
+        ? stmts.quarterly
+        : (stmts.annual || stmts);
+
+      const compName = extract.companyName || "Extract";
+      const compCik = extract.cik || "";
+
+      if (activeData.incomeStatement?.length) {
+        sheets.push(convertStatementToExcelSheet("Income Statement", { periods: activeData.periods, rows: activeData.incomeStatement }, compName, compCik));
+      }
+      if (activeData.balanceSheet?.length) {
+        sheets.push(convertStatementToExcelSheet("Balance Sheet", { periods: activeData.periods, rows: activeData.balanceSheet }, compName, compCik));
+      }
+      if (activeData.cashFlow?.length) {
+        sheets.push(convertStatementToExcelSheet("Cash Flows", { periods: activeData.periods, rows: activeData.cashFlow }, compName, compCik));
+      }
+      if (activeData.ebitdaBridge?.length) {
+        sheets.push(convertStatementToExcelSheet("EBITDA Bridge", { periods: activeData.periods, rows: activeData.ebitdaBridge }, compName, compCik));
+      }
+      if (activeData.debtSchedule?.length) {
+        const debtSheet = convertStatementToExcelSheet("Debt Schedule", { periods: activeData.periods, rows: activeData.debtSchedule }, compName, compCik);
+        if (stmts.debtMaturities?.length) {
+          debtSheet.rows.push(blank());
+          debtSheet.rows.push(["▸ CONTRACTUAL DEBT MATURITY SCHEDULE (SEC FOOTNOTES)"]);
+          debtSheet.rows.push(["Maturity Window", "Principal Amount ($)", "US-GAAP Taxonomy Tag", "SEC Accession No.", "Verified SEC Source"]);
+          for (const m of stmts.debtMaturities) {
+            debtSheet.rows.push([
+              m.label,
+              m.val != null ? { v: m.val, s: 5 } : "Not disclosed",
+              m.tag,
+              m.accn || "",
+              m.auditUrl ? { f: `HYPERLINK("${m.auditUrl}", "SEC EDGAR ↗")`, v: "SEC EDGAR ↗", s: 10 } : ""
+            ]);
+          }
+        }
+        sheets.push(debtSheet);
+      }
+    }
+
+    return sheets;
+  };
+
+  SecEngine.buildXlsxBytesMulti = function(sheets) {
+    const list = (Array.isArray(sheets) ? sheets : [])
+      .filter((s) => s && Array.isArray(s.rows) && s.rows.length)
+      .slice(0, 8);
+    if (!list.length) {
+      list.push({ name: "Extract", rows: [["Empty"]] });
+    }
+
+    const safeSheetName = (name, idx) => {
+      let n = String(name || `Sheet${idx + 1}`)
+        .replace(/[\\/*?:\[\]]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 31);
+      return n || `Sheet${idx + 1}`;
+    };
+
+    const sheetFiles = {};
+    const sheetRels = [];
+    const sheetEntries = [];
+    const overrides = [];
+
+    list.forEach((s, i) => {
+      const id = i + 1;
+      const path = `worksheets/sheet${id}.xml`;
+      const rId = `rId${id}`;
+      sheetFiles[`xl/${path}`] = buildSheetXml(s.rows, {
+        titleRows: s.titleRows || [0],
+        headerRow: s.headerRow != null ? s.headerRow : null,
+        freezeRow: s.headerRow != null ? s.headerRow + 1 : 1
+      });
+      sheetRels.push(
+        `<Relationship Id="${rId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="${path}"/>`
+      );
+      sheetEntries.push(
+        `<sheet name="${escapeXmlAttr(safeSheetName(s.name, i))}" sheetId="${id}" r:id="${rId}"/>`
+      );
+      overrides.push(
+        `<Override PartName="/xl/${path}" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`
+      );
+    });
+
+    const stylesRId = `rId${list.length + 1}`;
+    sheetRels.push(
+      `<Relationship Id="${stylesRId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>`
+    );
+
+    const files = {
+      "[Content_Types].xml": `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/xml"/>
+  <Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
+  ${overrides.join("\n  ")}
+  <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
+</Types>`,
+      "_rels/.rels": `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
+</Relationships>`,
+      "xl/workbook.xml": `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+  <sheets>
+    ${sheetEntries.join("\n    ")}
+  </sheets>
+</workbook>`,
+      "xl/_rels/workbook.xml.rels": `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  ${sheetRels.join("\n  ")}
+</Relationships>`,
+      "xl/styles.xml": `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+  <fonts count="6">
+    <font><sz val="11"/><color rgb="FF122E29"/><name val="Calibri"/></font>
+    <font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font>
+    <font><b/><sz val="16"/><color rgb="FF0F2E29"/><name val="Calibri"/></font>
+    <font><b/><sz val="12"/><color rgb="FF19443C"/><name val="Calibri"/></font>
+    <font><b/><sz val="11"/><color rgb="FF0F2E29"/><name val="Calibri"/></font>
+    <font><u/><sz val="11"/><color rgb="FF0047BA"/><name val="Calibri"/></font>
+  </fonts>
+  <fills count="4">
+    <fill><patternFill patternType="none"/></fill>
+    <fill><patternFill patternType="gray125"/></fill>
+    <fill><patternFill patternType="solid"><fgColor rgb="FF19443C"/></patternFill></fill>
+    <fill><patternFill patternType="solid"><fgColor rgb="FFEEF4F2"/></patternFill></fill>
+  </fills>
+  <borders count="3">
+    <border><left/><right/><top/><bottom/><diagonal/></border>
+    <border><left/><right/><top style="thin"><color rgb="FFB0C4DE"/></top><bottom/><diagonal/></border>
+    <border><left/><right/><top style="thin"><color rgb="FFB0C4DE"/></top><bottom style="double"><color rgb="FF19443C"/></bottom><diagonal/></border>
+  </borders>
+  <cellStyleXfs count="1"><xf/></cellStyleXfs>
+  <cellXfs count="11">
+    <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
+    <xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/>
+    <xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/>
+    <xf numFmtId="0" fontId="3" fillId="0" borderId="0" xfId="0" applyFont="1"/>
+    <xf numFmtId="0" fontId="4" fillId="3" borderId="0" xfId="0" applyFont="1" applyFill="1"/>
+    <xf numFmtId="3" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+    <xf numFmtId="44" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+    <xf numFmtId="10" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
+    <xf numFmtId="3" fontId="4" fillId="0" borderId="1" xfId="0" applyFont="1" applyNumberFormat="1" applyBorder="1"/>
+    <xf numFmtId="3" fontId="4" fillId="0" borderId="2" xfId="0" applyFont="1" applyNumberFormat="1" applyBorder="1"/>
+    <xf numFmtId="0" fontId="5" fillId="0" borderId="0" xfId="0" applyFont="1"/>
+  </cellXfs>
+</styleSheet>`,
+      ...sheetFiles
+    };
+
+    return zipStore(files);
+  };
+
+  SecEngine.downloadExcelModel = function(extract, customFilename = "") {
+    if (!extract || typeof extract !== "object") {
+      throw new Error("No extract data available for Excel export.");
+    }
+    const sheets = SecEngine.buildExcelSheetsFromExtract(extract);
+    const bytes = SecEngine.buildXlsxBytesMulti(sheets);
+    const company = safeFilename(extract.companyName || extract.ticker || "Company");
+    const form = safeFilename(extract.filingType || "10K");
+    const filename = customFilename || `CALIO_${company}_${form}_${todayStamp()}.xlsx`;
+
+    const blob = new Blob([bytes], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    return { ok: true, filename };
+  };
+
   window.SecEngine = SecEngine;
 })(window);
