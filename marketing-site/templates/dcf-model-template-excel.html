@@ -17,26 +17,66 @@
     <link rel="stylesheet" href="../css/site.css" />
     <script src="../js/sec-engine.js"></script>
 
-    <!-- Schema.org Dataset & Technical Article -->
+    <!-- Schema.org Technical Article & FAQPage -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Institutional DCF Model Template in Excel (.xlsx) with Sensitivity Matrix",
-      "description": "Comprehensive institutional valuation methodology and downloadable Excel financial model template featuring Unlevered Free Cash Flow projections, dynamic WACC, and two-dimensional sensitivity tables.",
-      "author": {
-        "@type": "Organization",
-        "name": "CALIO Research"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "CALIO Technologies",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Institutional DCF Model Template in Excel (.xlsx) with Sensitivity Matrix",
+        "description": "Comprehensive institutional valuation methodology and downloadable Excel financial model template featuring Unlevered Free Cash Flow projections, dynamic WACC, and two-dimensional sensitivity tables.",
+        "author": {
+          "@type": "Organization",
+          "name": "CALIO Research"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "CALIO Technologies",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://calio-pink.vercel.app/assets/icon128.png"
+          }
         }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between an Unlevered DCF and a Levered DCF?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An Unlevered DCF projects Free Cash Flow to Firm (FCFF or UFCF), which reflects operating cash flow before interest expense and debt payments, discounted by the Weighted Average Cost of Capital (WACC) to arrive at Enterprise Value. A Levered DCF projects Free Cash Flow to Equity (FCFE) after mandatory debt service, discounted by the Cost of Equity to arrive directly at Equity Value. Unlevered DCF is the universal institutional standard because it evaluates operating performance independent of changing capital structures."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How should I select between the Perpetual Growth Method and the Exit Multiple Method for Terminal Value?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Institutional analysts compute both methods to cross-validate implied valuation. The Perpetual Growth Method (Gordon Growth) calculates Terminal Value as UFCF(n+1) / (WACC - g), with long-term growth rate g pegged between 2.0% and 3.5% (roughly tracking long-term GDP and inflation). The Exit Multiple Method applies an EV/EBITDA multiple derived from mature public peers. A common best practice is using the exit multiple to calculate implied perpetuity growth to verify whether the exit assumption is economically defensible."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does institutional corporate finance require the Mid-Year Discounting Convention?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Standard end-of-year integer discounting assumes all annual cash flows arrive in a lump sum on December 31st (t = 1, 2, 3), which artificially undervalues the company. The Mid-Year Convention applies discount factors of t - 0.5 (e.g. 0.5, 1.5, 2.5), mathematically modeling cash flows received evenly throughout the 365-day fiscal year, yielding a more accurate present value."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you bridge from Enterprise Value to Equity Value and Implied Share Price?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Once Enterprise Value is derived from discounted UFCF plus Terminal Value, you calculate Equity Value as: Enterprise Value minus Total Debt (short-term plus long-term borrowings) minus Preferred Stock minus Non-Controlling (Minority) Interest plus Cash & Cash Equivalents. Dividing Equity Value by the fully diluted shares outstanding (inclusive of in-the-money options and RSUs via the Treasury Stock Method) yields the implied share price."
+            }
+          }
+        ]
       }
-    }
+    ]
     </script>
   </head>
   <body>
@@ -350,19 +390,19 @@
         <nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted);">
           <a href="../index.html" style="color: var(--soft); text-decoration: none;">Home</a>
           <span style="margin: 0 0.5rem;">/</span>
-          <span style="color: var(--ink);">Templates</span>
+          <a href="../index.html#models" style="color: var(--soft); text-decoration: none;">Templates</a>
           <span style="margin: 0 0.5rem;">/</span>
           <span style="color: var(--teal-bright); font-weight: 600;">DCF Model Template Excel</span>
         </nav>
 
-        <div class="section-tag">Financial Modeling Template</div>
+        <div class="section-tag">Institutional Valuation Architecture</div>
         
         <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
           Institutional DCF Model Template in Excel (.xlsx) with Sensitivity Analysis
         </h1>
         
         <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
-          A clean, fully integrated Discounted Cash Flow (DCF) valuation workbook engineered to investment banking standards. Features dynamic 5-year Unlevered Free Cash Flow (UFCF) projections, capital structure weighted average cost of capital (WACC) calculations, and two-dimensional sensitivity matrices.
+          A clean, fully integrated Discounted Cash Flow (DCF) valuation workbook engineered to bulge-bracket investment banking and private equity standards. Features dynamic 5-year Unlevered Free Cash Flow (UFCF) projections, capital structure weighted average cost of capital (WACC) derivations, mid-year discounting conventions, dual terminal value methodologies, and two-dimensional sensitivity matrices.
         </p>
 
         <!-- Download & Automation Action Card -->
@@ -373,10 +413,10 @@
                 Free Download &bull; XLSX Format
               </div>
               <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
-                Download Institutional DCF Valuation Model
+                Download Institutional DCF Valuation Model (.xlsx)
               </h3>
               <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
-                Pre-formatted workbook with dynamic OpenXML formula architecture &bull; Zero macro security prompts
+                Pre-formatted workbook with dynamic OpenXML formula architecture &bull; Zero macro security prompts &bull; Audit-ready
               </p>
             </div>
             <button type="button" id="btnDownloadDcfXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
@@ -390,50 +430,158 @@
           </div>
         </div>
 
-        <!-- Section: Valuation Methodology -->
+        <!-- Section 1: Valuation Methodology -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
           1. The Unlevered Free Cash Flow (UFCF) Framework
         </h2>
         
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          In institutional corporate finance and equity research, an intrinsic valuation is built on <strong>Unlevered Free Cash Flow</strong> (Free Cash Flow to Firm). UFCF reflects the cash generated by core operations that remains available to all capital providers (both debt and equity holders) after funding necessary capital expenditures and working capital commitments.
+          In institutional corporate finance and equity research, intrinsic valuation is grounded in <strong>Unlevered Free Cash Flow</strong> (also termed Free Cash Flow to Firm or FCFF). UFCF represents the cash generated by core corporate operations that remains available to all capital providers—both senior debt claimants and common equity holders—after funding non-discretionary operating expenses, contractual income taxes, working capital expansions, and capital expenditures.
         </p>
 
-        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.7; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
-          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># Mathematical Formulation:</div>
-          <div>EBIT (Operating Income)</div>
-          <div>&minus; Cash Taxes [EBIT &times; (1 &minus; Effective Tax Rate)]</div>
-          <div>= NOPAT (Net Operating Profit After Tax)</div>
-          <div>+ Depreciation &amp; Amortization (Non-Cash Addback)</div>
-          <div>&minus; Capital Expenditures (CapEx)</div>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Because UFCF is evaluated prior to the impact of contractual debt obligations and interest expense, it enables an unbiased comparison between companies operating with differing leverage, debt structures, or credit profiles.
+        </p>
+
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.8; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># Mathematical Formulation of Unlevered Free Cash Flow:</div>
+          <div>  Revenue</div>
+          <div>- Cost of Goods Sold (COGS)</div>
+          <div>= Gross Profit</div>
+          <div>- Operating Expenses (SG&A, R&D)</div>
+          <div>= Operating Income (EBIT)</div>
+          <div>- Cash Taxes on Operating Income [EBIT &times; (1 - Effective Tax Rate)]</div>
+          <div style="color: #6ee7b7; font-weight: 600;">= NOPAT (Net Operating Profit After Tax)</div>
+          <div>+ Depreciation &amp; Amortization (Non-Cash Expense Addback)</div>
+          <div>- Capital Expenditures (CapEx: Maintenance &amp; Growth)</div>
           <div>&plusmn; Change in Net Working Capital (&Delta;NWC)</div>
-          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 700;">
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 800; font-size: 0.98rem;">
             = Unlevered Free Cash Flow (UFCF)
           </div>
         </div>
 
-        <!-- Section: WACC Calculation -->
+        <h3 style="font-size: 1.3rem; color: var(--ink-heading); font-weight: 700; margin: 2rem 0 0.75rem 0;">
+          Working Capital (&Delta;NWC) Dynamics
+        </h3>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Net Working Capital represents the operational liquidity tied up in daily commercial activities. In institutional modeling, &Delta;NWC is projected using three operational efficiency ratios rather than arbitrary percentage assumptions:
+        </p>
+        <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.75rem;">
+          <li><strong>Days Sales Outstanding (DSO)</strong>: Measures collection speed: <code>(Accounts Receivable / Revenue) &times; 365</code>. An expanding DSO reflects customer payment delays and drains cash.</li>
+          <li><strong>Days Inventory Outstanding (DIO)</strong>: Measures inventory velocity: <code>(Inventory / COGS) &times; 365</code>. Building raw materials or finished inventory ties up operating cash.</li>
+          <li><strong>Days Payable Outstanding (DPO)</strong>: Measures supplier credit terms: <code>(Accounts Payable / COGS) &times; 365</code>. Longer payable cycles preserve cash inside the business.</li>
+        </ul>
+
+        <!-- Section 2: WACC Calculation -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
           2. Weighted Average Cost of Capital (WACC)
         </h2>
         
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          To determine the present value of forecasted cash flows, future UFCFs are discounted by the firm's composite opportunity cost of capital. The workbook dynamically models:
+          To determine the present value of multi-period future cash flows, forecasted UFCFs must be discounted at the firm's composite opportunity cost of capital. WACC blends the cost of equity and after-tax cost of debt weighted by their target market values:
         </p>
 
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; font-family: monospace; font-size: 0.95rem; line-height: 1.7; color: #0f172a;">
+          <strong>WACC Formulation:</strong><br />
+          WACC = [ (E / V) &times; Cost of Equity ] + [ (D / V) &times; Cost of Debt &times; (1 - Corporate Tax Rate) ]<br /><br />
+          <span style="font-size: 0.85rem; color: #64748b; font-family: Outfit, sans-serif;">
+            Where: E = Market Value of Equity, D = Book Value of Net Debt, V = E + D (Total Capitalization).
+          </span>
+        </div>
+
         <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.5rem;">
-          <li><strong>Cost of Equity ($R_e$)</strong>: Derived via the Capital Asset Pricing Model (CAPM): $R_e = R_f + \beta \times ERP$, where $R_f$ is the 10-Year US Treasury yield and $ERP$ is the Equity Risk Premium (typically 4.5% to 5.5%).</li>
-          <li><strong>Cost of Debt ($R_d$)</strong>: Weighted average interest rate on contractual debt obligations, adjusted for corporate tax deductibility: $R_d \times (1 &minus; t)$.</li>
-          <li><strong>Capital Weighting</strong>: Market capitalization of equity ($E$) versus total debt book value ($D$).</li>
+          <li><strong>Cost of Equity ($R_e$)</strong>: Derived via the Capital Asset Pricing Model (CAPM): <code>R_e = R_f + &beta; &times; ERP</code>, where $R_f$ is the 10-Year US Treasury yield, $eta$ is the equity beta unlevered and relevered for target debt structure, and $ERP$ is the historical Equity Risk Premium (typically 4.50% to 5.50%).</li>
+          <li><strong>Cost of Debt ($R_d$)</strong>: Computed as the company's weighted average effective borrowing rate on contractual bonds and credit facilities, adjusted for the corporate interest tax shield: <code>R_d &times; (1 - t)</code>.</li>
         </ul>
 
-        <!-- Section: Sensitivity Matrix Preview -->
+        <!-- Section 3: Mid-Year Discounting Convention -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
-          3. Two-Dimensional Sensitivity Analysis
+          3. Mid-Year Discounting Convention vs. Year-End Convention
         </h2>
 
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          A single point estimate for fair value is inherently incomplete. This model includes an automated 2D sensitivity matrix analyzing implied share price across varying WACC discount rates and Terminal Growth Rates ($g$):
+          Standard introductory financial models discount cash flows assuming they arrive on the final day of each fiscal year ($t = 1.0, 2.0, 3.0$). In reality, commercial enterprises collect revenues and disburse expenses continuously across all 365 days.
+        </p>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Investment banking standards mandate the <strong>Mid-Year Discounting Convention</strong>, which treats all annual cash flows as if received at the exact midpoint of each forecast year ($t = 0.5, 1.5, 2.5, 3.5, 4.5$). This eliminates systematic undervaluation:
+        </p>
+
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-family: monospace; font-size: 0.92rem; color: #0f172a;">
+          Mid-Year Discount Factor = 1 / [ (1 + WACC) ^ (Period - 0.5) ]
+        </div>
+
+        <!-- Section 4: Dual Terminal Value Approaches -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          4. Dual Terminal Value Methodologies
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Typically 60% to 80% of a company's total DCF Enterprise Value resides in its <strong>Terminal Value (TV)</strong>—the present value of all cash flows beyond the explicit 5-year forecast horizon. Our model incorporates both institutional methodologies:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0 2rem 0;">
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Methodology A</div>
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0.35rem 0 0.5rem 0;">Perpetual Growth (Gordon Growth)</h4>
+            <p style="font-size: 0.88rem; color: var(--soft); line-height: 1.6; margin-bottom: 0.75rem;">
+              Assumes the business reaches a steady state and grows at a constant rate ($g$) in perpetuity:
+            </p>
+            <div style="background: #f8fafc; padding: 0.75rem; border-radius: 6px; font-family: monospace; font-size: 0.85rem; color: #0f172a;">
+              TV = [ UFCF_n &times; (1 + g) ] / (WACC - g)
+            </div>
+            <p style="font-size: 0.82rem; color: #64748b; margin-top: 0.75rem;">
+              Rule of thumb: The terminal growth rate ($g$) should not exceed long-term GDP expansion (2.0% to 3.0%).
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Methodology B</div>
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0.35rem 0 0.5rem 0;">Exit Multiple Method</h4>
+            <p style="font-size: 0.88rem; color: var(--soft); line-height: 1.6; margin-bottom: 0.75rem;">
+              Applies an enterprise trading multiple (e.g. EV / EBITDA) to the final forecast year's normalized metric:
+            </p>
+            <div style="background: #f8fafc; padding: 0.75rem; border-radius: 6px; font-family: monospace; font-size: 0.85rem; color: #0f172a;">
+              TV = EBITDA_n &times; Target EV/EBITDA Multiple
+            </div>
+            <p style="font-size: 0.82rem; color: #64748b; margin-top: 0.75rem;">
+              Best practice: Calculate the implied perpetuity growth rate from the exit multiple to verify if the valuation is realistic.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 5: Enterprise Value to Equity Value Bridge -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          5. Enterprise Value to Equity Value &amp; Share Price Bridge
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Discounting UFCF yields the <strong>Enterprise Value (EV)</strong> of the entire operating entity. To derive fair value per common share, the model walks across the corporate capital structure:
+        </p>
+
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; font-family: monospace; font-size: 0.92rem; line-height: 1.8; color: #0f172a;">
+          <div>  Present Value of Explicit Forecast UFCF (Years 1 - 5)</div>
+          <div>+ Present Value of Terminal Value</div>
+          <div style="font-weight: 700; color: var(--teal-primary);">= Enterprise Value (EV)</div>
+          <div>- Total Contractual Debt (Short-Term &amp; Long-Term Borrowings)</div>
+          <div>- Preferred Stock &amp; Hybrid Equity</div>
+          <div>- Non-Controlling (Minority) Interest</div>
+          <div>+ Cash &amp; Cash Equivalents &amp; Marketable Securities</div>
+          <div style="border-top: 1px solid #cbd5e1; padding-top: 0.5rem; margin-top: 0.5rem; font-weight: 800; color: #0f766e;">
+            = Equity Value
+          </div>
+          <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
+            &divide; Diluted Shares Outstanding (Treasury Stock Method) = Implied Value Per Share ($)
+          </div>
+        </div>
+
+        <!-- Section 6: Sensitivity Matrix -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          6. Two-Dimensional Sensitivity Analysis
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          A single point estimate for fair value is incomplete without examining the range of potential outcomes. Below is the automated sensitivity matrix exported in our workbook, showing implied share price across varying WACC discount rates and Terminal Growth Rates ($g$):
         </p>
 
         <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
@@ -469,8 +617,76 @@
                 <td style="font-family: monospace;">$165.60</td>
                 <td style="font-family: monospace;">$180.20</td>
               </tr>
+              <tr>
+                <td style="text-align: left; font-weight: 700;">11.0%</td>
+                <td style="font-family: monospace;">$126.90</td>
+                <td style="font-family: monospace;">$134.50</td>
+                <td style="font-family: monospace;">$143.20</td>
+                <td style="font-family: monospace;">$153.40</td>
+              </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Section 7: Excel Modeling Standards -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          7. Wall Street Financial Modeling Standards in Excel
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          To ensure auditability across senior deal teams and investment committees, this template strictly adheres to professional financial modeling conventions:
+        </p>
+
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0;">
+          <ul style="color: var(--soft); font-size: 0.95rem; line-height: 1.8; margin-left: 1.25rem;">
+            <li><strong style="color: #1d4ed8;">Blue Font (#0000FF)</strong>: Hardcoded historical inputs, macro assumptions, tax rates, and terminal multiple drivers.</li>
+            <li><strong style="color: #0f172a;">Black Font (#000000)</strong>: Internal cell calculations, sums, margins, and mathematical valuations.</li>
+            <li><strong style="color: #15803d;">Green Font (#008000)</strong>: Inter-sheet formula linkages pulling from Balance Sheet or Debt Schedules.</li>
+            <li><strong>Dynamic Data Tables</strong>: Sensitivity matrices built using Excel's native two-variable table function (<code>Alt + D + T</code>), allowing instantaneous recalculations.</li>
+          </ul>
+        </div>
+
+        <!-- Section 8: FAQ Section -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1.25rem 0;">
+          Frequently Asked Questions (FAQ)
+        </h2>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              What is the difference between an Unlevered DCF and a Levered DCF?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              An Unlevered DCF projects Free Cash Flow to Firm (FCFF or UFCF), representing cash generated before interest expense, discounted by WACC to arrive at Enterprise Value. A Levered DCF projects Free Cash Flow to Equity (FCFE) after mandatory debt service, discounted by Cost of Equity to arrive directly at Equity Value. Unlevered DCF is the universal institutional standard because it evaluates operating performance independent of changing capital structures.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How should I select between the Perpetual Growth Method and Exit Multiple Method?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              Institutional analysts compute both methods to cross-validate implied valuation. The Perpetual Growth Method calculates Terminal Value as <code>UFCF_(n+1) / (WACC - g)</code>, with long-term growth rate <code>g</code> pegged between 2.0% and 3.5% (roughly tracking long-term GDP and inflation). The Exit Multiple Method applies an EV/EBITDA multiple derived from mature public peers. A common best practice is using the exit multiple to calculate implied perpetuity growth to verify whether the exit assumption is economically defensible.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              Why does institutional finance require the Mid-Year Discounting Convention?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              Standard end-of-year integer discounting assumes all annual cash flows arrive in a lump sum on December 31st (t = 1, 2, 3), which artificially undervalues the company. The Mid-Year Convention applies discount factors of <code>t - 0.5</code> (e.g. 0.5, 1.5, 2.5), mathematically modeling cash flows received evenly throughout the 365-day fiscal year, yielding a more accurate present value.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How do you bridge from Enterprise Value to Equity Value and Implied Share Price?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              Once Enterprise Value is derived from discounted UFCF plus Terminal Value, you calculate Equity Value as: Enterprise Value minus Total Debt (short-term plus long-term borrowings) minus Preferred Stock minus Non-Controlling (Minority) Interest plus Cash &amp; Cash Equivalents. Dividing Equity Value by the fully diluted shares outstanding (inclusive of in-the-money options and RSUs via the Treasury Stock Method) yields the implied share price.
+            </p>
+          </div>
         </div>
 
         <!-- Section: How to Automate with CALIO -->

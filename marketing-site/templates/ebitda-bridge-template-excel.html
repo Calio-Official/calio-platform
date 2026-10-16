@@ -17,26 +17,66 @@
     <link rel="stylesheet" href="../css/site.css" />
     <script src="../js/sec-engine.js"></script>
 
-    <!-- Schema.org Dataset & Technical Article -->
+    <!-- Schema.org Technical Article & FAQPage -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Institutional EBITDA Bridge and Reconciliation Template in Excel (.xlsx)",
-      "description": "Financial accounting methodology and downloadable spreadsheet reconciling reported GAAP operating income to Adjusted EBITDA, Stock-Based Compensation, and Free Cash Flow.",
-      "author": {
-        "@type": "Organization",
-        "name": "CALIO Research"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "CALIO Technologies",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Institutional EBITDA Bridge and Reconciliation Template in Excel (.xlsx)",
+        "description": "Financial accounting methodology and downloadable spreadsheet reconciling reported GAAP operating income to Adjusted EBITDA, Stock-Based Compensation, and Free Cash Flow.",
+        "author": {
+          "@type": "Organization",
+          "name": "CALIO Research"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "CALIO Technologies",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://calio-pink.vercel.app/assets/icon128.png"
+          }
         }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the precise step-by-step walk from GAAP Operating Income (EBIT) to Standard and Adjusted EBITDA?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The institutional reconciliation begins with US-GAAP Operating Income (EBIT) from the face of the Income Statement. To derive Standard EBITDA, add back non-cash Depreciation (from PP&E) and Amortization (from acquired intangible assets) from the Cash Flow Statement. To bridge from Standard EBITDA to Adjusted EBITDA, add back non-cash Stock-Based Compensation (SBC), non-recurring severance and restructuring charges, transaction fees related to closed M&A, and extraordinary litigation settlements, while subtracting non-operating gains."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is adding back Stock-Based Compensation (SBC) to EBITDA controversial among institutional investors?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "While management teams and sell-side analysts treat SBC as a 'non-cash' add-back because no immediate cash leaves corporate accounts, SBC represents real economic employee compensation that permanently dilutes common shareholders. If a corporation repurchases shares to offset dilution, the buyback is a real cash drain classified under Cash Flow from Financing rather than Operations. Discerning institutional investors evaluate 'Real Free Cash Flow' by subtracting SBC from reported operating cash flow."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What distinguishes Management Adjusted EBITDA from Credit Agreement (Covenant) EBITDA?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Management Adjusted EBITDA is a non-GAAP disclosure presented in investor decks and earnings press releases, governed by SEC Regulation G requirements. Credit Agreement EBITDA (or Covenant EBITDA) is defined in syndicated bank loan and high-yield bond indentures. Credit agreements permit contractual add-backs such as pro-forma synergies from acquisitions, run-rate cost savings, and deferred revenue adjustments, but frequently impose formal percentage caps (e.g., non-recurring add-backs capped at 15% to 25% of total covenant EBITDA)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you reconcile Adjusted EBITDA to Unlevered Free Cash Flow (UFCF)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To convert Adjusted EBITDA into Unlevered Free Cash Flow (UFCF): (1) subtract genuine ongoing maintenance and growth Capital Expenditures (CapEx); (2) subtract cash taxes paid on normalized operating profits; (3) subtract cash outflows from net working capital expansions (-Delta NWC); and (4) deduct the true cash dilution cost of stock awards. As Warren Buffett famously noted, EBITDA fundamentally overstates cash generation because it treats capital equipment replacement as cost-free."
+            }
+          }
+        ]
       }
-    }
+    ]
     </script>
   </head>
   <body>
@@ -362,7 +402,7 @@
         </h1>
         
         <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
-          A rigorous reconciliation framework bridging reported US-GAAP Operating Income (EBIT) to Standard EBITDA, Adjusted EBITDA, and Free Cash Flow. Isolates non-cash depreciation, stock-based compensation dilution, and working capital cash drags.
+          A rigorous Quality of Earnings (QoE) reconciliation workbook bridging reported US-GAAP Operating Income (EBIT) to Standard EBITDA, Management Adjusted EBITDA, Credit Agreement Covenant EBITDA, and Unlevered Free Cash Flow. Isolates non-cash amortization, stock-based compensation dilution, and non-recurring operational adjustments.
         </p>
 
         <!-- Download & Automation Action Card -->
@@ -373,14 +413,14 @@
                 Free Download &bull; XLSX Format
               </div>
               <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
-                Download EBITDA Reconciliation Waterfall Spreadsheet
+                Download Institutional EBITDA Waterfall Model (.xlsx)
               </h3>
               <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
-                Pre-linked formulas reconciling EBIT to Adjusted EBITDA across multi-year historical periods
+                Pre-linked formulas reconciling EBIT to Adjusted EBITDA across multi-year historical periods with QoE add-back audit flags
               </p>
             </div>
             <button type="button" id="btnDownloadEbitdaXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
-              Download .XLSX Model
+              Download EBITDA Model
             </button>
           </div>
 
@@ -390,42 +430,302 @@
           </div>
         </div>
 
-        <!-- Section: The EBITDA Reconciliation Walk -->
+        <!-- Section 1: The Institutional EBITDA Reconciliation Walk -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
           1. The Institutional EBITDA Reconciliation Walk
         </h2>
         
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          While companies frequently report customized non-GAAP EBITDA definitions, institutional analysts build standard reconciliation bridges to identify structural cash leakages:
+          In institutional corporate finance, private equity due diligence, and credit underwriting, <strong>Earnings Before Interest, Taxes, Depreciation, and Amortization (EBITDA)</strong> serves as the fundamental proxy for core operating cash generation. However, because EBITDA is a non-GAAP financial metric not recognized under US-GAAP or IFRS, its calculation varies widely across company investor presentations.
         </p>
 
-        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.7; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
-          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># The Quality of Earnings Walk:</div>
-          <div>Reported GAAP Operating Income (EBIT)</div>
-          <div>(+) Depreciation Expense (PP&amp;E physical asset wear)</div>
-          <div>(+) Amortization Expense (Acquired intangible write-offs)</div>
-          <div style="border-top: 1px dashed #166534; padding-top: 0.35rem; color: #6ee7b7;">= Standard EBITDA</div>
-          <div>(+) Stock-Based Compensation (Non-cash employee grant expense)</div>
-          <div>(&plusmn;) One-time Restructuring, Legal &amp; Acquisition Charges</div>
-          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 700;">
-            = Adjusted Institutional EBITDA
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Wall Street analysts universally prefer starting the bridge from <strong>US-GAAP Operating Income (EBIT)</strong> rather than Net Income. Starting from Operating Income isolates operational profitability and prevents below-the-line distortions such as interest expense, investment gains, foreign exchange remeasurements, and equity-method affiliate earnings:
+        </p>
+
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.8; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># Step-by-Step Institutional EBITDA Waterfall Walk:</div>
+          <div>  US-GAAP Operating Income (EBIT) [from Income Statement]</div>
+          <div>+ Depreciation Expense [Tangible asset write-down from Cash Flow Statement]</div>
+          <div>+ Amortization Expense [Acquired intangible assets write-off]</div>
+          <div style="border-top: 1px dashed #166534; padding-top: 0.35rem; color: #6ee7b7; font-weight: 700;">
+            = Standard EBITDA (Pre-Tax Operating Cash Proxy)
+          </div>
+          <div>+ Stock-Based Compensation Expense (SBC non-cash equity grants)</div>
+          <div>+ Severance &amp; Formal Workforce Restructuring Charges</div>
+          <div>+ Transaction Costs (M&amp;A advisory, legal, accounting, and due diligence)</div>
+          <div>+ Acquisition Integration, IT Migration &amp; Facility Relocation Expenses</div>
+          <div>+ Extraordinary Litigation Settlements &amp; Regulatory Penalties</div>
+          <div>- Gain on Disposal of Fixed Assets / Divestitures</div>
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 800; font-size: 0.98rem;">
+            = Adjusted Institutional EBITDA (Normalized Run-Rate)
           </div>
         </div>
 
-        <!-- Section: The Stock-Based Compensation Dilemma -->
+        <!-- Section 2: Quality of Earnings Add-Back Framework -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
-          2. The Stock-Based Compensation (SBC) Trap
+          2. Quality of Earnings (QoE) Add-Back Framework &amp; Forensic Auditing
         </h2>
 
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          In corporate reporting, management teams routinely add back Stock-Based Compensation to non-GAAP metrics, claiming it is a "non-cash" item. However, in private equity and equity research:
+          In leveraged buyout (LBO) transactions and M&amp;A negotiations, deal sponsors frequently attempt to inflate Adjusted EBITDA through questionable add-backs. A rigorous Quality of Earnings (QoE) review categorizes adjustments by audit defensibility:
+        </p>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Adjustment Line Item</th>
+                <th>Standard Accounting Treatment</th>
+                <th>Audit Defensibility</th>
+                <th>Institutional Risk Assessment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Depreciation &amp; Amortization</strong></td>
+                <td>Mandatory GAAP non-cash addback</td>
+                <td style="color: #166534; font-weight: 700;">Universal / Audited</td>
+                <td>Reflects physical and intangible asset life cycles</td>
+              </tr>
+              <tr>
+                <td><strong>M&amp;A Due Diligence Fees</strong></td>
+                <td>One-off transaction expense</td>
+                <td style="color: #166534; font-weight: 700;">High Defensibility</td>
+                <td>Non-recurring third-party professional fees</td>
+              </tr>
+              <tr>
+                <td><strong>Severance &amp; Plant Closures</strong></td>
+                <td>Documented reduction-in-force</td>
+                <td style="color: #0d9488; font-weight: 700;">Moderate Defensibility</td>
+                <td>Must verify non-recurrence over 3-year history</td>
+              </tr>
+              <tr>
+                <td><strong>Stock-Based Compensation</strong></td>
+                <td>Non-cash accounting grant</td>
+                <td style="color: #ea580c; font-weight: 700;">Contentious (Real Cost)</td>
+                <td>Permanent shareholder dilution; buyback cash drain</td>
+              </tr>
+              <tr>
+                <td><strong>Pro-Forma Synergies</strong></td>
+                <td>Anticipated future cost cuts</td>
+                <td style="color: #dc2626; font-weight: 700;">High Audit Risk</td>
+                <td>Hypothetical forward savings; capped in credit pacts</td>
+              </tr>
+              <tr>
+                <td><strong>Run-Rate Software Upgrades</strong></td>
+                <td>Recurring technology licenses</td>
+                <td style="color: #dc2626; font-weight: 700;">Aggressive Red Flag</td>
+                <td>Standard operating expense falsely labeled one-off</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section 3: The Stock-Based Compensation Trap -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          3. The Stock-Based Compensation (SBC) Dilution Trap
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          In corporate earnings reports—particularly across enterprise technology and semiconductors—management teams routinely add back SBC, asserting that equity compensation has zero cash impact. In equity research and credit analysis, treating SBC as a free lunch is dangerous:
         </p>
 
         <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.5rem;">
-          <li><strong>Dilution Cost</strong>: SBC dilutes existing shareholders by expanding share counts over time.</li>
-          <li><strong>Cash Outflow Disguise</strong>: If a firm buys back shares to offset dilution, the buyback is a real cash outflow recorded under financing activities (CFF), not operating cash flow.</li>
-          <li><strong>Real FCF Calculation</strong>: The template features a dedicated toggle calculating <em>Real FCF = Reported FCF &minus; Stock-Based Compensation</em>.</li>
+          <li><strong>Structural Shareholder Dilution</strong>: Granting RSUs and stock options expands diluted share count year after year, suppressing Earnings Per Share (EPS) and Free Cash Flow Per Share.</li>
+          <li><strong>Cash Drain Disguised as Financing</strong>: To prevent dilution, modern tech firms expend tens of billions annually executing share repurchases. Under US-GAAP, share buybacks appear in <em>Cash Flow from Financing Activities (CFF)</em>, completely bypassing Operating Cash Flow (CFO).</li>
+          <li><strong>Real Free Cash Flow Toggle</strong>: CALIO's institutional workbook includes an automated diagnostic metric: <code>Real FCF = Reported FCF - Stock-Based Compensation</code>.</li>
         </ul>
+
+        <!-- Section 4: Credit Agreement EBITDA vs SEC Regulation G -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          4. Credit Agreement (Covenant) EBITDA vs. SEC Regulation G
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Financial analysts must navigate two competing regulatory frameworks when evaluating EBITDA:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0 2rem 0;">
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Public Markets</div>
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0.35rem 0 0.5rem 0;">SEC Regulation G &amp; Item 10(e)</h4>
+            <p style="font-size: 0.88rem; color: var(--soft); line-height: 1.6; margin-bottom: 0.75rem;">
+              Enforces strict rules on non-GAAP disclosures. Public filers cannot present non-GAAP metrics with greater prominence than GAAP results, cannot exclude normal cash operating expenses from performance measures, and must provide a direct reconciliation to the most comparable GAAP metric.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Debt Capital Markets</div>
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0.35rem 0 0.5rem 0;">Credit Agreement Covenant EBITDA</h4>
+            <p style="font-size: 0.88rem; color: var(--soft); line-height: 1.6; margin-bottom: 0.75rem;">
+              Defined in credit agreements and loan indentures to govern debt-incurrence and leverage covenants (e.g., Total Net Debt / Covenant EBITDA &le; 4.5x). While allowing forward cost synergies, institutional lenders contractually cap add-backs at 15% to 25% of EBITDA.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 5: The Bridge to Unlevered Free Cash Flow -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          5. EBITDA to Unlevered Free Cash Flow (UFCF) Conversion
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          As Warren Buffett famously observed in Berkshire Hathaway annual letters: <em>"Does management think the tooth fairy pays for capital expenditures?"</em> EBITDA does not equal cash because it ignores required ongoing capital investments, working capital build-ups, and corporate income taxes.
+        </p>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          To bridge from Adjusted EBITDA to genuine <strong>Unlevered Free Cash Flow (UFCF)</strong>, the template enforces the following operational deductions:
+        </p>
+
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.8; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># EBITDA to Unlevered Free Cash Flow Equation:</div>
+          <div>  Adjusted EBITDA</div>
+          <div>- Capital Expenditures (Maintenance CapEx + Growth CapEx)</div>
+          <div>- Cash Taxes Paid [Taxes on Normalized Operating Income]</div>
+          <div>&plusmn; Investment in Net Working Capital (&Delta;NWC)</div>
+          <div>- True SBC Dilution Offset [or Cash Buyback Equivalence]</div>
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 800; font-size: 0.98rem;">
+            = Unlevered Free Cash Flow (UFCF)
+          </div>
+        </div>
+
+        <!-- Section 6: Pre-Formatted Multi-Period Bridge Table Preview -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          6. Pre-Formatted Multi-Period EBITDA Bridge Preview
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Below is a preview of the audited 4-period bridge schedule embedded inside the downloadable <code>.xlsx</code> financial model:
+        </p>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Reconciliation Line Item ($M)</th>
+                <th style="text-align: right;">FY2023A</th>
+                <th style="text-align: right;">FY2024A</th>
+                <th style="text-align: right;">FY2025A</th>
+                <th style="text-align: right;">FY2026E</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700;">US-GAAP Operating Income (EBIT)</td>
+                <td style="text-align: right; font-family: monospace;">$45.0M</td>
+                <td style="text-align: right; font-family: monospace;">$58.0M</td>
+                <td style="text-align: right; font-family: monospace;">$72.0M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$88.0M</td>
+              </tr>
+              <tr>
+                <td>(+) Depreciation Expense (PP&amp;E)</td>
+                <td style="text-align: right; font-family: monospace;">$8.0M</td>
+                <td style="text-align: right; font-family: monospace;">$9.2M</td>
+                <td style="text-align: right; font-family: monospace;">$10.5M</td>
+                <td style="text-align: right; font-family: monospace;">$11.8M</td>
+              </tr>
+              <tr>
+                <td>(+) Amortization of Intangibles</td>
+                <td style="text-align: right; font-family: monospace;">$2.5M</td>
+                <td style="text-align: right; font-family: monospace;">$2.5M</td>
+                <td style="text-align: right; font-family: monospace;">$2.3M</td>
+                <td style="text-align: right; font-family: monospace;">$2.0M</td>
+              </tr>
+              <tr style="background: #f8fafc; border-top: 1px solid #e2e8f0;">
+                <td style="font-weight: 700; color: #0f766e;">Standard EBITDA</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700; color: #0f766e;">$55.5M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700; color: #0f766e;">$69.7M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700; color: #0f766e;">$84.8M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700; color: #0f766e;">$101.8M</td>
+              </tr>
+              <tr>
+                <td>(+) Stock-Based Compensation (SBC)</td>
+                <td style="text-align: right; font-family: monospace;">$6.5M</td>
+                <td style="text-align: right; font-family: monospace;">$7.8M</td>
+                <td style="text-align: right; font-family: monospace;">$9.2M</td>
+                <td style="text-align: right; font-family: monospace;">$10.5M</td>
+              </tr>
+              <tr>
+                <td>(+) Non-Recurring Restructuring &amp; Severance</td>
+                <td style="text-align: right; font-family: monospace;">$1.5M</td>
+                <td style="text-align: right; font-family: monospace;">$0.8M</td>
+                <td style="text-align: right; font-family: monospace;">$0.0M</td>
+                <td style="text-align: right; font-family: monospace;">$0.0M</td>
+              </tr>
+              <tr style="background: #f0fdf4; border-top: 1px solid #bbf7d0;">
+                <td style="font-weight: 800; color: #166534;">Adjusted Institutional EBITDA</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 800; color: #166534;">$63.5M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 800; color: #166534;">$78.3M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 800; color: #166534;">$94.0M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 800; color: #166534;">$112.3M</td>
+              </tr>
+              <tr>
+                <td>(-) Capital Expenditures (CapEx)</td>
+                <td style="text-align: right; font-family: monospace;">($12.0M)</td>
+                <td style="text-align: right; font-family: monospace;">($14.0M)</td>
+                <td style="text-align: right; font-family: monospace;">($16.5M)</td>
+                <td style="text-align: right; font-family: monospace;">($18.5M)</td>
+              </tr>
+              <tr>
+                <td>(-) Cash Income Taxes Paid</td>
+                <td style="text-align: right; font-family: monospace;">($9.0M)</td>
+                <td style="text-align: right; font-family: monospace;">($11.5M)</td>
+                <td style="text-align: right; font-family: monospace;">($14.5M)</td>
+                <td style="text-align: right; font-family: monospace;">($17.8M)</td>
+              </tr>
+              <tr style="background: #f8fafc; border-bottom: 2px solid #0f766e;">
+                <td style="font-weight: 800; color: #0f766e;">Real Free Cash Flow (Post-SBC)</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$36.0M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$45.0M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$53.8M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$65.5M</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section 7: FAQs (Schema Aligned) -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          Frequently Asked Questions (EBITDA &amp; Earnings Quality)
+        </h2>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 2.5rem 0;">
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              What is the precise step-by-step walk from GAAP Operating Income (EBIT) to Standard and Adjusted EBITDA?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              The institutional reconciliation begins with US-GAAP Operating Income (EBIT) from the face of the Income Statement. To derive Standard EBITDA, add back non-cash Depreciation (from PP&amp;E) and Amortization (from acquired intangible assets) from the Cash Flow Statement. To bridge from Standard EBITDA to Adjusted EBITDA, add back non-cash Stock-Based Compensation (SBC), non-recurring severance and restructuring charges, transaction fees related to closed M&amp;A, and extraordinary litigation settlements, while subtracting non-operating gains.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              Why is adding back Stock-Based Compensation (SBC) to EBITDA controversial among institutional investors?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              While management teams and sell-side analysts treat SBC as a "non-cash" add-back because no immediate cash leaves corporate accounts, SBC represents real economic employee compensation that permanently dilutes common shareholders. If a corporation repurchases shares to offset dilution, the buyback is a real cash drain classified under Cash Flow from Financing rather than Operations. Discerning institutional investors evaluate "Real Free Cash Flow" by subtracting SBC from reported operating cash flow.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              What distinguishes Management Adjusted EBITDA from Credit Agreement (Covenant) EBITDA?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              Management Adjusted EBITDA is a non-GAAP disclosure presented in investor decks and earnings press releases, governed by SEC Regulation G requirements. Credit Agreement EBITDA (or Covenant EBITDA) is defined in syndicated bank loan and high-yield bond indentures. Credit agreements permit contractual add-backs such as pro-forma synergies from acquisitions, run-rate cost savings, and deferred revenue adjustments, but frequently impose formal percentage caps (e.g., non-recurring add-backs capped at 15% to 25% of total covenant EBITDA).
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How do you reconcile Adjusted EBITDA to Unlevered Free Cash Flow (UFCF)?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              To convert Adjusted EBITDA into Unlevered Free Cash Flow (UFCF): (1) subtract genuine ongoing maintenance and growth Capital Expenditures (CapEx); (2) subtract cash taxes paid on normalized operating profits; (3) subtract cash outflows from net working capital expansions (&minus;&Delta;NWC); and (4) deduct the true cash dilution cost of stock awards. As Warren Buffett famously noted, EBITDA fundamentally overstates cash generation because it treats capital equipment replacement as cost-free.
+            </p>
+          </div>
+        </div>
 
         <!-- Section: How to Automate with CALIO -->
         <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">

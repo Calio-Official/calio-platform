@@ -1661,6 +1661,11 @@
       if (btnCloseNav && mobileDrawer) {
         btnCloseNav.addEventListener("click", () => mobileDrawer.classList.remove("is-open"));
       }
+
+      // Auto-load ticker from URL query param (e.g. ?ticker=NVDA) or default to NVDA
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialTicker = urlParams.get("ticker") || "NVDA";
+      loadCompany(initialTicker);
     </script>
     <!-- Chrome Extension Overview Pop-up Modal -->
     <div class="calio-modal-backdrop" id="extModalBackdrop" aria-hidden="true">

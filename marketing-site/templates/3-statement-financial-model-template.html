@@ -17,26 +17,66 @@
     <link rel="stylesheet" href="../css/site.css" />
     <script src="../js/sec-engine.js"></script>
 
-    <!-- Schema.org Dataset & Technical Article -->
+    <!-- Schema.org Technical Article & FAQPage -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Integrated 3-Statement Financial Model Template in Excel (.xlsx)",
-      "description": "Institutional corporate finance guide and downloadable 3-statement model template dynamically integrating the Income Statement, Balance Sheet, and Cash Flow Statement.",
-      "author": {
-        "@type": "Organization",
-        "name": "CALIO Research"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "CALIO Technologies",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Three-Statement Financial Model Template in Excel (.xlsx)",
+        "description": "Institutional three-statement financial modeling template dynamically linking Income Statement, Balance Sheet, and Cash Flow Statement with supporting PP&E and debt schedules in Excel.",
+        "author": {
+          "@type": "Organization",
+          "name": "CALIO Research"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "CALIO Technologies",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://calio-pink.vercel.app/assets/icon128.png"
+          }
         }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do the Income Statement, Balance Sheet, and Cash Flow Statement link together in Excel?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The core linkages are threefold: (1) Net Income from the bottom of the Income Statement flows into the top line of Cash Flow from Operations and adds to Retained Earnings on the Balance Sheet; (2) Non-cash expenses (Depreciation & Amortization) and changes in working capital bridge operating cash flow to determine net change in cash; (3) The ending cash balance from the Cash Flow Statement links directly to Cash & Cash Equivalents on the Balance Sheet, ensuring Assets strictly equal Liabilities plus Shareholders' Equity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you handle circular references caused by interest expense and cash sweeps?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Circularity occurs when interest expense on the Income Statement depends on ending cash and debt on the Balance Sheet, which in turn depend on Net Income. In Excel, deal teams handle this by: (1) calculating interest using average cash and debt balances, and (2) activating Iterative Calculation via File > Options > Formulas > Enable iterative calculation (set maximum iterations to 100 and maximum change to 0.001), or by implementing a circularity breaker toggle."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the formula for the Property, Plant & Equipment (PP&E) roll-forward schedule?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The PP&E schedule rolls forward as: Ending Net PP&E = Beginning Net PP&E + Capital Expenditures (CapEx) - Depreciation Expense - Asset Disposals and Write-downs. CapEx flows from the Cash Flow from Investing section, while Depreciation flows to both Operating Expenses on the Income Statement and the non-cash addback in Cash Flow from Operations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do working capital changes impact the Cash Flow Statement?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An increase in an operating asset (such as Accounts Receivable or Inventory) represents a cash outflow (negative adjustment to CFO) because capital is tied up. Conversely, an increase in an operating liability (such as Accounts Payable or Accrued Expenses) represents a cash inflow (positive adjustment to CFO) because the company has delayed cash disbursement."
+            }
+          }
+        ]
       }
-    }
+    ]
     </script>
   </head>
   <body>
@@ -350,19 +390,19 @@
         <nav aria-label="Breadcrumb" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--muted);">
           <a href="../index.html" style="color: var(--soft); text-decoration: none;">Home</a>
           <span style="margin: 0 0.5rem;">/</span>
-          <span style="color: var(--ink);">Templates</span>
+          <a href="../index.html#models" style="color: var(--soft); text-decoration: none;">Templates</a>
           <span style="margin: 0 0.5rem;">/</span>
-          <span style="color: var(--teal-bright); font-weight: 600;">3-Statement Financial Model Template</span>
+          <span style="color: var(--teal-bright); font-weight: 600;">Three-Statement Model Excel</span>
         </nav>
 
-        <div class="section-tag">Integrated Financial Model</div>
+        <div class="section-tag">Integrated Financial Modeling</div>
         
         <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
-          Integrated 3-Statement Financial Model Template in Excel (.xlsx)
+          Three-Statement Financial Model Template in Excel (.xlsx)
         </h1>
         
         <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
-          The foundation of institutional corporate valuation and credit analysis. This integrated 3-statement template models historical financial performance and projects future periods across the Income Statement, Balance Sheet, and Cash Flow Statement with zero circular reference breakages.
+          A fully integrated Three-Statement financial model engineered to institutional investment banking standards. Features dynamic formula linking between the Income Statement, Balance Sheet, and Cash Flow Statement, complete with dedicated PP&amp;E roll-forward schedules, working capital turnover metrics, debt amortization waterfalls, and automated balance sheet balancing checks.
         </p>
 
         <!-- Download & Automation Action Card -->
@@ -373,115 +413,281 @@
                 Free Download &bull; XLSX Format
               </div>
               <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
-                Download Integrated 3-Statement Excel Model
+                Download Integrated Three-Statement Model (.xlsx)
               </h3>
               <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
-                Includes dynamic formula tabs for Income Statement, Balance Sheet, and Cash Flow Statement
+                Audited OpenXML workbook &bull; Complete dynamic accounting links &bull; Zero macro security warnings
               </p>
             </div>
-            <button type="button" id="btnDownload3StmtXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
+            <button type="button" id="btnDownload3StatementXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
               Download .XLSX Model
             </button>
           </div>
 
           <div style="border-top: 1px solid rgba(22, 101, 52, 0.15); padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; font-size: 0.88rem; color: #1e3a34;">
-            <span><strong>Automate Data Entry:</strong> Extract audited SEC 10-K multi-period statements directly into this structure:</span>
-            <a href="../valuation.html" style="color: #0f766e; font-weight: 700; text-decoration: underline;">Open CALIO Extraction Engine &rarr;</a>
+            <span><strong>Automation Alternative:</strong> Want live audited 10-K filings populated directly into this model?</span>
+            <a href="../valuation.html" style="color: #0f766e; font-weight: 700; text-decoration: underline;">Launch in CALIO Terminal &rarr;</a>
           </div>
         </div>
 
-        <!-- Section: Linking Architecture -->
+        <!-- Section 1: The Integration Architecture -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
-          1. The 3 Core Connection Mechanisms
+          1. The Integrated Financial Statement Architecture
         </h2>
         
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          In an integrated financial model, changes in operational drivers propagate across all three statements simultaneously. The workbook enforces the three fundamental accounting bridges:
+          The cornerstone of corporate finance analysis, mergers &amp; acquisitions (M&amp;A), and leveraged buyout (LBO) underwriting is the <strong>Three-Statement Model</strong>. Unlike static single-statement spreadsheets, an integrated model dynamically links operational performance (Income Statement) with asset and liability capitalization (Balance Sheet) and liquidity generation (Cash Flow Statement).
         </p>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; margin: 1.5rem 0 2.5rem 0;">
-          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-            <div style="font-weight: 700; color: #0f766e; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Link 1: Net Income</div>
-            <h4 style="font-size: 1.1rem; color: var(--ink-heading); margin-bottom: 0.5rem;">P&amp;L &rarr; Cash Flow &rarr; Equity</h4>
-            <p style="color: var(--soft); font-size: 0.92rem; line-height: 1.6; margin: 0;">
-              Net Income from the bottom of the Income Statement serves as the top row of Cash Flow from Operations (CFO), and flows into Retained Earnings on the Balance Sheet.
-            </p>
-          </div>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          When an operational driver changes—such as a 200 bps expansion in gross margin or an acceleration in capital expenditure—the adjustment cascades through all three statements instantaneously without requiring manual recalculation.
+        </p>
 
-          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-            <div style="font-weight: 700; color: #0f766e; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Link 2: Depreciation &amp; CapEx</div>
-            <h4 style="font-size: 1.1rem; color: var(--ink-heading); margin-bottom: 0.5rem;">PP&amp;E Roll-Forward Schedule</h4>
-            <p style="color: var(--soft); font-size: 0.92rem; line-height: 1.6; margin: 0;">
-              CapEx increases Property, Plant &amp; Equipment (PP&amp;E) under Cash Flow from Investing (CFI), while D&amp;A reduces PP&amp;E and is added back to CFO as a non-cash expense.
-            </p>
-          </div>
-
-          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-            <div style="font-weight: 700; color: #0f766e; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Link 3: Ending Cash</div>
-            <h4 style="font-size: 1.1rem; color: var(--ink-heading); margin-bottom: 0.5rem;">Cash Balance Reconciler</h4>
-            <p style="color: var(--soft); font-size: 0.92rem; line-height: 1.6; margin: 0;">
-              Net change in cash from operating, investing, and financing activities reconciles into Cash &amp; Cash Equivalents at the top of the Balance Sheet, ensuring Assets = Liabilities + Equity.
-            </p>
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.8; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># Primary Financial Statement Integration Flow:</div>
+          <div>1. Income Statement: Net Income = Revenue - Expenses - Taxes</div>
+          <div>   &rarr; Flows into Cash Flow from Operations (Line 1 of CFS)</div>
+          <div>   &rarr; Adds to Retained Earnings on Balance Sheet (Ending RE = Beg RE + Net Income - Dividends)</div>
+          <div>2. Non-Cash Depreciation &amp; Amortization:</div>
+          <div>   &rarr; Added back in Cash Flow from Operations</div>
+          <div>   &rarr; Reduces Net PP&amp;E on Balance Sheet</div>
+          <div>3. Capital Expenditures (CapEx):</div>
+          <div>   &rarr; Outflow in Cash Flow from Investing (CFI)</div>
+          <div>   &rarr; Increases Net PP&amp;E on Balance Sheet</div>
+          <div>4. Ending Cash on Cash Flow Statement:</div>
+          <div>   &rarr; Plugs directly into Cash &amp; Cash Equivalents on Balance Sheet</div>
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 800;">
+            = Balance Sheet Equilibrium: Assets = Liabilities + Shareholders' Equity
           </div>
         </div>
 
-        <!-- Section: Visual Statement Architecture -->
+        <!-- Section 2: Supporting Schedules -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
-          2. Workbook Structure &amp; Sheet Hierarchy
+          2. Dedicated Supporting Schedules
         </h2>
-        
+
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          To prevent messy cross-sheet formulas, the model follows an institutional tab layout:
+          Institutional-grade models isolate complex balance sheet line items into dedicated roll-forward schedules rather than embedding tangled multi-line formulas directly onto the primary statements. Our template incorporates three critical schedules:
         </p>
+
+        <h3 style="font-size: 1.3rem; color: var(--ink-heading); font-weight: 700; margin: 1.75rem 0 0.5rem 0;">
+          A. PP&amp;E and Depreciation Roll-Forward Schedule
+        </h3>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1rem;">
+          Fixed assets are modeled by tracking gross plant assets, ongoing maintenance vs. expansion CapEx, and cumulative depreciation:
+        </p>
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; font-family: monospace; font-size: 0.92rem; color: #0f172a; margin-bottom: 1.5rem;">
+          Ending Net PP&amp;E = Beginning Net PP&amp;E + Capital Expenditures - Depreciation Expense - Asset Disposals
+        </div>
+
+        <h3 style="font-size: 1.3rem; color: var(--ink-heading); font-weight: 700; margin: 1.75rem 0 0.5rem 0;">
+          B. Working Capital Schedule (&Delta;NWC)
+        </h3>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1rem;">
+          Working capital accounts are dynamically linked to operational volumes rather than flat growth percentages:
+        </p>
+        <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.5rem;">
+          <li><strong>Accounts Receivable</strong>: Projected as <code>(DSO / 365) &times; Revenue</code></li>
+          <li><strong>Inventory</strong>: Projected as <code>(DIO / 365) &times; Cost of Goods Sold</code></li>
+          <li><strong>Accounts Payable</strong>: Projected as <code>(DPO / 365) &times; Cost of Goods Sold</code></li>
+          <li><strong>Accrued Liabilities</strong>: Projected as a percentage of Operating Expenses (SG&amp;A).</li>
+        </ul>
+
+        <h3 style="font-size: 1.3rem; color: var(--ink-heading); font-weight: 700; margin: 1.75rem 0 0.5rem 0;">
+          C. Debt &amp; Interest Amortization Schedule
+        </h3>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1rem;">
+          Tracks senior term debt, revolving credit facilities, mandatory quarterly principal amortization, and optional cash sweeps based on excess operating liquidity.
+        </p>
+
+        <!-- Section 3: Circularity Mechanics -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          3. Circularity &amp; Excel Calculation Mechanics
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          A classic engineering hurdle in integrated models is the <strong>interest circularity loop</strong>:
+        </p>
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-family: monospace; font-size: 0.9rem; line-height: 1.7; color: #0f172a;">
+          Net Income &rarr; Cash Flow &rarr; Ending Cash &amp; Debt &rarr; Average Balances &rarr; Interest Income / Expense &rarr; Net Income
+        </div>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          If Excel is set to default calculation mode, this circularity causes an immediate error prompt. In professional practice, analysts manage circularity through two standardized protocols:
+        </p>
+        <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.75rem;">
+          <li><strong>Enabling Iterative Calculation</strong>: In Excel, navigate to <code>File > Options > Formulas > Enable iterative calculation</code>. Set Maximum Iterations to <code>100</code> and Maximum Change to <code>0.001</code>.</li>
+          <li><strong>Circularity Breaker Toggle</strong>: Our workbook includes a cell switch (<code>0 / 1</code>) that temporarily routes interest calculations to beginning-of-period balances, allowing deal teams to clear model errors with zero formula corruption.</li>
+        </ul>
+
+        <!-- Section 4: Balancing the Balance Sheet -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          4. Automated Balance Sheet Balancing Check
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          The ultimate verification of an integrated model is that Total Assets strictly equal Total Liabilities plus Shareholders' Equity across every historical and projected period. Our model includes an automated diagnostic check row:
+        </p>
+
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; font-family: monospace; font-size: 0.92rem; color: #0f172a; margin-bottom: 1.5rem;">
+          Diagnostic Check = ROUND(Total Assets - (Total Liabilities + Total Equity), 2)
+        </div>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          If the variance equals zero, the check displays <code>"BALANCED"</code> in institutional dark green. If any balance sheet line item fails to reconcile, the cell highlights in warning red with the exact dollar delta displayed for rapid error localization.
+        </p>
+
+        <!-- Section 5: Model Preview Table -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          5. Three-Statement Model Multi-Period Preview
+        </h2>
 
         <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
           <table class="comp-table">
             <thead>
               <tr>
-                <th>Tab Name</th>
-                <th>Core Function</th>
-                <th>Primary Accounting Formulas</th>
+                <th style="text-align: left;">Consolidated Financial Statement ($M)</th>
+                <th>FY2023A</th>
+                <th>FY2024A</th>
+                <th>FY2025A</th>
+                <th>FY2026E</th>
+                <th>FY2027E</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>1. Income Statement</strong></td>
-                <td>P&amp;L revenue, gross margin, operating expenses, tax, net income</td>
-                <td style="font-family: monospace;">Gross Profit = Revenue - COGS; EBIT = Gross Profit - OpEx</td>
+                <td style="font-weight: 700;">Revenue</td>
+                <td style="font-family: monospace;">$100.0</td>
+                <td style="font-family: monospace;">$118.0</td>
+                <td style="font-family: monospace;">$139.0</td>
+                <td style="font-family: monospace;">$160.0</td>
+                <td style="font-family: monospace;">$184.0</td>
               </tr>
               <tr>
-                <td><strong>2. Balance Sheet</strong></td>
-                <td>Assets, liabilities, shareholder equity balance verification</td>
-                <td style="font-family: monospace;">Total Assets = Total Liabilities + Total Equity</td>
+                <td>Cost of Goods Sold (COGS)</td>
+                <td style="font-family: monospace;">($42.0)</td>
+                <td style="font-family: monospace;">($48.0)</td>
+                <td style="font-family: monospace;">($56.0)</td>
+                <td style="font-family: monospace;">($64.0)</td>
+                <td style="font-family: monospace;">($73.0)</td>
               </tr>
               <tr>
-                <td><strong>3. Cash Flow</strong></td>
-                <td>CFO (operating), CFI (investing), CFF (financing) cash flows</td>
-                <td style="font-family: monospace;">Ending Cash = Beginning Cash + CFO + CFI + CFF</td>
+                <td style="font-weight: 700;">Gross Profit</td>
+                <td style="font-family: monospace; font-weight: 700;">$58.0</td>
+                <td style="font-family: monospace; font-weight: 700;">$70.0</td>
+                <td style="font-family: monospace; font-weight: 700;">$83.0</td>
+                <td style="font-family: monospace; font-weight: 700;">$96.0</td>
+                <td style="font-family: monospace; font-weight: 700;">$111.0</td>
               </tr>
               <tr>
-                <td><strong>4. Debt &amp; Interest</strong></td>
-                <td>Maturity schedules, revolving credit line, interest expense</td>
-                <td style="font-family: monospace;">Interest Expense = Average Debt &times; Effective Interest Rate</td>
+                <td>Operating Income (EBIT)</td>
+                <td style="font-family: monospace;">$30.0</td>
+                <td style="font-family: monospace;">$38.0</td>
+                <td style="font-family: monospace;">$46.0</td>
+                <td style="font-family: monospace;">$54.0</td>
+                <td style="font-family: monospace;">$63.0</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700; color: #0f766e;">Net Income (GAAP)</td>
+                <td style="font-family: monospace; font-weight: 700; color: #0f766e;">$23.7</td>
+                <td style="font-family: monospace; font-weight: 700; color: #0f766e;">$30.0</td>
+                <td style="font-family: monospace; font-weight: 700; color: #0f766e;">$36.3</td>
+                <td style="font-family: monospace; font-weight: 700; color: #0f766e;">$42.7</td>
+                <td style="font-family: monospace; font-weight: 700; color: #0f766e;">$49.8</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Cash Flow from Operations (CFO)</td>
+                <td style="font-family: monospace;">$26.9</td>
+                <td style="font-family: monospace;">$33.7</td>
+                <td style="font-family: monospace;">$40.5</td>
+                <td style="font-family: monospace;">$47.4</td>
+                <td style="font-family: monospace;">$55.0</td>
+              </tr>
+              <tr>
+                <td>Capital Expenditures (CapEx)</td>
+                <td style="font-family: monospace;">($6.5)</td>
+                <td style="font-family: monospace;">($7.2)</td>
+                <td style="font-family: monospace;">($8.1)</td>
+                <td style="font-family: monospace;">($9.0)</td>
+                <td style="font-family: monospace;">($9.9)</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700; color: #166534;">Free Cash Flow (FCF)</td>
+                <td style="font-family: monospace; font-weight: 700; color: #166534;">$20.4</td>
+                <td style="font-family: monospace; font-weight: 700; color: #166534;">$26.5</td>
+                <td style="font-family: monospace; font-weight: 700; color: #166534;">$32.4</td>
+                <td style="font-family: monospace; font-weight: 700; color: #166534;">$38.4</td>
+                <td style="font-family: monospace; font-weight: 700; color: #166534;">$45.1</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Ending Cash Balance</td>
+                <td style="font-family: monospace;">$35.0</td>
+                <td style="font-family: monospace;">$54.2</td>
+                <td style="font-family: monospace;">$78.5</td>
+                <td style="font-family: monospace;">$107.9</td>
+                <td style="font-family: monospace;">$143.0</td>
               </tr>
             </tbody>
           </table>
         </div>
 
+        <!-- Section 6: FAQ Section -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1.25rem 0;">
+          Frequently Asked Questions (FAQ)
+        </h2>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How do the Income Statement, Balance Sheet, and Cash Flow Statement link together in Excel?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              The core linkages are threefold: (1) Net Income from the bottom of the Income Statement flows into the top line of Cash Flow from Operations and adds to Retained Earnings on the Balance Sheet; (2) Non-cash expenses (Depreciation &amp; Amortization) and changes in working capital bridge operating cash flow to determine net change in cash; (3) The ending cash balance from the Cash Flow Statement links directly to Cash &amp; Cash Equivalents on the Balance Sheet, ensuring Assets strictly equal Liabilities plus Shareholders' Equity.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How do you handle circular references caused by interest expense and cash sweeps?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              Circularity occurs when interest expense on the Income Statement depends on ending cash and debt on the Balance Sheet, which in turn depend on Net Income. In Excel, deal teams handle this by: (1) calculating interest using average cash and debt balances, and (2) activating Iterative Calculation via File > Options > Formulas > Enable iterative calculation (set maximum iterations to 100 and maximum change to 0.001), or by implementing a circularity breaker toggle.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              What is the formula for the Property, Plant &amp; Equipment (PP&amp;E) roll-forward schedule?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              The PP&amp;E schedule rolls forward as: Ending Net PP&amp;E = Beginning Net PP&amp;E + Capital Expenditures (CapEx) - Depreciation Expense - Asset Disposals and Write-downs. CapEx flows from the Cash Flow from Investing section, while Depreciation flows to both Operating Expenses on the Income Statement and the non-cash addback in Cash Flow from Operations.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How do working capital changes impact the Cash Flow Statement?
+            </h4>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              An increase in an operating asset (such as Accounts Receivable or Inventory) represents a cash outflow (negative adjustment to CFO) because capital is tied up. Conversely, an increase in an operating liability (such as Accounts Payable or Accrued Expenses) represents a cash inflow (positive adjustment to CFO) because the company has delayed cash disbursement.
+            </p>
+          </div>
+        </div>
+
         <!-- Section: How to Automate with CALIO -->
         <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
           <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">
-            Automate Multi-Period 10-K Statements
+            Eliminate Manual Data Entry Across SEC Filings
           </h3>
           <p style="color: var(--soft); max-width: 580px; margin: 0 auto 1.75rem auto; font-size: 1.05rem; line-height: 1.6;">
-            Instead of manually re-typing audited SEC filings, CALIO parses live US-GAAP XBRL data into this exact 3-statement structure with pre-linked formulas in 1 click.
+            Instead of manually keying in historical 10-K and 10-Q numbers, CALIO auto-extracts audited SEC EDGAR XBRL tables and constructs an integrated Three-Statement model for any public issuer in under 2 seconds.
           </p>
           <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
             <a class="btn-pill btn-pill-primary" href="../valuation.html" style="padding: 0.75rem 2rem;">
               Launch Live Terminal Sandbox
             </a>
-            <a class="btn-pill btn-pill-secondary" href="dcf-model-template-excel.html" style="padding: 0.75rem 2rem;">
-              View DCF Model Template
+            <a class="btn-pill btn-pill-secondary" href="../how-to-export-sec-filings-to-excel.html" style="padding: 0.75rem 2rem;">
+              Read SEC Export Guide
             </a>
           </div>
         </div>

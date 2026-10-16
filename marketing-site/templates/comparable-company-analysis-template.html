@@ -17,26 +17,66 @@
     <link rel="stylesheet" href="../css/site.css" />
     <script src="../js/sec-engine.js"></script>
 
-    <!-- Schema.org Dataset & Technical Article -->
+    <!-- Schema.org Technical Article & FAQPage -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "Institutional Comparable Company Analysis (Comps) Template in Excel (.xlsx)",
-      "description": "Investment banking valuation guide and downloadable trading comps spreadsheet modeling Enterprise Value to EBITDA, P/E, and sector benchmarking matrices.",
-      "author": {
-        "@type": "Organization",
-        "name": "CALIO Research"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "CALIO Technologies",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Institutional Comparable Company Analysis (Comps) Template in Excel (.xlsx)",
+        "description": "Investment banking valuation guide and downloadable trading comps spreadsheet modeling Enterprise Value to EBITDA, P/E, and sector benchmarking matrices.",
+        "author": {
+          "@type": "Organization",
+          "name": "CALIO Research"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "CALIO Technologies",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://calio-pink.vercel.app/assets/icon128.png"
+          }
         }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why is EV/EBITDA preferred over Price-to-Earnings (P/E) in institutional valuation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "EV/EBITDA is capital-structure neutral because Enterprise Value reflects the claims of all capital providers (both debt and equity), while EBITDA measures core operational profitability before debt interest, depreciation accounting conventions, and jurisdictional tax rates. In contrast, P/E uses Net Income, which is heavily distorted by varying leverage ratios, interest expense, and legacy non-cash depreciation schedules, making peer comparisons less reliable across diverse capital structures."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you calendarize financial results when peer companies report on different fiscal year ends?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When peers have asynchronous fiscal years (e.g., Apple ending in September, Microsoft in June, Nvidia in January), analysts calendarize financials to a uniform Trailing Twelve Months (TTM/LTM) baseline. The formula is: LTM = Latest Available Cumulative Period + Prior Full Fiscal Year - Prior Comparable Period. For forward calendarization, analysts linearly interpolate consensus estimates across overlapping quarters to match the target firm's fiscal calendar."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the ASC 842 lease accounting standard affect Enterprise Value and EBITDA multiples?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Under US-GAAP ASC 842 and IFRS 16, operating leases are brought onto the balance sheet as Right-of-Use (ROU) assets and operating lease liabilities. If an analyst treats operating lease liabilities as funded debt when bridging to Enterprise Value, they must also ensure lease interest and amortization are added back to operating income to prevent denominator mismatch. CALIO's institutional models explicitly break out operating lease liabilities so analysts can evaluate multiples on both pre-lease and post-lease bases."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do institutional analysts rely on the median or harmonic mean rather than the arithmetic mean for peer multiples?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Arithmetic means are heavily skewed by positive outliers (e.g., a high-flying turnaround company trading at 150x EBITDA will severely distort a 6-company peer group mean). The median provides a robust measure of central tendency that is resistant to extreme outliers. For price-scaled valuation ratios, the harmonic mean is mathematically superior because it prevents upward bias when averaging inverted valuation multiples."
+            }
+          }
+        ]
       }
-    }
+    ]
     </script>
   </head>
   <body>
@@ -355,14 +395,14 @@
           <span style="color: var(--teal-bright); font-weight: 600;">Comparable Company Analysis Template</span>
         </nav>
 
-        <div class="section-tag">Relative Valuation Model</div>
+        <div class="section-tag">Relative Valuation Framework</div>
         
         <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
           Comparable Company Analysis (Comps) Template in Excel (.xlsx)
         </h1>
         
         <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
-          A relative valuation framework benchmarking public peer multiples across Enterprise Value (EV) and Equity Value metrics. Computes median and mean EV/Revenue, EV/EBITDA, P/E, and PEG ratios with capital structure normalization.
+          An institutional relative valuation model benchmarking public peer trading multiples across Enterprise Value (EV) and Equity Value metrics. Features dynamic capital structure bridges, Trailing Twelve Month (TTM/LTM) calendarization schedules, non-GAAP footnote normalizations, and median-implied valuation ranges engineered to investment banking standards.
         </p>
 
         <!-- Download & Automation Action Card -->
@@ -373,14 +413,14 @@
                 Free Download &bull; XLSX Format
               </div>
               <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
-                Download Public Comps Valuation Spreadsheet
+                Download Institutional Trading Comps Model (.xlsx)
               </h3>
               <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
-                Pre-formatted matrix with formulas for EV calculation, multiple benchmarking, and implied share pricing
+                Pre-formatted matrix with formulas for EV calculation, peer benchmarking, outlier trimming, and implied share pricing
               </p>
             </div>
             <button type="button" id="btnDownloadCompsXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
-              Download .XLSX Model
+              Download Comps Model
             </button>
           </div>
 
@@ -390,33 +430,53 @@
           </div>
         </div>
 
-        <!-- Section: EV Calculation Bridge -->
+        <!-- Section 1: The Enterprise Value Bridge -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
-          1. The Enterprise Value (EV) Bridge
+          1. The Complete Enterprise Value (EV) Bridge
         </h2>
         
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          To compare companies with disparate debt and cash positions, relative valuation uses <strong>Enterprise Value</strong> (the total value of core operating assets) rather than raw market capitalization:
+          To compare peer enterprises with heterogeneous capital structures, relative valuation cannot rely on raw Equity Value (Market Capitalization). A highly levered company will appear deceptively inexpensive on simple price multiples while carrying substantial senior debt obligations. Institutional analysts neutralize capital structure variations by evaluating <strong>Enterprise Value (EV)</strong>—the total theoretical takeover cost representing claims from all capital providers:
         </p>
 
-        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.7; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
-          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># Enterprise Value Equation:</div>
-          <div>Equity Value (Share Price &times; Diluted Shares Outstanding)</div>
-          <div>+ Total Debt (Short-Term Borrowings + Long-Term Debt)</div>
-          <div>+ Preferred Stock &amp; Non-Controlling (Minority) Interests</div>
-          <div>&minus; Cash &amp; Cash Equivalents</div>
-          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 700;">
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.8; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># Institutional Enterprise Value (EV) Equation:</div>
+          <div>  Equity Value [Share Price &times; Fully Diluted Shares via Treasury Stock Method]</div>
+          <div>+ Short-Term Borrowings &amp; Current Portion of Long-Term Debt</div>
+          <div>+ Long-Term Debt (Senior Notes, Term Loans, Credit Facilities)</div>
+          <div>+ Operating Lease Liabilities (ASC 842 / IFRS 16 Balance Sheet Capitalization)</div>
+          <div>+ Finance Lease Liabilities</div>
+          <div>+ Preferred Stock (Carrying Value or Liquidation Preference)</div>
+          <div>+ Non-Controlling (Minority) Interests (Book Value from Consolidated Subsidiaries)</div>
+          <div>- Cash &amp; Cash Equivalents</div>
+          <div>- Short-Term Marketable Securities &amp; Liquid Commercial Paper</div>
+          <div>- Equity Method Investments &amp; Unconsolidated Affiliates (Book Value)</div>
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 800; font-size: 0.98rem;">
             = Enterprise Value (EV)
           </div>
         </div>
 
-        <!-- Section: Multiples Table Preview -->
+        <h3 style="font-size: 1.3rem; color: var(--ink-heading); font-weight: 700; margin: 2rem 0 0.75rem 0;">
+          Fully Diluted Shares: The Treasury Stock Method (TSM)
+        </h3>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Using basic common shares outstanding severely understates share count and distorts equity value. Wall Street standards require the <strong>Treasury Stock Method</strong> for in-the-money options and warrants:
+        </p>
+        <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 1.25rem 0 1.5rem 0; font-family: monospace; font-size: 0.92rem; color: #0f172a; line-height: 1.7;">
+          <strong>Diluted Shares Formula:</strong><br />
+          Diluted Shares = Basic Shares + Total In-The-Money Options - [ (Options &times; Strike Price) / Current Share Price ] + Unvested RSUs
+        </div>
+        <p style="font-size: 1.02rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.75rem;">
+          The proceeds received from assumed option exercises are presumed to be used by the corporation to repurchase common shares in the open market at prevailing spot prices, thereby partially offsetting dilution.
+        </p>
+
+        <!-- Section 2: Valuation Multiples & Capital Structure Neutrality -->
         <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
-          2. Valuation Multiples &amp; Capital Structure Neutrality
+          2. Valuation Multiples &amp; Denominator Matching Discipline
         </h2>
 
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
-          When selecting valuation multiples, enterprise metrics must pair with operational denominators, while equity metrics pair with post-interest denominators:
+          A cardinal rule of institutional financial analysis is the <strong>matching principle</strong>: the numerator and denominator of every valuation multiple must address the exact same stakeholder claims. Enterprise Value must strictly be divided by operational, pre-interest metrics, while Equity Value must strictly be divided by post-debt, post-tax metrics:
         </p>
 
         <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
@@ -426,36 +486,309 @@
                 <th>Multiple</th>
                 <th>Denominator</th>
                 <th>Capital Structure Neutral?</th>
-                <th>Primary Use Case</th>
+                <th>Primary Sector Application</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>EV / EBITDA</strong></td>
-                <td>Operating Cash Flow proxy</td>
+                <td>Operating Cash Flow Proxy</td>
                 <td style="color: #166534; font-weight: 700;">Yes</td>
-                <td>Standard M&amp;A and leveraged buyout (LBO) benchmark</td>
+                <td>M&amp;A, LBOs, Industrials, Telecom, Consumer</td>
+              </tr>
+              <tr>
+                <td><strong>EV / EBIT</strong></td>
+                <td>True Pre-Tax Operational Profit</td>
+                <td style="color: #166534; font-weight: 700;">Yes</td>
+                <td>Capital-intensive manufacturing, automotive, energy</td>
               </tr>
               <tr>
                 <td><strong>EV / Revenue</strong></td>
-                <td>Top-line sales</td>
+                <td>Top-Line Gross Sales</td>
                 <td style="color: #166534; font-weight: 700;">Yes</td>
-                <td>High-growth tech, SaaS, or early-stage unprofitable firms</td>
+                <td>High-growth SaaS, early-stage cloud software, biotech</td>
               </tr>
               <tr>
-                <td><strong>P / E</strong></td>
+                <td><strong>EV / Unlevered FCF</strong></td>
+                <td>NOPAT + D&amp;A - CapEx - &Delta;NWC</td>
+                <td style="color: #166534; font-weight: 700;">Yes</td>
+                <td>Mature cash cows, semiconductors, infrastructure</td>
+              </tr>
+              <tr>
+                <td><strong>P / E (Price to Earnings)</strong></td>
                 <td>Diluted Net Income</td>
-                <td style="color: #991b1b; font-weight: 700;">No (Impacted by Debt)</td>
-                <td>Mature, dividend-paying cash generators</td>
+                <td style="color: #991b1b; font-weight: 700;">No (Distorted by Debt)</td>
+                <td>Commercial banking, insurance, asset management</td>
               </tr>
               <tr>
-                <td><strong>EV / Free Cash Flow</strong></td>
-                <td>Unlevered FCF</td>
-                <td style="color: #166534; font-weight: 700;">Yes</td>
-                <td>Capital-intensive businesses with varying D&amp;A schedules</td>
+                <td><strong>P / B (Price to Book)</strong></td>
+                <td>Shareholders' Common Equity</td>
+                <td style="color: #991b1b; font-weight: 700;">No (Asset-Sensitive)</td>
+                <td>Financial institutions, REITs, holding companies</td>
+              </tr>
+              <tr>
+                <td><strong>PEG Ratio</strong></td>
+                <td>P/E / Expected EPS Growth Rate</td>
+                <td style="color: #991b1b; font-weight: 700;">No</td>
+                <td>Growth-at-a-reasonable-price (GARP) equity screening</td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Section 3: LTM / TTM Calendarization Mechanics -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          3. LTM / TTM Calendarization Mechanics
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          In public comparable sets, peer companies frequently operate on asynchronous fiscal calendars. For example, in enterprise technology:
+        </p>
+
+        <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.5rem;">
+          <li><strong>Apple (AAPL)</strong> concludes its fiscal year on the last Saturday of September.</li>
+          <li><strong>Microsoft (MSFT)</strong> concludes its fiscal year on June 30th.</li>
+          <li><strong>NVIDIA (NVDA)</strong> concludes its fiscal year on the final Sunday of January.</li>
+          <li><strong>Alphabet (GOOGL) &amp; Meta (META)</strong> conclude their fiscal years on December 31st.</li>
+        </ul>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Directly comparing unadjusted full-year filings introduces severe temporal distortions. Institutional analysts normalize all operating results to a uniform <strong>Last Twelve Months (LTM or TTM)</strong> baseline using the SEC 10-Q bridging formula:
+        </p>
+
+        <div style="background: #0f2e29; color: #f0fdf4; border-radius: var(--radius-lg); padding: 1.5rem 1.75rem; font-family: monospace; font-size: 0.92rem; line-height: 1.8; margin: 1.5rem 0 2rem 0; box-shadow: 0 4px 16px rgba(15, 46, 41, 0.15);">
+          <div style="color: #86efac; font-weight: 700; margin-bottom: 0.5rem;"># SEC Filing LTM/TTM Calendarization Formula:</div>
+          <div>  Latest Cumulative Interim Period (e.g., 9-Month 10-Q YTD 2026)</div>
+          <div>+ Prior Full Fiscal Year (e.g., 12-Month 10-K FY 2025)</div>
+          <div>- Prior Comparable Interim Period (e.g., 9-Month 10-Q YTD 2025)</div>
+          <div style="border-top: 1px solid #166534; padding-top: 0.5rem; margin-top: 0.5rem; color: #34d399; font-weight: 800; font-size: 0.98rem;">
+            = Trailing Twelve Months (LTM / TTM) Operational Performance
+          </div>
+        </div>
+
+        <!-- Section 4: Statistical Normalization & Footnote Adjustments -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          4. Statistical Normalization, Outlier Detection &amp; Footnote Adjustments
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Raw GAAP statements include transitory gains, litigation settlements, restructuring charges, and non-cash equity compensation that obscure ongoing earning power. Investment banks apply rigorous footnote adjustments prior to computing multiples:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1.5rem 0 2rem 0;">
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Adjustment 1</div>
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0.35rem 0 0.5rem 0;">Stock-Based Compensation (SBC)</h4>
+            <p style="font-size: 0.88rem; color: var(--soft); line-height: 1.6; margin-bottom: 0.75rem;">
+              While management teams routinely add back SBC to present higher "Adjusted EBITDA", SBC is a permanent dilutive operating cost. CALIO models present both GAAP EBITDA and Management Adjusted EBITDA side-by-side to expose genuine shareholder dilution.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Adjustment 2</div>
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0.35rem 0 0.5rem 0;">Non-Recurring &amp; Litigation Items</h4>
+            <p style="font-size: 0.88rem; color: var(--soft); line-height: 1.6; margin-bottom: 0.75rem;">
+              One-off legal settlements, severance payments, facility closure costs, and advisory fees from M&amp;A transactions are removed from operating income to reflect true normalized ongoing run-rate profitability.
+            </p>
+          </div>
+        </div>
+
+        <h3 style="font-size: 1.3rem; color: var(--ink-heading); font-weight: 700; margin: 2rem 0 0.75rem 0;">
+          Central Tendency: Why Medians Outperform Arithmetic Means
+        </h3>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          In small peer sets (5 to 10 companies), an extreme multiple from a distressed firm or high-momentum outlier can skew an arithmetic average by 30% to 50%. Institutional valuation desks rely on the <strong>Median</strong> and <strong>Harmonic Mean</strong>:
+        </p>
+        <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.75rem;">
+          <li><strong>Median</strong>: The exact 50th percentile of the sorted peer multiples. Robust against extreme skewness and negative earnings outliers.</li>
+          <li><strong>Harmonic Mean</strong>: Mathematically proven for price ratios ($P/E$, $EV/EBITDA$): <code>Harmonic Mean = n / &Sigma;(1 / x_i)</code>. Prevents upward bias caused by taking the arithmetic average of inverted performance numbers.</li>
+          <li><strong>Interquartile Range (IQR)</strong>: Benchmarking across the 25th percentile (low end of fair value) and 75th percentile (premium valuation tier).</li>
+        </ul>
+
+        <!-- Section 5: Institutional Excel Mechanics -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          5. Institutional Excel Modeling Mechanics &amp; Dynamic Formulas
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          The downloadable template enforces rigorous Wall Street spreadsheet architecture:
+        </p>
+
+        <ul style="color: var(--soft); font-size: 1.02rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.75rem;">
+          <li><strong>Dynamic Median Multiples</strong>: Uses <code>=MEDIAN(Range)</code> and <code>=PERCENTILE.INC(Range, 0.25)</code> to establish defensible valuation brackets.</li>
+          <li><strong>Implied Share Price Derivation</strong>: Applies benchmark peer multiples back to target company LTM metrics: <code>Implied EV = Target EBITDA &times; Peer Median EV/EBITDA</code>, followed by the reverse EV-to-Equity Value bridge: <code>Implied Share Price = (Implied EV - Net Debt) / Diluted Shares</code>.</li>
+          <li><strong>Financial Modeling Color Coding</strong>: Blue font indicates hardcoded inputs (stock prices, shares), Black font indicates formula calculations, and Green font highlights dynamic internal cross-sheet links.</li>
+        </ul>
+
+        <!-- Section 6: Multi-Peer Benchmark Matrix Preview -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          6. Institutional Multi-Peer Benchmark Matrix Preview
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.25rem;">
+          Below is a preview of the pre-formatted comparative matrix included in the downloadable <code>.xlsx</code> workbook, illustrating trading metrics across leading enterprise software infrastructure companies:
+        </p>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Company (Ticker)</th>
+                <th style="text-align: right;">Share Price</th>
+                <th style="text-align: right;">Market Cap ($M)</th>
+                <th style="text-align: right;">Enterprise Value ($M)</th>
+                <th style="text-align: right;">LTM Rev ($M)</th>
+                <th style="text-align: right;">LTM EBITDA ($M)</th>
+                <th style="text-align: right;">EV / Rev</th>
+                <th style="text-align: right;">EV / EBITDA</th>
+                <th style="text-align: right;">P / E (x)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700;">CrowdStrike (CRWD)</td>
+                <td style="text-align: right; font-family: monospace;">$320.50</td>
+                <td style="text-align: right; font-family: monospace;">$78,200</td>
+                <td style="text-align: right; font-family: monospace;">$74,800</td>
+                <td style="text-align: right; font-family: monospace;">$3,950</td>
+                <td style="text-align: right; font-family: monospace;">$1,050</td>
+                <td style="text-align: right; font-family: monospace;">18.9x</td>
+                <td style="text-align: right; font-family: monospace;">71.2x</td>
+                <td style="text-align: right; font-family: monospace;">84.5x</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Datadog (DDOG)</td>
+                <td style="text-align: right; font-family: monospace;">$124.80</td>
+                <td style="text-align: right; font-family: monospace;">$41,600</td>
+                <td style="text-align: right; font-family: monospace;">$38,900</td>
+                <td style="text-align: right; font-family: monospace;">$2,680</td>
+                <td style="text-align: right; font-family: monospace;">$680</td>
+                <td style="text-align: right; font-family: monospace;">14.5x</td>
+                <td style="text-align: right; font-family: monospace;">57.2x</td>
+                <td style="text-align: right; font-family: monospace;">68.1x</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Palo Alto Networks (PANW)</td>
+                <td style="text-align: right; font-family: monospace;">$365.00</td>
+                <td style="text-align: right; font-family: monospace;">$118,500</td>
+                <td style="text-align: right; font-family: monospace;">$115,200</td>
+                <td style="text-align: right; font-family: monospace;">$8,030</td>
+                <td style="text-align: right; font-family: monospace;">$2,450</td>
+                <td style="text-align: right; font-family: monospace;">14.3x</td>
+                <td style="text-align: right; font-family: monospace;">47.0x</td>
+                <td style="text-align: right; font-family: monospace;">52.4x</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Snowflake (SNOW)</td>
+                <td style="text-align: right; font-family: monospace;">$132.40</td>
+                <td style="text-align: right; font-family: monospace;">$44,200</td>
+                <td style="text-align: right; font-family: monospace;">$40,800</td>
+                <td style="text-align: right; font-family: monospace;">$3,480</td>
+                <td style="text-align: right; font-family: monospace;">$310</td>
+                <td style="text-align: right; font-family: monospace;">11.7x</td>
+                <td style="text-align: right; font-family: monospace;">131.6x</td>
+                <td style="text-align: right; font-family: monospace;">N/M</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Cloudflare (NET)</td>
+                <td style="text-align: right; font-family: monospace;">$88.50</td>
+                <td style="text-align: right; font-family: monospace;">$30,100</td>
+                <td style="text-align: right; font-family: monospace;">$28,600</td>
+                <td style="text-align: right; font-family: monospace;">$1,660</td>
+                <td style="text-align: right; font-family: monospace;">$290</td>
+                <td style="text-align: right; font-family: monospace;">17.2x</td>
+                <td style="text-align: right; font-family: monospace;">98.6x</td>
+                <td style="text-align: right; font-family: monospace;">112.0x</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Zscaler (ZS)</td>
+                <td style="text-align: right; font-family: monospace;">$195.00</td>
+                <td style="text-align: right; font-family: monospace;">$29,600</td>
+                <td style="text-align: right; font-family: monospace;">$27,200</td>
+                <td style="text-align: right; font-family: monospace;">$2,170</td>
+                <td style="text-align: right; font-family: monospace;">$480</td>
+                <td style="text-align: right; font-family: monospace;">12.5x</td>
+                <td style="text-align: right; font-family: monospace;">56.7x</td>
+                <td style="text-align: right; font-family: monospace;">64.2x</td>
+              </tr>
+              <tr style="background: #f8fafc; border-top: 2px solid #0f766e;">
+                <td style="font-weight: 800; color: #0f766e;">25th Percentile</td>
+                <td style="text-align: right; font-family: monospace;">&mdash;</td>
+                <td style="text-align: right; font-family: monospace;">$30,225</td>
+                <td style="text-align: right; font-family: monospace;">$29,175</td>
+                <td style="text-align: right; font-family: monospace;">$2,298</td>
+                <td style="text-align: right; font-family: monospace;">$353</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">12.9x</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">56.8x</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">64.2x</td>
+              </tr>
+              <tr style="background: #f0fdf4; border-top: 1px solid #bbf7d0;">
+                <td style="font-weight: 800; color: #166534;">Peer Median</td>
+                <td style="text-align: right; font-family: monospace;">&mdash;</td>
+                <td style="text-align: right; font-family: monospace;">$42,900</td>
+                <td style="text-align: right; font-family: monospace;">$39,850</td>
+                <td style="text-align: right; font-family: monospace;">$3,080</td>
+                <td style="text-align: right; font-family: monospace;">$580</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 800; color: #166534;">14.4x</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 800; color: #166534;">64.2x</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 800; color: #166534;">68.1x</td>
+              </tr>
+              <tr style="background: #f8fafc; border-bottom: 2px solid #0f766e;">
+                <td style="font-weight: 800; color: #0f766e;">75th Percentile</td>
+                <td style="text-align: right; font-family: monospace;">&mdash;</td>
+                <td style="text-align: right; font-family: monospace;">$69,700</td>
+                <td style="text-align: right; font-family: monospace;">$66,300</td>
+                <td style="text-align: right; font-family: monospace;">$3,833</td>
+                <td style="text-align: right; font-family: monospace;">$958</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">16.5x</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">91.8x</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">84.5x</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section 7: FAQs (Schema Aligned) -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          Frequently Asked Questions (Relative Valuation &amp; Comps)
+        </h2>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 2.5rem 0;">
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              Why is EV/EBITDA preferred over Price-to-Earnings (P/E) in institutional valuation?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              EV/EBITDA is capital-structure neutral because Enterprise Value reflects the claims of all capital providers (both debt and equity), while EBITDA measures core operational profitability before debt interest, depreciation accounting conventions, and jurisdictional tax rates. In contrast, P/E uses Net Income, which is heavily distorted by varying leverage ratios, interest expense, and legacy non-cash depreciation schedules, making peer comparisons less reliable across diverse capital structures.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How do you calendarize financial results when peer companies report on different fiscal year ends?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              When peers have asynchronous fiscal years (e.g., Apple ending in September, Microsoft in June, Nvidia in January), analysts calendarize financials to a uniform Trailing Twelve Months (TTM/LTM) baseline. The formula is: <code>LTM = Latest Available Cumulative Period + Prior Full Fiscal Year - Prior Comparable Period</code>. For forward calendarization, analysts linearly interpolate consensus estimates across overlapping quarters to match the target firm's fiscal calendar.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              How does the ASC 842 lease accounting standard affect Enterprise Value and EBITDA multiples?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              Under US-GAAP ASC 842 and IFRS 16, operating leases are brought onto the balance sheet as Right-of-Use (ROU) assets and operating lease liabilities. If an analyst treats operating lease liabilities as funded debt when bridging to Enterprise Value, they must also ensure lease interest and amortization are added back to operating income to prevent denominator mismatch. CALIO's institutional models explicitly break out operating lease liabilities so analysts can evaluate multiples on both pre-lease and post-lease bases.
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem 0;">
+              Why do institutional analysts rely on the median or harmonic mean rather than the arithmetic mean for peer multiples?
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--soft); line-height: 1.65; margin: 0;">
+              Arithmetic means are heavily skewed by positive outliers (e.g., a high-flying turnaround company trading at 150x EBITDA will severely distort a 6-company peer group mean). The median provides a robust measure of central tendency that is resistant to extreme outliers. For price-scaled valuation ratios, the harmonic mean is mathematically superior because it prevents upward bias when averaging inverted valuation multiples.
+            </p>
+          </div>
         </div>
 
         <!-- Section: How to Automate with CALIO -->
@@ -543,24 +876,23 @@
           statements: {
             annual: {
               periods: [
-                { label: "Company A", end: "Large Cap" },
-                { label: "Company B", end: "Mid Cap" },
-                { label: "Company C", end: "Growth" },
-                { label: "Median", end: "Benchmark" }
+                { label: "CrowdStrike (CRWD)", end: "Enterprise Sec" },
+                { label: "Datadog (DDOG)", end: "Observability" },
+                { label: "Palo Alto (PANW)", end: "Network Sec" },
+                { label: "Snowflake (SNOW)", end: "Cloud Data" },
+                { label: "Cloudflare (NET)", end: "Edge Network" },
+                { label: "Zscaler (ZS)", end: "Cloud Zero Trust" },
+                { label: "Peer Median", end: "Benchmark" }
               ],
               incomeStatement: [
-                { label: "Share Price ($)", tag: "SharePrice", values: [185.50, 94.20, 240.00, 185.50] },
-                { label: "Diluted Shares (M)", tag: "SharesOutstanding", values: [15500, 3200, 1250, 3200] },
-                { label: "Equity Value ($M)", tag: "MarketCapitalization", values: [2875250, 301440, 300000, 301440] },
-                { label: "(+) Total Debt ($M)", tag: "TotalDebt", values: [110000, 24000, 12000, 24000] },
-                { label: "(-) Cash & Cash Equivalents ($M)", tag: "CashAndCashEquivalents", values: [65000, 18000, 9500, 18000] },
-                { label: "Enterprise Value (EV) ($M)", tag: "EnterpriseValue", values: [2920250, 307440, 302500, 307440] },
-                { label: "LTM Revenue ($M)", tag: "Revenue", values: [385000, 62000, 41000, 62000] },
-                { label: "LTM EBITDA ($M)", tag: "EBITDA", values: [128000, 17500, 11800, 17500] },
-                { label: "LTM Net Income ($M)", tag: "NetIncome", values: [98000, 12200, 7800, 12200] },
-                { label: "EV / Revenue Multiple (x)", tag: "MultipleEvRev", values: [7.58, 4.96, 7.38, 7.38] },
-                { label: "EV / EBITDA Multiple (x)", tag: "MultipleEvEbitda", values: [22.8, 17.6, 25.6, 22.8] },
-                { label: "Price / Earnings (P/E) Multiple (x)", tag: "MultiplePe", values: [29.3, 24.7, 38.5, 29.3] }
+                { label: "Share Price ($)", tag: "SharePrice", values: [320.50, 124.80, 365.00, 132.40, 88.50, 195.00, 163.70] },
+                { label: "Market Capitalization ($M)", tag: "MarketCapitalization", values: [78200, 41600, 118500, 44200, 30100, 29600, 42900] },
+                { label: "Enterprise Value (EV) ($M)", tag: "EnterpriseValue", values: [74800, 38900, 115200, 40800, 28600, 27200, 39850] },
+                { label: "LTM Revenue ($M)", tag: "Revenue", values: [3950, 2680, 8030, 3480, 1660, 2170, 3080] },
+                { label: "LTM EBITDA ($M)", tag: "EBITDA", values: [1050, 680, 2450, 310, 290, 480, 580] },
+                { label: "EV / Revenue Multiple (x)", tag: "MultipleEvRev", values: [18.9, 14.5, 14.3, 11.7, 17.2, 12.5, 14.4] },
+                { label: "EV / EBITDA Multiple (x)", tag: "MultipleEvEbitda", values: [71.2, 57.2, 47.0, 131.6, 98.6, 56.7, 64.2] },
+                { label: "Price / Earnings (P/E) Multiple (x)", tag: "MultiplePe", values: [84.5, 68.1, 52.4, 0, 112.0, 64.2, 68.1] }
               ]
             }
           }
