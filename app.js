@@ -160,7 +160,7 @@
     try {
       const st = await send({ type: "calio:getState" });
       if (st?.ok) {
-        el.versionBadge.textContent = `v${st.state.version || "1.17.0"}`;
+        el.versionBadge.textContent = `v${st.state.version || "1.19.0"}`;
         applyAppTheme("teal");
         updatePlanAndUsageDisplay(st.state.usage, st.state.settings);
       }
