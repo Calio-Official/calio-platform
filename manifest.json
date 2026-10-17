@@ -41,8 +41,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.sec.gov/*",
-        "https://sec.gov/*"
+        "http://*/*",
+        "https://*/*"
       ],
       "js": [
         "content.js"
@@ -62,8 +62,8 @@
         "app.js"
       ],
       "matches": [
-        "https://www.sec.gov/*",
-        "https://sec.gov/*"
+        "http://*/*",
+        "https://*/*"
       ]
     }
   ]

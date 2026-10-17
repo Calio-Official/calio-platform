@@ -3160,7 +3160,11 @@ async function openAppWindow(payload = {}) {
       (t) => t.url && t.url.startsWith(url.split("?")[0])
     );
     if (match && win.id != null) {
-      await chrome.windows.update(win.id, { focused: true });
+      const updateProps = { focused: true };
+      if (win.state === "minimized") {
+        updateProps.state = "normal";
+      }
+      await chrome.windows.update(win.id, updateProps);
       if (match.id != null) {
         await chrome.tabs.update(match.id, { active: true });
       }

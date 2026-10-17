@@ -6,6 +6,7 @@
  */
 (() => {
   const APP_HOST_ID = "calio-root-host";
+  const EDGE_DOCK_HOST_ID = "calio-edge-dock-host";
   const URL_WATCH_INTERVAL_MS = 900;
 
   const MISSING_METRIC = "Not disclosed in this filing";
@@ -208,11 +209,390 @@
     });
   }
 
+  function mountEdgeDock() {
+    try {
+      if (window.top !== window.self) return;
+      const runtimeId = (chrome && chrome.runtime && chrome.runtime.id) || "calio";
+      const existing = document.getElementById(EDGE_DOCK_HOST_ID);
+      if (existing) {
+        if (existing.dataset.runtimeId === runtimeId) return;
+        existing.remove();
+      }
+
+      const dockHost = document.createElement("div");
+      dockHost.id = EDGE_DOCK_HOST_ID;
+      dockHost.dataset.runtimeId = runtimeId;
+      (document.body || document.documentElement).appendChild(dockHost);
+
+      const dockShadow = dockHost.attachShadow({ mode: "open" });
+
+      const weights = [500, 600, 700];
+      const fontRules = weights
+        .map((w) => {
+          try {
+            const fontUrl = chrome.runtime.getURL(`fonts/outfit-${w}.woff2`);
+            return `@font-face { font-family: "Outfit"; font-style: normal; font-weight: ${w}; font-display: swap; src: url("${fontUrl}") format("woff2"); }`;
+          } catch {
+            return "";
+          }
+        })
+        .join("\n");
+
+      let logoUrl = "";
+      try {
+        logoUrl = chrome.runtime.getURL("icons/calio-mark.png");
+      } catch {
+        logoUrl = "";
+      }
+
+      const dockStyle = document.createElement("style");
+      dockStyle.textContent = `
+        ${fontRules}
+        :host {
+          all: initial;
+          position: fixed;
+          right: 0;
+          top: 200px;
+          z-index: 2147483645;
+          pointer-events: none;
+          font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        @media print {
+          :host {
+            display: none !important;
+          }
+        }
+        .calio-edge-dock {
+          all: unset;
+          box-sizing: border-box;
+          pointer-events: auto;
+          display: inline-flex;
+          align-items: center;
+          height: 48px;
+          padding: 7px 10px 7px 7px;
+          background: linear-gradient(145deg, #19443c 0%, #0d2622 100%);
+          color: #ffffff;
+          border: 1px solid rgba(143, 181, 172, 0.34);
+          border-right: none;
+          border-radius: 13px 0 0 13px;
+          box-shadow:
+            -6px 10px 28px rgba(10, 31, 27, 0.36),
+            -2px 2px 8px rgba(0, 0, 0, 0.22),
+            inset 0 1px 0 rgba(255, 255, 255, 0.16);
+          cursor: pointer;
+          user-select: none;
+          -webkit-font-smoothing: antialiased;
+          transform: translate3d(105%, 0, 0);
+          opacity: 0;
+          transition:
+            transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 280ms ease,
+            background 260ms ease,
+            border-color 260ms ease,
+            box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1),
+            padding 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .calio-edge-dock.is-ready {
+          transform: translate3d(0, 0, 0);
+          opacity: 1;
+        }
+        .calio-edge-dock.is-hidden {
+          transform: translate3d(115%, 0, 0) !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+        .calio-edge-dock:hover {
+          padding: 7px 14px 7px 9px;
+          background: linear-gradient(145deg, #1f5248 0%, #0f2e29 100%);
+          border-color: rgba(94, 234, 212, 0.5);
+          box-shadow:
+            -10px 16px 36px rgba(10, 31, 27, 0.46),
+            -2px 4px 12px rgba(0, 0, 0, 0.26),
+            0 0 0 1px rgba(94, 234, 212, 0.14),
+            inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        }
+        .calio-edge-dock:active:not(.is-dragging) {
+          transform: translate3d(0, 0, 0) scale(0.96);
+          transition-duration: 110ms;
+        }
+        .calio-edge-dock.is-dragging {
+          cursor: grabbing;
+          box-shadow:
+            -14px 22px 44px rgba(10, 31, 27, 0.52),
+            0 0 0 1px rgba(94, 234, 212, 0.38);
+        }
+        .calio-edge-grip {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          margin-right: 5px;
+          opacity: 0.3;
+          transition: opacity 220ms ease;
+          flex-shrink: 0;
+        }
+        .calio-edge-dock:hover .calio-edge-grip {
+          opacity: 0.65;
+        }
+        .calio-edge-grip span {
+          width: 2.5px;
+          height: 2.5px;
+          border-radius: 50%;
+          background: #c5d9d4;
+        }
+        .calio-edge-mark {
+          position: relative;
+          display: grid;
+          place-items: center;
+          width: 33px;
+          height: 33px;
+          border-radius: 9px;
+          background: #ffffff;
+          box-shadow:
+            0 3px 10px rgba(0, 0, 0, 0.24),
+            inset 0 0 0 1px rgba(25, 68, 60, 0.12);
+          flex-shrink: 0;
+          transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease;
+        }
+        .calio-edge-dock:hover .calio-edge-mark {
+          transform: scale(1.05);
+          box-shadow:
+            0 5px 14px rgba(0, 0, 0, 0.3),
+            0 0 0 2px rgba(94, 234, 212, 0.34);
+        }
+        .calio-edge-logo {
+          width: 27px;
+          height: 27px;
+          object-fit: contain;
+          display: block;
+          border-radius: 6px;
+        }
+        .calio-edge-fallback-svg {
+          width: 24px;
+          height: 24px;
+          display: none;
+        }
+        .calio-edge-status {
+          position: absolute;
+          top: -2px;
+          right: -2px;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #10b981;
+          border: 1.5px solid #0f2e29;
+          box-shadow: 0 0 6px rgba(16, 185, 129, 0.72);
+          transition: transform 250ms ease, background-color 250ms ease;
+        }
+        .calio-edge-dock:hover .calio-edge-status {
+          transform: scale(1.15);
+          background: #34d399;
+        }
+        .calio-edge-drawer-text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          max-width: 0;
+          opacity: 0;
+          overflow: hidden;
+          white-space: nowrap;
+          margin-left: 0;
+          transform: translateX(6px);
+          transition:
+            max-width 320ms cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 240ms ease,
+            margin-left 300ms cubic-bezier(0.16, 1, 0.3, 1),
+            transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .calio-edge-dock:hover .calio-edge-drawer-text {
+          max-width: 148px;
+          opacity: 1;
+          margin-left: 10px;
+          transform: translateX(0);
+        }
+        .calio-edge-title {
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          line-height: 1.15;
+          color: #ffffff;
+        }
+        .calio-edge-subtitle {
+          display: inline-flex;
+          align-items: center;
+          gap: 3px;
+          font-size: 10.5px;
+          font-weight: 500;
+          letter-spacing: 0.01em;
+          line-height: 1.2;
+          color: #99cbbf;
+          margin-top: 2px;
+        }
+        .calio-edge-arrow {
+          display: inline-block;
+          font-size: 10px;
+          transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .calio-edge-dock:hover .calio-edge-arrow {
+          transform: translate(1.5px, -1.5px);
+        }
+        @keyframes calioEdgePulse {
+          0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65); }
+          100% { box-shadow: 0 0 0 12px rgba(52, 211, 153, 0); }
+        }
+        .calio-edge-dock.is-launching .calio-edge-mark {
+          animation: calioEdgePulse 520ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+      `;
+
+      const dockBtn = document.createElement("button");
+      dockBtn.type = "button";
+      dockBtn.className = "calio-edge-dock";
+      dockBtn.setAttribute("aria-label", "Open C.A.L.I.O Financial Workspace");
+      dockBtn.innerHTML = `
+        <span class="calio-edge-grip" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="calio-edge-mark" aria-hidden="true">
+          ${logoUrl ? `<img class="calio-edge-logo" src="${logoUrl}" alt="" />` : ""}
+          <svg class="calio-edge-fallback-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="${logoUrl ? "" : "display:block"}">
+            <path d="M48 16.5C43.5 12 37.2 9.5 30.2 9.5C16.8 9.5 6 20.3 6 33.7C6 47.1 16.8 57.9 30.2 57.9C38.5 57.9 45.8 53.7 50.1 47.3C45.3 50.2 39.6 51.4 33.7 50.4C22.4 48.5 14.5 38.2 16.1 26.8C17.6 16.3 27.1 9 37.6 10.6C40.1 11 42.5 11.9 44.6 13.2L48 16.5Z" fill="#19443C"/>
+            <path d="M39.5 19.2C31.5 18.8 24.4 24.7 23.6 32.7C22.8 40.7 28.6 47.9 36.6 48.9C32.2 46.2 29.5 41.1 30.1 35.5C30.7 29.4 35.6 24.7 41.7 24.4L39.5 19.2Z" fill="#19443C"/>
+          </svg>
+          <span class="calio-edge-status"></span>
+        </span>
+        <span class="calio-edge-drawer-text">
+          <span class="calio-edge-title">C.A.L.I.O</span>
+          <span class="calio-edge-subtitle">Open Workspace <span class="calio-edge-arrow">&#8599;</span></span>
+        </span>
+      `;
+
+      const logoImg = dockBtn.querySelector(".calio-edge-logo");
+      const fallbackSvg = dockBtn.querySelector(".calio-edge-fallback-svg");
+      if (logoImg && fallbackSvg) {
+        logoImg.addEventListener("error", () => {
+          logoImg.style.display = "none";
+          fallbackSvg.style.display = "block";
+        });
+      }
+
+      dockShadow.appendChild(dockStyle);
+      dockShadow.appendChild(dockBtn);
+      state.refs.edgeDock = dockBtn;
+      state.refs.edgeDockHost = dockHost;
+
+      const clampTop = (val) => {
+        const minTop = 56;
+        const maxTop = Math.max(minTop, (window.innerHeight || 800) - 68);
+        return Math.min(maxTop, Math.max(minTop, val));
+      };
+
+      try {
+        if (chrome?.storage?.local) {
+          chrome.storage.local.get(["calioEdgeDockTop"], (res) => {
+            if (!chrome.runtime.lastError && typeof res?.calioEdgeDockTop === "number") {
+              dockHost.style.top = `${clampTop(res.calioEdgeDockTop)}px`;
+            }
+          });
+        }
+      } catch {
+        /* ignore */
+      }
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          dockBtn.classList.add("is-ready");
+        });
+      });
+
+      let isDragging = false;
+      let dragMoved = false;
+      let startY = 0;
+      let startTop = 200;
+
+      dockBtn.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0) return;
+        isDragging = true;
+        dragMoved = false;
+        startY = e.clientY;
+        startTop = dockHost.getBoundingClientRect().top;
+        dockBtn.setPointerCapture?.(e.pointerId);
+      });
+
+      dockBtn.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+        const dy = e.clientY - startY;
+        if (Math.abs(dy) > 5) {
+          dragMoved = true;
+          dockBtn.classList.add("is-dragging");
+          const nextTop = clampTop(startTop + dy);
+          dockHost.style.top = `${nextTop}px`;
+        }
+      });
+
+      const endPointer = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        dockBtn.classList.remove("is-dragging");
+        try {
+          dockBtn.releasePointerCapture?.(e.pointerId);
+        } catch {
+          /* ignore */
+        }
+        if (dragMoved) {
+          const finalTop = clampTop(dockHost.getBoundingClientRect().top);
+          try {
+            chrome?.storage?.local?.set({ calioEdgeDockTop: Math.round(finalTop) });
+          } catch {
+            /* ignore */
+          }
+        }
+      };
+
+      dockBtn.addEventListener("pointerup", endPointer);
+      dockBtn.addEventListener("pointercancel", endPointer);
+
+      dockBtn.addEventListener("click", (e) => {
+        if (dragMoved) {
+          e.preventDefault();
+          e.stopPropagation();
+          dragMoved = false;
+          return;
+        }
+        dockBtn.classList.remove("is-launching");
+        void dockBtn.offsetWidth;
+        dockBtn.classList.add("is-launching");
+        setTimeout(() => dockBtn.classList.remove("is-launching"), 560);
+        onLauncherClick();
+      });
+
+      window.addEventListener("resize", () => {
+        const currentTop = dockHost.getBoundingClientRect().top;
+        dockHost.style.top = `${clampTop(currentTop)}px`;
+      });
+
+      document.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement) {
+          dockBtn.classList.add("is-hidden");
+        } else if (!state.isOpen) {
+          dockBtn.classList.remove("is-hidden");
+        }
+      });
+    } catch {
+      /* non-blocking */
+    }
+  }
+
   function mount() {
-    if (document.getElementById(APP_HOST_ID)) return;
+    const runtimeId = (chrome && chrome.runtime && chrome.runtime.id) || "calio";
+    const existingAppHost = document.getElementById(APP_HOST_ID);
+    if (existingAppHost) {
+      if (existingAppHost.dataset.runtimeId === runtimeId) return;
+      existingAppHost.remove();
+    }
 
     const host = document.createElement("div");
     host.id = APP_HOST_ID;
+    host.dataset.runtimeId = runtimeId;
     (document.body || document.documentElement).appendChild(host);
 
     const shadow = host.attachShadow({ mode: "open" });
@@ -616,7 +996,7 @@
       banner.innerHTML =
         "<div style=\"margin-bottom:8px\">C.A.L.I.O was updated or reloaded.</div>" +
         "<div style=\"font-weight:500;opacity:.9;margin-bottom:12px\">" +
-        "Refresh this SEC page to reconnect the extension.</div>" +
+        "Refresh this page to reconnect the extension.</div>" +
         "<button type=\"button\" id=\"calio-reload-page-btn\" style=\"" +
         "appearance:none;border:0;border-radius:8px;padding:8px 12px;" +
         "background:#fff;color:#0f2e29;font:650 12px system-ui,sans-serif;cursor:pointer" +
@@ -648,9 +1028,11 @@
         showReloadRequiredBanner();
         return;
       }
-      // Real openApp failure (e.g. window API) — fall back to on-page panel
-      openDrawer();
-      if (!state.isBusy) await runParse();
+      // Real openApp failure (e.g. window API) — fall back to on-page panel if on SEC
+      if (state.refs.drawer) {
+        openDrawer();
+        if (!state.isBusy) await runParse();
+      }
     }
   }
 
@@ -779,17 +1161,21 @@
 
   function openDrawer() {
     state.isOpen = true;
-    state.refs.overlay.classList.add("is-open");
-    state.refs.drawer.classList.add("is-open");
-    state.refs.drawer.setAttribute("aria-hidden", "false");
+    state.refs.overlay?.classList.add("is-open");
+    state.refs.drawer?.classList.add("is-open");
+    state.refs.drawer?.setAttribute("aria-hidden", "false");
+    state.refs.edgeDock?.classList.add("is-hidden");
     updateChrome();
   }
 
   function closeDrawer() {
     state.isOpen = false;
-    state.refs.overlay.classList.remove("is-open");
-    state.refs.drawer.classList.remove("is-open");
-    state.refs.drawer.setAttribute("aria-hidden", "true");
+    state.refs.overlay?.classList.remove("is-open");
+    state.refs.drawer?.classList.remove("is-open");
+    state.refs.drawer?.setAttribute("aria-hidden", "true");
+    if (!document.fullscreenElement) {
+      state.refs.edgeDock?.classList.remove("is-hidden");
+    }
   }
 
   /* ── Core parse flow ─────────────────────────────────── */
@@ -6209,11 +6595,16 @@
   }
 
   /* ── Bootstrap last (after all consts/functions exist) ─── */
-  if (!shouldRunOnPage()) {
-    // no-op on non-SEC pages
-  } else if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mount, { once: true });
+  function bootstrapCalio() {
+    mountEdgeDock();
+    if (shouldRunOnPage()) {
+      mount();
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrapCalio, { once: true });
   } else {
-    mount();
+    bootstrapCalio();
   }
 })();
