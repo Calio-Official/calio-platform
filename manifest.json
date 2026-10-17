@@ -13,6 +13,9 @@
     "windows"
   ],
   "host_permissions": [
+    "<all_urls>",
+    "https://*/*",
+    "http://*/*",
     "https://www.sec.gov/*",
     "https://sec.gov/*",
     "https://data.sec.gov/*",
@@ -41,6 +44,7 @@
   "content_scripts": [
     {
       "matches": [
+        "<all_urls>",
         "http://*/*",
         "https://*/*"
       ],
@@ -62,6 +66,7 @@
         "app.js"
       ],
       "matches": [
+        "<all_urls>",
         "http://*/*",
         "https://*/*"
       ]

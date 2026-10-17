@@ -179,14 +179,59 @@ const SAMPLE_FILING_URL =
 
 const MAX_RECENT = 12;
 
+async function injectEdgeDockIntoTab(tabId, url = "") {
+  if (tabId == null) return;
+  if (url && !/^https?:\/\//i.test(url)) return;
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ["content.js"]
+    });
+  } catch {
+    /* ignore restricted chrome:// or chromewebstore pages */
+  }
+}
+
+async function injectEdgeDockEverywhere() {
+  try {
+    const tabs = await chrome.tabs.query({ url: ["http://*/*", "https://*/*"] });
+    for (const tab of tabs || []) {
+      if (tab?.id != null) {
+        injectEdgeDockIntoTab(tab.id, tab.url || "");
+      }
+    }
+  } catch {
+    /* non-blocking */
+  }
+}
+
 chrome.runtime.onInstalled.addListener(async () => {
   await ensureDefaults();
   await ensureMonitorAlarm();
+  await injectEdgeDockEverywhere();
 });
 
 chrome.runtime.onStartup.addListener(async () => {
   await ensureDefaults();
   await ensureMonitorAlarm();
+  await injectEdgeDockEverywhere();
+});
+
+chrome.tabs.onUpdated?.addListener?.((tabId, changeInfo, tab) => {
+  if (changeInfo?.status === "complete") {
+    injectEdgeDockIntoTab(tabId, tab?.url || "");
+  }
+});
+
+chrome.tabs.onActivated?.addListener?.(async (activeInfo) => {
+  if (activeInfo?.tabId != null) {
+    try {
+      const tab = await chrome.tabs.get(activeInfo.tabId);
+      injectEdgeDockIntoTab(activeInfo.tabId, tab?.url || "");
+    } catch {
+      /* ignore */
+    }
+  }
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
