@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Research, Stock Teardowns & Financial Modeling Guides — CALIO Blog</title>
+    <meta
+      name="description"
+      content="Institutional SEC EDGAR teardowns, 10-K forensic analysis, financial modeling tutorials in Excel, and terminal comparisons. Direct from CALIO Research."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio-pink.vercel.app/blog.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+
+    <!-- Schema.org Blog -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "CALIO Research & Financial Modeling Desk",
+      "description": "Institutional SEC filing teardowns, audited Form 10-K Excel financial models, and forensic accounting guides.",
+      "url": "https://calio-pink.vercel.app/blog.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "CALIO Technologies",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://calio-pink.vercel.app/assets/icon128.png"
+        }
+      }
+    }
+    </script>
+
+    <style>
+      .blog-search-wrap {
+        position: relative;
+        max-width: 640px;
+        margin: 1.5rem 0 2rem 0;
+      }
+      .blog-search-input {
+        width: 100%;
+        padding: 0.95rem 1.25rem 0.95rem 3rem;
+        font-size: 1.05rem;
+        font-family: var(--font);
+        color: #0f172a;
+        background: #ffffff;
+        border: 1.5px solid #cbd5e1;
+        border-radius: var(--radius-full);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        outline: none;
+        transition: all 0.2s ease;
+      }
+      .blog-search-input:focus {
+        border-color: var(--teal-primary);
+        box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+      }
+      .blog-search-icon {
+        position: absolute;
+        left: 1.15rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+        pointer-events: none;
+      }
+      .filter-pills-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 2.5rem;
+      }
+      .filter-pill {
+        padding: 0.45rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: var(--radius-full);
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #475569;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .filter-pill:hover,
+      .filter-pill.is-active {
+        background: #0f766e;
+        color: #ffffff;
+        border-color: #0f766e;
+      }
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 1.75rem;
+        margin-bottom: 3.5rem;
+      }
+      .blog-card {
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      }
+      .blog-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(15, 118, 110, 0.08);
+        border-color: rgba(15, 118, 110, 0.35);
+      }
+      .blog-card-body {
+        padding: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .blog-card-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.76rem;
+        color: #64748b;
+      }
+      .blog-card-category {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        background: #f0fdf4;
+        color: #166534;
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid #bbf7d0;
+      }
+      .blog-card-title {
+        font-size: 1.25rem;
+        font-weight: 750;
+        color: #0f172a;
+        line-height: 1.35;
+        margin-bottom: 0.65rem;
+      }
+      .blog-card-title a {
+        color: #0f172a;
+        text-decoration: none;
+      }
+      .blog-card-title a:hover {
+        color: #0f766e;
+      }
+      .blog-card-desc {
+        font-size: 0.92rem;
+        color: var(--soft);
+        line-height: 1.6;
+        margin-bottom: 1.25rem;
+        flex: 1;
+      }
+      .blog-card-footer {
+        border-top: 1px solid #f1f5f9;
+        padding-top: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.82rem;
+      }
+      .blog-read-cta {
+        font-weight: 700;
+        color: #0f766e;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .featured-banner {
+        background: linear-gradient(135deg, #081d19 0%, #0f3d35 100%);
+        color: #ffffff;
+        border-radius: var(--radius-xl);
+        padding: 2.25rem;
+        margin-bottom: 2.5rem;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 2rem;
+        align-items: center;
+        box-shadow: 0 16px 36px rgba(8, 29, 25, 0.15);
+      }
+      @media (max-width: 860px) {
+        .featured-banner { grid-template-columns: 1fr; gap: 1.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <!-- Products & Solutions Dropdown -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="segment.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Segment &amp; Geographic Revenue</span>
+                    <span class="nav-dropdown-desc">ASC 280 business units &amp; sovereign exposure</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Analysis &amp; Governance</div>
+                <a class="nav-dropdown-link" href="governance.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3M19 8v8"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Executive Compensation &amp; Governance</span>
+                    <span class="nav-dropdown-desc">DEF 14A proxy extraction &amp; NEO pay tables</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="compare.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Period Comparison &amp; Variance</span>
+                    <span class="nav-dropdown-desc">Period-over-Period line-item reconciliation</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="redline.html">
+                  <div class="nav-dropdown-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                  </div>
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">SEC Redline Diff Viewer</span>
+                    <span class="nav-dropdown-desc">Item-by-Item text change detection</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stock Models Mega Menu -->
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Stock Models</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown" style="min-width: 540px; grid-template-columns: repeat(2, 1fr);">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Mega-Cap Tech Models</div>
+                <a class="nav-dropdown-link" href="stocks/nvda-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">NVIDIA (NVDA) FY2026 10-K Model</span>
+                    <span class="nav-dropdown-desc">$215.9B revenue &amp; Note 16 segment schedules</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/aapl-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Apple (AAPL) 10-K Model</span>
+                    <span class="nav-dropdown-desc">iPhone, Services &amp; hardware gross margins</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/msft-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Microsoft (MSFT) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Intelligent Cloud &amp; Azure margins</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/pltr-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Palantir (PLTR) 10-K Model</span>
+                    <span class="nav-dropdown-desc">US Commercial &amp; Government AIP growth</span>
+                  </div>
+                </a>
+              </div>
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">High-Interest Models</div>
+                <a class="nav-dropdown-link" href="stocks/smci-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Supermicro (SMCI) 10-K Model</span>
+                    <span class="nav-dropdown-desc">AI server margins &amp; inventory write-downs</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/mstr-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">MicroStrategy (MSTR) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Bitcoin treasury NAV &amp; convertible debt</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/coin-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Coinbase (COIN) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Trading volume take rates &amp; staking yield</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="stocks/tsla-10k-financial-model-excel.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Tesla (TSLA) 10-K Model</span>
+                    <span class="nav-dropdown-desc">Automotive gross margin ex-regulatory credits</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+          <a class="nav-item" href="blog.html" style="color: var(--teal-primary); font-weight: 700;">Blog &amp; Guides</a>
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-chrome" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true" title="CALIO Chrome Extension">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding-top: 2.5rem;">
+      <!-- Hero Header -->
+      <div style="max-width: 820px; margin-bottom: 2rem;">
+        <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 700; color: #0f766e; background: #f0fdf4; padding: 4px 12px; border-radius: var(--radius-full); border: 1px solid #bbf7d0; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+          CALIO Research Desk &bull; SEC EDGAR Insights
+        </div>
+        <h1 style="font-size: clamp(2.4rem, 4.5vw, 3.4rem); font-weight: 800; color: var(--ink-heading); line-height: 1.15; margin-bottom: 1rem;">
+          Research, Stock Teardowns &amp; Financial Modeling Guides
+        </h1>
+        <p style="font-size: 1.15rem; color: var(--soft); line-height: 1.7; margin: 0;">
+          Institutional-grade SEC Form 10-K teardowns, forensic footnote audits, formula-linked Excel modeling tutorials, and terminal comparisons.
+        </p>
+      </div>
+
+      <!-- Live Search Box -->
+      <div class="blog-search-wrap">
+        <svg class="blog-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="blogSearchInput" class="blog-search-input" placeholder="Search research by ticker, topic, or keyword (e.g. NVDA, Koyfin, Altman, DCF)..." />
+      </div>
+
+      <!-- Topic Filter Pills -->
+      <div class="filter-pills-row" id="filterPillsRow">
+        <button type="button" class="filter-pill is-active" data-cat="all">All Articles</button>
+        <button type="button" class="filter-pill" data-cat="stock-models">Stock 10-K Models</button>
+        <button type="button" class="filter-pill" data-cat="comparisons">Platform Alternatives</button>
+        <button type="button" class="filter-pill" data-cat="forensics">Forensic Accounting</button>
+        <button type="button" class="filter-pill" data-cat="templates">Modeling Templates</button>
+      </div>
+
+      <!-- Featured Banner -->
+      <div class="featured-banner" id="featuredArticleBanner">
+        <div>
+          <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(45,212,191,0.2); color: #2dd4bf; padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 0.75rem;">
+            Featured Forensic Teardown
+          </span>
+          <h2 style="font-size: 1.65rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.75rem;">
+            NVIDIA (NVDA) FY2026 10-K Forensic Breakdown: Note 16 Customer Concentration &amp; $4.0B Inventory Write-Downs
+          </h2>
+          <p style="font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 1.25rem;">
+            A multi-year audit of NVIDIA's full Form 10-K. Data Center Networking surged +141.5% YoY to $31.4B, while 36% of consolidated revenue ($77.7B) is now concentrated in just two direct buyers.
+          </p>
+          <a class="btn-pill btn-pill-primary" href="stocks/nvda-10k-financial-model-excel.html" style="padding: 0.65rem 1.4rem; font-size: 0.92rem;">
+            Read Full Breakdown &amp; Download Model &rarr;
+          </a>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 1.5rem; font-family: monospace; font-size: 0.85rem;">
+          <div style="color: #94a3b8; margin-bottom: 0.5rem; font-size: 0.76rem; text-transform: uppercase;">SEC Accession 0001045810-26-000021</div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+            <span>Revenue (FY26):</span>
+            <strong style="color: #2dd4bf;">$215,938M (+65.5%)</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+            <span>Gross Margin:</span>
+            <strong style="color: #f59e0b;">71.1% (-390 bps)</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+            <span>Operating Cash Flow:</span>
+            <strong style="color: #2dd4bf;">$102,718M</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Free Cash Flow:</span>
+            <strong style="color: #2dd4bf;">$96,676M (80.5%)</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles Grid -->
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.25rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin: 0;">Latest Research &amp; Articles</h2>
+        <span id="articleCountText" style="font-size: 0.85rem; color: #64748b; font-weight: 600;">Showing 10 of 10 articles</span>
+      </div>
+
+      <div class="blog-grid" id="blogGrid">
+
+        <!-- Card 1: Koyfin Alternative -->
+        <article class="blog-card" data-category="comparisons" data-keywords="koyfin alternative free competitor terminal bloomberg comparison cost pricing">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Platform Guide</span>
+              <span>&bull;</span>
+              <span>6 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="koyfin-alternative-free.html">Top Free Koyfin Alternatives in 2026: SEC EDGAR Filings &amp; Financial Modeling</a>
+            </h3>
+            <p class="blog-card-desc">
+              Compare expensive legacy subscription terminals vs CALIO. How to get unlimited SEC XBRL multi-period statements, dynamic Excel exports, and DCF models for free without paywalls.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">October 2026</span>
+              <a href="koyfin-alternative-free.html" class="blog-read-cta">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: BamSEC Alternative -->
+        <article class="blog-card" data-category="comparisons" data-keywords="bamsec alternative free sec filings edgar extraction redline proxy def 14a">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Platform Guide</span>
+              <span>&bull;</span>
+              <span>5 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="bamsec-alternative-free.html">Free BamSEC Alternative: Zero-Cloud SEC EDGAR Research Terminal</a>
+            </h3>
+            <p class="blog-card-desc">
+              A comprehensive feature-by-feature breakdown comparing BamSEC's $30–$50/mo subscription against CALIO's client-side, privacy-preserving SEC extraction and Excel modeling suite.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">September 2026</span>
+              <a href="bamsec-alternative-free.html" class="blog-read-cta">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: Altman Z-Score -->
+        <article class="blog-card" data-category="forensics" data-keywords="altman z score formula excel 10-k bankruptcy distress working capital retained earnings solvency">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Forensic Accounting</span>
+              <span>&bull;</span>
+              <span>7 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="how-to-calculate-altman-z-score-excel.html">How to Calculate the Altman Z-Score from SEC 10-K Filings in Excel</a>
+            </h3>
+            <p class="blog-card-desc">
+              Step-by-step formula guide to calculating Edward Altman's 5-factor Z-Score for public manufacturing and non-manufacturing firms directly from balance sheet and income statement line items.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">October 2026</span>
+              <a href="how-to-calculate-altman-z-score-excel.html" class="blog-read-cta">Read Tutorial &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: Supermicro SMCI Model -->
+        <article class="blog-card" data-category="stock-models" data-keywords="smci supermicro super micro computer 10-k financial model excel server margins inventory write-down">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Stock 10-K Model</span>
+              <span>&bull;</span>
+              <span>8 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="stocks/smci-10k-financial-model-excel.html">Supermicro (SMCI) 10-K Financial Model &amp; Forensic Accounting Breakdown (.xlsx)</a>
+            </h3>
+            <p class="blog-card-desc">
+              Download the audited multi-period Super Micro Computer financial model in Excel. Deep dive into gross margin compression, inventory turns, and working capital cash flows.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">NASDAQ: SMCI</span>
+              <a href="stocks/smci-10k-financial-model-excel.html" class="blog-read-cta">Get Model &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: MicroStrategy MSTR Model -->
+        <article class="blog-card" data-category="stock-models" data-keywords="mstr microstrategy 10-k financial model excel bitcoin treasury nav convertible debt saylor">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Stock 10-K Model</span>
+              <span>&bull;</span>
+              <span>7 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="stocks/mstr-10k-financial-model-excel.html">MicroStrategy (MSTR) 10-K Financial Model &amp; Bitcoin Treasury NAV (.xlsx)</a>
+            </h3>
+            <p class="blog-card-desc">
+              Audited 3-statement model evaluating MicroStrategy's enterprise software operational cash flows alongside Bitcoin treasury holdings, convertible notes, and Net Asset Value (NAV) multiples.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">NASDAQ: MSTR</span>
+              <a href="stocks/mstr-10k-financial-model-excel.html" class="blog-read-cta">Get Model &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6: Coinbase COIN Model -->
+        <article class="blog-card" data-category="stock-models" data-keywords="coin coinbase 10-k financial model excel transaction fees staking interest income unit economics">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Stock 10-K Model</span>
+              <span>&bull;</span>
+              <span>6 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="stocks/coin-10k-financial-model-excel.html">Coinbase Global (COIN) 10-K Financial Model &amp; Transaction Unit Economics (.xlsx)</a>
+            </h3>
+            <p class="blog-card-desc">
+              Explore Coinbase's institutional and retail take rates, USDC interest income, operating expenses, and download the full audited 3-year financial model with pre-linked formulas.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">NASDAQ: COIN</span>
+              <a href="stocks/coin-10k-financial-model-excel.html" class="blog-read-cta">Get Model &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 7: How to Export SEC Filings -->
+        <article class="blog-card" data-category="forensics" data-keywords="how to export sec edgar filings to excel 10-k 10-q xbrl copy paste formatting">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Modeling Guide</span>
+              <span>&bull;</span>
+              <span>5 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="how-to-export-sec-filings-to-excel.html">How to Export SEC EDGAR Filings Directly to Excel Without Breaking Formulas</a>
+            </h3>
+            <p class="blog-card-desc">
+              Why manual copy-pasting from EDGAR corrupts numerical formatting, and how institutional analysts extract US-GAAP XBRL statements directly into dynamic OpenXML spreadsheets.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">September 2026</span>
+              <a href="how-to-export-sec-filings-to-excel.html" class="blog-read-cta">Read Guide &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 8: Palantir PLTR Model -->
+        <article class="blog-card" data-category="stock-models" data-keywords="pltr palantir 10-k financial model excel commercial aip rule of 40 government revenue">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Stock 10-K Model</span>
+              <span>&bull;</span>
+              <span>6 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="stocks/pltr-10k-financial-model-excel.html">Palantir Technologies (PLTR) 10-K Financial Model &amp; AIP Economics (.xlsx)</a>
+            </h3>
+            <p class="blog-card-desc">
+              Audited 10-K model analyzing US Commercial customer count acceleration, government contract margins, GAAP profitability, and 5-year interactive DCF sensitivity.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">NYSE: PLTR</span>
+              <a href="stocks/pltr-10k-financial-model-excel.html" class="blog-read-cta">Get Model &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 9: DCF Template -->
+        <article class="blog-card" data-category="templates" data-keywords="dcf model template excel free download wacc terminal growth sensitivity matrix">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Modeling Template</span>
+              <span>&bull;</span>
+              <span>4 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="templates/dcf-model-template-excel.html">5-Year DCF Model Template with Dynamic Sensitivity Matrix (.xlsx)</a>
+            </h3>
+            <p class="blog-card-desc">
+              Download our institutional Discounted Cash Flow spreadsheet template. Includes automated WACC calculator, mid-year discounting convention, and Gordon Growth terminal value grid.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">Free .XLSX</span>
+              <a href="templates/dcf-model-template-excel.html" class="blog-read-cta">Download Template &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 10: 3-Statement Model Template -->
+        <article class="blog-card" data-category="templates" data-keywords="3-statement financial model template excel income balance sheet cash flow dynamic linking">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-category">Modeling Template</span>
+              <span>&bull;</span>
+              <span>5 min read</span>
+            </div>
+            <h3 class="blog-card-title">
+              <a href="templates/3-statement-financial-model-template.html">Dynamic 3-Statement Financial Model Template in Excel (.xlsx)</a>
+            </h3>
+            <p class="blog-card-desc">
+              Standard institutional 3-statement model linking Net Income to Cash Flow from Operations, working capital cycles to Balance Sheet assets, and ending cash back to liquidity.
+            </p>
+            <div class="blog-card-footer">
+              <span style="color: #64748b; font-size: 0.78rem;">Free .XLSX</span>
+              <a href="templates/3-statement-financial-model-template.html" class="blog-read-cta">Download Template &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- No Results State -->
+      <div id="noResultsState" style="display: none; text-align: center; padding: 4rem 1rem; background: #ffffff; border: 1px dashed #cbd5e1; border-radius: var(--radius-xl); margin-bottom: 3.5rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">No research articles match your search</h3>
+        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.25rem;">Try searching for a different ticker (NVDA, SMCI, MSTR, COIN), topic (DCF, Koyfin, Altman), or reset filters.</p>
+        <button type="button" id="btnResetSearch" class="btn-pill btn-pill-primary" style="padding: 0.5rem 1.25rem;">Reset Search</button>
+      </div>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Research &amp; Guides</h5>
+            <ul>
+              <li><a href="blog.html">All Research &amp; Articles</a></li>
+              <li><a href="koyfin-alternative-free.html">Koyfin Free Alternative</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Free Alternative</a></li>
+              <li><a href="how-to-calculate-altman-z-score-excel.html">Altman Z-Score in Excel</a></li>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC Filings to Excel</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Popular Stock Models</h5>
+            <ul>
+              <li><a href="stocks/nvda-10k-financial-model-excel.html">NVIDIA (NVDA) Model</a></li>
+              <li><a href="stocks/smci-10k-financial-model-excel.html">Supermicro (SMCI) Model</a></li>
+              <li><a href="stocks/mstr-10k-financial-model-excel.html">MicroStrategy (MSTR) Model</a></li>
+              <li><a href="stocks/coin-10k-financial-model-excel.html">Coinbase (COIN) Model</a></li>
+              <li><a href="stocks/pltr-10k-financial-model-excel.html">Palantir (PLTR) Model</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Modeling Templates</h5>
+            <ul>
+              <li><a href="templates/dcf-model-template-excel.html">DCF Model Template (.xlsx)</a></li>
+              <li><a href="templates/3-statement-financial-model-template.html">3-Statement Model (.xlsx)</a></li>
+              <li><a href="templates/comparable-company-analysis-template.html">Comps Analysis Model (.xlsx)</a></li>
+              <li><a href="templates/ebitda-bridge-template-excel.html">EBITDA Bridge Template (.xlsx)</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Direct SEC EDGAR Integration &bull; Institutional Financial Modeling</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Universal Site Controller Script -->
+    <script src="js/site.js"></script>
+
+    <!-- Client-Side Instant Search & Filter Logic -->
+    <script>
+      (function() {
+        const searchInput = document.getElementById("blogSearchInput");
+        const filterPills = document.querySelectorAll("#filterPillsRow .filter-pill");
+        const blogGrid = document.getElementById("blogGrid");
+        const cards = blogGrid.querySelectorAll(".blog-card");
+        const counter = document.getElementById("articleCountText");
+        const noResults = document.getElementById("noResultsState");
+        const btnReset = document.getElementById("btnResetSearch");
+        const featuredBanner = document.getElementById("featuredArticleBanner");
+
+        let currentCategory = "all";
+        let searchQuery = "";
+
+        // Check URL params for ?q=
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("q")) {
+          searchQuery = urlParams.get("q").toLowerCase().trim();
+          searchInput.value = searchQuery;
+        }
+        if (urlParams.has("cat")) {
+          currentCategory = urlParams.get("cat").toLowerCase().trim();
+          filterPills.forEach(p => {
+            if (p.getAttribute("data-cat") === currentCategory) {
+              p.classList.add("is-active");
+            } else {
+              p.classList.remove("is-active");
+            }
+          });
+        }
+
+        function filterArticles() {
+          let visibleCount = 0;
+          const query = searchQuery.toLowerCase().trim();
+
+          cards.forEach(card => {
+            const cat = card.getAttribute("data-category");
+            const keywords = (card.getAttribute("data-keywords") || "").toLowerCase();
+            const title = card.querySelector(".blog-card-title").innerText.toLowerCase();
+            const desc = card.querySelector(".blog-card-desc").innerText.toLowerCase();
+
+            const matchesCategory = (currentCategory === "all" || cat === currentCategory);
+            const matchesSearch = !query || 
+              title.includes(query) || 
+              desc.includes(query) || 
+              keywords.includes(query);
+
+            if (matchesCategory && matchesSearch) {
+              card.style.display = "flex";
+              visibleCount++;
+            } else {
+              card.style.display = "none";
+            }
+          });
+
+          // Update counter
+          counter.textContent = `Showing ${visibleCount} of ${cards.length} articles`;
+
+          // Handle empty state
+          if (visibleCount === 0) {
+            noResults.style.display = "block";
+          } else {
+            noResults.style.display = "none";
+          }
+
+          // Hide or show featured banner if searching
+          if (query.length > 0 || currentCategory !== "all") {
+            featuredBanner.style.display = "none";
+          } else {
+            featuredBanner.style.display = "grid";
+          }
+        }
+
+        // Search Input Listener (Debounced)
+        searchInput.addEventListener("input", function(e) {
+          searchQuery = e.target.value;
+          filterArticles();
+        });
+
+        // Category Pills Listener
+        filterPills.forEach(pill => {
+          pill.addEventListener("click", function() {
+            filterPills.forEach(p => p.classList.remove("is-active"));
+            this.classList.add("is-active");
+            currentCategory = this.getAttribute("data-cat");
+            filterArticles();
+          });
+        });
+
+        // Reset Button
+        btnReset.addEventListener("click", function() {
+          searchInput.value = "";
+          searchQuery = "";
+          currentCategory = "all";
+          filterPills.forEach(p => {
+            if (p.getAttribute("data-cat") === "all") p.classList.add("is-active");
+            else p.classList.remove("is-active");
+          });
+          filterArticles();
+        });
+
+        // Run initial filter
+        filterArticles();
+      })();
+    </script>
+  </body>
+</html>

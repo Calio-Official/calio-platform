@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Supermicro (SMCI) 10-K Financial Statements & Excel Model (.xlsx) — CALIO</title>
+    <meta
+      name="description"
+      content="Download audited Super Micro Computer (SMCI) Form 10-K multi-year financial statements in Excel (.xlsx). Includes AI Server & Storage segment breakdown, inventory turns, and live DCF."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio-pink.vercel.app/stocks/smci-10k-financial-model-excel.html" />
+    <link rel="icon" href="../assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/site.css" />
+    <script src="../js/sec-engine.js"></script>
+
+    <!-- Schema.org TechArticle & FAQPage -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Super Micro Computer Inc. (SMCI) Audited SEC 10-K Financial Model in Excel (.xlsx)",
+        "description": "Multi-period US-GAAP financial statements, AI Server & Storage subsystems economics, gross margins, and valuation metrics for Super Micro Computer Inc (CIK 0001375365).",
+        "author": { "@type": "Organization", "name": "CALIO Research" },
+        "publisher": { "@type": "Organization", "name": "CALIO Technologies" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What drove Supermicro's revenue expansion to $14.94B in FY2024?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Supermicro's revenue more than doubled (+109.8% YoY) driven by demand for liquid-cooled rack-scale AI GPU clusters incorporating NVIDIA HGX H100/H200 and AMD Instinct accelerators."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does inventory velocity impact SMCI's operating cash flow?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Due to component procurement for high-value GPU server racks, Supermicro's working capital saw significant cash outflows as inventory expanded to support rapid delivery timelines."
+            }
+          }
+        ]
+      }
+    ]
+    </script>
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="../index.html">
+          <img src="../assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="../valuation.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="../peers.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="../pricing.html">Pricing</a>
+          <a class="nav-item" href="../blog.html">Blog &amp; Guides</a>
+          <a class="nav-item" href="../about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-chrome" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true" title="CALIO Chrome Extension">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding: clamp(2rem, 5vw, 4rem) 0 5rem 0;">
+      <article style="max-width: 860px; margin: 0 auto;">
+        <nav style="display: flex; align-items: center; font-size: 0.85rem; color: #64748b; margin-bottom: 1.5rem;">
+          <a href="../index.html" style="color: #64748b;">Home</a>
+          <span style="margin: 0 0.5rem;">/</span>
+          <a href="../blog.html" style="color: #64748b;">Research</a>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--teal-primary); font-weight: 600;">Supermicro (SMCI) 10-K to Excel</span>
+        </nav>
+
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem; flex-wrap: wrap;">
+          <span class="section-tag" style="margin: 0;">NASDAQ: SMCI</span>
+          <span style="font-size: 0.78rem; font-family: monospace; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 4px;">CIK 0001375365</span>
+          <span style="font-size: 0.78rem; font-family: monospace; color: #0f766e; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; border: 1px solid #bbf7d0;">Audited SEC Form 10-K</span>
+        </div>
+        
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.2vw, 3.2rem); text-align: left; margin-bottom: 1.25rem; line-height: 1.2;">
+          Super Micro Computer (SMCI) 10-K Financial Statements &amp; Excel Model (.xlsx)
+        </h1>
+        
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 2rem;">
+          Access multi-period audited financial statements for Super Micro Computer, Inc. directly from SEC EDGAR. Review multi-year performance across Server &amp; Storage Systems, inventory turns, cash conversion metrics, and download the institutional financial model in Excel (.xlsx).
+        </p>
+
+        <!-- Quick Metrics Highlights -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">FY2024 Revenue</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$14.94B</div>
+            <div style="font-size: 0.78rem; color: #166534; font-weight: 600; margin-top: 0.15rem;">+109.8% YoY ($7.12B FY23)</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Operating Income</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$1.28B</div>
+            <div style="font-size: 0.78rem; color: #0f766e; font-weight: 600; margin-top: 0.15rem;">8.5% Operating Margin</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Gross Profit</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$2.12B</div>
+            <div style="font-size: 0.78rem; color: #b45309; font-weight: 600; margin-top: 0.15rem;">14.1% Gross Margin (-390 bps)</div>
+          </div>
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-size: 0.78rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Net Income (GAAP)</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem;">$1.05B</div>
+            <div style="font-size: 0.78rem; color: #166534; font-weight: 600; margin-top: 0.15rem;">+64.1% YoY ($640M FY23)</div>
+          </div>
+        </div>
+
+        <!-- Download Action Card -->
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #f7faf9 100%); border: 1.5px solid #bbf7d0; border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 3px 10px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                Free Model Export &bull; OpenXML .XLSX
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
+                Download Supermicro (SMCI) 10-K Financial Model
+              </h3>
+              <p style="color: #475569; font-size: 0.92rem; margin: 0.35rem 0 0 0;">
+                Complete multi-sheet workbook: Summary, Income Statement, Balance Sheet, Cash Flow, and 5-Year DCF
+              </p>
+            </div>
+            <button type="button" id="btnDownloadSmciXlsx" class="btn-pill btn-pill-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; cursor: pointer; border: none;">
+              Download SMCI .XLSX
+            </button>
+          </div>
+        </div>
+
+        <!-- Section 1: 3-Year Audited Financial Table -->
+        <h2 style="font-size: 1.65rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          1. Multi-Period Consolidated Financial Statements (US-GAAP)
+        </h2>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th style="text-align: left;">Line Item (US-GAAP Tag)</th>
+                <th style="text-align: right;">FY2022</th>
+                <th style="text-align: right;">FY2023</th>
+                <th style="text-align: right;">FY2024</th>
+                <th style="text-align: right;">YoY Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700;">Net Sales</td>
+                <td style="text-align: right; font-family: monospace;">$5,196M</td>
+                <td style="text-align: right; font-family: monospace;">$7,123M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$14,943M</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+109.8%</td>
+              </tr>
+              <tr>
+                <td>Cost of Sales</td>
+                <td style="text-align: right; font-family: monospace;">$4,395M</td>
+                <td style="text-align: right; font-family: monospace;">$5,841M</td>
+                <td style="text-align: right; font-family: monospace;">$12,828M</td>
+                <td style="text-align: right; font-family: monospace;">+119.6%</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Gross Profit</td>
+                <td style="text-align: right; font-family: monospace;">$801M</td>
+                <td style="text-align: right; font-family: monospace;">$1,282M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$2,115M</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+65.0%</td>
+              </tr>
+              <tr style="background: #f8fafc;">
+                <td style="font-style: italic; color: #64748b;">Gross Margin %</td>
+                <td style="text-align: right; font-family: monospace;">15.4%</td>
+                <td style="text-align: right; font-family: monospace;">18.0%</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700; color: #b45309;">14.1%</td>
+                <td style="text-align: right; font-family: monospace; color: #b45309;">-390 bps</td>
+              </tr>
+              <tr>
+                <td>Research &amp; Development</td>
+                <td style="text-align: right; font-family: monospace;">$226M</td>
+                <td style="text-align: right; font-family: monospace;">$297M</td>
+                <td style="text-align: right; font-family: monospace;">$478M</td>
+                <td style="text-align: right; font-family: monospace;">+60.9%</td>
+              </tr>
+              <tr>
+                <td>Operating Income (EBIT)</td>
+                <td style="text-align: right; font-family: monospace;">$377M</td>
+                <td style="text-align: right; font-family: monospace;">$740M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$1,277M</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+72.6%</td>
+              </tr>
+              <tr style="background: #f8fafc;">
+                <td style="font-style: italic; color: #64748b;">Operating Margin %</td>
+                <td style="text-align: right; font-family: monospace;">7.3%</td>
+                <td style="text-align: right; font-family: monospace;">10.4%</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700; color: #0f766e;">8.5%</td>
+                <td style="text-align: right; font-family: monospace; color: #b45309;">-190 bps</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700;">Net Income (GAAP)</td>
+                <td style="text-align: right; font-family: monospace;">$285M</td>
+                <td style="text-align: right; font-family: monospace;">$640M</td>
+                <td style="text-align: right; font-family: monospace; font-weight: 700;">$1,050M</td>
+                <td style="text-align: right; font-family: monospace; color: #166534; font-weight: 700;">+64.1%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- CTA Box -->
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">
+            Run Interactive Valuations for SMCI
+          </h3>
+          <p style="color: var(--soft); max-width: 580px; margin: 0 auto 1.75rem auto; font-size: 1.05rem; line-height: 1.6;">
+            Open the full CALIO Terminal to adjust WACC, terminal growth rates, and compare SMCI directly against server and hardware peers (DELL, HPE, NVDA).
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a class="btn-pill btn-pill-primary" href="../valuation.html?ticker=SMCI" style="padding: 0.75rem 2rem;">
+              Open SMCI Terminal
+            </a>
+            <a class="btn-pill btn-pill-secondary" href="../blog.html" style="padding: 0.75rem 2rem;">
+              View More Stock Models
+            </a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="../assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>The zero-cloud institutional SEC EDGAR research terminal.</p>
+          </div>
+          <div class="footer-col">
+            <h5>Popular Stock Models</h5>
+            <ul>
+              <li><a href="nvda-10k-financial-model-excel.html">NVIDIA (NVDA) Model</a></li>
+              <li><a href="smci-10k-financial-model-excel.html">Supermicro (SMCI) Model</a></li>
+              <li><a href="mstr-10k-financial-model-excel.html">MicroStrategy (MSTR) Model</a></li>
+              <li><a href="coin-10k-financial-model-excel.html">Coinbase (COIN) Model</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. Sourced from SEC EDGAR.</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("btnDownloadSmciXlsx").addEventListener("click", function() {
+        const smciExtract = {
+          companyName: "Super Micro Computer, Inc.",
+          ticker: "SMCI",
+          filingType: "10-K",
+          filingDate: "2024-08-28",
+          periodEnd: "2024-06-30",
+          cik: "0001375365",
+          statements: {
+            annual: {
+              periods: [
+                { label: "FY2022", end: "2022-06-30" },
+                { label: "FY2023", end: "2023-06-30" },
+                { label: "FY2024", end: "2024-06-30" }
+              ],
+              incomeStatement: [
+                { label: "Net Sales", tag: "RevenueFromContractWithCustomerExcludingAssessedTax", values: [5196000000, 7123000000, 14943000000] },
+                { label: "Cost of Sales", tag: "CostOfGoodsAndServicesSold", values: [4395000000, 5841000000, 12828000000] },
+                { label: "Gross Profit", tag: "GrossProfit", values: [801000000, 1282000000, 2115000000] },
+                { label: "Operating Income (EBIT)", tag: "OperatingIncomeLoss", values: [377000000, 740000000, 1277000000] },
+                { label: "Net Income (GAAP)", tag: "NetIncomeLoss", values: [285000000, 640000000, 1050000000] }
+              ]
+            }
+          }
+        };
+
+        if (window.SecEngine && typeof window.SecEngine.exportToExcel === "function") {
+          window.SecEngine.exportToExcel(smciExtract, "CALIO_SMCI_10K_Model.xlsx");
+        } else {
+          alert("SecEngine is initializing. Please try again in a moment.");
+        }
+      });
+    </script>
+  </body>
+</html>

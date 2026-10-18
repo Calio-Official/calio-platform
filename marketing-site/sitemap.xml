@@ -258,4 +258,40 @@
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://calio-pink.vercel.app/blog.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://calio-pink.vercel.app/koyfin-alternative-free.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://calio-pink.vercel.app/how-to-calculate-altman-z-score-excel.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://calio-pink.vercel.app/stocks/smci-10k-financial-model-excel.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://calio-pink.vercel.app/stocks/mstr-10k-financial-model-excel.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://calio-pink.vercel.app/stocks/coin-10k-financial-model-excel.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>

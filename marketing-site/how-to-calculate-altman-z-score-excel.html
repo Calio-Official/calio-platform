@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Calculate the Altman Z-Score in Excel from SEC 10-K Filings — CALIO</title>
+    <meta
+      name="description"
+      content="Learn how to calculate the 5-factor Altman Z-Score from official SEC Form 10-K line items in Excel. Full formula guide, safe/distress thresholds, and downloadable template."
+    />
+    <meta name="theme-color" content="#081d19" />
+    <link rel="canonical" href="https://calio-pink.vercel.app/how-to-calculate-altman-z-score-excel.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+
+    <!-- Schema.org HowTo -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Calculate the Altman Z-Score in Excel from SEC 10-K Filings",
+      "description": "Step-by-step forensic guide to pulling US-GAAP line items from SEC EDGAR to compute Edward Altman's 5-factor Z-Score in Excel.",
+      "totalTime": "PT10M",
+      "tool": [{ "@type": "HowToTool", "name": "Microsoft Excel" }, { "@type": "HowToTool", "name": "CALIO Terminal" }]
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Floating Apple-Style Frosted Pill Navigation -->
+    <header class="nav-outer">
+      <nav class="nav-pill" aria-label="Primary Navigation">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+          <span>CALIO</span>
+          <span class="live-dot" title="Live SEC EDGAR Connection"></span>
+        </a>
+
+        <div class="nav-links">
+          <div class="nav-item-wrap">
+            <button type="button" class="nav-item" aria-expanded="false">
+              <span>Products &amp; Solutions</span>
+              <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="nav-dropdown">
+              <div class="nav-dropdown-group">
+                <div class="nav-dropdown-title">Valuation &amp; Fundamentals</div>
+                <a class="nav-dropdown-link" href="valuation.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Financial Extraction &amp; Valuation</span>
+                    <span class="nav-dropdown-desc">10-K/10-Q multi-statement models &amp; live 5-year DCF</span>
+                  </div>
+                </a>
+                <a class="nav-dropdown-link" href="peers.html">
+                  <div class="nav-dropdown-text">
+                    <span class="nav-dropdown-heading">Industry Peer Benchmark</span>
+                    <span class="nav-dropdown-desc">25 institutional sectors &amp; QoE forensics</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-item" href="pricing.html">Pricing</a>
+          <a class="nav-item" href="blog.html">Blog &amp; Guides</a>
+          <a class="nav-item" href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn-pill btn-pill-chrome" href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener" data-open-ext-modal="true" title="CALIO Chrome Extension">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+            Add to Chrome
+          </a>
+          <button type="button" class="nav-mobile-btn" id="btnOpenMobileNav" aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="wrap" style="padding: clamp(2rem, 5vw, 4rem) 0 5rem 0;">
+      <article style="max-width: 800px; margin: 0 auto;">
+        <nav style="display: flex; align-items: center; font-size: 0.85rem; color: #64748b; margin-bottom: 1.5rem;">
+          <a href="blog.html" style="color: #64748b;">Blog</a>
+          <span style="margin: 0 0.5rem;">/</span>
+          <span style="color: var(--teal-primary); font-weight: 600;">Altman Z-Score in Excel</span>
+        </nav>
+
+        <div class="section-tag">Forensic Accounting &bull; Solvency Analysis</div>
+        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.2rem); text-align: left; margin-bottom: 1.5rem;">
+          How to Calculate the Altman Z-Score from SEC 10-K Filings in Excel
+        </h1>
+        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem;">
+          Published October 2026 &bull; Sourced from US-GAAP SEC XBRL Taxonomy
+        </p>
+
+        <p style="font-size: 1.15rem; color: var(--ink); line-height: 1.7; margin-bottom: 1.5rem;">
+          The <strong>Altman Z-Score</strong>, developed by NYU Stern Finance Professor Edward Altman in 1968, remains one of the most reliable multi-factor formulas for predicting corporate distress, credit degradation, and bankruptcy risk within a two-year horizon.
+        </p>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 2rem;">
+          While many commercial terminals present the Z-Score as a black-box number, institutional equity and credit analysts calculate it directly from audited Balance Sheet and Income Statement line items. Here is the exact formula, US-GAAP XBRL mapping, and Excel implementation:
+        </p>
+
+        <!-- Formula Callout -->
+        <div style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: var(--radius-xl); padding: 1.75rem; margin-bottom: 2.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+          <div style="font-size: 0.78rem; font-weight: 700; color: #0f766e; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+            Public Manufacturing Formula (Altman Z-Score)
+          </div>
+          <div style="font-size: 1.35rem; font-family: monospace; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem;">
+            Z = 1.2(X1) + 1.4(X2) + 3.3(X3) + 0.6(X4) + 0.999(X5)
+          </div>
+          <p style="font-size: 0.88rem; color: #475569; margin: 0; line-height: 1.5;">
+            Where each X-ratio measures liquidity, cumulative profitability, operational productivity, market leverage, and asset turnover.
+          </p>
+        </div>
+
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          The 5 Ratios &amp; US-GAAP XBRL Line Item Mapping
+        </h2>
+
+        <div class="table-scroll-wrap" style="margin: 1.5rem 0 2rem 0;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Factor</th>
+                <th>Financial Ratio</th>
+                <th>10-K Formula</th>
+                <th>US-GAAP XBRL Taxonomy Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>X1</strong></td>
+                <td>Working Capital / Total Assets</td>
+                <td>(Current Assets &minus; Current Liabilities) / Total Assets</td>
+                <td><code>AssetsCurrent - LiabilitiesCurrent</code> / <code>Assets</code></td>
+              </tr>
+              <tr>
+                <td><strong>X2</strong></td>
+                <td>Retained Earnings / Total Assets</td>
+                <td>Cumulative Retained Earnings / Total Assets</td>
+                <td><code>RetainedEarningsAccumulatedDeficit</code> / <code>Assets</code></td>
+              </tr>
+              <tr>
+                <td><strong>X3</strong></td>
+                <td>EBIT / Total Assets</td>
+                <td>Operating Income / Total Assets</td>
+                <td><code>OperatingIncomeLoss</code> / <code>Assets</code></td>
+              </tr>
+              <tr>
+                <td><strong>X4</strong></td>
+                <td>Market Value of Equity / Total Liabilities</td>
+                <td>(Shares Outstanding &times; Share Price) / Total Liabilities</td>
+                <td>Market Cap / <code>Liabilities</code></td>
+              </tr>
+              <tr>
+                <td><strong>X5</strong></td>
+                <td>Sales / Total Assets</td>
+                <td>Total Net Revenues / Total Assets</td>
+                <td><code>Revenues</code> / <code>Assets</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          Z-Score Interpretation Zones &amp; Risk Thresholds
+        </h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+          <div style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #166534; text-transform: uppercase;">Safe Zone</div>
+            <div style="font-size: 1.35rem; font-weight: 800; color: #14532d; margin: 0.25rem 0;">Z &gt; 2.99</div>
+            <p style="font-size: 0.82rem; color: #166534; margin: 0; line-height: 1.5;">
+              Company exhibits pristine balance sheet liquidity, low leverage, and minimal likelihood of distress.
+            </p>
+          </div>
+
+          <div style="background: #fefce8; border: 1.5px solid #fef08a; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #854d0e; text-transform: uppercase;">Grey Zone</div>
+            <div style="font-size: 1.35rem; font-weight: 800; color: #713f12; margin: 0.25rem 0;">1.81 &le; Z &le; 2.99</div>
+            <p style="font-size: 0.82rem; color: #854d0e; margin: 0; line-height: 1.5;">
+              Moderate vulnerability. Requires close inspection of debt maturity schedules and cash conversion cycles.
+            </p>
+          </div>
+
+          <div style="background: #fef2f2; border: 1.5px solid #fecaca; border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #991b1b; text-transform: uppercase;">Distress Zone</div>
+            <div style="font-size: 1.35rem; font-weight: 800; color: #7f1d1d; margin: 0.25rem 0;">Z &lt; 1.81</div>
+            <p style="font-size: 0.82rem; color: #991b1b; margin: 0; line-height: 1.5;">
+              High probability of insolvency or restructuring within 24 months. Warning signal for credit investors.
+            </p>
+          </div>
+        </div>
+
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">
+          How CALIO Automates the Altman Z-Score
+        </h2>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.5rem;">
+          Instead of manually looking up each of the 5 ratios across SEC EDGAR footnotes and entering them into a spreadsheet, CALIO automatically parses the audited US-GAAP XBRL company facts in real time.
+        </p>
+
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 2rem;">
+          In CALIO's <strong>Industry Peer Benchmark Desk</strong> and <strong>Valuation Terminal</strong>, the Altman Z-Score is calculated dynamically alongside the Beneish M-Score (earnings manipulation check) and Cash Conversion Cycle for any US-listed company.
+        </p>
+
+        <!-- CTA Box -->
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; box-shadow: 0 12px 32px rgba(25, 68, 60, 0.05); margin-top: 3rem;">
+          <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--ink-heading); margin-bottom: 0.75rem;">
+            Run Automated Solvency Forensics
+          </h3>
+          <p style="color: var(--soft); max-width: 540px; margin: 0 auto 1.75rem auto;">
+            Open any stock in CALIO to view real-time Altman Z-Scores, Beneish M-Scores, and 25-sector peer matrices.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a class="btn-pill btn-pill-primary" href="peers.html" style="padding: 0.75rem 2rem;">
+              Explore Peer Forensics Desk
+            </a>
+            <a class="btn-pill btn-pill-secondary" href="templates/3-statement-financial-model-template.html" style="padding: 0.75rem 2rem;">
+              Download 3-Statement Model
+            </a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h4>
+              <img src="assets/icon128.png" alt="CALIO" width="24" height="24" style="border-radius:6px;" />
+              CALIO Terminal
+            </h4>
+            <p>
+              The zero-cloud institutional SEC EDGAR research terminal. Instant 10-K/10-Q multi-statement extraction,
+              25-sector peer benchmark matrices, and on-device DCF valuation models.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Research &amp; Guides</h5>
+            <ul>
+              <li><a href="blog.html">Research &amp; Blog Hub</a></li>
+              <li><a href="how-to-calculate-altman-z-score-excel.html">Altman Z-Score in Excel</a></li>
+              <li><a href="koyfin-alternative-free.html">Koyfin Free Alternative</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Free Alternative</a></li>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC Filings to Excel</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Stock 10-K Models</h5>
+            <ul>
+              <li><a href="stocks/nvda-10k-financial-model-excel.html">NVIDIA (NVDA) Model</a></li>
+              <li><a href="stocks/aapl-10k-financial-model-excel.html">Apple (AAPL) Model</a></li>
+              <li><a href="stocks/msft-10k-financial-model-excel.html">Microsoft (MSFT) Model</a></li>
+              <li><a href="stocks/pltr-10k-financial-model-excel.html">Palantir (PLTR) Model</a></li>
+              <li><a href="stocks/tsla-10k-financial-model-excel.html">Tesla (TSLA) Model</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="support.html">Contact Support</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
+          <div>Direct SEC EDGAR Integration &bull; Institutional Financial Modeling</div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/site.js"></script>
+  </body>
+</html>
