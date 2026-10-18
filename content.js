@@ -212,6 +212,9 @@
   function mountEdgeDock() {
     try {
       if (window.top !== window.self) return;
+      if (/(^|\.)google\.com$/i.test(location.hostname) && !location.pathname.startsWith("/finance")) {
+        return;
+      }
       const runtimeId = (chrome && chrome.runtime && chrome.runtime.id) || "calio";
       const existing = document.getElementById(EDGE_DOCK_HOST_ID);
       if (existing) {

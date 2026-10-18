@@ -2267,7 +2267,7 @@
       "CALIO Financial Engine",
       { f: 'HYPERLINK("https://calio-pink.vercel.app", "calio-pink.vercel.app ↗")', v: "calio-pink.vercel.app ↗", s: 10 },
       "SEC EDGAR US-GAAP Audit Verification Engine",
-      { f: 'HYPERLINK("https://chromewebstore.google.com/detail/calio", "Get CALIO Chrome Extension ↗")', v: "Get CALIO Chrome Extension ↗", s: 10 }
+      { f: 'HYPERLINK("https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja", "Get CALIO Chrome Extension ↗")', v: "Get CALIO Chrome Extension ↗", s: 10 }
     ]);
 
     return {
@@ -2281,7 +2281,7 @@
   }
 
   function buildDcfWorksheet(compName, ticker, rev, ebit, cash, debt, shares) {
-    const dcfUrl = ticker ? `https://calio-pink.vercel.app/dcf-model.html?ticker=${encodeURIComponent(ticker)}` : "https://calio-pink.vercel.app";
+    const dcfUrl = ticker ? `https://calio-pink.vercel.app/valuation.html?ticker=${encodeURIComponent(ticker)}` : "https://calio-pink.vercel.app";
     const blank = () => [""];
     const section = (label) => [`▸ ${label}`];
 
@@ -2525,7 +2525,7 @@
         "CALIO Financial Engine",
         { f: 'HYPERLINK("https://calio-pink.vercel.app", "calio-pink.vercel.app ↗")', v: "calio-pink.vercel.app ↗", s: 10 },
         "SEC EDGAR US-GAAP Audit Verification Engine",
-        { f: 'HYPERLINK("https://chromewebstore.google.com/detail/calio", "Get CALIO Chrome Extension ↗")', v: "Get CALIO Chrome Extension ↗", s: 10 }
+        { f: 'HYPERLINK("https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja", "Get CALIO Chrome Extension ↗")', v: "Get CALIO Chrome Extension ↗", s: 10 }
       ]
     ];
 
@@ -2548,7 +2548,7 @@
     const blank = () => [""];
     const section = (label) => [`▸ ${label}`];
     const liveTerminalUrl = compTicker ? `https://calio-pink.vercel.app/valuation.html?ticker=${encodeURIComponent(compTicker)}` : "https://calio-pink.vercel.app";
-    const dcfUrl = compTicker ? `https://calio-pink.vercel.app/dcf-model.html?ticker=${encodeURIComponent(compTicker)}` : "https://calio-pink.vercel.app";
+    const dcfUrl = compTicker ? `https://calio-pink.vercel.app/valuation.html?ticker=${encodeURIComponent(compTicker)}` : "https://calio-pink.vercel.app";
 
     const summary = [
       [title],
@@ -2567,7 +2567,7 @@
       ["Platform Service", "Access URL / Direct Link", "Architecture & Security"],
       ["Live Terminal & Interactive Model", { f: `HYPERLINK("${liveTerminalUrl}", "Open Live Terminal ↗")`, v: "Open Live Terminal ↗", s: 10 }, "Instant browser valuation with live consensus updates"],
       ["Interactive DCF Valuation", { f: `HYPERLINK("${dcfUrl}", "Launch Interactive DCF ↗")`, v: "Launch Interactive DCF ↗", s: 10 }, "5-Year scenario builder & dynamic sensitivity engine"],
-      ["SEC EDGAR Chrome Extension", { f: `HYPERLINK("https://chromewebstore.google.com/detail/calio", "Install Free Extension ↗")`, v: "Install Free Extension ↗", s: 10 }, "Instant 1-click model generation directly on sec.gov"],
+      ["SEC EDGAR Chrome Extension", { f: `HYPERLINK("https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja", "Install Free Extension ↗")`, v: "Install Free Extension ↗", s: 10 }, "Instant 1-click model generation directly on sec.gov"],
       ["Zero-Cloud Security Guarantee", "100% Client-Side Local Execution", "Zero company financials or IP are transmitted to third-party servers"],
       blank(),
       section("SPREADSHEET ARCHITECTURE & AUDITABILITY"),
@@ -2706,7 +2706,7 @@
       blank(),
       section("CONNECT SPREADSHEET TO LIVE SEC EDGAR STREAM"),
       ["Terminal Link", { f: `HYPERLINK("${liveTerminalUrl}", "Launch CALIO Terminal ↗")`, v: "Launch CALIO Terminal ↗", s: 10 }, "Instant real-time financial data bridge"],
-      ["Chrome Extension", { f: `HYPERLINK("https://chromewebstore.google.com/detail/calio", "Get Free Chrome Extension ↗")`, v: "Get Free Chrome Extension ↗", s: 10 }, "1-Click automated export directly on SEC EDGAR"]
+      ["Chrome Extension", { f: `HYPERLINK("https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja", "Get Free Chrome Extension ↗")`, v: "Get Free Chrome Extension ↗", s: 10 }, "1-Click automated export directly on SEC EDGAR"]
     ];
     sheets.push({
       name: "Live Formulas",
