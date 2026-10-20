@@ -45,7 +45,7 @@ What you can do
 • Forensic health suite: Beneish M-Score, Altman Z-Score, Piotroski F-Score, and Sloan Accruals
 • Form DEF 14A executive compensation breakdown (Salary, Stock, Options, Non-Equity Incentives)
 • Form-aware extracts (financials, events, ownership, insider trades, Rule 144)
-• Click-to-source audit trail jumping directly to official SEC filing paragraphs
+• Click-to-source audit trail linking directly to official SEC EDGAR filing records
 • Compare two periods with YoY percentage deltas and disclosure text diffs
 • Multi-sheet Excel workbooks (.xlsx) with dynamic =CALIO() formula bridges and print-ready PDFs
 • Extract history and a local company watchlist with new-filing alerts

@@ -937,13 +937,16 @@
           };
         }
 
-        const yearA = document.getElementById("cmpYearA") ? document.getElementById("cmpYearA").value.trim() : "2025";
-        const yearB = document.getElementById("cmpYearB") ? document.getElementById("cmpYearB").value.trim() : "2024";
         const formTypeEl = document.getElementById("cmpFormSelect");
-        const formType = formTypeEl ? formTypeEl.options[formTypeEl.selectedIndex].text : "Form 10-Q";
+        const formType = formTypeEl ? formTypeEl.options[formTypeEl.selectedIndex].text : (data.formType || "Form 10-K");
 
-        const labelA = yearA ? `FY${yearA}` : data.periodA;
-        const labelB = yearB ? `FY${yearB}` : data.periodB;
+        const labelA = data.periodA || "Period A";
+        const labelB = data.periodB || "Period B";
+
+        const yearAInput = document.getElementById("cmpYearA");
+        const yearBInput = document.getElementById("cmpYearB");
+        if (yearAInput && data.periodA) yearAInput.value = data.periodA.replace(/\D/g, "");
+        if (yearBInput && data.periodB) yearBInput.value = data.periodB.replace(/\D/g, "");
 
         document.getElementById("cmpActiveCompanyName").textContent = data.name;
         document.getElementById("cmpActiveTicker").textContent = currentCmpTicker;

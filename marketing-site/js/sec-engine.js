@@ -527,22 +527,24 @@
 
   // 6. 22 Financial Line Items Specifications (Chrome extension content.js:45-69 parity)
   SecEngine.FINANCIAL_SPECS = [
-    { key: "revenue", label: "Total Revenue", section: "income", kind: "money", tags: ["RevenueFromContractWithCustomerExcludingAssessedTax", "SalesRevenueNet", "RevenueFromContractWithCustomerIncludingAssessedTax", "Revenues"], isBs: false },
+    { key: "revenue", label: "Total Revenue", section: "income", kind: "money", tags: ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "SalesRevenueNet", "RevenueFromContractWithCustomerIncludingAssessedTax"], isBs: false },
     { key: "costOfRevenue", label: "Cost of Revenue", section: "income", kind: "money", tags: ["CostOfGoodsAndServicesSold", "CostOfRevenue", "CostOfGoodsSold", "ProductionAndDistributionCosts"], isBs: false },
     { key: "grossProfit", label: "Gross Profit", section: "income", kind: "money", tags: ["GrossProfit"], isBs: false },
     { key: "rdExpense", label: "R&D Expense", section: "income", kind: "money", tags: ["ResearchAndDevelopmentExpense", "ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"], isBs: false },
     { key: "sgaExpense", label: "SG&A Expense", section: "income", kind: "money", tags: ["SellingGeneralAndAdministrativeExpense", "SellingAndMarketingExpense", "GeneralAndAdministrativeExpense"], isBs: false },
     { key: "operatingIncome", label: "Operating Income (EBIT)", section: "income", kind: "money", tags: ["OperatingIncomeLoss"], isBs: false },
-    { key: "interestExpense", label: "Interest Expense", section: "income", kind: "money", tags: ["InterestExpense", "InterestAndDebtExpense"], isBs: false },
+    { key: "interestExpense", label: "Interest Expense", section: "income", kind: "money", tags: ["InterestExpenseNonoperating", "InterestExpense", "InterestAndDebtExpense", "InterestExpenseDebt"], isBs: false },
     { key: "incomeTax", label: "Income Tax Expense", section: "income", kind: "money", tags: ["IncomeTaxExpenseBenefit"], isBs: false },
     { key: "netIncome", label: "Net Income (GAAP)", section: "income", kind: "money", tags: ["NetIncomeLoss", "ProfitLoss"], isBs: false },
     { key: "epsBasic", label: "EPS — Basic", section: "income", kind: "perShare", tags: ["EarningsPerShareBasic"], isBs: false },
     { key: "epsDiluted", label: "EPS — Diluted", section: "income", kind: "perShare", tags: ["EarningsPerShareDiluted"], isBs: false },
     { key: "sharesBasic", label: "Weighted Avg Shares — Basic", section: "income", kind: "shares", tags: ["WeightedAverageNumberOfSharesOutstandingBasic"], isBs: false },
     { key: "sharesDiluted", label: "Weighted Avg Shares — Diluted", section: "income", kind: "shares", tags: ["WeightedAverageNumberOfDilutedSharesOutstanding"], isBs: false },
-    { key: "cashAndEquivalents", label: "Cash & Short-Term Investments", section: "balance", kind: "money", tags: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "CashCashEquivalentsAndShortTermInvestments", "MarketableSecuritiesCurrent", "CashAndCashEquivalentsFairValueDisclosure"], isBs: true },
+    { key: "cashAndEquivalents", label: "Cash & Cash Equivalents", section: "balance", kind: "money", tags: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "CashCashEquivalentsAndShortTermInvestments", "CashAndCashEquivalentsFairValueDisclosure"], isBs: true },
+    { key: "marketableSecurities", label: "Marketable Securities / Short-Term Investments", section: "balance", kind: "money", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent", "ShortTermInvestments"], isBs: true },
     { key: "totalAssets", label: "Total Assets", section: "balance", kind: "money", tags: ["Assets"], isBs: true },
     { key: "totalLiabilities", label: "Total Liabilities", section: "balance", kind: "money", tags: ["Liabilities"], isBs: true },
+    { key: "shortTermDebt", label: "Short-Term Debt & Current Portion of LTD", section: "balance", kind: "money", tags: ["ShortTermBorrowings", "CommercialPaper", "LinesOfCreditCurrent", "LongTermDebtCurrent"], isBs: true },
     { key: "stockholdersEquity", label: "Stockholders Equity", section: "balance", kind: "money", tags: ["StockholdersEquity", "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"], isBs: true },
     { key: "longTermDebt", label: "Long-Term Debt", section: "balance", kind: "money", tags: ["LongTermDebtNoncurrent", "LongTermDebt"], isBs: true },
     { key: "goodwill", label: "Goodwill", section: "balance", kind: "money", tags: ["Goodwill"], isBs: true },
@@ -688,6 +690,8 @@
         const cleanAccn = String(best.accn || accn || "").replace(/-/g, "");
         let auditUrl = documentUrl || "";
         if (!auditUrl && cleanCik && cleanAccn) {
+          auditUrl = `https://www.sec.gov/Archives/edgar/data/${Number(cleanCik)}/${cleanAccn}/${(best.accn || accn)}-index.htm`;
+        } else if (!auditUrl && cleanCik) {
           auditUrl = `https://www.sec.gov/edgar/browse/?CIK=${cleanCik}`;
         }
 
@@ -730,7 +734,11 @@
     const opInc = rawMap.operatingIncome || 0;
     const netInc = rawMap.netIncome || 0;
     const cash = rawMap.cashAndEquivalents || 0;
-    const debt = rawMap.longTermDebt || 0;
+    const mSec = rawMap.marketableSecurities || 0;
+    const totalCash = cash + mSec;
+    const shortDebt = rawMap.shortTermDebt || 0;
+    const longDebt = rawMap.longTermDebt || 0;
+    const totalDebt = longDebt + shortDebt;
     const shares = rawMap.sharesDiluted || rawMap.sharesBasic || 0;
     const ocf = rawMap.operatingCashFlow || 0;
     const capex = rawMap.capex || 0;
@@ -738,9 +746,9 @@
 
     const baseRevB = rev > 0 ? Number((rev / 1e9).toFixed(2)) : 0;
     const opMargin = (rev > 0 && opInc !== 0) ? Number(((opInc / rev) * 100).toFixed(1)) : 15.0;
-    const cashB = cash > 0 ? Number((cash / 1e9).toFixed(2)) : 0;
-    const debtB = debt > 0 ? Number((debt / 1e9).toFixed(2)) : 0;
-    const sharesB = shares > 0 ? Number((shares / 1e9).toFixed(2)) : 1.0;
+    const cashB = totalCash > 0 ? Number((totalCash / 1e9).toFixed(2)) : 0;
+    const debtB = totalDebt > 0 ? Number((totalDebt / 1e9).toFixed(2)) : 0;
+    const sharesB = shares >= 100000 ? Number((shares / 1e9).toFixed(2)) : 1.0;
 
     // Multi-statement rows
     const is = [
@@ -748,14 +756,17 @@
       { item: "Cost of Revenue", ttm: formatMoney(rawMap.costOfRevenue), prior: "—", deltaDollar: "—", deltaPct: "—" },
       { item: "Gross Profit", ttm: formatMoney(rawMap.grossProfit || (rev && rawMap.costOfRevenue ? rev - rawMap.costOfRevenue : null)), prior: "—", deltaDollar: "—", deltaPct: "—" },
       { item: "Operating Income (EBIT)", ttm: formatMoney(opInc), prior: "—", deltaDollar: "—", deltaPct: "—" },
+      { item: "Interest Expense", ttm: formatMoney(rawMap.interestExpense), prior: "—", deltaDollar: "—", deltaPct: "—" },
       { item: "Net Income (GAAP)", ttm: formatMoney(netInc), prior: "—", deltaDollar: "—", deltaPct: "—" }
     ];
 
     const bs = [
-      { item: "Cash & Short-Term Investments", ttm: formatMoney(cash), prior: "—", deltaDollar: "—", deltaPct: "—" },
+      { item: "Cash & Cash Equivalents", ttm: formatMoney(cash), prior: "—", deltaDollar: "—", deltaPct: "—" },
+      { item: "Marketable Securities / Liquid Investments", ttm: formatMoney(mSec), prior: "—", deltaDollar: "—", deltaPct: "—" },
+      { item: "Total Cash & Liquid Investments", ttm: formatMoney(totalCash), prior: "—", deltaDollar: "—", deltaPct: "—" },
       { item: "Total Assets", ttm: formatMoney(rawMap.totalAssets), prior: "—", deltaDollar: "—", deltaPct: "—" },
       { item: "Total Liabilities", ttm: formatMoney(rawMap.totalLiabilities), prior: "—", deltaDollar: "—", deltaPct: "—" },
-      { item: "Long-Term Debt", ttm: formatMoney(debt), prior: "—", deltaDollar: "—", deltaPct: "—" },
+      { item: "Total Debt (Short + Long-Term)", ttm: formatMoney(totalDebt), prior: "—", deltaDollar: "—", deltaPct: "—" },
       { item: "Stockholders Equity", ttm: formatMoney(rawMap.stockholdersEquity), prior: "—", deltaDollar: "—", deltaPct: "—" }
     ];
 
@@ -1365,7 +1376,7 @@
   /* ── Institutional 3-Statement, EBITDA Bridge & Debt Schedule Engine (v1.18.0 Parity) ─── */
 
   const IS_SPEC = [
-    { key: "revenue", label: "Revenue / Net Sales", tags: ["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet", "RevenueFromContractWithCustomerIncludingAssessedTax"], indent: 0 },
+    { key: "revenue", label: "Revenue / Net Sales", tags: ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "SalesRevenueNet", "RevenueFromContractWithCustomerIncludingAssessedTax"], indent: 0 },
     { key: "costOfRevenue", label: "Cost of Goods & Services Sold", tags: ["CostOfGoodsAndServicesSold", "CostOfRevenue", "CostOfGoodsSold"], indent: 0 },
     { key: "grossProfit", label: "Gross Profit", formula: "revenue - costOfRevenue", tags: ["GrossProfit"], isSubtotal: true, indent: 0 },
     { key: "secOpex", label: "OPERATING EXPENSES:", isSection: true },
@@ -1375,7 +1386,7 @@
     { key: "totalOpex", label: "Total Operating Expenses", formula: "SUM(rdExpense, sgaExpense, restructuring)", tags: ["OperatingExpenses", "CostsAndExpenses"], isSubtotal: true, indent: 0 },
     { key: "operatingIncome", label: "Operating Income (EBIT)", formula: "grossProfit - totalOpex", tags: ["OperatingIncomeLoss"], isTotal: true, indent: 0 },
     { key: "secNonOp", label: "NON-OPERATING & FINANCIAL ITEMS:", isSection: true },
-    { key: "interestExpense", label: "  Interest Expense", tags: ["InterestExpense", "InterestAndDebtExpense", "InterestExpenseDebt"], indent: 1 },
+    { key: "interestExpense", label: "  Interest Expense", tags: ["InterestExpenseNonoperating", "InterestExpense", "InterestAndDebtExpense", "InterestExpenseDebt"], indent: 1 },
     { key: "interestIncome", label: "  Interest & Investment Income", tags: ["InvestmentIncomeInterest", "InterestAndDividendIncomeOperating"], indent: 1 },
     { key: "ebt", label: "Income Before Income Taxes (EBT)", formula: "operatingIncome - interestExpense + interestIncome", tags: ["IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments", "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"], isSubtotal: true, indent: 0 },
     { key: "incomeTax", label: "Income Tax Expense / (Benefit)", tags: ["IncomeTaxExpenseBenefit"], indent: 0 },
@@ -1483,7 +1494,7 @@
     { key: "netDebt", label: "NET DEBT / (NET CASH)", formula: "totalGrossDebt - totalCashLiquidity", isTotal: true, indent: 0 },
     { key: "secSolvency", label: "SOLVENCY & COVERAGE METRICS:", isSection: true },
     { key: "opIncomeDebt", label: "  Operating Income (EBIT)", tags: ["OperatingIncomeLoss"], indent: 1 },
-    { key: "interestExpenseDebt", label: "  Interest Expense", tags: ["InterestExpense", "InterestAndDebtExpense"], indent: 1 },
+    { key: "interestExpenseDebt", label: "  Interest Expense", tags: ["InterestExpenseNonoperating", "InterestExpense", "InterestAndDebtExpense"], indent: 1 },
     { key: "interestCoverage", label: "  Interest Coverage Ratio (EBIT / Interest)", formula: "opIncomeDebt / interestExpenseDebt", indent: 1 }
   ];
 
@@ -1491,16 +1502,30 @@
     const cikNum = Number(String(rawCik || "").replace(/\D/g, ""));
     
     const revTags = [
-      "RevenueFromContractWithCustomerExcludingAssessedTax",
       "Revenues",
+      "RevenueFromContractWithCustomerExcludingAssessedTax",
       "SalesRevenueNet",
       "RevenueFromContractWithCustomerIncludingAssessedTax"
     ];
     let revSeries = [];
+    let maxRevEnd = "";
     for (const t of revTags) {
       if (usGaap[t]?.units?.USD?.length) {
-        revSeries = usGaap[t].units.USD;
-        break;
+        const candidate = usGaap[t].units.USD;
+        for (const item of candidate) {
+          if (item.form === "10-K" && item.fp === "FY" && item.end && item.end > maxRevEnd) {
+            maxRevEnd = item.end;
+            revSeries = candidate;
+          }
+        }
+      }
+    }
+    if (!revSeries.length) {
+      for (const t of revTags) {
+        if (usGaap[t]?.units?.USD?.length) {
+          revSeries = usGaap[t].units.USD;
+          break;
+        }
       }
     }
 
@@ -1512,7 +1537,7 @@
         if (days >= 330 && days <= 390) {
           const key = item.end;
           if (!annualMap.has(key) || String(item.filed || "") > String(annualMap.get(key).filed || "")) {
-            const yr = item.end.slice(0, 4);
+            const yr = item.fy ? String(item.fy) : item.end.slice(0, 4);
             annualMap.set(key, {
               end: item.end,
               start: item.start,
@@ -2290,7 +2315,7 @@
     const targetMargin = Math.min(0.60, Math.max(0.10, Number((baseEbit / baseRev).toFixed(4))));
     const cashVal = Number(cash) >= 0 ? Number(cash) : Math.round(baseRev * 0.15);
     const debtVal = Number(debt) >= 0 ? Number(debt) : Math.round(baseRev * 0.10);
-    const sharesVal = Number(shares) > 0 ? Number(shares) : 1000000000;
+    const sharesVal = Number(shares) >= 100000 ? Number(shares) : 1000000000;
 
     const g1 = 0.15;
     const g2 = 0.10;
@@ -2509,10 +2534,10 @@
         "Enterprise value adjusted for net cash / net debt"
       ],
       [
-        "Diluted Common Shares Outstanding",
+        "Weighted Average Diluted Shares Outstanding",
         { v: sharesVal, s: 5 },
         "Reported Shares",
-        "Weighted average diluted share count"
+        "Audited weighted-average diluted share count from SEC 10-K"
       ],
       [
         "Implied Fair Value per Share ($)",
@@ -2658,33 +2683,57 @@
       const isRows = Array.isArray(activeData.incomeStatement) ? activeData.incomeStatement : (activeData.incomeStatement?.rows || []);
       const bsRows = Array.isArray(activeData.balanceSheet) ? activeData.balanceSheet : (activeData.balanceSheet?.rows || []);
 
-      const revRow = isRows.find((r) => r.key === "revenue" || /revenue|sales/i.test(r.label || ""));
+      const revRow = isRows.find((r) => r.key === "revenue" || /^total revenue|revenue \/ net sales|^revenue$|^sales$/i.test((r.label || "").trim()));
       if (revRow && revRow.values && revRow.values[0] != null) dcfRev = revRow.values[0];
 
-      const ebitRow = isRows.find((r) => r.key === "operatingIncome" || /operating income|ebit/i.test(r.label || ""));
+      const ebitRow = isRows.find((r) => r.key === "operatingIncome" || /^operating income|^ebit$/i.test((r.label || "").trim()));
       if (ebitRow && ebitRow.values && ebitRow.values[0] != null) dcfEbit = ebitRow.values[0];
 
-      const cashRow = bsRows.find((r) => r.key === "cash" || /cash and cash/i.test(r.label || ""));
-      const msRow = bsRows.find((r) => r.key === "marketableSecurities" || /marketable/i.test(r.label || ""));
-      const cVal = cashRow && cashRow.values && cashRow.values[0] != null ? cashRow.values[0] : 0;
-      const mVal = msRow && msRow.values && msRow.values[0] != null ? msRow.values[0] : 0;
-      if (cVal || mVal) dcfCash = cVal + mVal;
+      const cashRow = bsRows.find((r) => r.key === "cash" || /cash and cash equivalents/i.test(r.label || ""));
+      const msRow = bsRows.find((r) => r.key === "marketableSecurities" || /marketable securities|short-term investments/i.test(r.label || ""));
+      const cVal = cashRow && cashRow.values && cashRow.values[0] != null ? Number(cashRow.values[0]) : 0;
+      const mVal = msRow && msRow.values && msRow.values[0] != null ? Number(msRow.values[0]) : 0;
+      if (cVal > 0 || mVal > 0) dcfCash = cVal + mVal;
 
-      const stdRow = bsRows.find((r) => r.key === "shortTermDebt" || /short-term debt/i.test(r.label || ""));
+      const stdRow = bsRows.find((r) => r.key === "shortTermDebt" || /short-term debt|current portion/i.test(r.label || ""));
       const ltdRow = bsRows.find((r) => r.key === "longTermDebt" || /long-term debt/i.test(r.label || ""));
-      const sVal = stdRow && stdRow.values && stdRow.values[0] != null ? stdRow.values[0] : 0;
-      const lVal = ltdRow && ltdRow.values && ltdRow.values[0] != null ? ltdRow.values[0] : 0;
-      if (sVal || lVal) dcfDebt = sVal + lVal;
+      const sVal = stdRow && stdRow.values && stdRow.values[0] != null ? Number(stdRow.values[0]) : 0;
+      const lVal = ltdRow && ltdRow.values && ltdRow.values[0] != null ? Number(ltdRow.values[0]) : 0;
+      if (sVal > 0 || lVal > 0) dcfDebt = sVal + lVal;
 
-      const shRow = isRows.find((r) => r.key === "sharesDiluted" || /diluted/i.test(r.label || ""));
-      if (shRow && shRow.values && shRow.values[0] != null) dcfShares = shRow.values[0];
+      // Strict share count match: MUST be shares, MUST NOT be EPS or per-share ($)
+      const shRow = isRows.find((r) => 
+        (r.key === "sharesDiluted" || r.isShares || /weighted average.*diluted|diluted.*shares/i.test(r.label || "")) &&
+        !/per share|eps|\$/i.test(r.label || "")
+      );
+      if (shRow && shRow.values && shRow.values[0] != null) {
+        const val = Number(shRow.values[0]);
+        if (val > 1000000) dcfShares = val;
+      }
     }
 
     if (dcfRev == null && extract.financials?.revenue?.value != null) dcfRev = extract.financials.revenue.value;
     if (dcfEbit == null && extract.financials?.operatingIncome?.value != null) dcfEbit = extract.financials.operatingIncome.value;
-    if (dcfCash == null && extract.financials?.cash?.value != null) dcfCash = extract.financials.cash.value;
-    if (dcfDebt == null && extract.financials?.longTermDebt?.value != null) dcfDebt = extract.financials.longTermDebt.value;
-    if (dcfShares == null && extract.financials?.dilutedShares?.value != null) dcfShares = extract.financials.dilutedShares.value;
+    if (dcfCash == null && extract.financials?.cash?.value != null) {
+      dcfCash = Number(extract.financials.cash.value) + (Number(extract.financials?.marketableSecurities?.value) || 0);
+    }
+    if (dcfDebt == null && extract.financials?.longTermDebt?.value != null) {
+      dcfDebt = Number(extract.financials.longTermDebt.value) + (Number(extract.financials?.shortTermDebt?.value) || 0);
+    }
+    if ((dcfShares == null || dcfShares < 1000000) && extract.financials?.dilutedShares?.value != null) {
+      const shVal = Number(extract.financials.dilutedShares.value);
+      if (shVal > 1000000) dcfShares = shVal;
+    }
+    // Hard fallback: if dcfShares is still missing or < 1M, search for any large number in shares
+    if (dcfShares == null || dcfShares < 1000000) {
+      const isRowsAll = Array.isArray(activeData?.incomeStatement) ? activeData.incomeStatement : (activeData?.incomeStatement?.rows || []);
+      const altSh = isRowsAll.find((r) => (r.isShares || /shares/i.test(r.label || "")) && !/per share|eps|\$/i.test(r.label || ""));
+      if (altSh && altSh.values && Number(altSh.values[0]) > 1000000) {
+        dcfShares = Number(altSh.values[0]);
+      } else {
+        dcfShares = 1000000000;
+      }
+    }
 
     if (!sheets.some((s) => s.name === "DCF Model" || s.name === "DCF Valuation")) {
       sheets.push(buildDcfWorksheet(compName, compTicker, dcfRev, dcfEbit, dcfCash, dcfDebt, dcfShares));
@@ -2693,9 +2742,9 @@
     const pEnd = extract.periodEnd || "LATEST";
     const formulaRows = [
       [title],
-      ["Live Dynamic Financial Model Bridge (=CALIO Formulas)"],
+      ["CALIO Dynamic Financial Model Bridge & Syntax Reference"],
       blank(),
-      ["Financial Metric", "Dynamic Excel Formula Syntax", "Description"],
+      ["Financial Metric", "Dynamic CALIO Terminal Reference Syntax", "Description"],
       ["Total Revenue", { v: `=CALIO("${compTicker}", "Revenue", "${pEnd}")`, s: 0 }, "Pulls period net revenue directly from SEC EDGAR"],
       ["Operating Income (EBIT)", { v: `=CALIO("${compTicker}", "OperatingIncome", "${pEnd}")`, s: 0 }, "Pulls audited operating income"],
       ["Net Income", { v: `=CALIO("${compTicker}", "NetIncome", "${pEnd}")`, s: 0 }, "Pulls GAAP net earnings"],
@@ -2706,10 +2755,10 @@
       blank(),
       section("CONNECT SPREADSHEET TO LIVE SEC EDGAR STREAM"),
       ["Terminal Link", { f: `HYPERLINK("${liveTerminalUrl}", "Launch CALIO Terminal ↗")`, v: "Launch CALIO Terminal ↗", s: 10 }, "Instant real-time financial data bridge"],
-      ["Chrome Extension", { f: `HYPERLINK("https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja", "Get Free Chrome Extension ↗")`, v: "Get Free Chrome Extension ↗", s: 10 }, "1-Click automated export directly on SEC EDGAR"]
+      ["Web Platform", { f: `HYPERLINK("https://calio-pink.vercel.app/valuation.html?ticker=${encodeURIComponent(compTicker)}", "Open Interactive Web Model ↗")`, v: "Open Interactive Web Model ↗", s: 10 }, "1-Click automated modeling and dynamic sensitivity analysis"]
     ];
     sheets.push({
-      name: "Live Formulas",
+      name: "Model Formulas",
       rows: formulaRows,
       titleRows: [0, 1],
       headerRow: 3,
