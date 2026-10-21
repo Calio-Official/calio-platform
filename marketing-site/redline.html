@@ -878,17 +878,73 @@
         }).join("");
       }
 
-      function loadSampleByTicker(ticker) {
+      async function buildLiveSecDisclosureRedline(ticker) {
+        if (!window.SecEngine) return null;
+        try {
+          const cik = await window.SecEngine.resolveCik(ticker);
+          if (!cik) return null;
+          const res = await window.SecEngine.getCompanyStatements(cik);
+          if (!res || !res.ok || !res.statements || res.statements.annual.periods.length < 2) return null;
+
+          const annual = res.statements.annual;
+          const pNew = annual.periods[0];
+          const pOld = annual.periods[1];
+          const fmt = (stmt, k, idx) => {
+            const row = (stmt || []).find((r) => r.key === k);
+            if (!row || row.values[idx] == null) return "N/A";
+            return window.SecEngine.formatFinancialVal(row.values[idx], row);
+          };
+
+          const entity = res.entityName || `${ticker} Corporation`;
+          const leftText =
+            `[${entity} (${ticker}) — Form 10-K Quantitative MD&A Disclosure for ${pOld.label} ended ${pOld.end} | SEC Accession: ${pOld.accn || "Audited 10-K"}]\n\n` +
+            `Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations:\n` +
+            `For the fiscal year ${pOld.label} ended ${pOld.end}, ${entity} reported consolidated revenue of ${fmt(annual.incomeStatement, "revenue", 1)}, cost of goods and services sold of ${fmt(annual.incomeStatement, "costOfRevenue", 1)}, and gross profit of ${fmt(annual.incomeStatement, "grossProfit", 1)}. ` +
+            `Operating expenses included research and development of ${fmt(annual.incomeStatement, "rdExpense", 1)} and selling, general, and administrative expenses of ${fmt(annual.incomeStatement, "sgaExpense", 1)}, resulting in GAAP operating income (EBIT) of ${fmt(annual.incomeStatement, "operatingIncome", 1)}. ` +
+            `GAAP net income was ${fmt(annual.incomeStatement, "netIncome", 1)}, or ${fmt(annual.incomeStatement, "epsDiluted", 1)} per diluted share.\n\n` +
+            `Liquidity and Capital Resources: As of ${pOld.end}, cash and cash equivalents totaled ${fmt(annual.balanceSheet, "cash", 1)} with marketable securities of ${fmt(annual.balanceSheet, "marketableSecurities", 1)}, total assets of ${fmt(annual.balanceSheet, "totalAssets", 1)}, and stockholders' equity of ${fmt(annual.balanceSheet, "totalEquity", 1)}. ` +
+            `Net cash provided by operating activities was ${fmt(annual.cashFlow, "cfo", 1)}, capital expenditures were ${fmt(annual.cashFlow, "capex", 1)}, and unlevered free cash flow was ${fmt(annual.cashFlow, "fcf", 1)}.`;
+
+          const rightText =
+            `[${entity} (${ticker}) — Form 10-K Quantitative MD&A Disclosure for ${pNew.label} ended ${pNew.end} | SEC Accession: ${pNew.accn || "Audited 10-K"}]\n\n` +
+            `Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations:\n` +
+            `For the fiscal year ${pNew.label} ended ${pNew.end}, ${entity} reported consolidated revenue of ${fmt(annual.incomeStatement, "revenue", 0)}, cost of goods and services sold of ${fmt(annual.incomeStatement, "costOfRevenue", 0)}, and gross profit of ${fmt(annual.incomeStatement, "grossProfit", 0)}. ` +
+            `Operating expenses included research and development of ${fmt(annual.incomeStatement, "rdExpense", 0)} and selling, general, and administrative expenses of ${fmt(annual.incomeStatement, "sgaExpense", 0)}, resulting in GAAP operating income (EBIT) of ${fmt(annual.incomeStatement, "operatingIncome", 0)}. ` +
+            `GAAP net income was ${fmt(annual.incomeStatement, "netIncome", 0)}, or ${fmt(annual.incomeStatement, "epsDiluted", 0)} per diluted share.\n\n` +
+            `Liquidity and Capital Resources: As of ${pNew.end}, cash and cash equivalents totaled ${fmt(annual.balanceSheet, "cash", 0)} with marketable securities of ${fmt(annual.balanceSheet, "marketableSecurities", 0)}, total assets of ${fmt(annual.balanceSheet, "totalAssets", 0)}, and stockholders' equity of ${fmt(annual.balanceSheet, "totalEquity", 0)}. ` +
+            `Net cash provided by operating activities was ${fmt(annual.cashFlow, "cfo", 0)}, capital expenditures were ${fmt(annual.cashFlow, "capex", 0)}, and unlevered free cash flow was ${fmt(annual.cashFlow, "fcf", 0)}.`;
+
+          const built = {
+            title: `${entity} (${ticker})`,
+            badge: `Item 7 MD&amp;A (${pOld.label} vs ${pNew.label} Audited 10-K) &bull; SEC EDGAR XBRL`,
+            left: leftText,
+            right: rightText
+          };
+          SAMPLE_REDLINES[ticker] = built;
+          return built;
+        } catch (err) {
+          console.warn("Live redline extraction failed:", err);
+          return null;
+        }
+      }
+
+      async function loadSampleByTicker(ticker) {
         const key = ticker.toUpperCase();
         let s = SAMPLE_REDLINES[key];
 
         if (!s) {
-          s = {
-            title: `${key} Corporation`,
-            badge: "Item 1A Risk Factors &bull; SEC EDGAR",
-            left: `Our forward operating margins and capital allocation for ${key} depend on global market expansion and continuous enterprise customer acquisition. Competitive pricing actions and foreign exchange headwinds may impact quarterly results.`,
-            right: `Our forward operating margins and capital allocation for ${key} depend on global market expansion, continuous enterprise customer acquisition, and accelerated capital expenditures in next-generation artificial intelligence infrastructure. Competitive pricing pressures, sovereign trade tariffs, and foreign exchange volatility have intensified, which could materially impact quarterly gross margins and free cash flow generation.`
-          };
+          document.getElementById("rlActiveTitle").textContent = `Extracting ${key} SEC 10-K Disclosures...`;
+          document.getElementById("rlActiveBadge").innerHTML = "Querying SEC EDGAR XBRL Archive";
+          s = await buildLiveSecDisclosureRedline(key);
+        }
+
+        if (!s) {
+          document.getElementById("rlActiveTitle").textContent = `${key} — Disclosure Not Found`;
+          document.getElementById("rlActiveBadge").innerHTML = "SEC EDGAR Lookup";
+          document.getElementById("txtFilingA").value = "";
+          document.getElementById("txtFilingB").value = "";
+          runDiff();
+          return;
         }
 
         document.getElementById("rlActiveTitle").textContent = s.title;

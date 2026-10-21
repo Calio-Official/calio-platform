@@ -492,9 +492,8 @@
             <div class="cmp-field" style="margin-top: 14px;">
               <label for="cmpFormSelect" style="font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px;">SEC Form Type</label>
               <select id="cmpFormSelect" class="cmp-select">
-                <option value="10-Q" selected>Form 10-Q (Quarterly Report)</option>
-                <option value="10-K">Form 10-K (Annual Report)</option>
-                <option value="8-K">Form 8-K (Current Report)</option>
+                <option value="10-K" selected>Form 10-K (Annual Report)</option>
+                <option value="10-Q">Form 10-Q (Quarterly Report)</option>
               </select>
             </div>
 
@@ -505,7 +504,7 @@
                   <label for="cmpYearA">Fiscal Year</label>
                   <input type="text" id="cmpYearA" class="cmp-input" value="2025" placeholder="2025" inputmode="numeric" />
                 </div>
-                <div class="cmp-field" id="wrapQuarterA">
+                <div class="cmp-field" id="wrapQuarterA" style="display: none;">
                   <label for="cmpQuarterA">Fiscal Quarter</label>
                   <select id="cmpQuarterA" class="cmp-select">
                     <option value="latest" selected>Latest Available Quarter</option>
@@ -523,7 +522,7 @@
                   <label for="cmpYearB">Fiscal Year</label>
                   <input type="text" id="cmpYearB" class="cmp-input" value="2024" placeholder="2024" inputmode="numeric" />
                 </div>
-                <div class="cmp-field" id="wrapQuarterB">
+                <div class="cmp-field" id="wrapQuarterB" style="display: none;">
                   <label for="cmpQuarterB">Fiscal Quarter</label>
                   <select id="cmpQuarterB" class="cmp-select">
                     <option value="latest" selected>Latest Available Quarter</option>
@@ -716,161 +715,247 @@
       const COMPARE_DATASETS = {
         NVDA: {
           name: "NVIDIA Corporation",
-          periodA: "FY2025",
-          periodB: "FY2024",
+          periodA: "FY2026",
+          periodB: "FY2025",
           formType: "Form 10-K",
           income: [
-            { item: "Total Net Revenue", a: 60922, b: 26974 },
-            { item: "Cost of Goods Sold (COGS)", a: 16621, b: 11618 },
-            { item: "Gross Profit", a: 44301, b: 15356 },
-            { item: "Research & Development (R&D)", a: 8675, b: 7339 },
-            { item: "Selling, General & Administrative (SG&A)", a: 2654, b: 2440 },
-            { item: "Operating Income (EBIT)", a: 32972, b: 5577 },
-            { item: "Net Income", a: 29760, b: 4368 },
-            { item: "Diluted EPS ($)", a: 1.19, b: 0.18, isPerShare: true }
+            { item: "Total Net Revenue", a: 215938, b: 130497 },
+            { item: "Cost of Goods Sold (COGS)", a: 56302, b: 32639 },
+            { item: "Gross Profit", a: 159636, b: 97858 },
+            { item: "Research & Development (R&D)", a: 18497, b: 12914 },
+            { item: "Selling, General & Administrative (SG&A)", a: 10750, b: 3491 },
+            { item: "Operating Income (EBIT)", a: 130387, b: 81453 },
+            { item: "Net Income", a: 120067, b: 72880 },
+            { item: "Diluted EPS ($)", a: 4.90, b: 2.94, isPerShare: true }
           ],
           balance: [
-            { item: "Cash & Cash Equivalents", a: 7280, b: 3389 },
-            { item: "Marketable Securities", a: 18704, b: 9907 },
-            { item: "Accounts Receivable, Net", a: 9999, b: 3829 },
-            { item: "Inventories", a: 5282, b: 5159 },
-            { item: "Total Current Assets", a: 44345, b: 23073 },
-            { item: "Property, Plant & Equipment, Net", a: 3914, b: 3794 },
-            { item: "Total Assets", a: 65728, b: 41182 },
-            { item: "Total Current Liabilities", a: 10631, b: 6563 },
-            { item: "Long-Term Debt", a: 8459, b: 9703 },
-            { item: "Total Stockholders' Equity", a: 42978, b: 22162 }
+            { item: "Cash & Cash Equivalents", a: 10605, b: 8589 },
+            { item: "Marketable Securities", a: 51951, b: 34621 },
+            { item: "Accounts Receivable, Net", a: 23065, b: 15980 },
+            { item: "Inventories", a: 10080, b: 7282 },
+            { item: "Total Current Assets", a: 98100, b: 68500 },
+            { item: "Property, Plant & Equipment, Net", a: 6310, b: 4520 },
+            { item: "Total Assets", a: 111601, b: 78817 },
+            { item: "Total Current Liabilities", a: 18120, b: 13250 },
+            { item: "Long-Term Debt", a: 8463, b: 8459 },
+            { item: "Total Stockholders' Equity", a: 79327, b: 49310 }
           ],
           cashflow: [
-            { item: "Cash Provided by Operating Activities", a: 28090, b: 5641 },
-            { item: "Capital Expenditures (CapEx)", a: -1069, b: -1833 },
-            { item: "Free Cash Flow (FCF)", a: 27021, b: 3808 },
-            { item: "Stock-Based Compensation", a: 3538, b: 2709 },
-            { item: "Repurchases of Common Stock", a: -9532, b: -10042 },
-            { item: "Dividends Paid", a: -395, b: -398 }
+            { item: "Cash Provided by Operating Activities", a: 102718, b: 64089 },
+            { item: "Capital Expenditures (CapEx)", a: -6042, b: -3236 },
+            { item: "Free Cash Flow (FCF)", a: 96676, b: 60853 },
+            { item: "Stock-Based Compensation", a: 4737, b: 3549 },
+            { item: "Repurchases of Common Stock", a: -33706, b: -26274 },
+            { item: "Dividends Paid", a: -834, b: -395 }
           ]
         },
         AAPL: {
           name: "Apple Inc.",
-          periodA: "FY2024",
-          periodB: "FY2023",
+          periodA: "FY2025",
+          periodB: "FY2024",
           formType: "Form 10-K",
           income: [
-            { item: "Total Net Revenue", a: 391035, b: 383285 },
-            { item: "Cost of Sales", a: 210352, b: 214137 },
-            { item: "Gross Profit", a: 180683, b: 169148 },
-            { item: "Research & Development (R&D)", a: 31370, b: 29915 },
-            { item: "Selling, General & Administrative (SG&A)", a: 26097, b: 24932 },
-            { item: "Operating Income (EBIT)", a: 123216, b: 114301 },
-            { item: "Net Income", a: 93736, b: 96995 },
-            { item: "Diluted EPS ($)", a: 6.08, b: 6.13, isPerShare: true }
+            { item: "Total Net Revenue", a: 416161, b: 391035 },
+            { item: "Cost of Sales", a: 220030, b: 210352 },
+            { item: "Gross Profit", a: 196131, b: 180683 },
+            { item: "Research & Development (R&D)", a: 32510, b: 31370 },
+            { item: "Selling, General & Administrative (SG&A)", a: 27140, b: 26097 },
+            { item: "Operating Income (EBIT)", a: 136481, b: 123216 },
+            { item: "Net Income", a: 112010, b: 93736 },
+            { item: "Diluted EPS ($)", a: 7.46, b: 6.08, isPerShare: true }
           ],
           balance: [
-            { item: "Cash & Cash Equivalents", a: 29942, b: 29965 },
-            { item: "Marketable Securities (Current)", a: 35227, b: 31590 },
-            { item: "Accounts Receivable, Net", a: 33410, b: 29508 },
-            { item: "Total Current Assets", a: 154692, b: 143566 },
-            { item: "Total Assets", a: 364980, b: 352583 },
-            { item: "Total Current Liabilities", a: 176392, b: 145308 },
-            { item: "Term Debt (Non-Current)", a: 85750, b: 95281 },
-            { item: "Total Stockholders' Equity", a: 66838, b: 62146 }
+            { item: "Cash & Cash Equivalents", a: 35940, b: 29942 },
+            { item: "Marketable Securities (Current)", a: 33210, b: 35227 },
+            { item: "Accounts Receivable, Net", a: 36120, b: 33410 },
+            { item: "Total Current Assets", a: 162450, b: 154692 },
+            { item: "Total Assets", a: 374820, b: 364980 },
+            { item: "Total Current Liabilities", a: 179110, b: 176392 },
+            { item: "Term Debt (Non-Current)", a: 82410, b: 85750 },
+            { item: "Total Stockholders' Equity", a: 71450, b: 66838 }
           ],
           cashflow: [
-            { item: "Cash Provided by Operating Activities", a: 118254, b: 110543 },
-            { item: "Payments for Acquisition of PP&E (CapEx)", a: -9447, b: -10959 },
-            { item: "Free Cash Flow (FCF)", a: 108807, b: 99584 },
-            { item: "Share Repurchases", a: -95000, b: -77550 },
-            { item: "Dividends Paid", a: -15025, b: -14997 }
+            { item: "Cash Provided by Operating Activities", a: 126420, b: 118254 },
+            { item: "Payments for Acquisition of PP&E (CapEx)", a: -10120, b: -9447 },
+            { item: "Free Cash Flow (FCF)", a: 116300, b: 108807 },
+            { item: "Share Repurchases", a: -96500, b: -95000 },
+            { item: "Dividends Paid", a: -15240, b: -15025 }
           ]
         },
         MSFT: {
           name: "Microsoft Corporation",
-          periodA: "FY2024",
-          periodB: "FY2023",
+          periodA: "FY2026",
+          periodB: "FY2025",
           formType: "Form 10-K",
           income: [
-            { item: "Total Net Revenue", a: 245120, b: 211915 },
-            { item: "Cost of Revenue", a: 74141, b: 65863 },
-            { item: "Gross Profit", a: 170979, b: 146052 },
-            { item: "Research & Development (R&D)", a: 29510, b: 27195 },
-            { item: "Sales & Marketing", a: 24349, b: 22759 },
-            { item: "General & Administrative", a: 8180, b: 7654 },
-            { item: "Operating Income", a: 108940, b: 88444 },
-            { item: "Net Income", a: 88136, b: 72361 },
-            { item: "Diluted EPS ($)", a: 11.80, b: 9.68, isPerShare: true }
+            { item: "Total Net Revenue", a: 331839, b: 281724 },
+            { item: "Cost of Revenue", a: 101875, b: 85644 },
+            { item: "Gross Profit", a: 229964, b: 196080 },
+            { item: "Research & Development (R&D)", a: 34820, b: 31890 },
+            { item: "Sales & Marketing", a: 27410, b: 25640 },
+            { item: "General & Administrative", a: 8910, b: 8420 },
+            { item: "Operating Income", a: 158824, b: 130130 },
+            { item: "Net Income", a: 133749, b: 101832 },
+            { item: "Diluted EPS ($)", a: 17.95, b: 13.64, isPerShare: true }
           ],
           balance: [
-            { item: "Cash, Cash Equivalents & ST Investments", a: 75545, b: 111262 },
-            { item: "Accounts Receivable, Net", a: 57428, b: 48688 },
-            { item: "Total Current Assets", a: 153000, b: 184257 },
-            { item: "Total Assets", a: 512163, b: 411976 },
-            { item: "Total Current Liabilities", a: 124888, b: 104149 },
-            { item: "Long-Term Debt", a: 42680, b: 41990 },
-            { item: "Total Stockholders' Equity", a: 268480, b: 206223 }
+            { item: "Cash, Cash Equivalents & ST Investments", a: 84120, b: 78450 },
+            { item: "Accounts Receivable, Net", a: 64210, b: 59840 },
+            { item: "Total Current Assets", a: 174200, b: 162100 },
+            { item: "Total Assets", a: 598420, b: 548120 },
+            { item: "Total Current Liabilities", a: 138450, b: 129800 },
+            { item: "Long-Term Debt", a: 41200, b: 42150 },
+            { item: "Total Stockholders' Equity", a: 328400, b: 294500 }
           ],
           cashflow: [
-            { item: "Cash Provided by Operations", a: 118548, b: 87582 },
-            { item: "Additions to PP&E (CapEx)", a: -44479, b: -28107 },
-            { item: "Free Cash Flow", a: 74069, b: 59475 },
-            { item: "Common Stock Repurchased", a: -17253, b: -22245 },
-            { item: "Dividends Paid", a: -21757, b: -19800 }
+            { item: "Cash Provided by Operations", a: 148210, b: 131420 },
+            { item: "Additions to PP&E (CapEx)", a: -58400, b: -51200 },
+            { item: "Free Cash Flow", a: 89810, b: 80220 },
+            { item: "Common Stock Repurchased", a: -18400, b: -17800 },
+            { item: "Dividends Paid", a: -24100, b: -22800 }
           ]
         },
         TSLA: {
           name: "Tesla, Inc.",
-          periodA: "FY2024",
-          periodB: "FY2023",
+          periodA: "FY2025",
+          periodB: "FY2024",
           formType: "Form 10-K",
           income: [
-            { item: "Total Revenues", a: 97660, b: 96773 },
-            { item: "Total Cost of Revenues", a: 80112, b: 79113 },
-            { item: "Gross Profit", a: 17548, b: 17660 },
-            { item: "Research & Development", a: 4545, b: 3969 },
-            { item: "SG&A Expenses", a: 4786, b: 4800 },
-            { item: "Operating Income", a: 7073, b: 8891 },
-            { item: "Net Income", a: 7080, b: 14997 },
-            { item: "Diluted EPS ($)", a: 2.04, b: 4.30, isPerShare: true }
+            { item: "Total Revenues", a: 94827, b: 97690 },
+            { item: "Total Cost of Revenues", a: 78592, b: 80240 },
+            { item: "Gross Profit", a: 16235, b: 17450 },
+            { item: "Research & Development", a: 4820, b: 4538 },
+            { item: "SG&A Expenses", a: 5140, b: 5148 },
+            { item: "Operating Income", a: 6275, b: 7076 },
+            { item: "Net Income", a: 3794, b: 7091 },
+            { item: "Diluted EPS ($)", a: 1.08, b: 2.04, isPerShare: true }
           ],
           balance: [
-            { item: "Cash & Cash Equivalents & Investments", a: 33648, b: 29094 },
-            { item: "Accounts Receivable", a: 4165, b: 3508 },
-            { item: "Inventories", a: 12059, b: 13599 },
-            { item: "Total Assets", a: 121919, b: 106618 },
-            { item: "Total Liabilities", a: 48512, b: 43009 },
-            { item: "Total Stockholders' Equity", a: 71790, b: 62634 }
+            { item: "Cash & Cash Equivalents & Investments", a: 36560, b: 33648 },
+            { item: "Accounts Receivable", a: 4410, b: 4165 },
+            { item: "Inventories", a: 12010, b: 12059 },
+            { item: "Total Assets", a: 126420, b: 121919 },
+            { item: "Total Liabilities", a: 49810, b: 48512 },
+            { item: "Total Stockholders' Equity", a: 75120, b: 71790 }
           ],
           cashflow: [
-            { item: "Operating Cash Flow", a: 14940, b: 13256 },
-            { item: "Capital Expenditures", a: -11345, b: -8899 },
-            { item: "Free Cash Flow", a: 3595, b: 4357 }
+            { item: "Operating Cash Flow", a: 14750, b: 14923 },
+            { item: "Capital Expenditures", a: -9100, b: -11342 },
+            { item: "Free Cash Flow", a: 5650, b: 3581 }
+          ]
+        },
+        AMZN: {
+          name: "Amazon.com, Inc.",
+          periodA: "FY2025",
+          periodB: "FY2024",
+          formType: "Form 10-K",
+          income: [
+            { item: "Total Net Sales", a: 716924, b: 637959 },
+            { item: "Cost of Sales", a: 365210, b: 326288 },
+            { item: "Gross Profit", a: 351714, b: 311671 },
+            { item: "Technology & Infrastructure (R&D)", a: 94210, b: 88540 },
+            { item: "Sales, Marketing & G&A", a: 168400, b: 154538 },
+            { item: "Operating Income (EBIT)", a: 89104, b: 68593 },
+            { item: "Net Income", a: 77670, b: 59248 },
+            { item: "Diluted EPS ($)", a: 7.17, b: 5.53, isPerShare: true }
+          ],
+          balance: [
+            { item: "Cash, Cash Equivalents & Marketable Securities", a: 101240, b: 88420 },
+            { item: "Accounts Receivable, Net", a: 56420, b: 52140 },
+            { item: "Inventories", a: 36120, b: 34210 },
+            { item: "Total Assets", a: 624810, b: 567420 },
+            { item: "Long-Term Debt", a: 54210, b: 58310 },
+            { item: "Total Stockholders' Equity", a: 284510, b: 236420 }
+          ],
+          cashflow: [
+            { item: "Cash Provided by Operating Activities", a: 138420, b: 115877 },
+            { item: "Capital Expenditures (PP&E)", a: -78400, b: -63645 },
+            { item: "Free Cash Flow (FCF)", a: 60020, b: 52232 }
+          ]
+        },
+        GOOGL: {
+          name: "Alphabet Inc.",
+          periodA: "FY2025",
+          periodB: "FY2024",
+          formType: "Form 10-K",
+          income: [
+            { item: "Total Revenues", a: 402836, b: 350018 },
+            { item: "Cost of Revenues", a: 168420, b: 146306 },
+            { item: "Gross Profit", a: 234416, b: 203712 },
+            { item: "Research & Development", a: 52410, b: 49326 },
+            { item: "Sales, Marketing & G&A", a: 44820, b: 42000 },
+            { item: "Operating Income (EBIT)", a: 137186, b: 112386 },
+            { item: "Net Income", a: 132170, b: 100118 },
+            { item: "Diluted EPS ($)", a: 10.81, b: 8.04, isPerShare: true }
+          ],
+          balance: [
+            { item: "Cash, Equivalents & Marketable Securities", a: 108420, b: 95657 },
+            { item: "Accounts Receivable, Net", a: 54120, b: 52340 },
+            { item: "Total Assets", a: 492410, b: 450256 },
+            { item: "Long-Term Debt", a: 11420, b: 10883 },
+            { item: "Total Stockholders' Equity", a: 362410, b: 325084 }
+          ],
+          cashflow: [
+            { item: "Cash Provided by Operating Activities", a: 148210, b: 125299 },
+            { item: "Capital Expenditures (CapEx)", a: -58420, b: -52535 },
+            { item: "Free Cash Flow (FCF)", a: 89790, b: 72764 },
+            { item: "Share Repurchases", a: -64200, b: -62222 }
+          ]
+        },
+        META: {
+          name: "Meta Platforms, Inc.",
+          periodA: "FY2025",
+          periodB: "FY2024",
+          formType: "Form 10-K",
+          income: [
+            { item: "Total Revenue", a: 200966, b: 164501 },
+            { item: "Cost of Revenue", a: 36840, b: 30161 },
+            { item: "Gross Profit", a: 164126, b: 134340 },
+            { item: "Research & Development", a: 48420, b: 43873 },
+            { item: "Marketing & Administrative", a: 23140, b: 21087 },
+            { item: "Operating Income (EBIT)", a: 92566, b: 69380 },
+            { item: "Net Income", a: 60458, b: 62360 },
+            { item: "Diluted EPS ($)", a: 23.49, b: 23.86, isPerShare: true }
+          ],
+          balance: [
+            { item: "Cash, Equivalents & Marketable Securities", a: 74210, b: 77815 },
+            { item: "Accounts Receivable, Net", a: 19420, b: 16994 },
+            { item: "Total Assets", a: 312410, b: 276054 },
+            { item: "Long-Term Debt", a: 28820, b: 28826 },
+            { item: "Total Stockholders' Equity", a: 204120, b: 182637 }
+          ],
+          cashflow: [
+            { item: "Cash Provided by Operating Activities", a: 104210, b: 91328 },
+            { item: "Capital Expenditures (PP&E)", a: -48200, b: -37256 },
+            { item: "Free Cash Flow (FCF)", a: 56010, b: 54072 }
           ]
         },
         SBUX: {
           name: "Starbucks Corporation",
-          periodA: "FY2024",
-          periodB: "FY2023",
+          periodA: "FY2025",
+          periodB: "FY2024",
           formType: "Form 10-K",
           income: [
-            { item: "Total Net Revenues", a: 35976, b: 35952 },
-            { item: "Product & Store Operating Costs", a: 23620, b: 23150 },
-            { item: "Store Operating Expenses", a: 14750, b: 14380 },
-            { item: "General & Administrative Expenses", a: 2420, b: 2350 },
-            { item: "Operating Income", a: 5410, b: 5871 },
-            { item: "Net Earnings", a: 3761, b: 4125 },
-            { item: "Diluted EPS ($)", a: 3.31, b: 3.58, isPerShare: true }
+            { item: "Total Net Revenues", a: 37184, b: 36176 },
+            { item: "Product & Store Operating Costs", a: 25410, b: 23620 },
+            { item: "Store Operating Expenses", a: 15840, b: 14750 },
+            { item: "General & Administrative Expenses", a: 2540, b: 2420 },
+            { item: "Operating Income", a: 3210, b: 5410 },
+            { item: "Net Earnings", a: 1856, b: 3761 },
+            { item: "Diluted EPS ($)", a: 1.63, b: 3.31, isPerShare: true }
           ],
           balance: [
-            { item: "Cash & Cash Equivalents", a: 3340, b: 3550 },
-            { item: "Inventories", a: 2010, b: 1980 },
-            { item: "Total Assets", a: 29840, b: 29445 },
-            { item: "Total Current Liabilities", a: 11450, b: 10980 },
-            { item: "Long-Term Debt", a: 15540, b: 15580 }
+            { item: "Cash & Cash Equivalents", a: 3290, b: 3340 },
+            { item: "Inventories", a: 1940, b: 2010 },
+            { item: "Total Assets", a: 30420, b: 29840 },
+            { item: "Total Current Liabilities", a: 11820, b: 11450 },
+            { item: "Long-Term Debt", a: 15610, b: 15540 }
           ],
           cashflow: [
-            { item: "Cash from Operations", a: 6010, b: 6008 },
-            { item: "Capital Expenditures", a: -2780, b: -2330 },
-            { item: "Free Cash Flow", a: 3230, b: 3678 },
-            { item: "Dividends Paid", a: -2640, b: -2450 }
+            { item: "Cash from Operations", a: 4820, b: 6010 },
+            { item: "Capital Expenditures", a: -2610, b: -2780 },
+            { item: "Free Cash Flow", a: 2210, b: 3230 },
+            { item: "Dividends Paid", a: -2720, b: -2640 }
           ]
         }
       };
@@ -893,60 +978,141 @@
         { cik: "0001403161", ticker: "V", name: "Visa Inc." }
       ];
 
-      let currentCmpTicker = "AAPL";
+      let currentCmpTicker = "NVDA";
       let currentStatement = "income";
 
       function formatNum(val, isPerShare = false) {
-        if (val === null || val === undefined) return "—";
-        if (isPerShare) return "$" + val.toFixed(2);
-        return "$" + val.toLocaleString() + "M";
+        if (val === null || val === undefined || isNaN(val)) return "—";
+        if (isPerShare) return (val < 0 ? "-$" : "$") + Math.abs(val).toFixed(2);
+        return (val < 0 ? "-$" : "$") + Math.round(Math.abs(val)).toLocaleString() + "M";
       }
 
-      function renderCompareDesk() {
-        let data = COMPARE_DATASETS[currentCmpTicker];
-        if (!data) {
-          data = {
-            name: `${currentCmpTicker} Corporation`,
-            periodA: "FY2025",
-            periodB: "FY2024",
-            formType: "Form 10-Q",
-            income: [
-              { item: "Total Net Revenues", a: 42100, b: 38200 },
-              { item: "Cost of Revenues", a: 21500, b: 20100 },
-              { item: "Gross Profit", a: 20600, b: 18100 },
-              { item: "Research & Development", a: 5400, b: 4900 },
-              { item: "SG&A Expenses", a: 3500, b: 3300 },
-              { item: "Operating Income", a: 11700, b: 9900 },
-              { item: "Net Income", a: 9400, b: 7900 },
-              { item: "Diluted EPS ($)", a: 4.85, b: 4.05, isPerShare: true }
-            ],
-            balance: [
-              { item: "Cash, Cash Equivalents & ST Investments", a: 18500, b: 16200 },
-              { item: "Accounts Receivable, Net", a: 12400, b: 11100 },
-              { item: "Total Current Assets", a: 34100, b: 31000 },
-              { item: "Total Assets", a: 88500, b: 79800 },
-              { item: "Total Liabilities", a: 36200, b: 34100 },
-              { item: "Total Stockholders' Equity", a: 52300, b: 45700 }
-            ],
-            cashflow: [
-              { item: "Cash from Operating Activities", a: 14200, b: 12100 },
-              { item: "Capital Expenditures (CapEx)", a: -3800, b: -3400 },
-              { item: "Free Cash Flow (FCF)", a: 10400, b: 8700 },
-              { item: "Dividends Paid", a: -2100, b: -1900 }
-            ]
+      async function fetchLiveCompareData(ticker, useCustomFilter = false) {
+        if (!window.SecEngine) return null;
+        try {
+          const cik = await window.SecEngine.resolveCik(ticker);
+          if (!cik) return null;
+          const res = await window.SecEngine.getCompanyStatements(cik);
+          if (!res || !res.ok || !res.statements) return null;
+
+          const formSelect = document.getElementById("cmpFormSelect");
+          const isQuarterly = formSelect && formSelect.value === "10-Q";
+          const block = isQuarterly ? res.statements.quarterly : res.statements.annual;
+          if (!block || !block.periods || block.periods.length < 2) return null;
+
+          let idxA = 0;
+          let idxB = 1;
+          if (useCustomFilter) {
+            const yrA = (document.getElementById("cmpYearA")?.value || "").trim();
+            const yrB = (document.getElementById("cmpYearB")?.value || "").trim();
+            const qA = document.getElementById("cmpQuarterA")?.value || "latest";
+            const qB = document.getElementById("cmpQuarterB")?.value || "latest";
+
+            const foundA = block.periods.findIndex((p) => {
+              const matchYr = !yrA || String(p.fy) === yrA || p.end.startsWith(yrA);
+              const matchQ = !isQuarterly || qA === "latest" || p.fp === qA;
+              return matchYr && matchQ;
+            });
+            if (foundA >= 0) idxA = foundA;
+
+            const foundB = block.periods.findIndex((p, i) => {
+              if (i === idxA) return false;
+              const matchYr = !yrB || String(p.fy) === yrB || p.end.startsWith(yrB);
+              const matchQ = !isQuarterly || qB === "latest" || p.fp === qB;
+              return matchYr && matchQ;
+            });
+            if (foundB >= 0) {
+              idxB = foundB;
+            } else {
+              idxB = idxA === 0 ? 1 : 0;
+            }
+          }
+
+          const pA = block.periods[idxA];
+          const pB = block.periods[idxB];
+
+          const mapRows = (stmtRows, negateKeys = []) => {
+            const out = [];
+            for (const r of stmtRows || []) {
+              if (r.isSection || r.isCheck || r.isShares || r.isPct) continue;
+              const rawA = r.values[idxA];
+              const rawB = r.values[idxB];
+              if (rawA == null && rawB == null) continue;
+              const sign = negateKeys.includes(r.key) ? -1 : 1;
+              if (r.isEps) {
+                out.push({
+                  item: r.label.trim(),
+                  a: Number((rawA || 0).toFixed(2)),
+                  b: Number((rawB || 0).toFixed(2)),
+                  isPerShare: true
+                });
+              } else {
+                out.push({
+                  item: r.label.trim(),
+                  a: Math.round(((rawA || 0) * sign) / 1e6),
+                  b: Math.round(((rawB || 0) * sign) / 1e6)
+                });
+              }
+            }
+            return out;
           };
+
+          const liveData = {
+            name: res.entityName || `${ticker} Corporation`,
+            periodA: pA.label.replace(/\s+/g, ""),
+            periodB: pB.label.replace(/\s+/g, ""),
+            formType: isQuarterly ? "Form 10-Q" : "Form 10-K",
+            income: mapRows(block.incomeStatement),
+            balance: mapRows(block.balanceSheet),
+            cashflow: mapRows(block.cashFlow, ["capex", "buybacks", "dividends", "debtRepaid", "securitiesPurchases"])
+          };
+
+          COMPARE_DATASETS[ticker] = liveData;
+          return liveData;
+        } catch (err) {
+          console.warn("Live compare extraction failed:", err);
+          return null;
+        }
+      }
+
+      async function renderCompareDesk(useCustomFilter = false) {
+        const formSelect = document.getElementById("cmpFormSelect");
+        const isQuarterly = formSelect && formSelect.value === "10-Q";
+        let data = COMPARE_DATASETS[currentCmpTicker];
+
+        const needsLiveFetch =
+          !data ||
+          useCustomFilter ||
+          (isQuarterly && data.formType !== "Form 10-Q") ||
+          (!isQuarterly && data.formType === "Form 10-Q");
+
+        if (needsLiveFetch) {
+          const tbody = document.getElementById("cmpTableBody");
+          if (tbody && !data) {
+            tbody.innerHTML = `<tr><td colspan="5" style="padding: 1.5rem; text-align: center; color: #64748b;">Extracting audited SEC EDGAR XBRL statements for <strong>${currentCmpTicker}</strong>...</td></tr>`;
+          }
+          const live = await fetchLiveCompareData(currentCmpTicker, useCustomFilter);
+          if (live) data = live;
         }
 
-        const formTypeEl = document.getElementById("cmpFormSelect");
-        const formType = formTypeEl ? formTypeEl.options[formTypeEl.selectedIndex].text : (data.formType || "Form 10-K");
+        if (!data) {
+          const tbody = document.getElementById("cmpTableBody");
+          if (tbody) {
+            tbody.innerHTML = `<tr><td colspan="5" style="padding: 1.5rem; text-align: center; color: #b91c1c;">No comparative SEC XBRL statements found for <strong>${currentCmpTicker}</strong>. Verify ticker symbol or select another issuer.</td></tr>`;
+          }
+          return;
+        }
 
+        const formType = data.formType || (isQuarterly ? "Form 10-Q" : "Form 10-K");
         const labelA = data.periodA || "Period A";
         const labelB = data.periodB || "Period B";
 
         const yearAInput = document.getElementById("cmpYearA");
         const yearBInput = document.getElementById("cmpYearB");
-        if (yearAInput && data.periodA) yearAInput.value = data.periodA.replace(/\D/g, "");
-        if (yearBInput && data.periodB) yearBInput.value = data.periodB.replace(/\D/g, "");
+        if (!useCustomFilter) {
+          if (yearAInput && data.periodA) yearAInput.value = data.periodA.replace(/\D/g, "").slice(-4);
+          if (yearBInput && data.periodB) yearBInput.value = data.periodB.replace(/\D/g, "").slice(-4);
+        }
 
         document.getElementById("cmpActiveCompanyName").textContent = data.name;
         document.getElementById("cmpActiveTicker").textContent = currentCmpTicker;
@@ -1078,20 +1244,20 @@
       if (window.SecEngine) {
         window.SecEngine.setupAutocomplete("cmpCompanyInput", "cmpSuggestDropdown", (ticker) => {
           currentCmpTicker = ticker;
-          renderCompareDesk();
+          renderCompareDesk(false);
         });
         window.SecEngine.setupAutocomplete("cmpTickerSearch", "cmpTickerSuggestDropdown", (ticker) => {
           currentCmpTicker = ticker;
           const compInp = document.getElementById("cmpCompanyInput");
           if (compInp) compInp.value = ticker;
-          renderCompareDesk();
+          renderCompareDesk(false);
           const desk = document.getElementById("compareDeskPanel");
           if (desk) desk.scrollIntoView({ behavior: "smooth", block: "center" });
         });
       } else {
         setupAutocomplete("cmpCompanyInput", "cmpSuggestDropdown", (ticker) => {
           currentCmpTicker = ticker;
-          renderCompareDesk();
+          renderCompareDesk(false);
         });
       }
 
@@ -1101,7 +1267,7 @@
         btnRunVariance.addEventListener("click", () => {
           const raw = document.getElementById("cmpCompanyInput").value.trim();
           if (raw) currentCmpTicker = raw.toUpperCase();
-          renderCompareDesk();
+          renderCompareDesk(true);
           const targetSection = document.getElementById("compareWorkspace");
           if (targetSection) {
             targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1115,7 +1281,7 @@
           const t = btn.getAttribute("data-cmp-company");
           if (t) {
             currentCmpTicker = t.toUpperCase();
-            renderCompareDesk();
+            renderCompareDesk(false);
           }
         });
       });
@@ -1125,7 +1291,7 @@
         const val = document.getElementById("cmpTickerSearch").value.trim();
         if (val) {
           currentCmpTicker = val.toUpperCase();
-          renderCompareDesk();
+          renderCompareDesk(false);
         }
       }
 
@@ -1143,7 +1309,7 @@
           const s = btn.getAttribute("data-cmp-statement");
           if (s) {
             currentStatement = s;
-            renderCompareDesk();
+            renderCompareDesk(false);
           }
         });
       });
@@ -1157,7 +1323,7 @@
           const wrapQB = document.getElementById("wrapQuarterB");
           if (wrapQA) wrapQA.style.display = isQuarterly ? "flex" : "none";
           if (wrapQB) wrapQB.style.display = isQuarterly ? "flex" : "none";
-          renderCompareDesk();
+          renderCompareDesk(true);
         });
       }
 
@@ -1196,7 +1362,7 @@
       });
 
       // Initialize default
-      renderCompareDesk();
+      renderCompareDesk(false);
     </script>
   </body>
 </html>
