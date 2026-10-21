@@ -758,9 +758,9 @@
                 <td>${p.grossMarginPct != null ? `${p.grossMarginPct}%` : '—'}</td>
                 <td>${p.operatingMarginPct != null ? `${p.operatingMarginPct}%` : '—'}</td>
                 <td>${p.netMarginPct != null ? `${p.netMarginPct}%` : '—'}</td>
-                <td>${p.fcfConversionPct != null ? `${p.fcfConversionPct}%` : '—'}</td>
-                <td><span class="${p.beneishMScore != null && p.beneishMScore < -1.78 ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.beneishMScore != null ? p.beneishMScore : '—'}</span></td>
-                <td><span class="${p.altmanZScore != null && p.altmanZScore > 2.99 ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.altmanZScore != null ? p.altmanZScore : '—'}</span></td>
+                <td>${p.fcfConversionPct != null ? (typeof p.fcfConversionPct === 'number' ? `${p.fcfConversionPct}%` : p.fcfConversionPct) : '—'}</td>
+                <td>${typeof p.beneishMScore === 'number' ? `<span class="${p.beneishMScore < -1.78 ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.beneishMScore}</span>` : `<span class="peer-badge-warn" style="background:#f1f5f9; color:#64748b; border:1px solid #e2e8f0;">${p.beneishMScore || '—'}</span>`}</td>
+                <td>${typeof p.altmanZScore === 'number' ? `<span class="${p.altmanZScore > 2.99 ? 'peer-badge-safe' : 'peer-badge-warn'}">${p.altmanZScore}</span>` : `<span class="peer-badge-warn" style="background:#f1f5f9; color:#64748b; border:1px solid #e2e8f0;">${p.altmanZScore || '—'}</span>`}</td>
                 <td>${p.netDebt != null ? window.SecEngine.formatMoney(p.netDebt) : '—'}</td>
               </tr>
             `;

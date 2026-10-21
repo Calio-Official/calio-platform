@@ -716,7 +716,9 @@
 
     <script>
       // Client-side OpenXML XLSX Generator for 3-Statement Model Template
-      document.getElementById("btnDownload3StmtXlsx").addEventListener("click", function() {
+      const btnDl3Stmt = document.getElementById("btnDownload3StatementXlsx") || document.getElementById("btnDownload3StmtXlsx");
+      if (btnDl3Stmt) {
+        btnDl3Stmt.addEventListener("click", function() {
         const stmtExtract = {
           companyName: "Integrated 3-Statement Financial Model",
           ticker: "3STMT",
@@ -779,6 +781,7 @@
           alert("SecEngine is initializing. Please try again in a moment.");
         }
       });
+      }
     </script>
   </body>
 </html>

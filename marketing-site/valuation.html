@@ -610,6 +610,8 @@
             </div>
           </div>
 
+          <div id="dcfInterimNotice" style="display:none; margin: 0 1.5rem 1.25rem 1.5rem; padding: 12px 16px; border-radius: 8px; background: #eff6ff; border: 1px solid #bfdbfe; font-size: 12px; color: #1e40af; line-height: 1.5;"></div>
+
           <!-- DCF Engine Layout -->
           <div class="dcf-engine-grid">
             <div class="dcf-controls-col">
@@ -941,7 +943,20 @@
         if (timelineList) {
           const items = filings?.timeline || [];
           if (timelineBadge) timelineBadge.textContent = items.length;
-          timelineList.innerHTML = items.map(ev => `
+          timelineList.innerHTML = items.map(ev => {
+            const fNorm = String(ev.form || '').toUpperCase();
+            let actionHtml = '';
+            if (/10-K|10-Q|20-F|40-F/.test(fNorm)) {
+              actionHtml = `<button type="button" class="timeline-btn timeline-btn-primary" data-action="timeline-extract" data-form="${ev.form}" data-accn="${ev.accessionNumber || ''}" data-desc="${ev.description || ''}" data-url="${ev.documentUrl}" data-period="${ev.reportDate || ev.filingDate || ''}" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #0f766e; background:#0f766e; color:#ffffff; cursor:pointer; font-weight:600;" title="Extracts filing financial statements into DCF model">Extract Financials</button>`;
+            } else if (/^4(\/A)?$|^144$/.test(fNorm)) {
+              actionHtml = `<a href="form-4-extractor.html?ticker=${encodeURIComponent(currentCompany.ticker)}" class="timeline-btn timeline-btn-primary" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #0f766e; background:#0f766e; color:#ffffff; text-decoration:none; font-weight:600;" title="Open Form 4 Insider Trading Desk">Insider Trades</a>`;
+            } else if (/DEF\s*14A/.test(fNorm)) {
+              actionHtml = `<a href="governance.html?ticker=${encodeURIComponent(currentCompany.ticker)}" class="timeline-btn timeline-btn-primary" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #0f766e; background:#0f766e; color:#ffffff; text-decoration:none; font-weight:600;" title="Open Executive Compensation & Proxy Desk">Executive Comp</a>`;
+            } else if (/8-K/.test(fNorm)) {
+              actionHtml = `<a href="redline.html?ticker=${encodeURIComponent(currentCompany.ticker)}" class="timeline-btn timeline-btn-primary" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #0f766e; background:#0f766e; color:#ffffff; text-decoration:none; font-weight:600;" title="Open Material Event / Redline Desk">Inspect 8-K</a>`;
+            }
+
+            return `
             <div class="timeline-row" style="display:grid; grid-template-columns: 90px 1fr auto; align-items:center; padding:10px 18px; border-bottom:1px solid #f1f5f9; font-size:13px; gap:12px;">
               <div class="timeline-date" style="color:#64748b; font-family:var(--mono); font-size:12px;">${ev.filingDate || '—'}</div>
               <div class="timeline-body" style="min-width:0;">
@@ -952,10 +967,11 @@
               </div>
               <div class="timeline-actions" style="display:flex; align-items:center; gap:6px;">
                 <a href="${ev.documentUrl}" target="_blank" rel="noopener" class="timeline-btn timeline-btn-secondary" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #cbd5e1; background:#ffffff; color:#334155; text-decoration:none; font-weight:600;" title="Open in browser">Open</a>
-                <button type="button" class="timeline-btn timeline-btn-primary" data-action="timeline-extract" data-form="${ev.form}" data-accn="${ev.accessionNumber || ''}" data-desc="${ev.description || ''}" data-url="${ev.documentUrl}" data-period="${ev.reportDate || ev.filingDate || ''}" style="padding:4px 10px; font-size:11.5px; border-radius:6px; border:1px solid #0f766e; background:#0f766e; color:#ffffff; cursor:pointer; font-weight:600;" title="Extracts filing into DCF model">Extract</button>
+                ${actionHtml}
               </div>
             </div>
-          `).join("");
+            `;
+          }).join("");
 
           timelineList.querySelectorAll("[data-action='timeline-extract']").forEach(btn => {
             btn.addEventListener("click", () => {
@@ -1010,6 +1026,28 @@
       // 2. Extract Filing and Render Audit Trail + DCF (Screenshot 3 Parity)
       async function extractFiling(form, docName, accn, url, periodEnd) {
         if (!currentCompany) return;
+        const normForm = String(form || "").toUpperCase();
+        const isFinancialForm = /10-K|10-Q|20-F|40-F/.test(normForm);
+        if (!isFinancialForm) {
+          if (/^4(\/A)?$|^144$/.test(normForm)) {
+            window.location.href = `form-4-extractor.html?ticker=${encodeURIComponent(currentCompany.ticker)}`;
+            return;
+          }
+          if (/DEF\s*14A/.test(normForm)) {
+            window.location.href = `governance.html?ticker=${encodeURIComponent(currentCompany.ticker)}`;
+            return;
+          }
+          if (/8-K/.test(normForm)) {
+            window.location.href = `redline.html?ticker=${encodeURIComponent(currentCompany.ticker)}`;
+            return;
+          }
+          showToast(`Form ${form} is a non-financial filing. Only 10-K, 10-Q, 20-F, and 40-F contain financial statements for valuation models.`);
+          return;
+        }
+
+        const isInterim = /10-Q/.test(normForm);
+        const formAuditBadge = isInterim ? "Unaudited Interim SEC Form 10-Q" : (/10-K/.test(normForm) ? "Audited SEC Form 10-K" : `SEC Form ${form}`);
+
         showToast(`Extracting ${form} ${docName ? '(' + docName + ')' : ''} · Parsing audited SEC XBRL financials...`);
 
         // Fetch company facts from SEC API
@@ -1039,7 +1077,7 @@
         // Update Extracted Header Banner
         document.getElementById("extractedFilingTitle").textContent = `${currentCompany.name} (${currentCompany.ticker}) — Form ${form}`;
         document.getElementById("extractedFilingSub").textContent = `Period Ended ${periodEnd || 'Latest'} · Accession: ${accn || 'Verified'} · Sourced from SEC EDGAR`;
-        document.getElementById("extractedFormBadge").textContent = `Audited SEC ${form}`;
+        document.getElementById("extractedFormBadge").textContent = formAuditBadge;
 
         const docLink = document.getElementById("btnExtractedSecDocLink");
         if (docLink) {
@@ -1083,7 +1121,7 @@
         // Populate DCF inputs and recalculate
         const m = extracted.metrics;
         document.getElementById("dcfPanelTitle").textContent = `${currentCompany.name} (${currentCompany.ticker}) — Intrinsic DCF Model`;
-        document.getElementById("dcfAuditedBadge").textContent = `Audited SEC Form ${form}`;
+        document.getElementById("dcfAuditedBadge").textContent = formAuditBadge;
 
         document.getElementById("sliderWacc").value = m.wacc || 9.0;
         document.getElementById("sliderTerm").value = m.term || 2.5;
@@ -1109,6 +1147,7 @@
             if (res?.ok && res.statements) {
               currentCompanyStatements = res.statements;
               renderInstitutionalStatementsSuite();
+              recalculateDCF();
             }
           }).catch(err => {
             console.warn("Error fetching multi-period statements:", err);
@@ -1133,7 +1172,36 @@
         document.getElementById("valGrowth").textContent = (growth * 100).toFixed(1) + "%";
         document.getElementById("valMargin").textContent = (margin * 100).toFixed(1) + "%";
 
-        const baseRev = m.baseRev || 1.0;
+        const isInterim = /10-Q/i.test(currentExtractedData.form || "") || activePeriodMode === "quarterly";
+        let baseRev = m.baseRev || 1.0;
+        let isTTM = false;
+
+        if (isInterim) {
+          const isRows = currentCompanyStatements?.quarterly?.incomeStatement;
+          const revRow = Array.isArray(isRows) ? isRows.find(r => r.key === "revenue") : null;
+          if (revRow && Array.isArray(revRow.values)) {
+            const valid4Q = revRow.values.slice(0, 4).filter(v => v != null && Number(v) > 0);
+            if (valid4Q.length >= 3) {
+              const sumRev = valid4Q.reduce((a, b) => a + Number(b), 0);
+              baseRev = Number((sumRev / 1e9).toFixed(2));
+              isTTM = true;
+            }
+          }
+          if (!isTTM && baseRev < 20) {
+            baseRev = Number((baseRev * 4).toFixed(2));
+          }
+        }
+
+        const notice = document.getElementById("dcfInterimNotice");
+        if (notice) {
+          if (isInterim) {
+            notice.style.display = "block";
+            notice.innerHTML = `<strong>Unaudited 10-Q Interim Notice:</strong> SEC Form 10-Q reports interim 3-month/YTD financial figures. CALIO constructs an annualized ${isTTM ? 'Trailing 12-Month (TTM)' : 'Annualized Run-Rate'} base ($${baseRev.toFixed(2)}B) across quarterly filings to maintain multi-year DCF valuation integrity.`;
+          } else {
+            notice.style.display = "none";
+          }
+        }
+
         let pvFcf = 0;
         let rev = baseRev;
         let y5Fcf = 0;
@@ -1157,7 +1225,7 @@
         const fairValue = equityValue / shares;
 
         document.getElementById("dispFairValue").textContent = `$${fairValue.toFixed(2)}`;
-        document.getElementById("dispBaseRev").textContent = `$${baseRev.toFixed(2)}B`;
+        document.getElementById("dispBaseRev").textContent = `$${baseRev.toFixed(2)}B${isTTM ? ' (TTM)' : ''}`;
         document.getElementById("dispEnterpriseValue").textContent = `$${(enterpriseValue >= 1000 ? (enterpriseValue / 1000).toFixed(2) + 'T' : enterpriseValue.toFixed(2) + 'B')}`;
         document.getElementById("dispNetCash").textContent = (netCash >= 0 ? "+$" : "-$") + Math.abs(netCash).toFixed(2) + "B";
         document.getElementById("dispShares").textContent = `${shares.toFixed(2)}B`;

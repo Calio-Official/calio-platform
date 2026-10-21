@@ -612,6 +612,27 @@
         const res = window.SecEngine ? await window.SecEngine.fetchExecutiveComp({ ticker: currentGovTicker }) : null;
         if (!res || !res.ok) {
           if (titleEl) titleEl.textContent = `${currentGovTicker} — DEF 14A Proxy Unavailable`;
+          if (kpiStrip) kpiStrip.style.display = "none";
+          if (tableWrap) tableWrap.style.display = "none";
+          if (proxyLinkBtn) proxyLinkBtn.style.display = "none";
+          if (!unindexedCard) {
+            unindexedCard = document.createElement("div");
+            unindexedCard.id = "govUnindexedCard";
+            unindexedCard.style.cssText = "padding: 3.5rem 2rem; text-align: center; background: #ffffff;";
+            panel.appendChild(unindexedCard);
+          }
+          unindexedCard.style.display = "block";
+          unindexedCard.innerHTML = `
+            <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: #b91c1c; letter-spacing: 0.8px; margin-bottom: 8px;">
+              SEC EDGAR Proxy Verification
+            </div>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0 0 12px 0;">
+              ${currentGovTicker} — No Proxy Statement Found
+            </h3>
+            <p style="font-size: 0.95rem; color: #64748b; max-width: 580px; margin: 0 auto; line-height: 1.6;">
+              ${res?.error || `No official SEC Form DEF 14A proxy statement found for ticker "${currentGovTicker}". Please verify the symbol is an active SEC-registered corporate filer.`}
+            </p>
+          `;
           return;
         }
 

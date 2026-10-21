@@ -610,11 +610,13 @@
           name: "NVIDIA Corporation",
           filingPeriod: "FY2026 Audited 10-K",
           businessUnits: [
-            { name: "Compute & Networking (Data Center: Blackwell, Hopper, InfiniBand)", revenue: 193737000000, pct: 89.7, yoyGrowthPct: 68.2, opMarginPct: 76.5 },
-            { name: "Gaming (GeForce RTX 50/40 Series GPUs & Gaming Solutions)", revenue: 11350000000, pct: 5.3, yoyGrowthPct: 9.0, opMarginPct: 38.0 },
-            { name: "OEM & Other (Specialized Compute IP & Enterprise Systems)", revenue: 7279000000, pct: 3.3, yoyGrowthPct: 45.0, opMarginPct: 32.0 },
-            { name: "Professional Visualization (Omniverse & Workstation RTX)", revenue: 1878000000, pct: 0.9, yoyGrowthPct: 21.2, opMarginPct: 42.0 },
-            { name: "Automotive & Robotics (DRIVE Thor & Orin Autonomous Platforms)", revenue: 1694000000, pct: 0.8, yoyGrowthPct: 54.0, opMarginPct: 26.0 }
+            { name: "Compute & Networking (ASC 280 Reportable Segment: Data Center & Systems)", revenue: 193737000000, pct: 89.7, yoyGrowthPct: 68.2, opMarginPct: 78.3 },
+            { name: "Graphics (ASC 280 Reportable Segment: GeForce GPUs & Gaming Solutions)", revenue: 22201000000, pct: 10.3, yoyGrowthPct: 9.0, opMarginPct: 48.7 },
+            { name: "— Supplemental Market Platform: Data Center", revenue: 193737000000, pct: 89.7, yoyGrowthPct: 68.2, opMarginPct: null },
+            { name: "— Supplemental Market Platform: Gaming", revenue: 11350000000, pct: 5.3, yoyGrowthPct: 9.0, opMarginPct: null },
+            { name: "— Supplemental Market Platform: OEM & Other", revenue: 7279000000, pct: 3.3, yoyGrowthPct: 45.0, opMarginPct: null },
+            { name: "— Supplemental Market Platform: Professional Visualization", revenue: 1878000000, pct: 0.9, yoyGrowthPct: 21.2, opMarginPct: null },
+            { name: "— Supplemental Market Platform: Automotive & Robotics", revenue: 1694000000, pct: 0.8, yoyGrowthPct: 54.0, opMarginPct: null }
           ],
           geographicRegions: [
             { region: "United States (Hyperscale Cloud & Enterprise)", revenue: 101491000000, pct: 47.0 },
@@ -628,18 +630,18 @@
           name: "Apple Inc.",
           filingPeriod: "FY2025 Audited 10-K",
           businessUnits: [
-            { name: "iPhone (Flagship Pro & Standard Handsets)", revenue: 213490000000, pct: 51.3, yoyGrowthPct: 6.1, opMarginPct: 38.5 },
-            { name: "Services (App Store, iCloud, AppleCare, Licensing, Apple Pay)", revenue: 108620000000, pct: 26.1, yoyGrowthPct: 12.9, opMarginPct: 73.9 },
-            { name: "Wearables, Home & Accessories (Apple Watch, AirPods, Vision)", revenue: 37450000000, pct: 9.0, yoyGrowthPct: 1.2, opMarginPct: 32.0 },
-            { name: "Mac (MacBook Pro, MacBook Air, Mac Studio — Apple Silicon)", revenue: 31210000000, pct: 7.5, yoyGrowthPct: 4.1, opMarginPct: 29.5 },
-            { name: "iPad (iPad Pro, iPad Air, iPad mini)", revenue: 25391000000, pct: 6.1, yoyGrowthPct: -4.9, opMarginPct: 28.5 }
+            { name: "iPhone (Product Category Net Sales)", revenue: 209586000000, pct: 50.4, yoyGrowthPct: 4.8, opMarginPct: null },
+            { name: "Services (App Store, Advertising, Cloud, AppleCare, Payments)", revenue: 109154000000, pct: 26.2, yoyGrowthPct: 13.5, opMarginPct: null },
+            { name: "Wearables, Home & Accessories (Watch, AirPods, TV, Beats)", revenue: 37005000000, pct: 8.9, yoyGrowthPct: 0.8, opMarginPct: null },
+            { name: "Mac (MacBook Pro, MacBook Air, iMac, Mac mini, Mac Studio)", revenue: 33774000000, pct: 8.1, yoyGrowthPct: 12.6, opMarginPct: null },
+            { name: "iPad (iPad Pro, iPad Air, iPad, iPad mini)", revenue: 26642000000, pct: 6.4, yoyGrowthPct: -1.2, opMarginPct: null }
           ],
           geographicRegions: [
-            { region: "Americas (United States, Canada, Latin America)", revenue: 179780000000, pct: 43.2 },
-            { region: "Europe (UK, Germany, France, Nordics, India Middle East)", revenue: 106950000000, pct: 25.7 },
-            { region: "Greater China (Mainland China, Hong Kong, Taiwan)", revenue: 66590000000, pct: 16.0 },
-            { region: "Rest of Asia Pacific (Australia, SE Asia, Korea)", revenue: 35791000000, pct: 8.6 },
-            { region: "Japan", revenue: 27050000000, pct: 6.5 }
+            { region: "Americas (ASC 280 Segment: Operating Income $68.58B)", revenue: 179780000000, pct: 43.2 },
+            { region: "Europe (ASC 280 Segment: Operating Income $41.28B)", revenue: 106950000000, pct: 25.7 },
+            { region: "Greater China (ASC 280 Segment: Operating Income $26.45B)", revenue: 66590000000, pct: 16.0 },
+            { region: "Rest of Asia Pacific (ASC 280 Segment: Operating Income $13.92B)", revenue: 35791000000, pct: 8.6 },
+            { region: "Japan (ASC 280 Segment: Operating Income $12.24B)", revenue: 27050000000, pct: 6.5 }
           ]
         },
         QCOM: {
@@ -1008,7 +1010,7 @@
                   </div>
                   <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: #64748b;">
                     <span>YoY Growth: <strong style="color: ${b.yoyGrowthPct >= 0 ? '#15803d' : '#b91c1c'};">${b.yoyGrowthPct >= 0 ? '+' : ''}${b.yoyGrowthPct}%</strong></span>
-                    <span>Operating Margin: <strong style="color: #0f172a;">${b.opMarginPct}%</strong></span>
+                    <span>Operating Margin: <strong style="color: #0f172a;">${b.opMarginPct != null ? b.opMarginPct + '%' : '<span style="color:#64748b; font-weight:400;">Not Disclosed by Issuer</span>'}</strong></span>
                   </div>
                 </div>
               `).join("")}

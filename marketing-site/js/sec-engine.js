@@ -541,10 +541,11 @@
     { key: "sharesBasic", label: "Weighted Avg Shares — Basic", section: "income", kind: "shares", tags: ["WeightedAverageNumberOfSharesOutstandingBasic"], isBs: false },
     { key: "sharesDiluted", label: "Weighted Avg Shares — Diluted", section: "income", kind: "shares", tags: ["WeightedAverageNumberOfDilutedSharesOutstanding"], isBs: false },
     { key: "cashAndEquivalents", label: "Cash & Cash Equivalents", section: "balance", kind: "money", tags: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents", "CashCashEquivalentsAndShortTermInvestments", "CashAndCashEquivalentsFairValueDisclosure"], isBs: true },
-    { key: "marketableSecurities", label: "Marketable Securities / Short-Term Investments", section: "balance", kind: "money", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent", "ShortTermInvestments"], isBs: true },
+    { key: "marketableSecurities", label: "Marketable Securities (Current Liquid)", section: "balance", kind: "money", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent", "AvailableForSaleSecuritiesDebtSecurities", "ShortTermInvestments"], isBs: true },
+    { key: "marketableSecuritiesNoncurrent", label: "Marketable Securities (Non-Current Liquid)", section: "balance", kind: "money", tags: ["MarketableSecuritiesNoncurrent"], isBs: true },
     { key: "totalAssets", label: "Total Assets", section: "balance", kind: "money", tags: ["Assets"], isBs: true },
     { key: "totalLiabilities", label: "Total Liabilities", section: "balance", kind: "money", tags: ["Liabilities"], isBs: true },
-    { key: "shortTermDebt", label: "Short-Term Debt & Current Portion of LTD", section: "balance", kind: "money", tags: ["ShortTermBorrowings", "CommercialPaper", "LinesOfCreditCurrent", "LongTermDebtCurrent"], isBs: true },
+    { key: "shortTermDebt", label: "Short-Term Debt & Current Portion of LTD", section: "balance", kind: "money", tags: ["ShortTermBorrowings", "CommercialPaper", "LinesOfCreditCurrent", "LongTermDebtCurrent", "DebtCurrent"], isBs: true },
     { key: "stockholdersEquity", label: "Stockholders Equity", section: "balance", kind: "money", tags: ["StockholdersEquity", "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"], isBs: true },
     { key: "longTermDebt", label: "Long-Term Debt", section: "balance", kind: "money", tags: ["LongTermDebtNoncurrent", "LongTermDebt"], isBs: true },
     { key: "goodwill", label: "Goodwill", section: "balance", kind: "money", tags: ["Goodwill"], isBs: true },
@@ -734,7 +735,9 @@
     const opInc = rawMap.operatingIncome || 0;
     const netInc = rawMap.netIncome || 0;
     const cash = rawMap.cashAndEquivalents || 0;
-    const mSec = rawMap.marketableSecurities || 0;
+    const mSecCurrent = rawMap.marketableSecurities || 0;
+    const mSecNoncurrent = rawMap.marketableSecuritiesNoncurrent || 0;
+    const mSec = mSecCurrent + mSecNoncurrent;
     const totalCash = cash + mSec;
     const shortDebt = rawMap.shortTermDebt || 0;
     const longDebt = rawMap.longTermDebt || 0;
@@ -776,8 +779,17 @@
       { item: "Free Cash Flow (FCF)", ttm: formatMoney(fcf), prior: "—", deltaDollar: "—", deltaPct: "—" }
     ];
 
+    const effectiveForm = form || lineItems.find(l => l.form)?.form || "10-K";
+    const effectivePeriodEnd = periodEnd || lineItems.find(l => l.periodEnd)?.periodEnd || "";
+    const effectiveAccn = accn || lineItems.find(l => l.accn)?.accn || "";
+    const effectiveDocUrl = documentUrl || lineItems.find(l => l.auditUrl)?.auditUrl || "";
+
     return {
       lineItems,
+      form: effectiveForm,
+      periodEnd: effectivePeriodEnd,
+      accn: effectiveAccn,
+      documentUrl: effectiveDocUrl,
       metrics: {
         baseRev: baseRevB,
         operatingMargin: Math.max(2.0, Math.min(85.0, opMargin)),
@@ -795,26 +807,26 @@
   // 8. Verified Executive Compensation & Proxy (DEF 14A) Engine (Chrome extension background.js:3929-4083 parity)
   SecEngine.VERIFIED_EXECUTIVE_COMP_DB = {
     NVDA: {
-      ceoRealizedCompTotal: 39900000,
-      medianEmployeePay: 266000,
-      ceoPayRatio: "150:1",
+      ceoRealizedCompTotal: 36344000,
+      medianEmployeePay: 282050,
+      ceoPayRatio: "129:1",
       tsr3YearCumulativePct: 430.2,
       sayOnPayApprovalPct: 96.4,
       executives: [
-        { name: "Jensen Huang", role: "President & Chief Executive Officer", salary: 1400000, stockAwards: 28000000, optionAwards: 4000000, nonEquityIncentive: 4000000, otherComp: 2500000, total: 39900000, pvpScore: "Top Decile TSR Alignment (99th Pct)" },
+        { name: "Jensen Huang", role: "President & Chief Executive Officer", salary: 1344000, stockAwards: 26676000, optionAwards: 0, nonEquityIncentive: 4000000, otherComp: 4324000, total: 36344000, pvpScore: "Top Decile TSR Alignment (99th Pct)" },
         { name: "Colette Kress", role: "Executive VP & Chief Financial Officer", salary: 950000, stockAwards: 12000000, optionAwards: 1500000, nonEquityIncentive: 1800000, otherComp: 250000, total: 16500000, pvpScore: "Superior Operating Target Alignment" },
         { name: "Debora Shoquist", role: "Executive VP, Operations", salary: 900000, stockAwards: 11000000, optionAwards: 1200000, nonEquityIncentive: 1600000, otherComp: 200000, total: 14900000, pvpScore: "Supply Chain Milestone Mastered" },
         { name: "Timothy Teter", role: "Executive VP, General Counsel & Secretary", salary: 900000, stockAwards: 10500000, optionAwards: 1000000, nonEquityIncentive: 1500000, otherComp: 180000, total: 14080000, pvpScore: "Regulatory & IP Value Aligned" }
       ]
     },
     AAPL: {
-      ceoRealizedCompTotal: 63200000,
-      medianEmployeePay: 68000,
-      ceoPayRatio: "929:1",
+      ceoRealizedCompTotal: 74295000,
+      medianEmployeePay: 139483,
+      ceoPayRatio: "533:1",
       tsr3YearCumulativePct: 54.1,
       sayOnPayApprovalPct: 92.8,
       executives: [
-        { name: "Tim Cook", role: "Chief Executive Officer", salary: 3000000, stockAwards: 47000000, optionAwards: 0, nonEquityIncentive: 10700000, otherComp: 2500000, total: 63200000, pvpScore: "TSR Aligned (Top Quartile S&P 500)" },
+        { name: "Tim Cook", role: "Chief Executive Officer", salary: 3000000, stockAwards: 58000000, optionAwards: 0, nonEquityIncentive: 10700000, otherComp: 2595000, total: 74295000, pvpScore: "TSR Aligned (Top Quartile S&P 500)" },
         { name: "Luca Maestri", role: "Senior VP, Chief Financial Officer", salary: 1000000, stockAwards: 22000000, optionAwards: 0, nonEquityIncentive: 3500000, otherComp: 500000, total: 27000000, pvpScore: "Capital Return & Margin Disciplined" },
         { name: "Jeff Williams", role: "Chief Operating Officer", salary: 1000000, stockAwards: 22000000, optionAwards: 0, nonEquityIncentive: 3500000, otherComp: 450000, total: 26950000, pvpScore: "Operations & Services Optimized" },
         { name: "Katherine Adams", role: "Senior VP, General Counsel & Secretary", salary: 1000000, stockAwards: 22000000, optionAwards: 0, nonEquityIncentive: 3500000, otherComp: 400000, total: 26900000, pvpScore: "Compliance & Governance Secured" }
@@ -968,6 +980,14 @@
       }
     }
 
+    if (!cik) {
+      return {
+        ok: false,
+        ticker,
+        error: `Issuer ticker "${ticker}" not found in SEC EDGAR directory. Please verify ticker symbol.`
+      };
+    }
+
     let def14aDate = "";
     let def14aUrl = "";
     let accession = "";
@@ -1015,7 +1035,17 @@
       };
     }
 
-    // Unindexed response: zero mock numbers, official live DEF 14A link
+    if (!def14aUrl && !accession) {
+      return {
+        ok: false,
+        ticker,
+        companyName: companyName || `${ticker} Corporation`,
+        cik: String(cik || ""),
+        error: `No SEC Form DEF 14A proxy statement found in EDGAR filings for ${companyName || ticker}.`
+      };
+    }
+
+    // Unindexed response with verified live DEF 14A filing on SEC EDGAR: zero mock numbers
     return {
       ok: true,
       ticker,
@@ -1258,12 +1288,14 @@
       const capexObj = SecEngine.extractBestXbrlMetric(usGaap, capexTags, mode, targetEnd);
       const capex = capexObj?.valUsd ?? 0;
 
-      const debtObj = SecEngine.extractBestXbrlMetric(usGaap, debtTags, mode, targetEnd);
-      const debt = debtObj?.valUsd ?? 0;
+      const ltDebtObj = SecEngine.extractBestXbrlMetric(usGaap, ["LongTermDebtNoncurrent", "LongTermDebt", "LongTermDebtAndCapitalLeaseObligations"], mode, targetEnd);
+      const stDebtObj = SecEngine.extractBestXbrlMetric(usGaap, ["CommercialPaper", "DebtCurrent", "ShortTermBorrowings", "LinesOfCreditCurrent", "LongTermDebtCurrent"], mode, targetEnd);
+      const debt = (ltDebtObj?.valUsd ?? 0) + (stDebtObj?.valUsd ?? 0);
 
       const cashObj = SecEngine.extractBestXbrlMetric(usGaap, cashTags, mode, targetEnd);
-      const mSecObj = SecEngine.extractBestXbrlMetric(usGaap, ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent"], mode, targetEnd);
-      const cash = (cashObj?.valUsd ?? 0) + (mSecObj?.valUsd ?? 0);
+      const mSecObj = SecEngine.extractBestXbrlMetric(usGaap, ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent", "AvailableForSaleSecuritiesDebtSecurities", "ShortTermInvestments"], mode, targetEnd);
+      const mSecNoncurrentObj = SecEngine.extractBestXbrlMetric(usGaap, ["MarketableSecuritiesNoncurrent"], mode, targetEnd);
+      const cash = (cashObj?.valUsd ?? 0) + (mSecObj?.valUsd ?? 0) + (mSecNoncurrentObj?.valUsd ?? 0);
 
       const assetsObj = SecEngine.extractBestXbrlMetric(usGaap, ["Assets"], mode, targetEnd);
       const totalAssets = assetsObj?.valUsd ?? null;
@@ -1299,9 +1331,14 @@
         }
       }
 
+      const BANK_TICKERS = new Set(["JPM", "BAC", "WFC", "C", "GS", "MS", "BLK", "SCHW", "UBS", "BX", "KKR", "APO", "BAM", "CG", "ARES", "OWL", "TROW"]);
+      const isBank = BANK_TICKERS.has(tk);
+
       // Compute continuous XBRL-derived Beneish M-Score using TATA = (Net Income - CFO) / Total Assets, margins, and leverage
       let beneishScore = -2.42;
-      if (totalAssets && totalAssets > 0 && ni != null && cfo != null) {
+      if (isBank) {
+        beneishScore = "N/A (Bank)";
+      } else if (totalAssets && totalAssets > 0 && ni != null && cfo != null) {
         const tata = (ni - cfo) / totalAssets;
         const lvgi = tlObj?.valUsd ? (tlObj.valUsd / totalAssets) : 0.45;
         const gmFactor = gmPct != null ? Math.max(0.7, Math.min(1.3, 50 / Math.max(15, gmPct))) : 1.0;
@@ -1313,7 +1350,9 @@
 
       // Compute continuous XBRL-derived Altman Z-Score: 1.2*(WC/TA) + 1.4*(RE/TA) + 3.3*(EBIT/TA) + 0.6*(Eq/TL) + 1.0*(Rev/TA)
       let altmanScore = 3.45;
-      if (totalAssets && totalAssets > 0 && rev != null) {
+      if (isBank) {
+        altmanScore = "N/A (Bank)";
+      } else if (totalAssets && totalAssets > 0 && rev != null) {
         const wc = (caObj?.valUsd != null && clObj?.valUsd != null) ? (caObj.valUsd - clObj.valUsd) : (cash - debt * 0.2);
         const re = reObj?.valUsd != null ? reObj.valUsd : (eqObj?.valUsd ? eqObj.valUsd * 0.5 : totalAssets * 0.25);
         const ebitVal = opInc != null ? opInc : (ni != null ? ni * 1.25 : 0);
@@ -1330,26 +1369,31 @@
         altmanScore = Number(Math.max(0.85, Math.min(14.95, rawZ)).toFixed(2));
       }
 
+      const resolvedCompanyName = tk === "BAC" || data?.entityName === "BofA Finance LLC" 
+        ? "Bank of America Corporation" 
+        : (data?.entityName || tk);
+
       return {
         ticker: tk,
-        companyName: data?.entityName || tk,
+        companyName: resolvedCompanyName,
         cik: String(cik),
         periodEnd: periodLabel,
         calendarEnd: calDateStr,
         form: revObj?.form || (mode === "annual" ? "10-K" : "10-Q"),
         revenue: rev,
-        grossProfit: gp,
+        grossProfit: isBank ? null : gp,
         operatingIncome: opInc,
         netIncome: ni,
         operatingCashFlow: cfo,
         capex: capex,
-        freeCashFlow: fcf,
-        grossMarginPct: gmPct != null ? Number(gmPct.toFixed(1)) : null,
+        freeCashFlow: isBank ? null : fcf,
+        grossMarginPct: (isBank || gmPct == null) ? null : Number(gmPct.toFixed(1)),
         operatingMarginPct: opmPct != null ? Number(opmPct.toFixed(1)) : null,
         netMarginPct: nmPct != null ? Number(nmPct.toFixed(1)) : null,
-        fcfConversionPct: fcfConvPct != null ? Number(fcfConvPct.toFixed(1)) : null,
+        fcfConversionPct: isBank ? "N/A (Bank)" : (fcfConvPct != null ? Number(fcfConvPct.toFixed(1)) : null),
         beneishMScore: beneishScore,
         altmanZScore: altmanScore,
+        isFinancialInstitution: isBank,
         netDebt: (debt - cash)
       };
     } catch (e) {
@@ -1448,22 +1492,23 @@
   const BS_SPEC = [
     { key: "secCa", label: "CURRENT ASSETS:", isSection: true },
     { key: "cash", label: "  Cash and Cash Equivalents", tags: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsAndShortTermInvestments"], indent: 1 },
-    { key: "marketableSecurities", label: "  Marketable Securities / Short-Term Investments", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent"], indent: 1 },
+    { key: "marketableSecurities", label: "  Marketable Securities / Short-Term Investments", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent", "AvailableForSaleSecuritiesDebtSecurities"], indent: 1 },
     { key: "ar", label: "  Accounts Receivable, Net", tags: ["AccountsReceivableNetCurrent", "AccountsAndNotesReceivableNet"], indent: 1 },
     { key: "inventory", label: "  Inventories, Net", tags: ["InventoryNet"], indent: 1 },
     { key: "otherCurrentAssets", label: "  Prepaid Expenses & Other Current Assets", tags: ["PrepaidExpenseAndOtherAssetsCurrent", "OtherAssetsCurrent"], indent: 1 },
     { key: "totalCurrentAssets", label: "Total Current Assets", formula: "SUM(cash, marketableSecurities, ar, inventory, otherCurrentAssets)", tags: ["AssetsCurrent"], isSubtotal: true, indent: 0 },
     { key: "secNca", label: "NON-CURRENT ASSETS:", isSection: true },
+    { key: "marketableSecuritiesNoncurrent", label: "  Marketable Securities (Non-Current Liquid)", tags: ["MarketableSecuritiesNoncurrent"], indent: 1 },
     { key: "ppeNet", label: "  Property, Plant and Equipment, Net", tags: ["PropertyPlantAndEquipmentNet"], indent: 1 },
     { key: "operatingLeaseAsset", label: "  Operating Lease Right-of-Use Assets", tags: ["OperatingLeaseRightOfUseAsset"], indent: 1 },
     { key: "goodwill", label: "  Goodwill", tags: ["Goodwill"], indent: 1 },
     { key: "intangibles", label: "  Intangible Assets, Net", tags: ["IntangibleAssetsNetExcludingGoodwill"], indent: 1 },
     { key: "otherNonCurrentAssets", label: "  Other Non-Current Assets", tags: ["OtherAssetsNoncurrent", "DeferredTaxAssetsNetNoncurrent"], indent: 1 },
-    { key: "totalAssets", label: "TOTAL ASSETS", formula: "totalCurrentAssets + ppeNet + operatingLeaseAsset + goodwill + intangibles + otherNonCurrentAssets", tags: ["Assets"], isTotal: true, indent: 0 },
+    { key: "totalAssets", label: "TOTAL ASSETS", formula: "totalCurrentAssets + marketableSecuritiesNoncurrent + ppeNet + operatingLeaseAsset + goodwill + intangibles + otherNonCurrentAssets", tags: ["Assets"], isTotal: true, indent: 0 },
     { key: "secCl", label: "CURRENT LIABILITIES:", isSection: true },
     { key: "ap", label: "  Accounts Payable", tags: ["AccountsPayableCurrent"], indent: 1 },
     { key: "accruedLiab", label: "  Accrued Expenses & Other Current Liabilities", tags: ["AccruedLiabilitiesCurrent", "OtherLiabilitiesCurrent"], indent: 1 },
-    { key: "shortTermDebt", label: "  Short-Term Debt & Current Portion of LTD", tags: ["ShortTermBorrowings", "CommercialPaper", "LinesOfCreditCurrent", "LongTermDebtCurrent"], indent: 1 },
+    { key: "shortTermDebt", label: "  Short-Term Debt & Current Portion of LTD", tags: ["ShortTermBorrowings", "CommercialPaper", "LinesOfCreditCurrent", "LongTermDebtCurrent", "DebtCurrent"], indent: 1 },
     { key: "currentLeaseLiab", label: "  Current Operating Lease Liabilities", tags: ["OperatingLeaseLiabilityCurrent"], indent: 1 },
     { key: "totalCurrentLiabilities", label: "Total Current Liabilities", formula: "SUM(ap, accruedLiab, shortTermDebt, currentLeaseLiab)", tags: ["LiabilitiesCurrent"], isSubtotal: true, indent: 0 },
     { key: "secNcl", label: "NON-CURRENT LIABILITIES:", isSection: true },
@@ -1528,7 +1573,7 @@
   const DEBT_SPEC = [
     { key: "secDebtStructure", label: "DEBT CAPITAL STRUCTURE & OBLIGATIONS:", isSection: true },
     { key: "commercialPaper", label: "  Commercial Paper & Short-Term Borrowings", tags: ["CommercialPaper", "ShortTermBorrowings"], indent: 1 },
-    { key: "currentPortionLtd", label: "  Current Portion of Long-Term Debt", tags: ["LongTermDebtCurrent"], indent: 1 },
+    { key: "currentPortionLtd", label: "  Current Portion of Long-Term Debt / Current Debt", tags: ["LongTermDebtCurrent", "DebtCurrent"], indent: 1 },
     { key: "currentLeaseLiab", label: "  Current Lease Obligations", tags: ["OperatingLeaseLiabilityCurrent", "FinanceLeaseLiabilityCurrent"], indent: 1 },
     { key: "totalShortTermDebt", label: "Total Short-Term Debt Obligations", formula: "SUM(commercialPaper, currentPortionLtd, currentLeaseLiab)", isSubtotal: true, indent: 0 },
     { key: "seniorNotes", label: "  Senior Notes & Long-Term Debt", tags: ["LongTermDebtNoncurrent", "LongTermDebt"], indent: 1 },
@@ -1537,8 +1582,9 @@
     { key: "totalGrossDebt", label: "TOTAL GROSS DEBT", formula: "totalShortTermDebt + totalLongTermDebt", isTotal: true, indent: 0 },
     { key: "secLiquidity", label: "LIQUIDITY & NET DEBT POSITION:", isSection: true },
     { key: "cashEquivalents", label: "  Cash and Cash Equivalents", tags: ["CashAndCashEquivalentsAtCarryingValue", "CashCashEquivalentsAndShortTermInvestments"], indent: 1 },
-    { key: "marketableSecurities", label: "  Marketable Securities / Short-Term Investments", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent"], indent: 1 },
-    { key: "totalCashLiquidity", label: "Total Cash & Liquid Investments", formula: "cashEquivalents + marketableSecurities", isSubtotal: true, indent: 0 },
+    { key: "marketableSecurities", label: "  Marketable Securities (Current Liquid)", tags: ["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesCurrent", "AvailableForSaleSecuritiesDebtSecurities", "ShortTermInvestments"], indent: 1 },
+    { key: "marketableSecuritiesNoncurrent", label: "  Marketable Securities (Non-Current Liquid)", tags: ["MarketableSecuritiesNoncurrent"], indent: 1 },
+    { key: "totalCashLiquidity", label: "Total Cash & Liquid Investments", formula: "cashEquivalents + marketableSecurities + marketableSecuritiesNoncurrent", isSubtotal: true, indent: 0 },
     { key: "netDebt", label: "NET DEBT / (NET CASH)", formula: "totalGrossDebt - totalCashLiquidity", isTotal: true, indent: 0 },
     { key: "secSolvency", label: "SOLVENCY & COVERAGE METRICS:", isSection: true },
     { key: "opIncomeDebt", label: "  Operating Income (EBIT)", tags: ["OperatingIncomeLoss"], indent: 1 },
@@ -2577,6 +2623,19 @@
     const eqVal = ev + cashVal - debtVal;
     const fairPrice = Number((eqVal / sharesVal).toFixed(2));
 
+    function calcPrice(w, g) {
+      if (w <= g) return 0;
+      let pv = 0;
+      const fcfs = [fcf1, fcf2, fcf3, fcf4, fcf5];
+      for (let t = 1; t <= 5; t++) {
+        pv += fcfs[t - 1] / Math.pow(1 + w, t);
+      }
+      const termVal = (fcf5 * (1 + g)) / (w - g);
+      const pvTerm = termVal / Math.pow(1 + w, 5);
+      const eq = pv + pvTerm + cashVal - debtVal;
+      return Number(Math.max(0, eq / sharesVal).toFixed(2));
+    }
+
     const rows = [
       [`CALIO Financial Terminal — Automated 5-Year DCF Valuation Model`],
       [`Company: ${compName} | Ticker: ${ticker} | Source: SEC EDGAR Dynamic Valuation Engine`],
@@ -2741,6 +2800,33 @@
         { f: "IFERROR(B37/B38, 0)", v: fairPrice, s: 13 },
         "=B37/B38",
         "CALIO intrinsic benchmark target price"
+      ],
+      blank(),
+      section("4. 2D DCF VALUATION SENSITIVITY MATRIX (WACC vs. TERMINAL GROWTH RATE)"),
+      ["Terminal Growth (g) \\ WACC", "8.0%", "8.5%", "9.0% (Base)", "9.5%", "10.0%"],
+      [
+        "2.0%",
+        { v: calcPrice(0.08, 0.02), s: 13 },
+        { v: calcPrice(0.085, 0.02), s: 13 },
+        { v: calcPrice(0.09, 0.02), s: 13 },
+        { v: calcPrice(0.095, 0.02), s: 13 },
+        { v: calcPrice(0.10, 0.02), s: 13 }
+      ],
+      [
+        "2.5% (Base)",
+        { v: calcPrice(0.08, 0.025), s: 13 },
+        { v: calcPrice(0.085, 0.025), s: 13 },
+        { v: calcPrice(0.09, 0.025), s: 13 },
+        { v: calcPrice(0.095, 0.025), s: 13 },
+        { v: calcPrice(0.10, 0.025), s: 13 }
+      ],
+      [
+        "3.0%",
+        { v: calcPrice(0.08, 0.03), s: 13 },
+        { v: calcPrice(0.085, 0.03), s: 13 },
+        { v: calcPrice(0.09, 0.03), s: 13 },
+        { v: calcPrice(0.095, 0.03), s: 13 },
+        { v: calcPrice(0.10, 0.03), s: 13 }
       ],
       blank(),
       [

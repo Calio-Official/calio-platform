@@ -352,19 +352,24 @@
           CALIO is committed to institutional confidentiality. When conducting investment research, merger analysis, or valuation modeling, your company queries, valuation assumptions, and research watchlists must remain strictly private.
         </p>
 
-        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">1. 100% On-Device Processing</h2>
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">1. 100% On-Device Processing &amp; Stateless SEC Gateway</h2>
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.25rem;">
-          All SEC EDGAR filing data is fetched directly from government endpoints (<code>sec.gov</code>, <code>data.sec.gov</code>) using secure HTTPS requests originating directly from your browser. The parsing of XBRL tags, 3-statement linking, and DCF calculations occur in your local device memory. CALIO operates zero servers that store, log, or inspect the filings you view.
+          All SEC EDGAR filing data is fetched from official government endpoints (<code>sec.gov</code>, <code>data.sec.gov</code>). In browser environments where web origin policies (CORS) restrict direct client requests to SEC servers, the web application routes requests through a high-performance, stateless proxy gateway (<code>/api/sec</code> hosted on Vercel Edge). This gateway attaches verified SEC-compliant User-Agent headers and caches public regulatory disclosures ephemerally in accordance with SEC fair-access limits. The gateway performs zero logging of user identities, research queries, or portfolio watchlists. All parsing of XBRL taxonomies, 3-statement linking, and DCF calculations occur exclusively in your local device memory.
         </p>
 
         <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">2. Local Storage &amp; Watchlists</h2>
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.25rem;">
-          Any saved watchlists, extraction histories, or custom DCF assumptions are persisted exclusively in your browser's local sandbox (<code>chrome.storage.local</code>). This data never traverses the internet to CALIO.
+          Any saved watchlists, extraction histories, or custom DCF assumptions are persisted exclusively in your browser's local sandbox (<code>localStorage</code> and <code>chrome.storage.local</code>). This data never traverses the internet to CALIO or any third party.
         </p>
 
-        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">3. No Sale of User Data</h2>
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">3. No Sale or Brokerage of User Data</h2>
         <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.25rem;">
-          We never sell, broker, or monetize your research queries or usage patterns. We believe research confidentiality is non-negotiable for professional finance.
+          We never sell, broker, monetize, or inspect your investment research queries, ticker searches, or modeling assumptions. We treat research confidentiality as non-negotiable for professional analysts.
+        </p>
+
+        <h2 style="font-size: 1.6rem; color: var(--ink-heading); font-weight: 800; margin: 2.5rem 0 1rem 0;">4. Aggregated Technical Telemetry &amp; Performance</h2>
+        <p style="font-size: 1.05rem; color: var(--soft); line-height: 1.7; margin-bottom: 1.25rem;">
+          CALIO utilizes cookie-free, privacy-preserving Vercel Web Analytics solely to monitor web application performance, page load latencies, and system error rates. Telemetry is fully anonymized and aggregated; it never records personal identities, search queries, or financial model contents.
         </p>
       </article>
     </main>

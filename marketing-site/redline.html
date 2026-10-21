@@ -479,7 +479,7 @@
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
               <span style="font-size: 0.76rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Editing Mode:</span>
               <button type="button" class="chip-btn is-active" id="btnModeCustom">Write / Paste Custom Text</button>
-              <button type="button" class="chip-btn" id="btnModeSamples">Sample SEC Filings</button>
+              <button type="button" class="chip-btn" id="btnModeSamples">Curated Demonstrations (Risk Factors &amp; MD&amp;A)</button>
             </div>
 
             <div style="font-size: 0.78rem; color: #64748b; display: flex; align-items: center; gap: 6px;">
@@ -648,43 +648,43 @@
       const SAMPLE_REDLINES = {
         NVDA: {
           title: "NVIDIA Corporation (NVDA)",
-          badge: "Item 1A Risk Factors &bull; Export Controls",
+          badge: "Item 1A Risk Factors • FY2024 vs FY2025/FY2026 10-K • Export Controls &amp; Blackwell Architecture",
           left: "Our operations and financial performance are subject to global geopolitical risks. The U.S. government has announced export control regulations that impact our ability to ship certain high-performance computing products to specified destinations. We continue to evaluate our product roadmap to provide compliant alternatives to international enterprise customers.",
           right: "Our operations and financial performance are subject to heightened global geopolitical risks and trade sanctions. The U.S. government has implemented expanded and stringent export control regulations that severely restrict our ability to ship advanced artificial intelligence and high-performance computing accelerators, including Blackwell and Hopper architectures, to China and other designated sovereign destinations. While we develop modified hardware for regional compliance, existing and prospective restrictions may permanently reduce our serviceable addressable market and materially impact operational gross margins."
         },
         AAPL: {
           title: "Apple Inc. (AAPL)",
-          badge: "Item 1A Risk Factors &bull; EU Digital Markets Act",
+          badge: "Item 1A Risk Factors • FY2023 vs FY2024/FY2025 10-K • EU Digital Markets Act &amp; App Store Mandates",
           left: "We generate substantial services revenue through digital storefronts, including our App Store. We charge a commission on third-party digital transactions in accordance with our developer terms. Changes to these policies could adversely affect our business model.",
           right: "We generate substantial services revenue through digital storefronts, including our App Store. In response to regulatory mandates, including the European Union Digital Markets Act (DMA), we have introduced revised terms in the EU allowing alternative app marketplaces, alternative payment processing mechanisms, and reduced commission structures. These changes, alongside ongoing regulatory antitrust scrutiny globally, could reduce developer participation, lower services gross margins, and adversely affect our overall financial results."
         },
         TSLA: {
           title: "Tesla, Inc. (TSLA)",
-          badge: "Item 7 MD&A &bull; FSD &amp; Automotive Gross Margins",
+          badge: "Item 7 MD&A • FY2023 vs FY2024 10-K • FSD &amp; Automotive Gross Margin Compression",
           left: "Automotive revenues increased primarily due to higher vehicle deliveries. Operating margins reflect manufacturing efficiencies offset by pricing adjustments across key vehicle lines.",
           right: "Automotive revenues increased primarily due to higher vehicle deliveries, partially offset by significant price reductions across our Model 3 and Model Y lines to stimulate global volume. Automotive gross margins excluding regulatory credits compressed by 240 basis points due to elevated manufacturing costs and research investments in Full Self-Driving (FSD) neural networks. Continued delays in government regulatory approvals for autonomous vehicles could restrict anticipated high-margin software revenues."
         },
         MSFT: {
           title: "Microsoft Corporation (MSFT)",
-          badge: "Item 1A Risk Factors &bull; Artificial Intelligence &amp; Cloud Infra",
+          badge: "Item 1A Risk Factors • FY2023 vs FY2024 10-K • OpenAI Commercial Alignment &amp; Maia Infrastructure CapEx",
           left: "We continue to invest in cloud and artificial intelligence capabilities across our product suites. Growth depends on customer adoption and managing infrastructure capital expenditures.",
           right: "We are aggressively expanding our artificial intelligence platform investments, including strategic commercial partnerships with OpenAI and proprietary custom silicon (Maia accelerators). Escalating capital expenditures for datacenters, advanced high-bandwidth memory GPUs, and energy transmission infrastructure could compress cloud gross margins if commercial Copilot monetization and enterprise Azure consumption ramp at a slower rate than our multi-billion dollar upfront capital commitments."
         },
         AMZN: {
           title: "Amazon.com, Inc. (AMZN)",
-          badge: "Item 7 MD&A &bull; AWS Operating Profitability &amp; CapEx",
+          badge: "Item 7 MD&A • FY2023 vs FY2024 10-K • AWS AI Infrastructure Scaling &amp; Bedrock Orchestration",
           left: "AWS revenue growth reflects ongoing enterprise migration to cloud computing. Net sales increased in line with overall platform usage.",
           right: "AWS revenue growth accelerated driven by rapid enterprise deployment of generative AI foundational models and Bedrock orchestration. Operating income for AWS expanded to $10.4B, though sustained profitability requires substantial forward capital expenditure in next-generation liquid-cooled AI cluster infrastructure and custom Trainium2 chip deployments amidst competitive hyperscaler pricing pressures."
         },
         GOOGL: {
           title: "Alphabet Inc. (GOOGL)",
-          badge: "Item 1A Risk Factors &bull; Search Antitrust &amp; Remediation",
+          badge: "Item 1A Risk Factors • FY2023 vs FY2024 10-K • U.S. Federal Search Antitrust Remedies &amp; TAC",
           left: "Our advertising revenues depend on user engagement with Google Search and YouTube. Changes in search distribution channels could impact traffic acquisition costs.",
           right: "Our advertising business faces critical regulatory risk following adverse rulings in U.S. federal antitrust proceedings regarding default search distribution agreements on third-party mobile operating systems and browsers. Proposed behavioral or structural remedies, including mandatory unbundling of Android service agreements or prohibitions on revenue-sharing arrangements, could materially disrupt user search volume, inflate traffic acquisition costs (TAC), and adversely impact consolidated operating margins."
         },
         META: {
           title: "Meta Platforms, Inc. (META)",
-          badge: "Item 1A Risk Factors &bull; Open-Source AI &amp; Reality Labs",
+          badge: "Item 1A Risk Factors • FY2023 vs FY2024 10-K • Open-Source Llama AI Scaling &amp; Reality Labs Losses",
           left: "We invest in long-term technology initiatives including metaverse hardware and software platforms. These investments may take years to realize commercial returns.",
           right: "We are substantially scaling capital expenditures to between $38B and $40B annually to support generative AI research and our open-source Llama model architecture. Furthermore, our Reality Labs division continues to record substantial annual operating losses ($16.1B in FY2024). There is no assurance that our open-source AI infrastructure strategy or augmented reality devices will yield commensurate direct advertising or enterprise monetization to offset sustained operating deficits."
         }
