@@ -74,7 +74,13 @@
   </url>
   <url>
     <loc>https://calio-pink.vercel.app/privacy.html</loc>
-    <lastmod>2026-09-06</lastmod>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://calio-pink.vercel.app/terms.html</loc>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

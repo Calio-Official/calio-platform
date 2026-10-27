@@ -340,6 +340,17 @@
 
     <main class="wrap" style="padding: clamp(2rem, 5vw, 4rem) 0 5rem 0;">
       <article style="max-width: 800px; margin: 0 auto;">
+        
+        <!-- Legal Navigation Pills -->
+        <div style="display: inline-flex; gap: 8px; margin-bottom: 2rem; background: var(--bg-mist); padding: 4px; border-radius: 9999px; border: 1px solid var(--line);">
+          <a href="privacy.html" style="padding: 6px 16px; font-size: 0.84rem; font-weight: 600; border-radius: 9999px; background: var(--brand); color: #ffffff; text-decoration: none;">
+            Privacy Policy
+          </a>
+          <a href="terms.html" style="padding: 6px 16px; font-size: 0.84rem; font-weight: 600; border-radius: 9999px; background: transparent; color: var(--soft); text-decoration: none; transition: all 0.15s ease;">
+            Terms of Service
+          </a>
+        </div>
+
         <div class="section-tag">Compliance &amp; Trust</div>
         <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.2rem); text-align: left; margin-bottom: 1.5rem;">
           Privacy Policy &amp; Zero-Cloud Architecture.
@@ -377,9 +388,70 @@
     <!-- Institutional Footer -->
     <footer class="site-footer">
       <div class="wrap">
-        <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <div class="footer-grid">
+          <div class="footer-col" style="grid-column: span 1.5;">
+            <div class="footer-brand">
+              <img src="assets/icon128.png" alt="CALIO" width="28" height="28" />
+              <span>CALIO</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--soft); line-height: 1.6; margin: 0.75rem 0 1.25rem 0; max-width: 320px;">
+              Autonomous SEC EDGAR financial research workstation. Multi-statement financial extraction, live DCF valuation, and 25-sector peer matrices directly in your browser.
+            </p>
+            <div class="footer-status-pill">
+              <span class="live-dot"></span>
+              <span>100% Client-Side On-Device Processing</span>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h5>Guides &amp; Research</h5>
+            <ul>
+              <li><a href="how-to-export-sec-filings-to-excel.html">Export SEC to Excel</a></li>
+              <li><a href="bamsec-alternative-free.html">BamSEC Alternative</a></li>
+              <li><a href="form-4-extractor.html">Form 4 Insider Transactions</a></li>
+              <li><a href="about.html">Architecture &amp; Origin</a></li>
+              <li><a href="privacy.html">Privacy &amp; Zero-Cloud</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Templates &amp; Models</h5>
+            <ul>
+              <li><a href="templates/dcf-model-template-excel.html">DCF Model Template</a></li>
+              <li><a href="templates/3-statement-financial-model-template.html">3-Statement Model</a></li>
+              <li><a href="templates/comparable-company-analysis-template.html">Comps Analysis Model</a></li>
+              <li><a href="templates/ebitda-bridge-template-excel.html">EBITDA Bridge Template</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Popular Stock Models</h5>
+            <ul>
+              <li><a href="stocks/nvda-10k-financial-model-excel.html">NVIDIA (NVDA) 10-K</a></li>
+              <li><a href="stocks/aapl-10k-financial-model-excel.html">Apple (AAPL) 10-K</a></li>
+              <li><a href="stocks/msft-10k-financial-model-excel.html">Microsoft (MSFT) 10-K</a></li>
+              <li><a href="stocks/googl-10k-financial-model-excel.html">Alphabet (GOOGL) 10-K</a></li>
+              <li><a href="stocks/meta-10k-financial-model-excel.html">Meta (META) 10-K</a></li>
+              <li><a href="stocks/amzn-10k-financial-model-excel.html">Amazon (AMZN) 10-K</a></li>
+              <li><a href="stocks/tsla-10k-financial-model-excel.html">Tesla (TSLA) 10-K</a></li>
+              <li><a href="stocks/pltr-10k-financial-model-excel.html">Palantir (PLTR) 10-K</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Legal &amp; Compliance</h5>
+            <ul>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="support.html">Contact Support</a></li>
+              <li><a href="https://chromewebstore.google.com/detail/sec-edgar-filings-extract/mjlmlhdhcdlohompclddmcnpgdhjgeja" target="_blank" rel="noopener">Chrome Web Store</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
           <div>&copy; 2026 CALIO Technologies. All data sourced directly from SEC EDGAR. 100% on-device processing.</div>
-          <div><a href="support.html" style="color:var(--teal-bright);">Contact Support</a></div>
+          <div>Direct SEC EDGAR Integration &bull; Institutional Financial Modeling</div>
         </div>
       </div>
     </footer>
